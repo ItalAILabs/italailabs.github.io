@@ -1,6 +1,6 @@
 # ItalAILAbs
 
-See it live in action at <https://italai.github.io/>
+See it live in action at <https://italailabs.github.io/>
 
 ## To use the Creative Theme template in your project
 

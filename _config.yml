@@ -1,7 +1,7 @@
 # Site settings
 title: ItalAI
 email: italailabs@gmail.com
-description: > Italian excellence in artificial intelligence. Leveraging advanced machine learning, computer vision and natural language processing to create new AI-based businesses, accelerate them, and iterate "fail-fast" on the creation process. Realizing fundamental and applied research, partnering, and exploring product-market-fit of each technology and vertical and technology.
+description: Italian excellence in artificial intelligence
 baseurl: "/index/" # the subpath of your site, e.g. /blog/
 url: "italailabs.github.io" # the base hostname & protocol for your site
 

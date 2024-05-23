@@ -290,7 +290,7 @@
   --brainwaveio-navbar-vertical-default-link-hover-color: #2E2F33;
   --brainwaveio-navbar-vertical-default-link-active-color: #F74D4D;
   --brainwaveio-navbar-vertical-default-link-disable-color: #E3E6ED;
-  --brainwaveio-navbar-vertical-default-hr-color: rgba(0, 0, 0, 0.08);
+  --brainwaveio-navbar-vertical-default-hr-color: rgba(255, 0, 0, 0.08);
   --brainwaveio-navbar-vertical-default-scrollbar-color: rgba(116, 129, 148, 0.3);
   --brainwaveio-navbar-vertical-default-label-color: var(--brainwaveio-gray-500);
   --brainwaveio-navbar-vertical-inverted-bg-color: #2E2F33;
@@ -20811,10 +20811,10 @@ h5, .h5, h6, .h6 {
 }
 
 .hero-section .hero-background {
-  background-image: url("../img/illustrations/BG.webp");
-  /* background: linear-gradient(164deg, rgba(0,178,2,1) 0%, rgba(255,255,255,1) 55%, rgba(255,0,0,1) 100%);; */
-  background-position: center;
-  background-size: cover;
+  /* background-image: url("../img/illustrations/BG.webp"); */
+  /* background: rgb(0,200,23);
+  background: linear-gradient(139deg, rgba(0,200,23,1) 0%, rgba(209,209,209,1) 49%, rgba(255,0,0,1) 100%);   background-size: cover; */
+  background: linear-gradient(315deg, #0053f8 0%, #0a142e 100%);
   background-repeat: no-repeat;
   min-height: 60rem;
   display: -webkit-box;
@@ -20824,6 +20824,7 @@ h5, .h5, h6, .h6 {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-text-fill-color: white;
 }
 .hero-section .chat-image {
   width: 90%;

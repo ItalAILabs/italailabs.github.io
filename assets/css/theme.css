@@ -80,7 +80,7 @@
   --brainwaveio-font-sans-serif: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --brainwaveio-font-monospace: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --brainwaveio-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --brainwaveio-body-font-family: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --brainwaveio-body-font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --brainwaveio-body-font-size: 1rem;
   --brainwaveio-body-font-weight: 400;
   --brainwaveio-body-line-height: 1.084;
@@ -228,7 +228,7 @@
   --brainwaveio-blockquote-footer-color: #748194;
   --brainwaveio-hr-opacity: 1;
   --brainwaveio-mark-bg: #fcf8e3;
-  --brainwaveio-font-base: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --brainwaveio-font-base: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --brainwaveio-btn-disabled-border-color: transparent;
   --brainwaveio-btn-reveal-color: #748194;
   --brainwaveio-btn-reveal-hover-color: #5e6e82;
@@ -6808,7 +6808,7 @@ textarea.form-control-lg {
   z-index: var(--brainwaveio-tooltip-zindex);
   display: block;
   margin: var(--brainwaveio-tooltip-margin);
-  font-family: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-style: normal;
   font-weight: 400;
   line-height: 1.084;
@@ -6918,7 +6918,7 @@ textarea.form-control-lg {
   z-index: var(--brainwaveio-popover-zindex);
   display: block;
   max-width: var(--brainwaveio-popover-max-width);
-  font-family: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-style: normal;
   font-weight: 400;
   line-height: 1.084;

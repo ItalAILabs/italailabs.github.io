@@ -20826,6 +20826,19 @@ h5, .h5, h6, .h6 {
   align-items: center;
   -webkit-text-fill-color: white;
 }
+.hero-section .hero-background-short {
+  background: linear-gradient(315deg, #0053f8 0%, #0a142e 100%);
+  background-repeat: no-repeat;
+  min-height: 8.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  z-index: 0;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-text-fill-color: white;
+}
 .hero-section .chat-image {
   width: 90%;
 }

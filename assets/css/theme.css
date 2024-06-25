@@ -4827,7 +4827,7 @@ textarea.form-control-lg {
   align-items: center;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: end; /* changed from space-between to shift the hamburger menu to the end */
   padding: var(--brainwaveio-navbar-padding-y) var(--brainwaveio-navbar-padding-x);
 }
 .navbar > .container,
@@ -4885,6 +4885,40 @@ textarea.form-control-lg {
 }
 .navbar-nav .dropdown-menu {
   position: static;
+}
+
+.navbar .hamburger {
+  background: none;
+  display: block;
+  cursor: pointer;
+  right: 0;
+  margin: -.5em .5em;
+  position: absolute;
+}
+.navbar #nav-links {
+  display: none;
+  transition: all .5s;
+}
+.navbar .hamburger, .navbar #nav-links a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+}
+.navbar-nav-horizontal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .navbar-text {

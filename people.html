@@ -24,6 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="assets/css/theme.css" rel="stylesheet" id="style-default">
     <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
     <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
@@ -40,28 +41,42 @@
     <main class="main" id="top">
       <div class="content">
 		
-        <nav class="navbar navbar-expand-md fixed-top" id="navbar" data-navbar-soft-on-scroll="data-navbar-soft-on-scroll">
-          <div class="container-fluid px-0"><a href="/"><img class="navbar-brand w-25" src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png" alt="logo" /></a>
-            <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content" data-navbar-collapse="data-navbar-collapse">
-              <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0" data-navbar-nav="data-navbar-nav">
-                <li class="nav-item"> <a class="nav-link lh-xl" href="index.html">Home</a></li>
-				<li class="nav-item"> <a class="nav-link lh-xl" href="people.html">People</a></li>
-				<li class="nav-item"> <a class="nav-link lh-xl" href="research.html">Research</a></li>
-                <li class="nav-item"> <a class="nav-link lh-xl" href="contact.html">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+		<nav class="navbar fixed-top" id="navbar" data-navbar-soft-on-scroll="data-navbar-soft-on-scroll">
+		  <div class="container-fluid px-1">
+		    <ul class="navbar-nav-horizontal">	
+			  <li>
+				<a href="index.html">
+				  <img class="navbar-brand w-25" src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png" alt="logo" />
+				</a>
+			  </li>
+			  <li style="float: right;" >
+				<a class="hamburger" onclick="trigger_hamburger()">
+				  <i class="fa fa-bars"></i>
+				</a>
+			  </li>
+			</ul>
+		  </div>
+		  <div class="pt-2" id="nav-links">
+			<ul class="navbar-nav pt-0 pb-1 pt-md-0 pb-md-0 px-0 px-md-1" style="text-align: right;" data-navbar-nav="data-navbar-nav">
+			  <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+			  <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
+			  <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+			  <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+			</ul>
+		  </div>
+		</nav>
 		
         <div data-bs-target="#navbar" data-bs-spy="scroll" tabindex="0">
 			
 		  <section class="hero-section overflow-hidden position-relative z-0 mb-0 mb-lg-0" id="home">
 			<div class="hero-background-short"></div>
-			<div class="position-absolute bottom-0 start-0 end-0 z-1"><img class="wave mb-md-n2" src="assets/img/illustrations/Squished_Wave.svg" alt="" />
-			</div>
+			<div class="position-absolute bottom-0 start-0 end-0 z-1">
+			  <img class="wave mb-md-n2" src="assets/img/illustrations/Squished_White_Wave.svg" alt="" />
+			  <div style="outline: .001px solid white;"></div>
+		    </div>
 		  </section>
 		  
-		  <section class="bg-200">
+		  <section>
 		    <div class="container py-4 py-lg-6">
 		      <div class="row justify-content-center">
 		        <div class="col-md-8 col-lg-7" id="research">
@@ -74,7 +89,7 @@
 		    </div>
 		  </section>
 		  
-          <section class="bg-200 px-4 px-lg-5" id="people">
+          <section class="bg-white px-4 px-lg-5" id="people">
 		    <div class="experience" style="border-radius: 20px; ">
 		      <div class="container">
 		        <div class="row justify-content-center">
@@ -102,12 +117,7 @@
 		        </div>
 		      </div>
 		    </div>
-          </section>
-		  
-		  <section class="bg-300">
-			<div class="overflow-hidden position-relative z-0 mb-0 mb-lg-0"><img class="wave mb-md-n1" src="assets/img/illustrations/Squished_Wave_2.svg" alt="" />
-			</div>
-		  </section>
+          </section> 
 		  
         </div>
 		
@@ -139,6 +149,8 @@
     <script src="vendors/lodash/lodash.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="assets/js/theme.js"></script>
+	<script src="assets/js/hamburger.js"></script>
+	
   </body>
 
 </html>

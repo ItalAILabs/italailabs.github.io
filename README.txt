@@ -1,3 +1,19 @@
+Changes (25-06-24):
+
+- Changed all docs' background to white (added two new svgs: "white_wave.svg" and "squished_white_wave.svg" to help)
+
+- Changed the color of the boxes in research.html (and added a white box-shadow to the images)
+
+- Moved the contact info from contact to index.html (contact is now empty)
+
+- Changed the navbar into a very basic hamburger menu
+
+- Fixed a problem with thin lines of the wrong color appearing at the bottom of svgs in mobile mode
+
+
+-
+
+
 Changes (22-06-24):
 
 - Converted the "Squished_Wave" from png to svg and made minor changes to contact and reasearch.html docs

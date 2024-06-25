@@ -24,6 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="assets/css/theme.css" rel="stylesheet" id="style-default">
     <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
     <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
@@ -40,28 +41,42 @@
     <main class="main" id="top">
       <div class="content">
 		
-        <nav class="navbar navbar-expand-md fixed-top" id="navbar" data-navbar-soft-on-scroll="data-navbar-soft-on-scroll">
-          <div class="container-fluid px-0"><a href="/"><img class="navbar-brand w-25" src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png" alt="logo" /></a>
-            <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content" data-navbar-collapse="data-navbar-collapse">
-              <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0" data-navbar-nav="data-navbar-nav">
-                <li class="nav-item"> <a class="nav-link lh-xl" href="index.html">Home</a></li>
-                <li class="nav-item"> <a class="nav-link lh-xl" href="people.html">People</a></li>
-                <li class="nav-item"> <a class="nav-link lh-xl" href="research.html">Research</a></li>
-                <li class="nav-item"> <a class="nav-link lh-xl" href="contact.html">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+		<nav class="navbar fixed-top" id="navbar" data-navbar-soft-on-scroll="data-navbar-soft-on-scroll">
+		  <div class="container-fluid px-1 z-3">
+			<ul class="navbar-nav-horizontal">	
+			  <li>
+				<a href="index.html">
+			      <img class="navbar-brand w-25" src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png" alt="logo" />
+				</a>
+			  </li>
+			  <li style="float: right;" >
+				<a class="hamburger" onclick="trigger_hamburger()">
+				  <i class="fa fa-bars"></i>
+				</a>
+			  </li>
+			</ul>
+		  </div>
+		  <div class="pt-2 z-2" id="nav-links">
+			<ul class="navbar-nav pt-0 pb-1 pt-md-0 pb-md-0 px-0 px-md-1" style="text-align: right;" data-navbar-nav="data-navbar-nav">
+			  <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+			  <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
+			  <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+			  <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+			</ul>
+		  </div>
+		</nav>		
 		
         <div data-bs-target="#navbar" data-bs-spy="scroll" tabindex="0">
 			
 		  <section class="hero-section overflow-hidden position-relative z-0 mb-0 mb-lg-0" id="home">
 		    <div class="hero-background-short"></div>
-			<div class="position-absolute bottom-0 start-0 end-0 z-1"><img class="wave mb-md-n2" src="assets/img/illustrations/Squished_Wave.svg" alt="" />
-			</div>
+			<div class="position-absolute bottom-0 start-0 end-0 z-1">
+			  <img class="wave mb-md-n2" src="assets/img/illustrations/Squished_White_Wave.svg" alt="" />
+			  <div style="outline: .001px solid white;"></div>
+		    </div>
 		  </section>
           
-          <section class="bg-200">
+          <section class="bg-white">
             <div class="container py-3 py-lg-5">
               <div class="row justify-content-center">
                 <!-- <div class="col-12 col-lg-6 col-xl-7 mb-8 text-center"><img class="img-fluid" src="assets/img/logos/ItalAI_logo_english/ITALAI v2 (transparent).png" alt="ItalAI Logo" /></div> -->
@@ -73,13 +88,14 @@
                 </div>
                 <div class="col-12">
                   <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
-                    <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card">
+					<!--PREGO-->
+                    <div class="p-x1 text-center border shadow-sm rounded-2 pricing-card" style="background-color: ghostwhite;"> <!--aliceblue azure floralwhite ghostwhite honeydew ivory mintcream snow whitesmoke-->
                       <p class="text-uppercase fw-bold text-primary ls-2">CVPR '24</p>
                       <h2 class="mb-3"><span class="fs-2 fs-md-1 fw-bold">PREGO</span></h2>
                       <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
                         <li class="py-x1 px-1 border-top">PREGO: online mistake detection in PRocedural EGOcentric videos</li>
-                        <img src="assets/img/projects/prego.jpeg" alt="PREGO Project" class="img-fluid mb-3" style="max-height: 130px;">
-                      </ul>
+                        <img src="assets/img/projects/prego.jpeg" alt="PREGO Project" class="img-fluid mb-3 edge-blur" style="max-height: 130px;">
+					  </ul>
                       <ul class="list-unstyled d-flex gap-2 justify-content-center">
                         <li class="mt-1">
                             <a href="https://github.com/aleflabo/PREGO" target="_blank" class="btn btn-secondary btn-lg lh-xl">
@@ -93,12 +109,13 @@
                         </li>
                     </ul>
                     </div>
-                    <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card">
+					<!--HALO-->
+                    <div class="p-x1 text-center border shadow-sm rounded-2 pricing-card" style="background-color: #fffff4;">
                       <p class="text-uppercase fw-bold text-primary ls-2">ICML '24</p>
                       <h2 class="mb-3"><span class="fs-2 fs-md-1 fw-bold">HALO</span></h2>
                       <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
                         <li class="py-x1 px-1 border-top">Hyperbolic Active Learning for Semantic Segmentation under Domain Shift </li>
-                        <img src="assets/img/projects/halo.png" alt="HALO Project" class="img-fluid mb-3" style="max-height: 130px;">
+                        <img src="assets/img/projects/halo.png" alt="HALO Project" class="img-fluid mb-3 edge-blur" style="max-height: 130px;">
                       </ul>
                       <ul class="list-unstyled d-flex gap-2 justify-content-center">
                         <li class="mt-1">
@@ -151,6 +168,8 @@
     <script src="vendors/lodash/lodash.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="assets/js/theme.js"></script>
+	<script src="assets/js/hamburger.js"></script>
+	
   </body>
 
 </html>

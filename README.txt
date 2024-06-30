@@ -1,3 +1,13 @@
+Changes (30-06-24):
+
+- Now the original navbar is shown in computer mode, and the hamburger menu appears in mobile mode
+
+- Made the menu darker in mobile mode so the options are easier to see on a white background
+
+
+-
+
+
 Changes (25-06-24):
 
 - Changed all docs' background to white (added two new svgs: "white_wave.svg" and "squished_white_wave.svg" to help)

@@ -285,7 +285,7 @@
   --brainwaveio-input-focus-border-color-global: #fba6a6;
   --brainwaveio-input-placeholder-color-global: var(--brainwaveio-gray-400);
   --brainwaveio-bg-navbar-glass: rgba(237, 242, 249, 0.96);
-  --brainwaveio-navbar-vertical-default-bg-color: var(--brainwaveio-bg-navbar-glass);
+  --brainwaveio-navbar-vertical-default-bg-color: var(--brainwaveio-black)/*var(--brainwaveio-bg-navbar-glass);*/
   --brainwaveio-navbar-vertical-default-link-color: #5e6e82;
   --brainwaveio-navbar-vertical-default-link-hover-color: #2E2F33;
   --brainwaveio-navbar-vertical-default-link-active-color: #F74D4D;
@@ -4795,6 +4795,23 @@ textarea.form-control-lg {
   display: block;
 }
 
+@media screen and (max-width: 600px) {
+  .navbarvis {
+	visibility: hidden !important;
+  }
+  .hero-background-short {
+	background: linear-gradient(315deg, #0053f8 0%, #0a142e 100%) !important;
+	min-height: 5.6rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  .hambarvis {
+	visibility: hidden !important;
+  }
+  .hero-background-short {
+  	min-height: 8.3rem;
+  }
+}
 .navbar {
   --brainwaveio-navbar-padding-x: 1rem;
   --brainwaveio-navbar-padding-y: 1rem;
@@ -20863,7 +20880,7 @@ h5, .h5, h6, .h6 {
 .hero-section .hero-background-short {
   background: linear-gradient(315deg, #0053f8 0%, #0a142e 100%);
   background-repeat: no-repeat;
-  min-height: 8.2rem;
+  /*min-height: 8.2rem;*/
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

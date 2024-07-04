@@ -4801,7 +4801,7 @@ textarea.form-control-lg {
   }
   .hero-background-short {
 	background: linear-gradient(315deg, #0053f8 0%, #0a142e 100%) !important;
-	min-height: 5.6rem;
+	min-height: 3.9rem;
   }
 }
 @media screen and (min-width: 900px) {
@@ -4809,7 +4809,7 @@ textarea.form-control-lg {
 	visibility: hidden !important;
   }
   .hero-background-short {
-  	min-height: 8.3rem;
+  	min-height: 4.7rem;
   }
 }
 .navbar {
@@ -4864,6 +4864,33 @@ textarea.form-control-lg {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+}
+@media screen and (max-width: 600px) {
+  .mobile-person-container {
+	display: block;
+	text-align: center;
+  }
+  .mobile-person-container img {
+	margin-top: 0rem;
+  }
+  .mobile-person-container h5 {
+	margin-top: 1rem;
+	margin-bottom: 0rem;
+  }
+  .mobile-person-container p {
+	font-size: 0.9375rem;
+  }
+  .mobile-person-container div {
+    margin-bottom: 3.5rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  .pc-person-container {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	gap: 1rem;
+  }
 }
 .navbar-brand {
   padding-top: var(--brainwaveio-navbar-brand-padding-y);

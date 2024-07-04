@@ -409,8 +409,7 @@ var countupInit = function countupInit() {
 
 var navbarInit = function navbarInit() {
   var navbar = document.querySelector('[data-navbar-soft-on-scroll]');
-  var hambar = document.querySelector('[data-hambar-soft-on-scroll]');
-  if (navbar && hambar) {
+  if (navbar) {
     var windowHeight = window.innerHeight;
     var handleAlpha = function handleAlpha() {
       var scrollTop = window.scrollY;
@@ -418,8 +417,6 @@ var navbarInit = function navbarInit() {
       alpha >= 1 && (alpha = 1);
       navbar.style.backgroundColor = "rgba(14, 40, 70, ".concat(alpha, ")");
 	  alpha = alpha + .2;
-	  alpha >= 1 && (alpha = 1);
-	  hambar.style.backgroundColor = "rgba(14, 40, 70, ".concat(alpha, ")");
     };
     handleAlpha();
     document.addEventListener('scroll', function () {

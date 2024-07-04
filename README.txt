@@ -1,3 +1,17 @@
+Changes (04-07-24):
+
+- Made the hamburger menu opaque while open
+
+- Changed the boxes in research.html to light hrey
+
+- Removed the wave svg from all pages expect for index.html
+
+- Made the containers in people.html align items vertically while in mobile mode
+
+
+-
+
+
 Changes (30-06-24):
 
 - Now the original navbar is shown in computer mode, and the hamburger menu appears in mobile mode

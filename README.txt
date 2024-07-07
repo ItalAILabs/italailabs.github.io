@@ -1,3 +1,18 @@
+Changes (07-07-24):
+
+- Added the second and third blocks to people.html, added some placeholder people to the new blocks
+
+- Added a contact list under each person in people.html (the placeholder links all lead to professor Galasso's pages)
+
+- The contact page is now referred to as "Contact Us" in the navbars
+
+- The contact form has been reimplemented in contact.html
+
+
+
+-
+
+
 Changes (04-07-24):
 
 - Made the hamburger menu opaque while open

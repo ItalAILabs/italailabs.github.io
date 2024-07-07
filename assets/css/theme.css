@@ -4881,7 +4881,13 @@ textarea.form-control-lg {
 	font-size: 0.9375rem;
   }
   .mobile-person-container div {
-    margin-bottom: 3.5rem;
+    margin-bottom: 5.5rem;
+  }
+  .icon-list {
+	margin-right: 2rem;
+	margin-bottom: 1rem;
+    list-style-type: none;
+	text-align: center;
   }
 }
 @media screen and (min-width: 900px) {
@@ -4889,8 +4895,39 @@ textarea.form-control-lg {
 	display: flex;
 	align-items: start;
 	justify-content: space-between;
+	flex-wrap: wrap;
 	gap: 1rem;
+	margin-bottom: -3rem;
   }
+  .pc-person-container .pc-person-container {
+	margin-bottom: 2rem;
+  }
+  .icon-list {
+    width: 12rem;
+    padding: 0rem;
+    margin-top: .5rem;
+    list-style-type: none;
+  }
+}
+.icon-list li {
+  display: inline-block;
+  margin-top: 1.5rem;
+  margin-right: 1rem;
+  width: 1.5rem;
+}
+.icon-list li a {
+  padding: .4rem;
+  text-align: center;
+  border-radius: 50%;
+  background: lightgrey;
+  color: grey;
+}
+.icon-list li a:hover {
+  background: grey;
+  color: lightgrey;
+}
+.icon-list li a i {
+  width: 1.5rem;
 }
 .navbar-brand {
   padding-top: var(--brainwaveio-navbar-brand-padding-y);
@@ -21011,6 +21048,16 @@ h5, .h5, h6, .h6 {
   background: -webkit-gradient(linear, left top, left bottom, from(#313C59), to(#161C2D));
   background: -o-linear-gradient(top, #313C59, #161C2D);
   background: linear-gradient(to bottom, #313C59, #161C2D);
+}
+.experience-2 {
+  background: -webkit-gradient(linear, left top, left bottom, from(#6B84C4), to(#4C6094));
+  background: -o-linear-gradient(top, #6B84C4, #4C6094);
+  background: linear-gradient(to bottom, #6B84C4, #4C6094);
+}
+.experience-3 {
+  background: -webkit-gradient(linear, left top, left bottom, from(#7292E6), to(#8096D2));
+  background: -o-linear-gradient(top, #7292E6, #8096D2);
+  background: linear-gradient(to bottom, #7292E6, #8096D2);
 }
 .experience .dots {
   left: -5%;

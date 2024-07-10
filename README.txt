@@ -1,3 +1,16 @@
+Changes (10-07-24):
+
+- Added the 'name' and 'idea' fields to the contact.html form
+
+- The contact.html form now works!
+  It uses phpmailer (phpmailer, composer and autoload.php added to vendors folder, composer.json and composer.lock added to root)
+  The script used to send the mail is called "send-email.php"
+  Two new html docs: "sent-successfully.html" and "sent-unsuccessfully.html" added to show the result
+
+
+-
+
+
 Changes (07-07-24):
 
 - Added the second and third blocks to people.html, added some placeholder people to the new blocks

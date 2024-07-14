@@ -21110,6 +21110,24 @@ h5, .h5, h6, .h6 {
   width: 100%;
   max-width: 30.875rem;
 }
+.pricing-card .learn-more {
+  color: darkred;
+}
+.pricing-card .learn-more:hover {
+  color: red;
+}
+.image-list {
+  list-style-type: none;
+  text-align: center;
+}
+.image-list li {
+  display: inline-block;
+  margin-top: 2rem;
+  margin-right: 2rem;
+}
+.image-list li:last-child {
+  margin-bottom: 1rem;
+}
 
 .check-icon {
   height: 1.875rem;

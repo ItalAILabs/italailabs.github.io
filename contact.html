@@ -34,6 +34,9 @@
     <!-- <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Rubik:ital,wght@0,300..900;1,300..900family=Rubik:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet"> -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet">
+  
+	<!-- API -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
 
   <body>
@@ -98,11 +101,11 @@
 		               <p class="fs-8 mb-2 mb-lg-6 text-center lh-lg fw-normal">Share with us your research or startup ideas and we'll help make them reality!</p>
 		             </div>
 		             <div class="col-10 col-lg-7">
-		               <form method="POST" action="send-email.php">
+		               <form id="mailForm" method="POST" action="send-download.php"> <!--method="POST" action="send-email.php"-->
 						 <div class="mb-1 w-100"><input class="form-control email-input" id="name" type="text" placeholder="What's your name?" name="name" required="required"/></div>
 		                 <div class="mb-1 w-100"><input class="form-control email-input" id="email" type="email" placeholder="Enter your email" name="email" required="required"/></div>
-						 <div class="mb-2 w-100"><textarea class="form-control email-input" rows="7" style="resize: none;" placeholder="Pitch your idea!" name="idea" required="required"></textarea></div class="mb-2 w-100">
-		                 <div class="d-grid"><button class="btn btn-lg btn-primary lh-xl mb-x1" type="submit"> Subscribe </button></div>
+						 <div class="mb-2 w-100"><textarea class="form-control email-input" id="idea" rows="7" style="resize: none;" placeholder="Pitch your idea!" name="idea" required="required"></textarea></div class="mb-2 w-100">
+		                 <div class="d-grid"><button class="btn btn-lg btn-primary lh-xl mb-x1" type="submit" id="submit"> Send </button></div>
 		               </form>
 		             </div>
 		             <div class="col-10 col-lg-7">
@@ -145,6 +148,26 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="assets/js/theme.js"></script>
 	<script src="assets/js/hamburger.js"></script>
+	
+	<!-- Ajax call to send-email.php on submit -->
+	<script>
+		$(document).ready(function(){
+			$("#submit").click(function(e){
+				$.ajax({
+					type:"POST",
+					url:"send-email.php",
+					data:{name:$("#name").val(),email:$("#email").val(),idea:$("#idea").val()},
+					success:function(result,status,xhr){
+						if (xhr.statusText=="OK") window.location.href = "sent-successfully.html";
+						else window.location.href = "sent-unsuccessfully.html";
+					},
+					error:function(xhr,status,xhr){
+					    window.location.href = "sent-unsuccessfully.html";
+					}
+				});
+			});
+		});
+	</script>
 	
   </body>
 

@@ -1,3 +1,19 @@
+Changes (14-07-24):
+
+- Added two new docs dedicated to PREGO and HALO: "research_PREGO.html" and "research_HALO.html"
+
+- Also added several images in the new projects/page_images folder and the new js script "halo.js"
+
+- Added two "learn more" links in the research.html boxes to visit the new research docs
+
+- Added the new php script "send-download.php" to contact.html to save the sent email as a text file
+
+- Added an ajax script to contact.html to properly use both send-email.php and send-download.php
+
+
+-
+
+
 Changes (10-07-24):
 
 - Added the 'name' and 'idea' fields to the contact.html form

@@ -4,7 +4,7 @@ $email = filter_var($_POST["email"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $subject = "Contact Us Submission"; # Swap the string with '$_POST["subject"];' if a subject field is ever added
 $idea = filter_var($_POST["idea"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-require "vendors/autoload.php";
+require "../../vendors/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -14,15 +14,15 @@ $mail = new PHPMailer(true);
 $mail->isSMTP();
 $mail->SMTPAuth = true;
 
-$mail->Host = "something.smtp.somethang.example"; # example
+$mail->Host = "sandbox.smtp.mailtrap.io"; # example
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 123; # example
+$mail->Port = 587; # example
 
-$mail->Username = "123123abcabc"; # example
-$mail->Password = "123123abcabc"; # example
+$mail->Username = "72522bd3252397"; # example
+$mail->Password = "432b075ec68871"; # example
 
 $mail->setFrom($email, $name);
-$mail->addAddress("company_email@gmail.com", "some_name"); # recipient example
+$mail->addAddress("federico.capa01@gmail.com", "Fede"); # recipient example
 
 $mail->Subject = $subject;
 $mail->Body = $idea;

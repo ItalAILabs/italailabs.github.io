@@ -1,3 +1,20 @@
+Changes (17-07-24):
+
+- Refactored code: the project docs are now in their own folder ("research.dir"), same for the failure and success pages (contact.dir) and the php scripts ("assets/php.dir") except for autoload.php, which is needed in the vendors folder
+
+- Added the GitHub and arXiv links to the project docs
+
+- Added pictures to people.html and renamed the third section from "Employees" to "Administration" (links, descriptions and the last image are still placeholders)
+
+- Changed the send-email.php script so it reads the credentials and smtp info from a config.ini file in the root folder 
+
+NOTE: Currently the file is called config.example.ini and contains examples, it needs the correct values AND to be renamed config.ini to actually work.
+The proper config.ini should be kept on a local machine and never be pushed to GitHub.
+
+
+-
+
+
 Changes (14-07-24):
 
 - Added two new docs dedicated to PREGO and HALO: "research_PREGO.html" and "research_HALO.html"

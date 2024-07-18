@@ -1,4 +1,0 @@
-- [ ] Change font to a more readable one
-- [ ] Change backgroud colors to be more uniform
-- [ ] Fix social icons after Follow us
-- [ ] Change app icon

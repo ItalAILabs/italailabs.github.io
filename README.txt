@@ -1,3 +1,11 @@
+Changes (18-07-24) (NB Switched to dev2 here):
+
+- Implemented a basic demo for uploading, displaying and deleting an image in halo.html
+
+
+-
+
+
 Changes (17-07-24):
 
 - Refactored code: the project docs are now in their own folder ("research.dir"), same for the failure and success pages (contact.dir) and the php scripts ("assets/php.dir") except for autoload.php, which is needed in the vendors folder

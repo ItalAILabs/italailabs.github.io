@@ -21129,6 +21129,10 @@ h5, .h5, h6, .h6 {
   margin-bottom: 1rem;
 }
 
+#img2halo::file-selector-button {
+  display: none;
+}
+
 .check-icon {
   height: 1.875rem;
   width: 1.875rem;

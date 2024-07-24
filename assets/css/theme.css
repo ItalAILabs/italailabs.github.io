@@ -4889,6 +4889,7 @@ textarea.form-control-lg {
     list-style-type: none;
 	text-align: center;
   }
+  .big-media {display: none;}
 }
 @media screen and (min-width: 900px) {
   .pc-person-container {
@@ -4908,6 +4909,7 @@ textarea.form-control-lg {
     margin-top: .5rem;
     list-style-type: none;
   }
+  .small-media {display: none;}
 }
 .icon-list li {
   display: inline-block;
@@ -21127,6 +21129,10 @@ h5, .h5, h6, .h6 {
 }
 .image-list li:last-child {
   margin-bottom: 1rem;
+}
+
+#img2halo::file-selector-button {
+  display: none;
 }
 
 .check-icon {

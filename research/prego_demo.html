@@ -31,9 +31,10 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     
     <!-- Fonts -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Rubik:ital,wght@0,300..900;1,300..900family=Rubik:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet"> -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet">
+	
+	<!-- API -->
+	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
   </head>
 
   <body>
@@ -91,33 +92,23 @@
           <section class="bg-white">
             <div class="container py-3 py-lg-5">
               <div class="row justify-content-center">
-				
+                
                 <div class="col-md-12 col-lg-11" id="research">
-                  <h3 class="fs-5 fs-lg-4 fw-bold text-center mb-2 mb-lg-x1 lh-sm">What is PREGO?</h3>
+                  <h3 class="fs-5 fs-lg-4 fw-bold text-center mb-2 mb-lg-x1 lh-sm">TODO</h3>
                   <p class="fs-8 text-center mb-2 mb-lg-x1 lh-lg fw-normal">
-                    Promptly identifying procedural errors from egocentric videos in an online setting is highly challenging and valuable for detecting mistakes as soon as they happen. However, no technique can currently detect open-set procedural mistakes online. We propose PREGO, the first online one-class classification model for mistake detection in PRocedural EGOcentric videos.
+                    Webcam
                   </p>
 				  <ul class="list-unstyled d-flex gap-2 justify-content-center mb-4 mb-lg-5">
 				    <li class="mt-1"><a href="https://github.com/aleflabo/PREGO" target="_blank" class="btn btn-secondary lh-xl"><i class="fab fa-github"></i> GitHub</a></li>
 				    <li class="mt-1"><a href="https://arxiv.org/abs/2404.01933" target="_blank" class="btn btn-secondary lh-xl"><i class="fas fa-book-open"></i> arXiv</a></li>
 				  </ul>
-				  <img src="../assets/img/projects/page_images/egocentric.jpg" class="mb-7 mb-lg-8 img-fluid edge-blur" style="max-height: 300px; display: block; margin-right: auto; margin-left: auto;">
+				  <div style="background-color: aliceblue;">
+					<p id="webCamMessage" class="fs-8 text-center mb-2 mb-lg-x1 lh-lg fw-normal">Please allow the browser<br>access to the webcam</p>
+					<!--<p id="webCamRequest" class="fs-8 text-center mb-2 mb-lg-x1 lh-lg fw-normal" style="display: none;">Click <a class="try-demo" onclick="activate_webcam()" style="cursor: pointer;">Here</a> to activate the webcam</p>-->
+					<p id="webCamRequest" class="fs-8 text-center mb-2 mb-lg-x1 lh-lg fw-normal" style="display: none;">Please change this<br>in your settings to try the demo</p>
+					<video id="webCam" autoplay playsinline style="display: none;"></video>
+				  </div>
 			    </div>
-				
-				<div class="col-md-12 col-lg-11" id="research">
-				  <h3 class="fs-5 fs-lg-4 fw-bold text-center mb-2 mb-lg-x1 lh-sm">How does PREGO work?</h3>
-				  <p class="fs-8 mb-3 mb-lg-4 text-center lh-lg fw-normal">
-					PREGO is based on an online action recognition component to model the current action, and a symbolic reasoning module to predict the next actions. Mistake detection is performed by comparing the recognized current action with the expected future one. We evaluate PREGO on two procedural egocentric video datasets, Assembly101 and Epic-tent, which we adapt for online benchmarking of procedural mistake detection to establish suitable benchmarks, thus defining the Assembly101-O and Epic-tent-O datasets, respectively.
-				  </p>
-				  <img src="../assets/img/projects/page_images/assemply101.png" class="mb-7 mb-lg-8 img-fluid edge-blur" style="max-height: 300px; display: block; margin-right: auto; margin-left: auto;">
-				</div>
-				
-				<div class="col-md-12 col-lg-11" id="research">
-				  <h3 class="fs-5 fs-lg-4 fw-bold text-center mb-2 mb-lg-x1 lh-sm">Try PREGO yourself by clicking <a class="try-demo" href="prego_demo.html">Here!</a></h3>
-				  <p class="fs-8 text-center lh-lg fw-normal">
-				    Use our online demo to test and explore the capabilities of PREGO!
-				  </p>
-				</div>
 				
               </div>
             </div>
@@ -154,6 +145,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../assets/js/theme.js"></script>
 	<script src="../assets/js/hamburger.js"></script>
+	<script src="../assets/js/webCamStart.js" defer></script>
 	
   </body>
 

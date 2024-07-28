@@ -21112,10 +21112,10 @@ h5, .h5, h6, .h6 {
   width: 100%;
   max-width: 30.875rem;
 }
-.pricing-card .learn-more {
+.pricing-card .learn-more, .try-demo {
   color: darkred;
 }
-.pricing-card .learn-more:hover {
+.pricing-card .learn-more:hover, .try-demo:hover {
   color: red;
 }
 .image-list {
@@ -21129,6 +21129,28 @@ h5, .h5, h6, .h6 {
 }
 .image-list li:last-child {
   margin-bottom: 1rem;
+}
+
+
+#webCamMessage {
+  color: #02a8b5;
+}
+#webCam {
+  display: none;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media screen and (max-width: 600px) {
+  #webCam {
+	width: 24rem;
+	height: 16rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  #webCam {
+	width: 42rem;
+	height: 28rem;
+  }
 }
 
 #img2halo::file-selector-button {

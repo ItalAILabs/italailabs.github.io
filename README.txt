@@ -1,3 +1,13 @@
+Changes (28-07-24)
+
+- Added a link at the end of prego.html to a new doc called "prego_demo.html"
+
+- Added a new js file "webCamStart.js" to ask and allow access to the device's webcam and stream it to a video element in the page
+
+
+-
+
+
 Changes (24-07-24)
 
 - Fixed a picture in people.html

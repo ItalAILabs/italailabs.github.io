@@ -29,7 +29,8 @@
     <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
     <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-    
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+	
     <!-- Fonts -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Rubik:ital,wght@0,300..900;1,300..900family=Rubik:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet"> -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet"> -->
@@ -43,13 +44,15 @@
 		
 		<!--Regular navbar-->
 		<nav class="navabarvis navbar navbar-expand-md fixed-top" id="navbar" data-navbar-soft-on-scroll="data-navbar-soft-on-scroll">
-		  <div class="container-fluid px-1"><a href="/"><img class="navbar-brand w-25" src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png" alt="logo" /></a>
+		  <div class="container-fluid px-1"><a href="index.html"><img class="navbar-brand w-25" src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png" alt="logo" /></a>
 		    <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content" data-navbar-collapse="data-navbar-collapse">
 		      <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0" data-navbar-nav="data-navbar-nav">
-		        <li class="nav-item"> <a class="nav-link lh-xl" href="index.html">Home</a></li>
+				<li class="nav-item"> <a class="nav-link lh-xl" href="index.html">Home</a></li>
 				<li class="nav-item"> <a class="nav-link lh-xl" href="people.html">People</a></li>
+				<li class="nav-item"> <a class="nav-link lh-xl" href="partners.html">Partners</a></li>
 				<li class="nav-item"> <a class="nav-link lh-xl" href="research.html">Research</a></li>
-		        <li class="nav-item"> <a class="nav-link lh-xl" href="contact.html">Contact Us</a></li>
+				<li class="nav-item"> <a class="nav-link lh-xl" href="accelerating.html">Accelerating</a></li>
+				<li class="nav-item"> <a class="nav-link lh-xl" href="contact.html">Contact Us</a></li>
 		      </ul>
 		    </div>
 		  </div>
@@ -73,10 +76,12 @@
 		  </div>
 		  <div class="pt-2" id="nav-links">
 			<ul class="navbar-nav pt-0 pb-1 pt-md-0 pb-md-0 px-1 px-md-2" style="text-align: right;" data-navbar-nav="data-navbar-nav">
-		  	  <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-		  	  <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
-		  	  <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
-		  	  <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+			  <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+			  <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
+			  <li class="nav-item"><a class="nav-link" href="partners.html">Partners</a></li>
+			  <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+			  <li class="nav-item"><a class="nav-link" href="accelerating.html">Accelerating</a></li>
+			  <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
 			</ul>
 		  </div>
 		</nav>
@@ -113,6 +118,25 @@
 		        <div class="col-12">
 		          <div class="row gy-4 g-md-3 pb-8 pb-lg-11 px-1">
 					<div class="pc-person-container">
+					  
+					  <div class="pc-person-container">
+						<div class="mobile-person-container">
+						  <img class="col-auto pe-0" style="max-height: 200px; " src="assets/img/people/fabio_galasso.jpg" alt="" />
+						</div>
+						<div class="mobile-person-container">
+						  <h5 class="fs-8 text-white lh-lg fw-bold">Prof. Fabio Galasso</h5>
+						  <p class="text-white text-opacity-50 lh-xl mb-0">CTO and Head of AI etc...</p>
+						  <ul class="icon-list">
+							<li><a href="https://fgalasso.bitbucket.io/"><i class="fas fa-globe-europe"></i></a></li>
+							<li><a href="https://scholar.google.com/citations?user=2gSuGBEAAAAJ"><i class="ai ai-google-scholar-square"></i></a></li>
+							<li><a href="https://www.linkedin.com/in/fabio-galasso-61141b32"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="https://github.com/fgalasso"><i class="fab fa-github"></i></a></li>
+							<li><a href="https://twitter.com/GalassoFab10"><i class="fab fa-twitter"></i></a></li>
+						  </ul>
+					    </div>
+					  </div>	
+						
+					  <!--
 					  <div class="pc-person-container">
 		                <div class="mobile-person-container">
 		                  <img class="col-auto pe-0" style="max-height: 200px; " src="assets/img/people/luca_rigazio.jpg" alt="" />
@@ -121,9 +145,7 @@
 					      <h5 class="fs-8 text-white lh-lg fw-bold">Luca Rigazio</h5>
 					      <p class="text-white text-opacity-50 lh-xl mb-0">CEO of the company etc...</p>
 						  <ul class="icon-list">
-						    <li><a href="https://www.linkedin.com/in/fabio-galasso-61141b32"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="https://github.com/fgalasso"><i class="fab fa-github"></i></a></li>
-							<li><a href="https://twitter.com/GalassoFab10"><i class="fab fa-twitter"></i></a></li>
+						    <li><a href="https://fgalasso.bitbucket.io/"><i class="fas fa-globe-europe"></i></a></li>
 						  </ul>
 						  <div></div>
 					    </div>
@@ -136,12 +158,16 @@
 					      <h5 class="fs-8 text-white lh-lg fw-bold">Prof. Fabio Galasso</h5>
 					      <p class="text-white text-opacity-50 lh-xl mb-0">CTO and Head of AI etc...</p>
 						  <ul class="icon-list">
+							<li><a href="https://fgalasso.bitbucket.io/"><i class="fas fa-globe-europe"></i></a></li>
+							<li><a href="https://scholar.google.com/citations?user=2gSuGBEAAAAJ"><i class="ai ai-google-scholar-square"></i></a></li>
 						  	<li><a href="https://www.linkedin.com/in/fabio-galasso-61141b32"><i class="fab fa-linkedin"></i></a></li>
 						  	<li><a href="https://github.com/fgalasso"><i class="fab fa-github"></i></a></li>
 						  	<li><a href="https://twitter.com/GalassoFab10"><i class="fab fa-twitter"></i></a></li>
 						  </ul>
 					    </div>
 					  </div>
+					  -->
+					  
 					</div>
 		          </div>
 		        </div>
@@ -171,9 +197,10 @@
 		  				  <h5 class="fs-8 text-white lh-lg fw-bold">Luca Franco</h5>
 		  				  <p class="text-white text-opacity-50 lh-xl mb-0">TODO</p>
 						  <ul class="icon-list">
-						    <li><a href="https://www.linkedin.com/in/fabio-galasso-61141b32"><i class="fab fa-linkedin"></i></a></li>
-						  	<li><a href="https://github.com/fgalasso"><i class="fab fa-github"></i></a></li>
-						  	<li><a href="https://twitter.com/GalassoFab10"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="https://scholar.google.com/citations?user=c5jyrK4AAAAJ"><i class="ai ai-google-scholar-square"></i></a></li>
+							<li><a href="https://www.linkedin.com/in/luca-franco-968819196/"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="https://github.com/FraLuca"><i class="fab fa-github"></i></a></li>
+							<li><a href="https://twitter.com/FraLuca17"><i class="fab fa-twitter"></i></a></li>
 						  </ul>
 		  				  <div></div>
 		  			    </div>
@@ -186,9 +213,7 @@
 		  				  <h5 class="fs-8 text-white lh-lg fw-bold">Stefano Rando</h5>
 		  				  <p class="text-white text-opacity-50 lh-xl mb-0">TODO</p>
 						  <ul class="icon-list">
-						  	<li><a href="https://www.linkedin.com/in/fabio-galasso-61141b32"><i class="fab fa-linkedin"></i></a></li>
-						  	<li><a href="https://github.com/fgalasso"><i class="fab fa-github"></i></a></li>
-						  	<li><a href="https://twitter.com/GalassoFab10"><i class="fab fa-twitter"></i></a></li>
+						  	<li><a href="https://fgalasso.bitbucket.io/"><i class="fas fa-globe-europe"></i></a></li>
 						  </ul>
 						  <div></div>
 		  			    </div>
@@ -201,9 +226,10 @@
 					  	  <h5 class="fs-8 text-white lh-lg fw-bold">Paolo Mandica</h5>
 					  	  <p class="text-white text-opacity-50 lh-xl mb-0">TODO</p>
 					  	  <ul class="icon-list">
-					  	    <li><a href="https://www.linkedin.com/in/fabio-galasso-61141b32"><i class="fab fa-linkedin"></i></a></li>
-					  	    <li><a href="https://github.com/fgalasso"><i class="fab fa-github"></i></a></li>
-					  	    <li><a href="https://twitter.com/GalassoFab10"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="https://paolomandica.github.io/"><i class="fas fa-globe-europe"></i></a></li>
+							<li><a href="https://scholar.google.com/citations?user=https://scholar.google.com/citations?hl=en&user=rUZYZogAAAAJ"><i class="ai ai-google-scholar-square"></i></a></li>
+							<li><a href="https://www.linkedin.com/in/paolo-mandica/"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="https://github.com/paolomandica"><i class="fab fa-github"></i></a></li>
 					  	  </ul>
 						  <div></div>
 					    </div>
@@ -217,9 +243,11 @@
 						  <h5 class="fs-8 text-white lh-lg fw-bold small-media">Alessandro Flaborea</h5>
 						  <p class="text-white text-opacity-50 lh-xl mb-0">TODO</p>
 					  	  <ul class="icon-list">
-					  		<li><a href="https://www.linkedin.com/in/fabio-galasso-61141b32"><i class="fab fa-linkedin"></i></a></li>
-					  		<li><a href="https://github.com/fgalasso"><i class="fab fa-github"></i></a></li>
-					  		<li><a href="https://twitter.com/GalassoFab10"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="https://aleflabo.github.io/"><i class="fas fa-globe-europe"></i></a></li>
+							<li><a href="https://scholar.google.com/citations?user=HHDHIVoAAAAJ"><i class="ai ai-google-scholar-square"></i></a></li>
+							<li><a href="https://www.linkedin.com/in/alessandro-flaborea/"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="https://github.com/aleflabo"><i class="fab fa-github"></i></a></li>
+							<li><a href="https://twitter.com/AlessandroFlabo"><i class="fab fa-twitter"></i></a></li>
 					  	  </ul>
 					  	  <div></div>
 					  	</div>
@@ -247,15 +275,13 @@
 		  		  	<div class="pc-person-container">
 		  		  	  <div class="pc-person-container">
 		  		  		<div class="mobile-person-container">
-		  		  		  <img class="col-auto pe-0" style="max-height: 200px; " src="assets/img/people/luca_rigazio.jpg" alt="" />
+		  		  		  <img class="col-auto pe-0" style="max-height: 200px; " src="assets/img/people/Placeholder.jpg" alt="" />
 		  		  		</div>
 		  		  		<div class="mobile-person-container">
 		  		  		  <h5 class="fs-8 text-white lh-lg fw-bold">Cristiana Polici</h5>
-		  		  		  <p class="text-white text-opacity-50 lh-xl mb-0">CEO of the company etc...</p>
+		  		  		  <p class="text-white text-opacity-50 lh-xl mb-0">TODO</p>
 						  <ul class="icon-list">
-						  	<li><a href="https://www.linkedin.com/in/fabio-galasso-61141b32"><i class="fab fa-linkedin"></i></a></li>
-						  	<li><a href="https://github.com/fgalasso"><i class="fab fa-github"></i></a></li>
-						  	<li><a href="https://twitter.com/GalassoFab10"><i class="fab fa-twitter"></i></a></li>
+						  	<li><a href="https://fgalasso.bitbucket.io/"><i class="fas fa-globe-europe"></i></a></li>
 						  </ul>
 		  		  		  <div></div>
 		  		  		</div>
@@ -266,6 +292,40 @@
 		  	  </div>
 		  	</div>
 		  </section> 
+		  
+		  <div style="padding: 2rem;"></div>
+		  
+		  <!-- INTERNS -->
+		  <section class="bg-white px-4 px-lg-5" id="people">
+		  	<div class="experience-4" style="border-radius: 20px; ">
+		  	  <div class="container">
+		  		<div class="row justify-content-center">
+		  		  <div class="col-md-8 col-lg-7">
+		  		  	<h2 class="fs-4 fs-lg-3 fw-bold text-center text-white mb-5 mb-lg-9 lh-sm mt-5">Interns</h2>
+		  		  </div>
+		  		</div>
+		  		<div class="col-12">
+		  		  <div class="row gy-4 g-md-3 pb-8 pb-lg-11 px-1">
+		  		  	<div class="pc-person-container">
+		  		  	  <div class="pc-person-container">
+		  		  		<div class="mobile-person-container">
+		  		  		  <img class="col-auto pe-0" style="max-height: 200px; " src="assets/img/people/Placeholder.jpg" alt="" />
+		  		  		</div>
+		  		  		<div class="mobile-person-container">
+		  		  		  <h5 class="fs-8 text-white lh-lg fw-bold">PLACEHOLDER</h5>
+		  		  		  <p class="text-white text-opacity-50 lh-xl mb-0">TODO</p>
+		  				  <ul class="icon-list">
+		  				  	<li><a href="https://fgalasso.bitbucket.io/"><i class="fas fa-globe-europe"></i></a></li>
+		  				  </ul>
+		  		  		  <div></div>
+		  		  		</div>
+		  		      </div>
+		  		  	</div>
+		  		  </div>
+		  		</div>
+		   	  </div>
+		  	</div>
+		  </section>
 		  
         </div>
 		

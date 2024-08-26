@@ -1,3 +1,19 @@
+Changes (26-08-24)
+
+- Added two new html docs: "partners.html" and "accelerating.html"
+
+- Added a new images folder "assets/img/partners" containing the partners' logos
+
+- Updated the navbar on all existing pages to accomodate the new docs
+
+- Added a placeholder image in the assets/img/people folder
+
+- Added the "Interns" block to people.html, also made some other minor changes to the page
+
+
+-
+
+
 Changes (28-07-24)
 
 - Added a link at the end of prego.html to a new doc called "prego_demo.html"

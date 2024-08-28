@@ -105,7 +105,7 @@
 		               <p class="fs-8 mb-2 mb-lg-6 text-center lh-lg fw-normal">Share with us your research or startup ideas and we'll help make them reality!</p>
 		             </div>
 		             <div class="col-10 col-lg-7">
-		               <form id="mailForm" method="POST" action="assets/php/send-download.php">
+		               <form id="mailForm" method="POST" action="">
 						 <div class="mb-1 w-100"><input class="form-control email-input" id="name" type="text" placeholder="What's your name?" name="name" required="required"/></div>
 		                 <div class="mb-1 w-100"><input class="form-control email-input" id="email" type="email" placeholder="Enter your email" name="email" required="required"/></div>
 						 <div class="mb-2 w-100"><textarea class="form-control email-input" id="idea" rows="7" style="resize: none;" placeholder="Pitch your idea!" name="idea" required="required"></textarea></div class="mb-2 w-100">
@@ -155,25 +155,8 @@
     <script src="assets/js/theme.js"></script>
 	<script src="assets/js/hamburger.js"></script>
 	
+	
 	<!-- Ajax call to send-email.php on submit -->
-	<script>
-		$(document).ready(function(){
-			$("#submit").click(function(e){
-				$.ajax({
-					type:"POST",
-					url:"assets/php/send-email.php",
-					data:{name:$("#name").val(),email:$("#email").val(),idea:$("#idea").val()},
-					success:function(result,status,xhr){
-						if (xhr.statusText=="OK") window.location.href = "contact/success.html";
-						else window.location.href = "contact/failure.html";
-					},
-					error:function(xhr,status,xhr){
-					    window.location.href = "contact/failure.html";
-					}
-				});
-			});
-		});
-	</script>
 	
   </body>
 

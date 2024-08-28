@@ -1,3 +1,13 @@
+Changes (28-08-24)
+
+- Changed partners.html (and removed the unnecessary css)
+
+- Removed the php calls from contact.html
+
+
+-
+
+
 Changes (26-08-24)
 
 - Added two new html docs: "partners.html" and "accelerating.html"

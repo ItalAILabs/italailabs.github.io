@@ -4865,43 +4865,110 @@ textarea.form-control-lg {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
+
 @media screen and (max-width: 600px) {
-  .mobile-person-container {
-	display: block;
+  #person-container {
+	padding-left: 1rem;
+	padding-right: 1rem;
+	display: flex;
+	justify-content: center;
 	text-align: center;
+	flex-wrap: wrap;
   }
-  .mobile-person-container img {
-	margin-top: 0rem;
+  .person {
+	margin: 0rem 1.5rem 2rem;
   }
-  .mobile-person-container h5 {
-	margin-top: 1rem;
-	margin-bottom: 0rem;
+  .person img {
+	max-height: 150px;
+	border-radius: 100%;
   }
-  .mobile-person-container p {
-	font-size: 0.9375rem;
+  .person h5, .person h5 a {
+	color: darkred;
+	font-size: 1rem;
   }
-  .mobile-person-container div {
-    margin-bottom: 5.5rem;
+  .person h5 a:hover {
+	color: red;
+	cursor: pointer;
+  }
+  .person h6 {
+	font-size: .9rem;
+  }
+  .person-info {
+	width: 100%;
+	display: none; /*to flex on click*/
+	justify-content: center;
+	text-align: center;
+	flex-wrap: wrap;
+  }
+  .person-info-text {
+  	margin-left: 2rem;
+	margin-right: 2rem;
+  }
+  .person-info-text p {
+	margin-top: .8rem;
+	margin-bottom: 1.6rem;
+	font-size: 1.1rem;
+	line-height: .8rem;
   }
   .icon-list {
-	margin-right: 2rem;
-	margin-bottom: 1rem;
+	margin-top: .5rem;
+  	margin-right: 2rem;
+  	margin-bottom: 1.6rem;
     list-style-type: none;
-	text-align: center;
+  	text-align: center;
   }
-  .big-media {display: none;}
 }
 @media screen and (min-width: 900px) {
-  .pc-person-container {
+  #person-container {
+	padding-left: 5rem;
+	padding-right: 5rem;
 	display: flex;
-	align-items: start;
-	justify-content: space-between;
+	justify-content: center;
+	text-align: center;
 	flex-wrap: wrap;
-	gap: 1rem;
-	margin-bottom: -3rem;
   }
-  .pc-person-container .pc-person-container {
+  .person {
+	margin: 0rem 3rem 2.5rem;
+  }
+  .person img {
+	max-height: 200px;
+	border-radius: 100%;
+  }
+  .person h5, .person h5 a {
+	color: darkred;
+  	font-size: 1.25rem;
+  }
+  .person h5 a:hover {
+  	color: red;
+	cursor: pointer;
+  }
+  .person h6 {
+  	font-size: 1rem;
+  }
+  .person-info {
+  	width: 100%;
+	display: none; /*to flex on click*/
+	justify-content: center;
+	text-align: center;
+	flex-wrap: wrap;
+  }
+  .person-info-text {
+	margin-right: 6rem;
+	max-width: 45rem;
+	display: block;
+	justify-content: left;
+	text-align: left;
+  }
+  .person-info-text p {
+	margin-top: 2rem;
 	margin-bottom: 2rem;
+	max-width: inherit;
+	font-size: 1.25rem;
+  }
+  .person-info-images {
+	display: block;
+	justify-content: right;
+	text-align: right;
   }
   .icon-list {
     width: 12rem;
@@ -4909,7 +4976,6 @@ textarea.form-control-lg {
     margin-top: .5rem;
     list-style-type: none;
   }
-  .small-media {display: none;}
 }
 .icon-list li {
   display: inline-block;
@@ -4931,6 +4997,46 @@ textarea.form-control-lg {
 .icon-list li a i {
   width: 1.5rem;
 }
+
+@media screen and (max-width: 600px) {
+  .partner-ucb {
+	margin-bottom: -3rem;
+	max-height: 210px;
+  }
+  .partner-stf {
+	max-height: 175px;
+  }
+  .partner-sap {
+	margin-bottom: 2.5rem;
+	max-height: 110px;
+  }
+  .partner-pan {
+	margin-left: .5rem;
+	max-height: 59px;
+  }
+}
+@media screen and (min-width: 900px) {
+  .partner-ucb {
+	margin-right: 3rem;
+	max-height: 250px;
+  }
+  .partner-stf {
+	max-height: 200px;
+  }
+  .partner-sap {
+	margin-right: 7rem;
+	max-height: 120px;
+  }
+  .partner-pan {
+	max-height: 80px;
+  }
+}
+
+
+
+
+
+
 .navbar-brand {
   padding-top: var(--brainwaveio-navbar-brand-padding-y);
   padding-bottom: var(--brainwaveio-navbar-brand-padding-y);

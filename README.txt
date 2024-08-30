@@ -1,3 +1,17 @@
+Changes (30-08-24)
+
+- Remade people.html and added a script "people.js" to it, also added a new image
+
+- Added two extra cards to research.html
+
+- Fixed a problem with accelerating.html (the cards weren't in the correct parents)
+
+- Fixed two problems with partners.html (some images were missing and it didn't look good in mobile mode)
+
+
+-
+
+
 Changes (28-08-24)
 
 - Changed partners.html (and removed the unnecessary css)

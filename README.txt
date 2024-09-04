@@ -1,3 +1,17 @@
+Changes (04-09-24)
+
+- Added the twitter feedline to index
+
+- Made it so people.js also triggers upon clicking the person's image
+
+- Added interns and some info to people.html
+
+- Switched up the order of the logos in partners.html
+
+
+-
+
+
 Changes (30-08-24)
 
 - Remade people.html and added a script "people.js" to it, also added a new image

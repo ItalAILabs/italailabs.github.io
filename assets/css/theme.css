@@ -4867,6 +4867,32 @@ textarea.form-control-lg {
 }
 
 @media screen and (max-width: 600px) {
+  .contacts {
+	margin-top: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	text-align: justify;
+  }
+  .twitter-container {
+	margin-top: 2.5rem;
+	margin-bottom: 1rem;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 900px) {
+  .contacts {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	text-align: justify;
+  }
+  .twitter-container {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 600px) {
   #person-container {
 	padding-left: 1rem;
 	padding-right: 1rem;
@@ -4920,8 +4946,8 @@ textarea.form-control-lg {
 }
 @media screen and (min-width: 900px) {
   #person-container {
-	padding-left: 5rem;
-	padding-right: 5rem;
+	padding-left: 4.9rem;
+	padding-right: 4.9rem;
 	display: flex;
 	justify-content: center;
 	text-align: center;
@@ -5000,14 +5026,14 @@ textarea.form-control-lg {
 
 @media screen and (max-width: 600px) {
   .partner-ucb {
-	margin-bottom: -3rem;
+	margin-bottom: -2rem;
 	max-height: 210px;
   }
   .partner-stf {
 	max-height: 175px;
   }
   .partner-sap {
-	margin-bottom: 2.5rem;
+	margin-bottom: 3rem;
 	max-height: 110px;
   }
   .partner-pan {

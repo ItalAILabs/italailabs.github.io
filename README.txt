@@ -1,3 +1,19 @@
+Changes (06-09-24)
+
+- Made changes to the layout and added two partners to partners.html
+
+- Made it so a an outline appears when hovering over a person's image (or clicking it in mobile)
+
+- Added two projects to research.html
+
+- Put the correct account in the twitter feedline in index.html
+
+- Swapped out the old twitter icon with the one in index.html and people.html
+
+
+-
+
+
 Changes (04-09-24)
 
 - Added the twitter feedline to index

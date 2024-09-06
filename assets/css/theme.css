@@ -4879,6 +4879,12 @@ textarea.form-control-lg {
 	margin-bottom: 1rem;
     width: 100%;
   }
+  .x-icon {
+	margin-left: .5rem;
+  }
+  .l-icon {
+	margin-left: -1.5rem;
+  }
 }
 @media screen and (min-width: 900px) {
   .contacts {
@@ -4907,6 +4913,15 @@ textarea.form-control-lg {
   .person img {
 	max-height: 150px;
 	border-radius: 100%;
+	-webkit-transition: all 0.15s ease-in;
+	-o-transition: all 0.15s ease-in;
+	transition: all 0.15s ease-in;
+  }
+  .person img:hover {
+	border-color: #4400ff !important;
+	outline: 0 !important;
+	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0), inset 0 0 0 30px #fff, 0 0 0 0.45rem rgba(165, 132, 255, 0.45) !important;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0), inset 0 0 0 30px #fff, 0 0 0 0.45rem rgba(165, 132, 255, 0.45) !important;
   }
   .person h5, .person h5 a {
 	color: darkred;
@@ -4959,6 +4974,15 @@ textarea.form-control-lg {
   .person img {
 	max-height: 200px;
 	border-radius: 100%;
+	-webkit-transition: all 0.15s ease-in;
+	-o-transition: all 0.15s ease-in;
+	transition: all 0.15s ease-in;
+  }
+  .person img:hover {
+	border-color: #4400ff !important;
+	outline: 0 !important;
+	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0), inset 0 0 0 30px #fff, 0 0 0 0.45rem rgba(165, 132, 255, 0.45) !important;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0), inset 0 0 0 30px #fff, 0 0 0 0.45rem rgba(165, 132, 255, 0.45) !important;
   }
   .person h5, .person h5 a {
 	color: darkred;
@@ -5025,6 +5049,9 @@ textarea.form-control-lg {
 }
 
 @media screen and (max-width: 600px) {
+  .partner-container {
+	text-align: center;
+  }
   .partner-ucb {
 	margin-bottom: -2rem;
 	max-height: 210px;
@@ -5033,6 +5060,7 @@ textarea.form-control-lg {
 	max-height: 175px;
   }
   .partner-sap {
+	margin-top: 1rem;
 	margin-bottom: 3rem;
 	max-height: 110px;
   }
@@ -5040,21 +5068,45 @@ textarea.form-control-lg {
 	margin-left: .5rem;
 	max-height: 59px;
   }
+  .partner-ams {
+	margin-top: -2rem;
+  	max-height: 205px;
+  }
+  .partner-cat {
+	margin-top: -2rem;
+  	max-height: 205px;
+  }
 }
 @media screen and (min-width: 900px) {
-  .partner-ucb {
-	margin-right: 3rem;
-	max-height: 250px;
+  .partner-container {
+	text-align: center;
   }
-  .partner-stf {
-	max-height: 200px;
+  .pc-3 {
+	margin-top: -2.5rem;
   }
   .partner-sap {
-	margin-right: 7rem;
 	max-height: 120px;
+	padding: 0rem 3rem;
   }
   .partner-pan {
 	max-height: 80px;
+	padding: 0rem 3rem;
+  }
+  .partner-ucb {
+  	max-height: 250px;
+  	padding: 0rem 2rem;
+  }
+  .partner-stf {
+  	max-height: 200px;
+  	padding: 0rem 2rem;
+  }
+  .partner-ams {
+	max-height: 230px;
+	padding: 0rem 2rem;
+  }
+  .partner-cat {
+	max-height: 230px;
+	padding: 0rem 2rem;
   }
 }
 

@@ -9272,6 +9272,13 @@ textarea.form-control-lg {
   -ms-flex-align: center !important;
   align-items: center !important;
 }
+@media screen and (max-width: 600px) {
+  .align-items-center-mobile-only {
+	-webkit-box-align: center !important;
+	-ms-flex-align: center !important;
+	align-items: center !important;
+  }
+}
 
 .align-items-baseline {
   -webkit-box-align: baseline !important;

@@ -1,3 +1,15 @@
+Changes (09-09-24)
+
+- Added all remaining pictures and descriptions to people.html, removed placeholder links
+
+- Made changes to send-email.php, also made changes to the config.example file to reflect them
+
+- Made minor changes to research, contact and success
+
+
+-
+
+
 Changes (06-09-24)
 
 - Made changes to the layout and added two partners to partners.html

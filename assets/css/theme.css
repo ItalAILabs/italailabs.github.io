@@ -21326,6 +21326,10 @@ h5, .h5, h6, .h6 {
 .image-list li:last-child {
   margin-bottom: 1rem;
 }
+.accelerating-section {
+  border-radius: 5%;
+  padding: 2rem 1rem 2rem;
+}
 
 
 #webCamMessage {

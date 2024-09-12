@@ -1,5 +1,17 @@
 Changes (09-09-24)
 
+- Added two collaborators to people.html
+
+- Changed the structure of accelerating.html
+
+- Fixed an href error in research.html
+
+
+-
+
+
+Changes (09-09-24)
+
 - Added all remaining pictures and descriptions to people.html, removed placeholder links
 
 - Made changes to send-email.php, also made changes to the config.example file to reflect them

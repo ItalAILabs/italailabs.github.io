@@ -1,3 +1,11 @@
+Changes (6-09-24)
+
+- Changed the order and roles of some people
+
+
+-
+
+
 Changes (09-09-24)
 
 - Added two collaborators to people.html

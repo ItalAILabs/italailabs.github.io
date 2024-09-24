@@ -4874,7 +4874,7 @@ textarea.form-control-lg {
     justify-content: space-between;
     text-align: justify;
   }
-  .twitter-container {
+  .feed-container {
     margin-top: 1rem;
     margin-bottom: 3.5rem;
     width: 100%;
@@ -4893,7 +4893,7 @@ textarea.form-control-lg {
 	justify-content: space-between;
 	text-align: justify;
   }
-  .twitter-container {
+  .feed-container {
     width: 45%;
   }
 }
@@ -21083,7 +21083,7 @@ h5, .h5, h6, .h6 {
 /*-----------------------------------------------
 |   Form
 -----------------------------------------------*/
-.form-input {
+.email-input {
   padding: 15px 22px !important;
   border-radius: 8px !important;
   border: 1px solid #E7E9ED !important;
@@ -21094,7 +21094,7 @@ h5, .h5, h6, .h6 {
   transition: all 0.15s ease-in;
   width: 100%;
 }
-.form-input:focus {
+.email-input:focus {
   color: #31374a !important;
   background-color: #fff !important;
   border-color: #5de7a2 !important;
@@ -21102,33 +21102,25 @@ h5, .h5, h6, .h6 {
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0), inset 0 0 0 30px #fff, 0 0 0 0.25rem rgba(104, 213, 133, 0.25) !important;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0), inset 0 0 0 30px #fff, 0 0 0 0.25rem rgba(104, 213, 133, 0.25) !important;
 }
-.form-input::-webkit-input-placeholder {
+.email-input::-webkit-input-placeholder {
   color: rgba(0, 0, 0, 0.7);
   font-size: 1rem;
 }
-.form-input::-moz-placeholder {
+.email-input::-moz-placeholder {
   color: rgba(0, 0, 0, 0.7);
   font-size: 1rem;
 }
-.form-input:-ms-input-placeholder {
+.email-input:-ms-input-placeholder {
   color: rgba(0, 0, 0, 0.7);
   font-size: 1rem;
 }
-.form-input::-ms-input-placeholder {
+.email-input::-ms-input-placeholder {
   color: rgba(0, 0, 0, 0.7);
   font-size: 1rem;
 }
-.form-input::placeholder {
+.email-input::placeholder {
   color: rgba(0, 0, 0, 0.7);
   font-size: 1rem;
-}
-.error-message {
-  color: red;
-  display: none;
-}
-.success-message {
-  color: green;
-  display: none;
 }
 
 .hero-section .hero-background {

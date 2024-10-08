@@ -4874,7 +4874,7 @@ textarea.form-control-lg {
     justify-content: space-between;
     text-align: justify;
   }
-  .twitter-container {
+  .feed-container {
     margin-top: 1rem;
     margin-bottom: 3.5rem;
     width: 100%;
@@ -4893,7 +4893,7 @@ textarea.form-control-lg {
 	justify-content: space-between;
 	text-align: justify;
   }
-  .twitter-container {
+  .feed-container {
     width: 45%;
   }
 }

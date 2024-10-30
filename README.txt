@@ -1,3 +1,13 @@
+Changes (30-10-24)
+
+- Added blog.html (with some test articles), it is currently only reachable through index.html
+
+- Added a blog folder for article htmls (+ a test.html file)
+
+
+-
+
+
 Changes (6-09-24)
 
 - Changed the order and roles of some people

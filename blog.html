@@ -34,9 +34,6 @@
     <!-- <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Rubik:ital,wght@0,300..900;1,300..900family=Rubik:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet"> -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet">
-  
-	<!-- API -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
 
   <body>
@@ -54,6 +51,7 @@
 				<li class="nav-item"> <a class="nav-link lh-xl" href="partners.html">Partners</a></li>
 				<li class="nav-item"> <a class="nav-link lh-xl" href="research.html">Research</a></li>
 				<li class="nav-item"> <a class="nav-link lh-xl" href="accelerating.html">Accelerating</a></li>
+				<li class="nav-item"> <a class="nav-link lh-xl" href="blog.html">Blog</a></li>
 				<li class="nav-item"> <a class="nav-link lh-xl" href="contact.html">Contact Us</a></li>
 		      </ul>
 		    </div>
@@ -83,87 +81,91 @@
 			  <li class="nav-item"><a class="nav-link" href="partners.html">Partners</a></li>
 			  <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
 			  <li class="nav-item"><a class="nav-link" href="accelerating.html">Accelerating</a></li>
+			  <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
 			  <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
 			</ul>
 		  </div>
-		</nav>
+		</nav>		
 		
 		<!--Content-->
         <div data-bs-target="#navbar" data-bs-spy="scroll" tabindex="0">
-
+		  
 		  <section class="hero-section overflow-hidden position-relative z-0 mb-0 mb-lg-0" id="home">
-			<div class="hero-background-short"></div>
+		    <div class="hero-background-short"></div>
 		  </section>
+          
+          <section>
+			<div class="container pt-3 pt-lg-5">
+			  <div class="row justify-content-center">
+			    <div class="col-md-12 col-lg-11">
+				  <h3 id="blog-h" class="fw-bold text-center mt-1 mb-2 mb-lg-x1 lh-sm">Keep up with our latest articles!</h3>
+			    </div>
+			  </div>
+			</div>
+          </section>
+		  
+		  <section>
+			<div id="blog-container">
 			
-		  <section class="bg-300 position-relative z-0" id="contact">
-		    <div class="container py-4 py-lg-5">
-		       <div class="row justify-content-center">
-		         <div class="col-md-8 col-lg-8">
-		           <div class="row justify-content-center">
-		             <div class="col-12 col-lg-10">
-		               <h2 class="fs-4 fs-lg-3 fw-bold text-center mb-2 lh-sm">Get in touch with us</h2>
-		               <p class="fs-8 mb-2 mb-lg-6 text-center lh-lg fw-normal">Share with us your research or startup ideas and we'll help make them reality!</p>
-		             </div>
-		             <div class="col-10 col-lg-7">
-		               <!-- <form id="mailForm" method="POST" action="assets/php/send-download.php">
-						 <div class="mb-1 w-100"><input class="form-control form-input" id="name" type="text" placeholder="What's your name?" name="name" required="required"/></div>
-		                 <div class="mb-1 w-100"><input class="form-control form-input" id="email" type="email" placeholder="Enter your email" name="email" required="required"/></div>
-						 <div class="mb-2 w-100"><textarea class="form-control form-input" id="idea" rows="7" style="resize: none;" placeholder="Pitch your idea!" name="idea" required="required"></textarea></div class="mb-2 w-100">
-		                 <div class="d-grid"><button class="btn btn-lg btn-primary lh-xl mb-x1" type="submit" id="submit"> Send </button></div>
-		               </form> -->
-					   <!-- <form id="mailForm" action="https://formspree.io/f/mwpejjrb" method="POST">
-						<div class="mb-1 w-100">
-						  <label for="name">What's your name?</label>
-						  <input class="form-control form-input" id="name" type="text" name="name" required="required"/>
-						</div>
-						<div class="mb-1 w-100">
-						  <label for="email">Enter your email:</label>
-						  <input class="form-control form-input" id="email" type="email" name="email" required="required"/>
-						</div>
-						<div class="mb-2 w-100">
-						  <label for="idea">Pitch your idea!</label>
-						  <textarea class="form-control form-input" id="idea" rows="7" style="resize: none;" name="message" required="required"></textarea>
-						</div>
-						<div class="d-grid">
-						  <button class="btn btn-lg btn-primary lh-xl mb-x1" type="submit" id="submit">Send</button>
-						</div>
-					  </form> -->
-					  <form id="mailForm">
-						<div class="mb-1 w-100">
-							<label for="name">What's your name?</label>
-							<input class="form-control form-input" id="name" type="text" name="name" required="required"/>
-						</div>
-						<div class="mb-1 w-100">
-							<label for="email">Enter your email:</label>
-							<input class="form-control form-input" id="email" type="email" name="email" required="required"/>
-						</div>
-						<div class="mb-2 w-100">
-							<label for="idea">Pitch your idea!</label>
-							<textarea class="form-control form-input" id="idea" rows="7" style="resize: none;" name="message" required="required"></textarea>
-						</div>
-						<div class="d-grid">
-							<button class="btn btn-lg btn-primary lh-xl mb-x1" type="submit" id="submit">Send</button>
-						</div>
-					</form>
-					<div id="errorMessage" class="error-message">An error occurred.
-						We are sorry, but our contact form is not working at the moment,
-						please contact us using the info listed in the homepage</div>
-					<div id="successMessage" class="success-message">Message sent successfully!</div>
-		             </div>
-		             <div style="padding: 1rem;"></div>
-		           </div>
-		         </div>
-		       </div>
-		     </div>
-		     <div class="position-absolute bottom-0 end-0 z-n1 d-none d-lg-block"><img src="assets/img/illustrations/Green_dots.svg" alt="" /></div>
-		     <div class="position-relative bottom-0 start-0 z-1"><img class="img-fluid w-100" src="assets/img/illustrations/Wave_3.svg" alt="" /></div>
-		   </section>
+			  <div class="blog col-md-6 col-lg-5 mt-5 mb-2 mx-3">
+				<img src="assets/img/innovation.jpg">
+				<div class="mt-1">
+				  <p>01 Jan 2024<br>John Doe</p>
+				  <p>Testing</p>
+				</div>
+				<h3 class="mt-1">
+				  <a href="blog/test.html">
+					Lorem ipsum dolor sit amet,
+				  </a>
+			    </h3>
+				<p class="mt-2 mb-4">
+				  consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+				  Ut enim ad minim veniam, quis...
+				</p>
+			  </div>
+			  
+			  <div class="blog col-md-6 col-lg-5 mt-5 mb-2 mx-3">
+			  	<img src="assets/img/research/page_images/egocentric.jpg">
+			  	<div class="mt-1">
+			  	  <p>01 Jan 2024<br>John Doe</p>
+			  	  <p>Testing</p>
+			  	</div>
+			  	<h3 class="mt-1">
+			  	  <a href="blog/test.html">
+			  		Lorem ipsum dolor sit amet,
+			  	  </a>
+			    </h3>
+			  	<p class="mt-2 mb-4">
+			  	  consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+			  	  Ut enim ad minim veniam, quis...
+			  	</p>
+			  </div>
+			  
+			  <div class="blog col-md-6 col-lg-5 mt-5 mb-2 mx-3">
+  			  	<img src="assets/img/research/halo/halo_outputs.png">
+  			  	<div class="mt-1">
+  			  	  <p>01 Jan 2024<br>John Doe</p>
+  			  	  <p>Testing</p>
+  			  	</div>
+  			  	<h3 class="mt-1">
+  			  	  <a href="blog/test.html">
+  			  		Lorem ipsum dolor sit amet,
+  			  	  </a>
+  			    </h3>
+  			  	<p class="mt-2 mb-4">
+  			  	  consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+  			  	  Ut enim ad minim veniam, quis...
+  			  	</p>
+  			  </div>			  
+			  
+			</div>
+		  </section>
 		  
         </div>
 		
 		<button class="btn scroll-to-top text-white rounded-circle d-flex justify-content-center align-items-center bg-primary" data-scroll-top="data-scroll-top"><span class="uil uil-angle-up"></span></button>
-		
-		<footer class="pt-5 pt-lg-6">
+        
+		<footer class="pt-7 pt-lg-8">
           <div class="container">
             <div class="row gy-2 py-3 justify-content-center justify-content-md-between">
               <div class="col-auto ps-0">
@@ -190,67 +192,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="assets/js/theme.js"></script>
 	<script src="assets/js/hamburger.js"></script>
-
-
-	<!-- Contact form script -->
-	<script>
-        const form = document.getElementById('mailForm');
-        const errorMessage = document.getElementById('errorMessage');
-        const successMessage = document.getElementById('successMessage');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            
-            try {
-                const response = await fetch('https://formspree.io/f/mwpejjrb', {
-				// const response = await fetch('https://formspree.io/f/fake', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    // Form submitted successfully
-                    form.reset();
-                    successMessage.style.display = 'block';
-                    errorMessage.style.display = 'none';
-                } else {
-                    // Error occurred
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                errorMessage.style.display = 'block';
-                successMessage.style.display = 'none';
-            }
-        });
-    </script>
-	
-	
-	<!-- Ajax call to send-email.php on submit -->
-	<!-- <script>
-		$(document).ready(function(){
-			$("#submit").click(function(e){
-				$.ajax({
-					type:"POST",
-					url:"assets/php/send-email.php",
-					data:{name:$("#name").val(),email:$("#email").val(),idea:$("#idea").val()},
-					success:function(result,status,xhr){
-						if (xhr.statusText=="OK") window.location.href = "contact/success.html";
-						else window.location.href = "contact/failure.html";
-					},
-					error:function(xhr,status,xhr){
-					    window.location.href = "contact/failure.html";
-					}
-				});
-			});
-		});
-	</script> -->
-
+	<script src="assets/js/halo.js"></script>
 	
   </body>
 

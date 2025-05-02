@@ -1,0 +1,179 @@
+<!-- ===============================================-->
+<!--    Document Title-->
+<!-- ===============================================-->
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ItalAI - Mamba Blog</title>
+    <meta name="description" content="Is there an alternative to transformer networks?" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/img/logos/ItalAI_logo_simple/ITALAI v3 32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/img/logos/ItalAI_logo_simple/ITALAI v3 16x16.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../assets/img/favicons/favicon.ico" />
+    <link rel="manifest" href="../../../assets/img/favicons/manifest.json" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../../vendors/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="../../../assets/css/theme.css" />
+    <link rel="stylesheet" href="../../../assets/css/user.min.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <style>
+
+    /* Customize the author card for better aesthetics */
+    .card {
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0; /* light border for separation */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+    }
+
+    .card img {
+      border-radius: 50%;
+    }
+
+    .card .text-opacity-75 {
+      color: #333333; /* Slightly darker text for readability */
+    }
+
+    .card .fw-bold {
+      color: #003abb; /* Blue color for the name */
+    }
+
+    .card .text-muted {
+      color: #6c757d; /* Muted color for the role */
+    }
+
+    .card .text-primary {
+      color: #003abb; /* Consistent blue color for the name */
+    }
+    </style>
+  </head>
+
+  <body>
+    <main class="main" id="top">
+      <div class="content">
+        <!--Regular navbar-->
+        <nav class="navbar navbar-expand-md fixed-top" id="navbar">
+          <div class="container-fluid px-1">
+            <a href="../../../index.html">
+              <img class="navbar-brand w-25" src="../../../assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png" alt="logo" />
+            </a>
+            <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content">
+              <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0">
+                <li class="nav-item"><a class="nav-link lh-xl" href="../../../index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="../../../people.html">People</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="../../../partners.html">Partners</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="../../../research.html">Research</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="../../../accelerating.html">Accelerating</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="../../../blog.html">Blog</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="../../../contact.html">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Hero Spacer -->
+        <section class="hero-section overflow-hidden position-relative z-0 mb-0 mb-lg-0" id="home">
+          <div class="hero-background-short"></div>
+        </section>
+
+        <!-- Blog Intro Section -->
+        <section class="bg-light py-5 mt-6">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8 text-center" data-aos="fade-up">
+                <h2 class="fw-black fs-2 mb-3">🐍 Mamba Blog</h2>
+                <p class="fs-6 text-muted">Is there an alternative to transformer networks?</p>
+                <hr class="my-4" />
+                <h5 class="fw-bold text-start">Index</h5>
+                <ul class="list-unstyled text-start fs-6 mt-3">
+                  <li class="mb-2">
+                    🏆 <a href="1.html" class="text-decoration-none text-primary fw-semibold">Introduction: Sequence-to-Sequence Modeling</a>
+                  </li>
+                  <li class="mb-2">
+                    🚀 <a href="2.html" class="text-decoration-none text-primary fw-semibold">The State-Space Models</a>
+                  </li>
+                  <li class="mb-2">
+                    🐘 <a href="3.html" class="text-decoration-none text-primary fw-semibold">Beyond vanilla SSMs</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <!-- Acknowledgment Section -->
+        <section class="bg-white py-5 mt-6">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8 text-center" data-aos="fade-up">
+                <h5 class="fw-semibold text-muted mb-4">Author of this blog</h5>
+                
+                <!-- Author Card -->
+                <div class="card p-3 shadow-sm" style="border-radius: 12px;">
+                  <div class="row align-items-center">
+                    <!-- Image on the left -->
+                    <div class="col-4 col-md-3 mb-3 mb-md-0">
+                      <img class="rounded-circle" style="max-width: 120px; object-fit: cover;" src="../../../assets/img/people/guido.png" alt="Guido D'Amely">
+                    </div>
+
+                    <!-- Author Info on the right -->
+                    <div class="col-8 col-md-9">
+                      <h5 class="fw-bold text-primary">Guido Maria D’Amely di Melendugno</h5>
+                      <p class="text-muted">Post-Doc Research Associate</p>
+                      <p class="text-opacity-75 lh-lg text-start">
+                        Guido M. D'Amely di Melendugno is a postdoctoral researcher at the PINlab research group in the Department of Computer Science at Sapienza University of Rome. 
+                        His research focuses on deep learning, with a particular interest in computer vision and hyperbolic learning. <br>
+                        He is currently working on generative models for video, online mistake detection, and hierarchical image-text alignment.<br>
+                        Passionate about both research and teaching, he enjoys sharing complex AI concepts in a clear and accessible way.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <!-- Footer -->
+        <footer class="pt-7 pt-lg-8 mt-5">
+          <div class="container">
+            <div class="row gy-2 py-3 justify-content-center justify-content-md-between">
+              <div class="col-auto ps-0">
+                <p class="text-center text-md-start lh-xl text-1100">&copy; 2024 ItalAI. All rights reserved.</p>
+              </div>
+              <img class="col-auto pe-0" style="max-height: 35px;" src="../../../assets/img/logos/ItalAI_logo_simple/ITALAI v3.png" alt="logo" />
+            </div>
+          </div>
+        </footer>
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../../../vendors/popper/popper.min.js"></script>
+    <script src="../../../vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="../../../vendors/is/is.min.js"></script>
+    <script src="../../../vendors/swiper/swiper-bundle.min.js"></script>
+    <script src="../../../vendors/lodash/lodash.min.js"></script>
+    <script src="../../../assets/js/theme.js"></script>
+    <script src="../../../assets/js/hamburger.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 800, once: true });
+    </script>
+  </body>
+</html>

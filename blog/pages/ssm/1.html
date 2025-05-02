@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mamba Blog - Introduction</title>
+    
+    <link href="../../../assets/css/theme.css" rel="stylesheet" id="style-default" />
+    <link href="../../../assets/css/user.min.css" rel="stylesheet" id="user-style-default" />
+    <style>
+      .blog-index li a {
+        color: #0d6efd;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .blog-index li a:hover {
+        text-decoration: underline;
+      }
+      .blog-index li {
+        padding-bottom: 0.5rem;
+      }
+      .blog-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+      .blog-nav a {
+        color: #0d6efd;
+        font-weight: 600;
+      }
+      .blog-section h5 {
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+      .blog-section p, .blog-section ul, .blog-section ol {
+        font-size: 1.05rem;
+        line-height: 1.8;
+      }
+      .blog-section ul, .blog-section ol {
+        padding-left: 1.5rem;
+      }
+      .blog-section li {
+        margin-bottom: 0.5rem;
+      }
+
+      /* === Sidebar Hover Panel === */
+    .sidebar-toggle {
+    position: fixed;
+    top: 140px; /* Set the toggle button to start at 10% of the sidebar's height */
+    right: 0;
+    transform: translateY(-50%);
+    background-color: #00aaff;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 18px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    }
+
+    .sidebar-panel {
+    position: fixed;
+    top: 80px; /* Keep the sidebar below the header */
+    right: -300px;
+    width: 300px;
+    background-color: #343a40;
+    color: white;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+    padding: 2rem 1rem;
+    z-index: 1000;
+    border-left: 1px solid #444;
+    box-sizing: border-box;
+    }
+
+    .sidebar-wrapper:hover .sidebar-panel {
+    right: 0;
+    }
+
+    .sidebar-wrapper:hover .sidebar-toggle {
+    right: 300px;
+    }
+
+    .sidebar-panel h6 {
+    font-weight: bold;
+    color: #00aaff;
+    text-align: center;
+    }
+
+    .sidebar-panel a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s, padding 0.3s;
+    padding: 0.3rem 0;
+    display: block;
+    margin-bottom: 10px;
+    }
+
+    .sidebar-panel a:hover {
+    color: #ffffff;
+    background-color: #3a3f44;
+    padding-left: 0.5rem;
+    border-radius: 5px;
+    }
+
+    .sidebar-panel ul {
+    padding-left: 0.5rem;
+    list-style-type: none;
+    }
+
+    .sidebar-panel ul li {
+    margin-bottom: 10px;
+    }
+
+    .sidebar-wrapper {
+    display: flex;
+    justify-content: center;
+    }
+
+    .sidebar-wrapper .sidebar-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 0;
+    }
+
+    .page-nav {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between; /* Aligns buttons to the left and right */
+    width: 100%;
+    }
+
+    .page-button {
+    background-color: #00aaff;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    width: 48%; /* Buttons take 48% of the sidebar width */
+    transition: background-color 0.3s;
+    }
+
+    .page-button:hover {
+    background-color: #0077cc;
+    }
+
+    .page-nav a {
+    display: inline-block;
+    }
+
+    .content {
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+    }
+    </style>
+  </head>
+  <body>
+    <main class="main pt-5" id="top">
+        <nav class="navbar navbar-expand-md fixed-top" id="navbar" style="background: linear-gradient(90deg, #0a0f46, #0057ff);">
+            <div class="container-fluid px-1">
+              <a href="../../../index.html">
+                <img class="navbar-brand w-25" src="../../../assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png" alt="logo" />
+              </a>
+              <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content">
+                <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0">
+                  <li class="nav-item"><a class="nav-link lh-xl" href="../../../index.html">Home</a></li>
+                  <li class="nav-item"><a class="nav-link lh-xl" href="../../../people.html">People</a></li>
+                  <li class="nav-item"><a class="nav-link lh-xl" href="../../../partners.html">Partners</a></li>
+                  <li class="nav-item"><a class="nav-link lh-xl" href="../../../research.html">Research</a></li>
+                  <li class="nav-item"><a class="nav-link lh-xl" href="../../../accelerating.html">Accelerating</a></li>
+                  <li class="nav-item"><a class="nav-link lh-xl" href="../../../blog.html">Blog</a></li>
+                  <li class="nav-item"><a class="nav-link lh-xl" href="../../../contact.html">Contact Us</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+        <!-- SIDEBAR -->
+        <div class="sidebar-wrapper">
+            <div class="sidebar-toggle">📑 Index</div>
+            <div class="sidebar-panel">
+            <!-- Table of Contents -->
+            <ul class="list-unstyled">
+                <li><a href="#intro">Intro</a></li>
+                <li><a href="#ubiquity">The ubiquity of Sequences</a></li>
+                <li><a href="#challenge">The Sequence-to-Sequence challenge</a></li>
+                <li><a href="#memory">Why it is hard: The Memory Problem</a></li>
+                <li><a href="#evolution">The evolution of solutions</a></li>
+                <li><a href="#importance">Why this matter now</a></li>
+            </ul>
+        
+            <!-- Page navigation buttons -->
+            <div class="page-nav">
+                <a href="0.html" class="page-button">← Previous</a>
+                <a href="2.html" class="page-button">Next →</a>
+            </div>
+            </div>
+        </div>
+
+      <div class="container mt-6">
+        <div class="bg-light py-4 px-4 rounded-3 mb-5">
+          <h3 class="text-center fw-black fs-2 mb-2">🐍 <a href="0.html" class="text-dark text-decoration-none">Mamba Blog</a></h3>
+          <p class="text-center text-muted">Is there an alternative to transformer networks?</p>
+          <div class="d-flex justify-content-center gap-4 mt-3">
+            <a href="0.html" class="btn btn-outline-primary">&larr; Previous</a>
+            <a href="2.html" class="btn btn-outline-primary">Next &rarr;</a>
+          </div>
+        </div>
+
+        <div class="blog-section">
+          <h2 class="fw-bold text-center mb-4">🏆 Introduction: Sequence-to-Sequence Modeling</h2>
+
+          <ul class="blog-index list-unstyled">
+            <li><a href="#intro">Intro</a></li>
+            <li><a href="#ubiquity">The ubiquity of Sequences</a></li>
+            <li><a href="#challenge">The Sequence-to-Sequence challenge</a></li>
+            <li><a href="#memory">Why it is hard: The Memory Problem</a></li>
+            <li><a href="#evolution">The evolution of solutions</a></li>
+            <li><a href="#importance">Why this matter now</a></li>
+          </ul>
+
+          <h5 id="intro">Intro</h5>
+          <p>Imagine you're having a conversation with a friend. As they speak, you're not just processing each word in isolation – you're continuously maintaining context, anticipating what might come next, and understanding how earlier parts of the conversation influence the meaning of what's being said now. We often take this natural ability to process and understand sequences for granted, yet it represents one of the most fascinating challenges in artificial intelligence.</p>
+
+          <h5 id="ubiquity">The ubiquity of Sequences</h5>
+          <p>Sequences are everywhere. They're in the words we read, the music we listen to, the videos we watch, and even the financial markets we track. A sequence is simply an ordered collection of elements where the order matters: the sentence "The cat sat on the mat" carries a very different meaning from "The mat sat on the cat." This ordering isn't just about syntax – it often encodes crucial temporal or spatial relationships.</p>
+
+          <h5 id="challenge">The Sequence-to-Sequence Challenge</h5>
+          <p>At its core, many AI tasks can be framed as sequence-to-sequence problems: given an input sequence, generate an appropriate output sequence. This could mean:</p>
+          <ul>
+            <li>Translating English text to French</li>
+            <li>Transcribing speech to text</li>
+            <li>Generating music</li>
+            <li>Predicting protein structures</li>
+          </ul>
+          <p>The challenge lies in capturing both <strong>short-term and long-term dependencies</strong>. In language, for instance, the meaning of a word might depend on context from several sentences ago. In music, a motif introduced in the beginning might influence the composition minutes later.</p>
+
+          <h5 id="memory">Why it is hard: The Memory Problem</h5>
+          <ol>
+            <li><strong>Variable Length</strong>: Sequences can be arbitrarily long.</li>
+            <li><strong>Long-Range Dependencies</strong>: Information from the distant past might suddenly become relevant.</li>
+            <li><strong>Memory Efficiency</strong>: Storing and processing all previous information becomes computationally expensive.</li>
+            <li><strong>Causality</strong>: In many applications, we must process sequences in real-time, using only past information to predict the future.</li>
+          </ol>
+
+          <h5 id="evolution">The Evolution of Solutions</h5>
+          <ul>
+            <li><strong>Recurrent Neural Networks (RNNs)</strong>: Process sequences one element at a time, maintaining an internal memory state.</li>
+            <li><strong>Transformers</strong>: Use attention mechanisms to directly model relationships between all elements of a sequence.</li>
+            <li><strong>State Space Models (SSMs)</strong>: Bring continuous-time dynamics from control theory into the deep learning realm.</li>
+          </ul>
+
+          <h5 id="importance">Why this matter now</h5>
+          <p>The limitations of current approaches become more apparent as we deal with increasingly longer sequences – from processing entire books to analyzing hours of video. The quadratic memory scaling of Transformers and the limited memory of RNNs pose real constraints on what we can achieve.</p>
+          <p>This is where our story begins: with the revival of a mathematical framework from the 1960s that might hold the key to more efficient sequence processing. Let's explore how State Space Models evolved from controlling rockets to powering the next generation of AI models.</p>
+        </div>
+
+        <footer class="text-center pt-6 pb-4 mt-5">
+          <p class="mb-2">&copy; 2024 ItalAI. All rights reserved.</p>
+          <img src="../../../assets/img/logos/ItalAI_logo_simple/ITALAI v3.png" alt="logo" style="max-height: 35px;" />
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

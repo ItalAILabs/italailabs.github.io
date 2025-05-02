@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta
+      name="google-site-verification"
+      content="trjGoWqK4ZnLygnmefGpW0b2ev8If5_3QDtXC_rm83w"
+    />
+    <title>ItalAI - Italian Ingenuity in AI</title>
+    <meta
+      name="description"
+      content="Discover ItalAI and learn about our AI research, development projects, and startup incubation programs."
+    />
+
+    <!-- Favicons -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/img/logos/ItalAI_logo_simple/ITALAI v3 32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/img/logos/ItalAI_logo_simple/ITALAI v3 16x16.png"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/img/favicons/favicon.ico"
+    />
+    <link
+      rel="manifest"
+      href="assets/img/favicons/manifest.json"
+    />
+    <meta
+      name="msapplication-TileImage"
+      content="assets/img/logos/ItalAI_logo_simple/ITALAI v3 150x150.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="vendors/swiper/swiper-bundle.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="assets/css/theme.css"
+      rel="stylesheet"
+      id="style-default"
+    />
+    <link
+      href="assets/css/user-rtl.min.css"
+      rel="stylesheet"
+      id="user-style-rtl"
+    />
+    <link
+      href="assets/css/user.min.css"
+      rel="stylesheet"
+      id="user-style-default"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Reddit+Mono:wght@200..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/aos@next/dist/aos.css"
+    />
+
+    <!-- ==================== CUSTOM STYLES & ANIMATIONS ==================== -->
+    <style>
+      /******************************************
+      1) GLOBAL IMAGE & CARD HOVER EFFECTS
+      ******************************************/
+      .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      img {
+        transition: transform 0.3s ease;
+      }
+      img:hover {
+        transform: scale(1.03);
+      }
+
+      /******************************************
+      2) SECTION BACKGROUND & PALETTE
+         Using #003abb as primary,
+         #dce7f0 as accent,
+         #f8f9fa or #fff as light backgrounds.
+      ******************************************/
+
+      /* Hero: gradient from #bde8fd to #fff plus floating blob */
+      .hero-background {
+        position: relative;
+        background: linear-gradient(
+            135deg,
+            rgba(189, 232, 253, 1) 0%,
+            rgba(255, 255, 255, 1) 100%
+          )
+          no-repeat;
+      }
+      .hero-background::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 300px;
+        height: 300px;
+        background: rgba(0, 58, 187, 0.2);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite alternate;
+        z-index: 0;
+      }
+
+      /* About & Mission: solid white background */
+      #aboutMission {
+        background-color: #ffffff !important;
+      }
+
+      /* Services: light gray background, floating bubble in #dce7f0 */
+      #services {
+        position: relative;
+        background-color: #f8f9fa;
+        overflow: hidden;
+      }
+      #services::before {
+        content: "";
+        position: absolute;
+        bottom: -100px;
+        left: -100px;
+        width: 300px;
+        height: 300px;
+        background: #dce7f0;
+        opacity: 0.6;
+        border-radius: 50%;
+        animation: float2 8s ease-in-out infinite alternate;
+        z-index: 0;
+      }
+
+      /* Partners: also light gray, floating gradient ring replaced with subtle overlay in #dce7f0 */
+      #partners {
+        position: relative;
+        background-color: #f8f9fa;
+        overflow: hidden;
+      }
+      #partners::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        height: 300px;
+        background: rgba(0, 58, 187, 0.2);
+        border-radius: 50%;
+        animation: spin 20s linear infinite;
+        z-index: 0;
+        opacity: 0.2;
+      }
+
+      /* Team: also #f8f9fa with subtle mesh */
+      #team {
+        background: radial-gradient(
+            circle at 10% 20%,
+            rgba(0, 58, 187, 0.1),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 80% 50%,
+            rgba(220, 231, 240, 0.2),
+            transparent 40%
+          ),
+          #f8f9fa;
+        background-blend-mode: screen;
+        position: relative;
+      }
+
+      /* Contact: white background with small radial overlay in #dce7f0 */
+      #contact {
+        position: relative;
+        background-color: #ffffff;
+        overflow: hidden;
+      }
+      /* #contact::before {
+        content: "";
+        position: absolute;
+        top: -80px;
+        left: 0;
+        width: 100%;
+        height: 120px;
+        background: radial-gradient(
+          circle,
+          rgba(0, 58, 187, 0.15) 20%,
+          transparent 80%
+        );
+        z-index: 0;
+      } */
+
+      /******************************************
+      3) KEYFRAMES
+      ******************************************/
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(30px);
+        }
+      }
+      @keyframes float2 {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(40px, -30px) scale(1.1);
+        }
+      }
+      @keyframes spin {
+        0% {
+          transform: translateX(-50%) rotate(0deg);
+        }
+        100% {
+          transform: translateX(-50%) rotate(360deg);
+        }
+      }
+
+      /******************************************
+      4) AOS: We'll apply data-aos attributes 
+         in the HTML below
+      ******************************************/
+    </style>
+  </head>
+
+  <body>
+    <main class="main" id="top">
+      <div class="content">
+        <!-- ====================== NAVBARS (unchanged) ====================== -->
+        <nav
+          class="navabarvis navbar navbar-expand-md fixed-top"
+          id="navbar"
+          data-navbar-soft-on-scroll="data-navbar-soft-on-scroll"
+        >
+          <div class="container-fluid px-1">
+            <a href="index.html">
+              <img
+                class="navbar-brand w-25"
+                src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png"
+                alt="logo"
+              />
+            </a>
+            <div
+              class="collapse navbar-collapse justify-content-md-end"
+              id="navbar-content"
+              data-navbar-collapse="data-navbar-collapse"
+            >
+              <ul
+                class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0"
+                data-navbar-nav="data-navbar-nav"
+              >
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="index.html"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="people.html"
+                    >People</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="partners.html"
+                    >Partners</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="research.html"
+                    >Research</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="accelerating.html"
+                    >Accelerating</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="tech_transfer.html"
+                    >Tech Transfer</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="blog.html"
+                    >Blog</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="contact.html"
+                    >Contact Us</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!--Hamburger menu-->
+        <nav
+          class="hambarvis navbar fixed-top"
+          id="hambar"
+          data-hambar-soft-on-scroll="data-hambar-soft-on-scroll"
+        >
+          <div class="container-fluid px-1">
+            <ul class="navbar-nav-horizontal">
+              <li>
+                <a href="index.html">
+                  <img
+                    class="navbar-brand w-25"
+                    src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png"
+                    alt="logo"
+                  />
+                </a>
+              </li>
+              <li style="float: right;">
+                <a class="hamburger" onclick="trigger_hamburger()">
+                  <i class="fa fa-bars"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="pt-2" id="nav-links">
+            <ul
+              class="navbar-nav pt-0 pb-1 pt-md-0 pb-md-0 px-1 px-md-2"
+              style="text-align: right;"
+              data-navbar-nav="data-navbar-nav"
+            >
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="people.html">People</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="partners.html">Partners</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="research.html">Research</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="accelerating.html"
+                  >Accelerating</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="tech_transfer.html"
+                  >Tech Transfer</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="blog.html"
+                  >Blog</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- ==================== PAGE CONTENT START ==================== -->
+        <div data-bs-target="#navbar" data-bs-spy="scroll" tabindex="0">
+          <!-- ========== SECTION ONE: HERO ========== -->
+          <section
+            class="hero-section overflow-hidden position-relative z-0 mb-0 mb-lg-0"
+            id="home"
+            data-aos="fade-up"
+          >
+            <div class="hero-background">
+              <div class="container">
+                <!-- Key: justify-content-between pushes columns apart -->
+                <div
+                  class="row gy-4 gy-md-8 pt-9 pt-lg-0 align-items-center justify-content-between"
+                >
+                  <!-- Left Column: Logo, Text, and Button -->
+                  <div
+                    class="col-lg-5 col-xl-6 col-sm-10"
+                    data-aos="fade-right"
+                  >
+                    <div class="text-center text-lg-start">
+                      <!-- Bigger Logo -->
+                      <img
+                        class="img-fluid mb-3"
+                        style="width: 130%; max-width: 500px;"
+                        src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 cropped.svg"
+                        alt="ItalAI Logo"
+                      />
+
+                      <!-- Split Motto -->
+                      <p
+                        class="fs-8 mb-4 mb-lg-5 lh-lg fw-normal"
+                      >
+                        <span
+                          style="
+                            font-size: 1.9rem;
+                            font-weight: bold;
+                          "
+                          >Italian Ingenuity in <br>Artificial Intelligence</span
+                        >
+                        <br />
+                        <span style="font-size: 1.3rem;"
+                          >Inspired by Silicon Valley's
+                          transformative spirit</span
+                        >
+                      </p>
+
+                      <div>
+                        <a
+                          href="#aboutMission"
+                          class="btn btn-primary btn-lg"
+                        >
+                          Learn More
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Right Column: Brain Image -->
+                  <div
+                    class="col-lg-5 col-xl-6 col-sm-10"
+                    data-aos="fade-left"
+                  >
+                    <div class="text-center text-lg-end">
+                      <!-- Bigger Brain Image -->
+                      <img
+                        class="img-fluid mb-3"
+                        style="width: 110%; max-width: 800px;"
+                        src="assets/img/illustrations/brain2.png"
+                        alt="brain"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Wave at the bottom -->
+              <div
+                class="position-absolute bottom-0 start-0 end-0 z-1"
+              >
+                <img
+                  class="overflow-hidden wave mb-md-n2"
+                  src="assets/img/illustrations/White_Wave.svg"
+                  alt=""
+                />
+                <div
+                  style="outline: 0.1px solid white;"
+                ></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== SECTION TWO: ABOUT & MISSION ========== -->
+          <section
+            id="aboutMission"
+            class="py-5"
+            data-aos="fade-up"
+            style="background-color: #ffffff !important;"
+          >
+            <div class="container">
+              <div class="row g-4">
+                <!-- About Us Card -->
+                <div
+                  class="col-md-6"
+                  data-aos="zoom-in-right"
+                >
+                  <div
+                    class="card text-center border-0"
+                    style="background-color: #dce7f0;"
+                  >
+                    <div class="card-body py-5">
+                      <h5
+                        class="card-title fs-5 fw-bold mb-3"
+                      >
+                        About Us
+                      </h5>
+                      <p
+                        class="card-text mb-0 lh-xl px-3"
+                      >
+                        ItalAI is a technology accelerator
+                        and startup incubator aiming to
+                        revolutionize the landscape of AI
+                        development. Founded on a rich
+                        academic foundation from esteemed
+                        institutions and with strong
+                        connections with Silicon Valley, we
+                        bring a unique blend of theoretical
+                        expertise and practical know-how to
+                        the table. At ItalAI, we advocate a
+                        modern approach to AI development,
+                        seamlessly integrating
+                        cutting-edge research
+                        methodologies with the creation of
+                        groundbreaking AI technologies.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Our Mission Card -->
+                <div
+                  class="col-md-6"
+                  data-aos="zoom-in-left"
+                >
+                  <div
+                    class="card text-center border-0"
+                    style="background-color: #dce7f0;"
+                  >
+                    <div class="card-body py-5">
+                      <h5
+                        class="card-title fs-5 fw-bold mb-3"
+                      >
+                        Our Mission
+                      </h5>
+                      <p
+                        class="card-text mb-0 lh-xl px-3"
+                      >
+                        Our mission is to advance AI
+                        innovation by pursuing the latest
+                        advancements and applying them in
+                        real-world scenarios. We accelerate
+                        new AI technologies, incubate
+                        projects into startups, and spin
+                        them out as independent businesses.
+                        Inspired by Silicon Valley, this
+                        unique approach in Italy aims to
+                        shape the future of AI and
+                        humanity. Join us on this journey.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SERVICES SECTION -->
+          <section
+            id="services"
+            class="py-5"
+            data-aos="fade-up"
+          >
+            <div class="container">
+              <h1
+                class="text-center mb-5"
+                style="color: #003abb; font-weight: bold;"
+                data-aos="fade-down"
+              >
+                We solve AI for you
+              </h1>
+              <h4
+                class="text-center mb-5"
+                style="color: #000;"
+                data-aos="fade-down"
+                data-aos-delay="200"
+              >
+                ItalAI seamlessly integrates
+                cutting-edge research into real-world
+                applications and innovative technologies.
+              </h4>
+              <div class="row">
+                <!-- Research Card -->
+                <div
+                  class="col-md-4 mb-4"
+                  data-aos="flip-left"
+                >
+                  <div
+                    class="card h-100"
+                    style="
+                      background-color: #dce7f0;
+                      position: relative;
+                    "
+                  >
+                    <img
+                      src="assets/img/icons/research_icon.png"
+                      alt="Research Icon"
+                      style="
+                        position: absolute;
+                        top: 10px;
+                        left: 10px;
+                        width: 60px;
+                        height: auto;
+                      "
+                    />
+                    <div
+                      class="card-body text-center"
+                      style="padding-top: 70px;"
+                    >
+                      <h3
+                        class="card-title fs-5 mb-3"
+                        style="color: #003abb;"
+                      >
+                        Research
+                      </h3>
+                      <p
+                        class="card-text fs-8"
+                        style="color: #003abb;"
+                      >
+                        Our research is at the forefront
+                        of AI innovation. We publish in
+                        top-tier conferences and journals,
+                        redefining what's possible in AI.
+                      </p>
+                    </div>
+                    <div
+                      class="card-footer text-center bg-transparent border-0"
+                    >
+                      <a
+                        href="research.html"
+                        class="btn btn-lg"
+                        style="
+                          background-color: #003abb;
+                          color: #fff;
+                        "
+                        >Learn More</a
+                      >
+                    </div>
+                    <div
+                      class="card-body text-center"
+                      style="padding-top: 5px;"
+                    ></div>
+                  </div>
+                </div>
+
+                <!-- Acceleration Card -->
+                <div
+                  class="col-md-4 mb-4"
+                  data-aos="flip-left"
+                  data-aos-delay="100"
+                >
+                  <div
+                    class="card h-100"
+                    style="
+                      background-color: #dce7f0;
+                      position: relative;
+                    "
+                  >
+                    <img
+                      src="assets/img/icons/acceleration_icon.png"
+                      alt="Acceleration Icon"
+                      style="
+                        position: absolute;
+                        top: 10px;
+                        left: 10px;
+                        width: 60px;
+                        height: auto;
+                      "
+                    />
+                    <div
+                      class="card-body text-center"
+                      style="padding-top: 70px;"
+                    >
+                      <h3
+                        class="card-title fs-6 mb-3"
+                        style="color: #003abb;"
+                      >
+                        Acceleration
+                      </h3>
+                      <p
+                        class="card-text fs-8"
+                        style="color: #003abb;"
+                      >
+                        We incubate projects into
+                        startups, spin them out as
+                        independent businesses, and
+                        accelerate external startups on
+                        the AI-side.
+                      </p>
+                    </div>
+                    <div
+                      class="card-footer text-center bg-transparent border-0"
+                    >
+                      <a
+                        href="accelerating.html"
+                        class="btn btn-lg"
+                        style="
+                          background-color: #003abb;
+                          color: #fff;
+                        "
+                        >Learn More</a
+                      >
+                    </div>
+                    <div
+                      class="card-body text-center"
+                      style="padding-top: 5px;"
+                    ></div>
+                  </div>
+                </div>
+
+                <!-- Business Solutions Card -->
+                <div class="col-md-4 mb-4" data-aos="flip-left" data-aos-delay="200">
+                  <div class="card h-100" style="background-color: #dce7f0; position: relative;">
+                    
+                    <!-- Title moved here -->
+
+                    <div style="padding-top: 10px;">
+                      <h3 class="card-title fs-6 mb-0 text-center pt-3" style="color: #003abb;">
+                        Technological<br>Transfer
+                      </h3>
+                    </div>
+                    
+                    
+                    <img
+                      src="assets/img/icons/business_icon.png"
+                      alt="Business Solutions Icon"
+                      style="
+                        position: absolute;
+                        top: 10px;
+                        left: 10px;
+                        width: 60px;
+                        height: auto;
+                      "
+                    />
+                    <div class="card-body text-center" style="padding-top: 20px;">
+                      <p class="card-text fs-8" style="color: #003abb;">
+                        We help businesses integrate AI into workflows with custom solutions that drive new products, use cases, and efficiency.
+                      </p>
+                    </div>
+                    
+                    <div class="card-footer text-center bg-transparent border-0" style="position: relative; top: -30px;">
+                      <a
+                        href="tech_transfer.html"
+                        class="btn btn-lg"
+                        style="background-color: #003abb; color: #fff;"
+                      >
+                        Learn More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- PARTNERS SECTION -->
+          <section
+            id="partners"
+            class="py-5"
+            data-aos="fade-up"
+          >
+            <div class="container">
+              <h2
+                class="text-center mb-5"
+                style="color: #003abb;"
+                data-aos="fade-down"
+              >
+                We collaborate with leading institutions
+                and companies worldwide to drive
+                technological innovation
+              </h2>
+              <div class="row justify-content-center">
+                <!-- Strategic Partners Card -->
+                <div class="container">
+                  <h3
+                    class="text-center mb-5"
+                    style="color: #003abb;"
+                    data-aos="fade-down"
+                  >
+                    Strategic Partners
+                  </h3>
+                  <div class="row justify-content-center">
+                    <div class="col-md-10 mb-4" data-aos="zoom-in">
+                      <div
+                        class="card"
+                        style="
+                          background-color: #dce7f0;
+                          border: none;
+                        "
+                      >
+                        <div class="card-body text-center">
+                          <div
+                            class="d-flex flex-wrap justify-content-center align-items-center"
+                          >
+                            <div class="mx-3 my-2">
+                              <img
+                                src="assets/img/partners/pinlab.png"
+                                alt="Strategic Partner 1"
+                                style="max-width: 200px;"
+                              />
+                            </div>
+                            <div class="mx-3 my-2">
+                              <img
+                                src="assets/img/partners/Panasonic-Logo.png"
+                                alt="Strategic Partner 2"
+                                style="max-width: 200px;"
+                              />
+                            </div>
+                            <div class="mx-3 my-2">
+                              <img
+                                src="assets/img/partners/Sapienza-Full-Logo.png"
+                                alt="Strategic Partner 3"
+                                style="max-width: 200px;"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Research Partners Card -->
+                    <div class="container">
+                      <h3
+                        class="text-center mb-5"
+                        style="color: #003abb;"
+                        data-aos="fade-down"
+                      >
+                        Research Partners
+                      </h3>
+                      <div class="row justify-content-center">
+                        <div
+                          class="col-md-10"
+                          data-aos="zoom-in"
+                          data-aos-delay="100"
+                        >
+                          <div
+                            class="card"
+                            style="
+                              background-color: #dce7f0;
+                              border: none;
+                            "
+                          >
+                            <!-- <div class="card-body text-center">
+                              <div
+                                class="d-flex flex-wrap justify-content-center"
+                              >
+                                <div class="mx-3 my-2">
+                                  <img
+                                    src="assets/img/partners/placeholder4.png"
+                                    alt="UC Berkley"
+                                    style="max-width: 100px;"
+                                  />
+                                </div>
+                                <div class="mx-3 my-2">
+                                  <img
+                                    src="assets/img/partners/placeholder5.png"
+                                    alt="Stanford University"
+                                    style="max-width: 100px;"
+                                  />
+                                </div>
+                                <div class="mx-3 my-2">
+                                  <img
+                                    src="assets/img/partners/placeholder6.png"
+                                    alt="University of Padova"
+                                    style="max-width: 100px;"
+                                  />
+                                </div>
+                                <div class="mx-3 my-2">
+                                  <img
+                                    src="assets/img/partners/placeholder7.png"
+                                    alt="University of Catania"
+                                    style="max-width: 100px;"
+                                  />
+                                </div>
+                                <div class="mx-3 my-2">
+                                  <img
+                                    src="assets/img/partners/placeholder4.png"
+                                    alt="Technical University of Munich"
+                                    style="max-width: 100px;"
+                                  />
+                                </div>
+                                <div class="mx-3 my-2">
+                                  <img
+                                    src="assets/img/partners/placeholder5.png"
+                                    alt="University of Amsterdam"
+                                    style="max-width: 100px;"
+                                  />
+                                </div>
+                              </div>
+                            </div> -->
+                            <!-- Include this card inside your container/row as needed -->
+                            <div class="card" style="background-color: #dce7f0; border: none;">
+                              <div class="card-body text-center">
+
+                                <!-- Boxes for each university, using brand colors & approximate fonts -->
+
+                                <div class="d-flex flex-wrap justify-content-center align-items-center">
+                                  
+                                  <!-- Stanford -->
+                                  <div 
+                                    class="mx-3 my-2"
+                                    style="
+                                      width: 170px; height: 70px;
+                                      background-color: #8C1515;
+                                      color: #fff;
+                                      display: flex; align-items: center; justify-content: center;
+                                      border-radius: 5px; font-weight: bold;
+                                      font-family: 'Source Sans 3', sans-serif;
+                                    "
+                                  >
+                                    Stanford
+                                  </div>
+
+                                  <!-- UC Berkeley -->
+                                  <div 
+                                    class="mx-3 my-2"
+                                    style="
+                                      width: 170px; height: 70px;
+                                      background-color: #003262;
+                                      color: #fff;
+                                      display: flex; align-items: center; justify-content: center;
+                                      border-radius: 5px; font-weight: bold;
+                                      font-family: 'Crimson Text', serif;
+                                    "
+                                  >
+                                    UC Berkeley
+                                  </div>
+
+                                  <!-- Università di Catania -->
+                                  <div 
+                                    class="mx-3 my-2"
+                                    style="
+                                      width: 170px; height: 70px;
+                                      background-color: #0073B6;
+                                      color: #fff;
+                                      display: flex; align-items: center; justify-content: center;
+                                      border-radius: 5px; font-weight: bold;
+                                      font-family: 'Montserrat', sans-serif;
+                                      text-align: center;
+                                    "
+                                  >
+                                    Università di Catania
+                                  </div>
+
+                                  <!-- Università degli Studi di Padova -->
+                                  <div 
+                                    class="mx-3 my-2"
+                                    style="
+                                      width: 170px; height: 70px;
+                                      background-color: #B5121B;
+                                      color: #fff;
+                                      display: flex; align-items: center; justify-content: center;
+                                      border-radius: 5px; font-weight: bold;
+                                      font-family: Georgia, serif;
+                                      text-align: center;
+                                    "
+                                  >
+                                    Università degli Studi di Padova
+                                  </div>
+
+                                  <!-- TUM -->
+                                  <div 
+                                    class="mx-3 my-2"
+                                    style="
+                                      width: 170px; height: 70px;
+                                      background-color: #006699;
+                                      color: #fff;
+                                      display: flex; align-items: center; justify-content: center;
+                                      border-radius: 5px; font-weight: bold;
+                                      font-family: 'Roboto', sans-serif;
+                                      text-align: center;
+                                    "
+                                  >
+                                    Technical University of Munich
+                                  </div>
+
+                                  <!-- University of Amsterdam -->
+                                  <div 
+                                    class="mx-3 my-2"
+                                    style="
+                                      width: 170px; height: 70px;
+                                      background-color: #000;
+                                      color: #fff;
+                                      display: flex; align-items: center; justify-content: center;
+                                      border-radius: 5px; font-weight: bold;
+                                      font-family: 'Cormorant Garamond', serif;
+                                      text-align: center;
+                                    "
+                                  >
+                                    University of Amsterdam
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                    <div
+                      class="card-footer text-center bg-transparent border-0 mt-4"
+                      data-aos="fade-up"
+                    >
+                      <a
+                        href="partners.html"
+                        class="btn btn-lg"
+                        style="
+                          background-color: #f74d4d;
+                          color: #fff;
+                        "
+                        >Learn More</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- TEAM SECTION -->
+          <!-- <style>
+            .vertical-bar {
+              width: 4px;
+              height: 50px;
+              background-color: #003abb;
+              margin-right: 15px;
+            }
+          </style> -->
+
+          <!-- Meet Our Team Section -->
+          <section class="py-6 bg-light" style="background-color: #f8f9fa;" data-aos="fade-up">
+            <div class="container text-center" data-aos="fade-up">
+              <h1 class="text-center mb-5" style="color: #003abb; font-weight: bold;" data-aos="fade-down"> Meet our Team </h1>
+              
+              <!-- Team Picture -->
+              <div class="mb-4">
+                <img 
+                  src="assets/img/team_photo.jpeg" 
+                  alt="Team Photo" 
+                  class="img-fluid rounded shadow" 
+                  style="max-width: 800px;"
+                />
+              </div>
+
+              <!-- Button to People Page -->
+              <div
+                class="card-footer text-center bg-transparent border-0"
+                style="margin-top: 20px;"
+                data-aos="fade-up"
+              >
+                <a
+                  href="people.html"
+                  class="btn btn-lg"
+                  style="
+                    background-color: #003abb;
+                    color: #fff;
+                  "
+                  >Learn More</a
+                >
+              </div>
+            </div>
+          </section>
+
+
+
+
+          <!-- <section
+            id="team"
+            class="py-5"
+            
+          >
+            <div class="container">
+              <h1
+                class="text-center mb-5"
+                style="color: #003abb; font-weight: bold;"
+                data-aos="fade-down"
+              >
+                Meet our Team
+              </h1>
+
+              
+              <div
+                class="row align-items-start text-center mb-5"
+                data-aos="zoom-in"
+              > 
+                <div
+                  class="col-md-6 d-flex flex-column align-items-center mb-4"
+                >
+                  <img
+                    src="assets/img/people/luca_rigazio.jpg"
+                    alt="Luca Rigazio"
+                    class="rounded-circle mb-2"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                    "
+                  />
+                  <h5
+                    style="
+                      color: #003abb;
+                      margin-bottom: 0;
+                    "
+                  >
+                    Luca Rigazio
+                  </h5>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-top: 8px;
+                    "
+                  >
+                    <div class="vertical-bar"></div>
+                    <p
+                      style="
+                        color: #003abb;
+                        margin-bottom: 0;
+                      "
+                    >
+                      Strategic Advisor<br />
+                      Chief AI Officer of Cairns Health
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                    class="col-md-6 d-flex flex-column align-items-center justify-content-center mb-4 mx-auto"
+                >
+                  <img
+                    src="assets/img/people/fabio_galasso.jpg"
+                    alt="Prof. Fabio Galasso"
+                    class="rounded-circle mb-2"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                    "
+                  />
+                  <h5
+                    style="
+                      color: #003abb;
+                      margin-bottom: 0;
+                    "
+                  >
+                    Prof. Fabio Galasso
+                  </h5>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-top: 8px;
+                    "
+                  >
+                    <div class="vertical-bar"></div>
+                    <p
+                      style="
+                        color: #003abb;
+                        margin-bottom: 0;
+                      "
+                    >
+                      Co-Founder<br />
+                      Head of the Perception and
+                      Intelligence lab
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="row align-items-start text-center mb-5"
+                data-aos="fade-up"
+              >
+                <div
+                  class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-4"
+                >
+                  <img
+                    src="assets/img/people/lucaF.jpeg"
+                    alt="Luca Franco"
+                    class="rounded-circle mb-2"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                    "
+                  />
+                  <h5
+                    style="
+                      color: #044557;
+                      margin-bottom: 0;
+                    "
+                  >
+                    Luca Franco
+                  </h5>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-top: 8px;
+                    "
+                  >
+                    <div class="vertical-bar"></div>
+                    <p
+                      style="
+                        color: #044557;
+                        margin-bottom: 0;
+                      "
+                    >
+                      General Manager &<br />
+                      Lead Researcher
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-4"
+                >
+                  <img
+                    src="assets/img/people/alessioS.jpeg"
+                    alt="Alessio Sampieri"
+                    class="rounded-circle mb-2"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                    "
+                  />
+                  <h5
+                    style="
+                      color: #044557;
+                      margin-bottom: 0;
+                    "
+                  >
+                    Alessio Sampieri
+                  </h5>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-top: 8px;
+                    "
+                  >
+                    <div class="vertical-bar"></div>
+                    <p
+                      style="
+                        color: #044557;
+                        margin-bottom: 0;
+                      "
+                    >
+                      Lead Researcher
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-4"
+                >
+                  <img
+                    src="assets/img/people/alessandro_flaborea_cut.jpg"
+                    alt="Alessandro Flaborea"
+                    class="rounded-circle mb-2"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                    "
+                  />
+                  <h5
+                    style="
+                      color: #044557;
+                      margin-bottom: 0;
+                    "
+                  >
+                    Alessandro Flaborea
+                  </h5>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-top: 8px;
+                    "
+                  >
+                    <div class="vertical-bar"></div>
+                    <p
+                      style="
+                        color: #044557;
+                        margin-bottom: 0;
+                      "
+                    >
+                      Lead Researcher
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-4"
+                >
+                  <img
+                    src="assets/img/people/valentino_sacco.jpeg"
+                    alt="Valentino Sacco"
+                    class="rounded-circle mb-2"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                    "
+                  />
+                  <h5
+                    style="
+                      color: #044557;
+                      margin-bottom: 0;
+                    "
+                  >
+                    Valentino Sacco
+                  </h5>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-top: 8px;
+                    "
+                  >
+                    <div class="vertical-bar"></div>
+                    <p
+                      style="
+                        color: #044557;
+                        margin-bottom: 0;
+                      "
+                    >
+                      Researcher
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="row align-items-start text-center"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <div
+                  class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-4"
+                >
+                  <img
+                    src="assets/img/people/Anastasiia_photo.jpg"
+                    alt="Anastasia Motyreva"
+                    class="rounded-circle mb-2"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                    "
+                  />
+                  <h5
+                    style="
+                      color: #044557;
+                      margin-bottom: 0;
+                    "
+                  >
+                    Anastasia Motyreva
+                  </h5>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-top: 8px;
+                    "
+                  >
+                    <div class="vertical-bar"></div>
+                    <p
+                      style="
+                        color: #044557;
+                        margin-bottom: 0;
+                      "
+                    >
+                      Social Media and Marketing Manager
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-4"
+                >
+                  <img
+                    src="assets/img/people/cristiana_p_res.png"
+                    alt="Cristiana Polici"
+                    class="rounded-circle mb-2"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                    "
+                  />
+                  <h5
+                    style="
+                      color: #044557;
+                      margin-bottom: 0;
+                    "
+                  >
+                    Cristiana Polici
+                  </h5>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-top: 8px;
+                    "
+                  >
+                    <div class="vertical-bar"></div>
+                    <p
+                      style="
+                        color: #044557;
+                        margin-bottom: 0;
+                      "
+                    >
+                      Administrative Management
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-4"
+                >
+                  <img
+                    src="assets/img/people/LucaR_photo_cut.jpeg"
+                    alt="Luca Romani"
+                    class="rounded-circle mb-2"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                    "
+                  />
+                  <h5
+                    style="
+                      color: #044557;
+                      margin-bottom: 0;
+                    "
+                  >
+                    Luca Romani
+                  </h5>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-top: 8px;
+                    "
+                  >
+                    <div class="vertical-bar"></div>
+                    <p
+                      style="
+                        color: #044557;
+                        margin-bottom: 0;
+                      "
+                    >
+                      Researcher
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-4"
+                >
+                  <img
+                    src="assets/img/people/Matteo_photo.jpg"
+                    alt="Matteo Migliarini"
+                    class="rounded-circle mb-2"
+                    style="
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                    "
+                  />
+                  <h5
+                    style="
+                      color: #044557;
+                      margin-bottom: 0;
+                    "
+                  >
+                    Matteo Migliarini
+                  </h5>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-top: 8px;
+                    "
+                  >
+                    <div class="vertical-bar"></div>
+                    <p
+                      style="
+                        color: #044557;
+                        margin-bottom: 0;
+                      "
+                    >
+                      Researcher
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="card-footer text-center bg-transparent border-0"
+              style="margin-top: 20px;"
+              data-aos="fade-up"
+            >
+              <a
+                href="people.html"
+                class="btn btn-lg"
+                style="
+                  background-color: #003abb;
+                  color: #fff;
+                "
+                >Learn More</a
+              >
+            </div>
+          </section> 
+        -->
+
+          <!-- CONTACT SECTION -->
+          <section id="contact" class="py-5" data-aos="fade-up">
+            <div class="container">
+              <div
+                class="row align-items-start"
+                style="min-height: 400px;"
+              >
+                <!-- Left Column: Contact Form -->
+                <div
+                  class="col-md-6 pe-md-5 mb-4"
+                  data-aos="fade-right"
+                >
+                  <h2
+                    class="fs-4 fs-lg-3 fw-bold mb-3 lh-sm"
+                  >
+                    Get in touch with us
+                  </h2>
+                  <p
+                    class="fs-8 mb-4 lh-lg fw-normal"
+                  >
+                    Share with us your research or
+                    startup ideas and we'll help make
+                    them reality!
+                  </p>
+
+                  <!-- Contact Form -->
+                  <form id="mailForm">
+                    <div class="mb-3">
+                      <label
+                        for="name"
+                        class="form-label"
+                        >What's your name?</label
+                      >
+                      <input
+                        class="form-control"
+                        id="name"
+                        type="text"
+                        name="name"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label
+                        for="email"
+                        class="form-label"
+                        >Enter your email:</label
+                      >
+                      <input
+                        class="form-control"
+                        id="email"
+                        type="email"
+                        name="email"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label
+                        for="idea"
+                        class="form-label"
+                        >Pitch your idea!</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="idea"
+                        rows="5"
+                        name="message"
+                        style="resize: none;"
+                        required
+                      ></textarea>
+                    </div>
+                    <div class="d-grid">
+                      <button
+                        class="btn btn-lg btn-primary lh-xl"
+                        type="submit"
+                        id="submit"
+                      >
+                        Send
+                      </button>
+                    </div>
+
+                    <div class="row mt-4">
+                      <div class="col-12 text-center">
+                        <p class="text-muted fs-9">
+                          By submitting your personal information, you agree to our
+                          <a href="assets/privacy-policy.pdf" class="text-primary" download="Privacy_Policy" target="_blank">Privacy Policy</a>.
+                          Please read it carefully before proceeding.
+                        </p>
+                      </div>
+                    </div>
+                  </form>
+
+                  <!-- Success/Error Messages -->
+                  <div
+                    id="errorMessage"
+                    class="error-message mt-2"
+                    style="display: none; color: red;"
+                  >
+                    An error occurred. We are sorry, but
+                    our contact form is not working at
+                    the moment. Please contact us using
+                    the info listed on this page.
+                  </div>
+                  <div
+                    id="successMessage"
+                    class="success-message mt-2"
+                    style="display: none; color: green;"
+                  >
+                    Message sent successfully!
+                  </div>
+                </div>
+
+                <!-- Right Column: Centered Heading, Left-Aligned Details -->
+                <style>
+                  .contact-info-text {
+                    font-size: 1rem;
+                    color: #000;
+                    margin: 0;
+                  }
+                </style>
+
+                <div
+                  class="col-md-6 d-flex flex-column justify-content-center align-items-center"
+                  style="min-height: 400px;"
+                  data-aos="fade-left"
+                >
+                  <!-- A wrapper to control max width if desired -->
+                  <div style="max-width: 400px; width: 100%;">
+                    <!-- Centered heading -->
+                    <h2
+                      class="text-center fs-3 fw-bold mb-4"
+                      style="
+                        color: #000000;
+                        margin-top: 50px;
+                      "
+                    >
+                      Contact Us
+                    </h2>
+
+                    <!-- Phone -->
+                    <div
+                      class="d-flex align-items-center mb-3"
+                      style="text-align: left;"
+                    >
+                      <i
+                        class="fas fa-phone-alt me-3"
+                        style="
+                          font-size: 2.5rem;
+                          color: #003abb;
+                        "
+                      ></i>
+                      <p class="contact-info-text">
+                        123-456-789
+                      </p>
+                    </div>
+
+                    <!-- Email -->
+                    <div
+                      class="d-flex align-items-center mb-3"
+                      style="text-align: left;"
+                    >
+                      <i
+                        class="fas fa-envelope me-3"
+                        style="
+                          font-size: 2.5rem;
+                          color: #003abb;
+                        "
+                      ></i>
+                      <p class="contact-info-text">
+                        research@italailabs.com
+                      </p>
+                    </div>
+
+                    <!-- Address -->
+                    <div
+                      class="d-flex align-items-center mb-4"
+                      style="text-align: left;"
+                    >
+                      <i
+                        class="fas fa-map-marker-alt me-3"
+                        style="
+                          font-size: 3rem;
+                          color: #003abb;
+                        "
+                      ></i>
+                      <p class="contact-info-text">
+                        Corso Vittorio Emanuele II 287,
+                        Roma, 00186
+                      </p>
+                    </div>
+
+                    <!-- Socials -->
+                    <h5
+                      class="fs-5 fw-bold mb-3"
+                      style="
+                        color: #000000;
+                        text-align: left;
+                        margin-top: 100px;
+                      "
+                    >
+                      Socials
+                    </h5>
+                    <div
+                      class="d-flex align-items-center"
+                      style="text-align: left;"
+                    >
+                      <a
+                        href="https://x.com/_italai"
+                        target="_blank"
+                        class="me-4"
+                        style="
+                          color: #003abb;
+                          font-size: 3rem;
+                        "
+                      >
+                        <i
+                          class="fa-brands fa-x-twitter"
+                        ></i>
+                      </a>
+                      <a
+                        href="https://www.linkedin.com/company/italai/"
+                        target="_blank"
+                        style="
+                          color: #003abb;
+                          font-size: 3rem;
+                        "
+                      >
+                        <i class="uil uil-linkedin"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <button
+          class="btn scroll-to-top text-white rounded-circle d-flex justify-content-center align-items-center bg-primary"
+          data-scroll-top="data-scroll-top"
+        >
+          <span class="uil uil-angle-up"></span>
+        </button>
+
+        <footer class="pt-7 pt-lg-8">
+          <div class="container">
+            <div
+              class="row gy-2 py-3 justify-content-center justify-content-md-between"
+            >
+              <div class="col-auto ps-0">
+                <p
+                  class="text-center text-md-start lh-xl text-1100"
+                >
+                  &copy; 2024 ItalAI. All rights reserved.
+                </p>
+              </div>
+              <div class="col-auto pe-0">
+                <img
+                  style="max-height: 35px; margin-right: 50px;"
+                  src="assets/img/logos/ItalAI_logo_simple/ITALAI v3.png"
+                  alt="logo"
+                />
+                <img
+                  style="max-height: 55px;"
+                  src="assets/img/logos/startupSapienzaBig-640x299.png"
+                  alt="logo"
+                />
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </main>
+
+    <!-- JS Scripts -->
+    <script src="vendors/popper/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="vendors/countup/countUp.umd.js"></script>
+    <script src="vendors/swiper/swiper-bundle.min.js"></script>
+    <script src="vendors/lodash/lodash.min.js"></script>
+    <script
+      src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"
+    ></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/hamburger.js"></script>
+
+    <!-- Contact Form Script (unchanged) -->
+    <script>
+      const form = document.getElementById("mailForm");
+      const errorMessage = document.getElementById("errorMessage");
+      const successMessage = document.getElementById("successMessage");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(
+            "https://formspree.io/f/mwpejjrb",
+            {
+              method: "POST",
+              body: formData,
+              headers: { Accept: "application/json" },
+            }
+          );
+
+          if (response.ok) {
+            form.reset();
+            successMessage.style.display = "block";
+            errorMessage.style.display = "none";
+          } else {
+            throw new Error("Form submission failed");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          errorMessage.style.display = "block";
+          successMessage.style.display = "none";
+        }
+      });
+    </script>
+
+    <!-- AOS (Animate On Scroll) JS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800, // Animation duration in ms
+        once: true,    // Animate only once
+      });
+    </script>
+  </body>
+</html>

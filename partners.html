@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="google-site-verification"
+      content="trjGoWqK4ZnLygnmefGpW0b2ev8If5_3QDtXC_rm83w"
+    />
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>ItalAI - Pioneering AI Innovation</title>
+    <meta
+      name="description"
+      content="Discover ItalAI and learn about our AI research, development projects, and startup incubation programs."
+    />
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/img/logos/ItalAI_logo_simple/ITALAI v3 32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/img/logos/ItalAI_logo_simple/ITALAI v3 16x16.png"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/img/favicons/favicon.ico"
+    />
+    <link
+      rel="manifest"
+      href="assets/img/favicons/manifest.json"
+    />
+    <meta
+      name="msapplication-TileImage"
+      content="assets/img/logos/ItalAI_logo_simple/ITALAI v3 150x150.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link
+      rel="stylesheet"
+      href="vendors/swiper/swiper-bundle.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="assets/css/theme.css"
+      rel="stylesheet"
+      id="style-default"
+    />
+    <link
+      href="assets/css/user-rtl.min.css"
+      rel="stylesheet"
+      id="user-style-rtl"
+    />
+    <link
+      href="assets/css/user.min.css"
+      rel="stylesheet"
+      id="user-style-default"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Reddit+Mono:wght@200..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/aos@next/dist/aos.css"
+    />
+
+    <!-- =========== CUSTOM STYLES FOR CARDS & ANIMATIONS =========== -->
+    <style>
+      /* Card styling for first-row logos */
+      .partner-logo-card {
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 1rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .partner-logo-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+      }
+      .partner-logo-card img {
+        max-width: 200px;
+        height: auto;
+      }
+
+      /* For the color-coded universities */
+      .univ-card {
+        color: #fff;
+        text-align: center;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .univ-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Example brand colors & fonts (similar to index) */
+      .stanford {
+        background-color: #8c1515;
+        font-family: "Source Sans 3", sans-serif;
+      }
+      .berkeley {
+        background-color: #003262;
+        font-family: "Crimson Text", serif;
+      }
+      .catania {
+        background-color: #0073b6;
+        font-family: Montserrat, sans-serif;
+      }
+      .padova {
+        background-color: #b5121b;
+        font-family: Georgia, serif;
+      }
+      .tum {
+        background-color: #006699;
+        font-family: Roboto, sans-serif;
+      }
+      .amsterdam {
+        background-color: #000;
+        font-family: "Cormorant Garamond", serif;
+      }
+
+      /* Optionally enlarge images in first row */
+      .partner-image-container img {
+        max-width: 300px; /* Increase logo size as desired */
+        height: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <div class="content">
+        <!--Regular navbar-->
+        <nav
+          class="navabarvis navbar navbar-expand-md fixed-top"
+          id="navbar"
+          data-navbar-soft-on-scroll="data-navbar-soft-on-scroll"
+        >
+          <div class="container-fluid px-1">
+            <a href="index.html"
+              ><img
+                class="navbar-brand w-25"
+                src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png"
+                alt="logo"
+            /></a>
+            <div
+              class="collapse navbar-collapse justify-content-md-end"
+              id="navbar-content"
+              data-navbar-collapse="data-navbar-collapse"
+            >
+              <ul
+                class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0"
+                data-navbar-nav="data-navbar-nav"
+              >
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="index.html"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="people.html"
+                    >People</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="partners.html"
+                    >Partners</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="research.html"
+                    >Research</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="accelerating.html"
+                    >Accelerating</a
+                  >
+                </li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="tech_transfer.html">Tech Transfer</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="blog.html">Blog</a></li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="contact.html"
+                    >Contact Us</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!--Hamburger menu-->
+        <nav
+          class="hambarvis navbar fixed-top"
+          id="hambar"
+          data-hambar-soft-on-scroll="data-hambar-soft-on-scroll"
+        >
+          <div class="container-fluid px-1">
+            <ul class="navbar-nav-horizontal">
+              <li>
+                <a href="index.html">
+                  <img
+                    class="navbar-brand w-25"
+                    src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png"
+                    alt="logo"
+                  />
+                </a>
+              </li>
+              <li style="float: right;">
+                <a class="hamburger" onclick="trigger_hamburger()">
+                  <i class="fa fa-bars"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="pt-2" id="nav-links">
+            <ul
+              class="navbar-nav pt-0 pb-1 pt-md-0 pb-md-0 px-1 px-md-2"
+              style="text-align: right;"
+              data-navbar-nav="data-navbar-nav"
+            >
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="people.html">People</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="partners.html">Partners</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="research.html">Research</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="accelerating.html"
+                  >Accelerating</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!--Content-->
+        <div data-bs-target="#navbar" data-bs-spy="scroll" tabindex="0">
+          <!-- Hero short background -->
+          <section
+            class="hero-section overflow-hidden position-relative z-0 mb-0 mb-lg-0"
+            id="home"
+          >
+            <div class="hero-background-short"></div>
+          </section>
+
+          <!-- Intro about partners -->
+          <section>
+            <div class="container py-4 py-lg-6">
+              <div class="row justify-content-center">
+                <div
+                  class="col-md-11 col-lg-10"
+                  id="research"
+                  data-aos="fade-up"
+                >
+                  <h3
+                    class="fs-4 fs-lg-3 fw-black text-center mb-2 mb-lg-x1 lh-sm"
+                  >
+                    Connections in Innovation
+                  </h3>
+                  <p
+                    class="fs-8 mb-7 mb-lg-8 text-center lh-lg fw-normal"
+                  >
+                    Our company accelerates technological progress
+                    through strategic collaborations with innovative
+                    companies and prestigious universities worldwide.
+                    From Silicon Valley startups to established research
+                    institutions in Europe and Asia, our diverse network
+                    of partners spans the globe and encompasses a wide
+                    range of scientific disciplines and industry
+                    expertise. Together, we're pushing the boundaries of
+                    knowledge and driving advancements that shape our
+                    future.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Title and subtitle remain unchanged -->
+          <section class="mt-n6 mb-4 container">
+            <h2
+              class="text-center mb-4 fw-bold"
+              data-aos="fade-down"
+              data-aos-delay="100"
+            >
+              Our Global Partners
+            </h2>
+            <p
+              class="text-center mb-4 fw-normal lh-sm fs-8"
+              data-aos="fade-down"
+              data-aos-delay="200"
+            >
+              We collaborate with leading institutions and companies
+              worldwide to drive technological innovation:
+            </p>
+
+            <!-- ============== FIRST ROW: PINLAB, PANASONIC, SAPIENZA ============== -->
+            <!-- One row with three col-md-5 cards -->
+            <div
+              class="row g-3 mb-5 d-flex flex-nowrap justify-content-center"
+            >
+              <!-- PinLab Card -->
+              <div
+                class="col-md-5"
+                style="flex: 0 0 auto;"
+                data-aos="zoom-in"
+              >
+                <div class="card partner-logo-card">
+                  <div class="partner-image-container">
+                    <a href="https://www.pinlab.org/">
+                      <img
+                        src="assets/img/partners/pinlab.png"
+                        alt="PinLab Logo"
+                      />
+                    </a>
+                  </div>
+                  <p class="card-text mt-3">
+                    Collaborating with the Perception and Intelligence Lab
+                    on advanced AI research projects.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Panasonic Card -->
+              <div
+                class="col-md-5"
+                style="flex: 0 0 auto;"
+                data-aos="zoom-in"
+                data-aos-delay="100"
+              >
+                <div class="card partner-logo-card">
+                  <div class="partner-image-container">
+                    <a href="https://na.panasonic.com/">
+                      <img
+                        src="assets/img/partners/Panasonic-Logo.png"
+                        alt="Panasonic logo"
+                      />
+                    </a>
+                  </div>
+                  <p class="card-text mt-3">
+                    Partnering with the Panasonic R&D AI Lab in Silicon
+                    Valley on next-generation AI applications.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Sapienza Card -->
+              <div
+                class="col-md-5"
+                style="flex: 0 0 auto;"
+                data-aos="zoom-in"
+                data-aos-delay="200"
+              >
+                <div class="card partner-logo-card">
+                  <div class="partner-image-container">
+                    <a href="https://www.uniroma1.it/en/">
+                      <img
+                        src="assets/img/partners/Sapienza-Full-Logo.png"
+                        alt="Sapienza logo"
+                      />
+                    </a>
+                  </div>
+                  <p class="card-text mt-3">
+                    Collaborating with the
+                    <a href="https://www.pinlab.org/"
+                      >Perception and Intelligence Lab</a
+                    >
+                    on advanced AI research projects.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============== SECOND ROW: COLOR-CODED UNIVERSITIES ============== -->
+            <div class="row g-4">
+              <!-- UC Berkeley (blue #003262) -->
+              <div
+                class="col-md-4"
+                data-aos="fade-up"
+              >
+                <div
+                  class="univ-card berkeley h-100 d-flex flex-column justify-content-center"
+                >
+                  <h3 class="mb-2">
+                    <a
+                      href="https://www.berkeley.edu"
+                      style="color: #fff; text-decoration: none;"
+                      >UC Berkeley</a
+                    >
+                  </h3>
+                  <p class="mb-0" style="padding: 0 0.5rem;">
+                    Working together on cutting-edge machine learning
+                    research projects, tapping into Berkeley's world-class
+                    research facilities and faculty.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Stanford (red #8C1515) -->
+              <div
+                class="col-md-4"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <div
+                  class="univ-card stanford h-100 d-flex flex-column justify-content-center"
+                >
+                  <h3 class="mb-2">
+                    <a
+                      href="https://www.stanford.edu"
+                      style="color: #fff; text-decoration: none;"
+                      >Stanford University</a
+                    >
+                  </h3>
+                  <p class="mb-0" style="padding: 0 0.5rem;">
+                    Collaborating on LLMs and AI safety research, drawing
+                    on Stanford's interdisciplinary approach to technology
+                    and society.
+                  </p>
+                </div>
+              </div>
+
+              <!-- University of Amsterdam (black #000) -->
+              <div
+                class="col-md-4"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <div
+                  class="univ-card amsterdam h-100 d-flex flex-column justify-content-center"
+                >
+                  <h3 class="mb-2">
+                    <a
+                      href="https://www.uva.nl/en"
+                      style="color: #fff; text-decoration: none;"
+                      >University of Amsterdam</a
+                    >
+                  </h3>
+                  <p class="mb-0" style="padding: 0 0.5rem;">
+                    Working together on the application of hyperbolic
+                    neural networks in real-world applications.
+                  </p>
+                </div>
+              </div>
+
+              <!-- University of Catania (blue #0073B6) -->
+              <div
+                class="col-md-4"
+                data-aos="fade-up"
+              >
+                <div
+                  class="univ-card catania h-100 d-flex flex-column justify-content-center"
+                >
+                  <h3 class="mb-2">
+                    <a
+                      href="https://www.unict.it/en"
+                      style="color: #fff; text-decoration: none;"
+                      >University of Catania</a
+                    >
+                  </h3>
+                  <p class="mb-0" style="padding: 0 0.5rem;">
+                    Partnering on advancing the field of human-AI
+                    interaction with state-of-the-art Vision-Language
+                    models.
+                  </p>
+                </div>
+              </div>
+
+              <!-- University of Padova (red #B5121B) -->
+              <div
+                class="col-md-4"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <div
+                  class="univ-card padova h-100 d-flex flex-column justify-content-center"
+                >
+                  <h3 class="mb-2">
+                    <a
+                      href="https://www.unipd.it/en"
+                      style="color: #fff; text-decoration: none;"
+                      >University of Padova</a
+                    >
+                  </h3>
+                  <p class="mb-0" style="padding: 0 0.5rem;">
+                    Exploring cross-disciplinary AI research, leveraging
+                    Padova's strong academic heritage in scientific
+                    discovery.
+                  </p>
+                </div>
+              </div>
+
+              <!-- TUM (blue #006699) -->
+              <div
+                class="col-md-4"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <div
+                  class="univ-card tum h-100 d-flex flex-column justify-content-center"
+                >
+                  <h3 class="mb-2">
+                    <a
+                      href="https://www.tum.de/en"
+                      style="color: #fff; text-decoration: none;"
+                      >Technical University<br />of Munich</a
+                    >
+                  </h3>
+                  <p class="mb-0" style="padding: 0 0.5rem;">
+                    Collaborating with TUM on AI-driven industrial
+                    automation and advanced robotics solutions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <button
+          class="btn scroll-to-top text-white rounded-circle d-flex justify-content-center align-items-center bg-primary"
+          data-scroll-top="data-scroll-top"
+        >
+          <span class="uil uil-angle-up"></span>
+        </button>
+
+        <footer class="pt-5 pt-lg-6">
+          <div class="container">
+            <div
+              class="row gy-2 py-3 justify-content-center justify-content-md-between"
+            >
+              <div class="col-auto ps-0">
+                <p
+                  class="text-center text-md-start lh-xl text-1100"
+                >
+                  &copy; 2024 ItalAI. All rights reserved.
+                </p>
+              </div>
+              <img
+                class="col-auto pe-0"
+                style="max-height: 35px;"
+                src="assets/img/logos/ItalAI_logo_simple/ITALAI v3.png"
+                alt="logo"
+              />
+            </div>
+          </div>
+        </footer>
+      </div>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="vendors/popper/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="vendors/countup/countUp.umd.js"></script>
+    <script src="vendors/swiper/swiper-bundle.min.js"></script>
+    <script src="vendors/lodash/lodash.min.js"></script>
+    <script
+      src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"
+    ></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/hamburger.js"></script>
+
+    <!-- AOS (Animate On Scroll) JS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800, // Animation duration (ms)
+        once: true,    // Animate only once as user scrolls
+      });
+    </script>
+  </body>
+</html>

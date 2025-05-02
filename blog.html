@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ItalAI Blog</title>
+
+    <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      href="assets/css/theme.css"
+      rel="stylesheet"
+      id="style-default"
+    />
+    <link
+      href="assets/css/user.min.css"
+      rel="stylesheet"
+      id="user-style-default"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/aos@next/dist/aos.css"
+    />
+    <style>
+      .rotate-on-hover {
+        transition: transform 0.6s ease;
+        transform-style: preserve-3d;
+      }
+      .rotate-on-hover:hover {
+        transform: rotateY(5deg);
+      }
+      .blog-card {
+        min-height: 300px;
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .blog-card h3 {
+        font-weight: bold;
+        color: white;
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+      }
+      .blog-card h5 {
+        font-weight: bold;
+        color: white;
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+      }
+      .blog-card p {
+        font-size: 1rem;
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main" id="top">
+      <div class="content">
+        <!-- NAVBAR (copied from index.html) -->
+        <nav class="navbar navbar-expand-md fixed-top" id="navbar" style="background: linear-gradient(90deg, #0a0f46, #0057ff);">
+          <div class="container-fluid px-1">
+            <a href="index.html">
+              <img
+                class="navbar-brand w-25"
+                src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png"
+                alt="logo"
+              />
+            </a>
+            <div
+              class="collapse navbar-collapse justify-content-md-end"
+              id="navbar-content"
+              data-navbar-collapse="data-navbar-collapse"
+            >
+              <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0">
+                <li class="nav-item"><a class="nav-link lh-xl" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="people.html">People</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="partners.html">Partners</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="research.html">Research</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="accelerating.html">Accelerating</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="tech_transfer.html">Tech Transfer</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="blog.html">Blog</a></li>
+                <li class="nav-item"><a class="nav-link lh-xl" href="contact.html">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Blog Hero Header -->
+        <section>
+          <div class="container py-5 mt-5">
+            <div class="row justify-content-center">
+              <div class="col-md-8 col-lg-8" data-aos="fade-up">
+                <h3 class="fs-4 fs-lg-3 fw-black text-center mb-2 mb-lg-x1 lh-sm">
+                  ItalAI Blog
+                </h3>
+                <p class="fs-8 mb-5 mb-lg-6 text-center lh-lg fw-normal">
+                  Stay updated with all the most recent news in AI,<br>from state-of-the-art research to hands-on development and startup acceleration!
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        
+
+        <!-- Blog Categories Grid -->
+        <section class="py-5" style="background-color: #f8f9fa;">
+          <div class="container">
+            <div class="row g-4">
+              <div class="col-md-4" data-aos="fade-up">
+                <a href="blog/pages/ssm/0.html">
+                  <div class="card blog-card rotate-on-hover" style="background-image: url('assets/img/blog/cards/ssm.png'); background-color: #003abb;">
+                    <h3>State Space Models</h3>
+                    <p>Is there an alternative to transformer networks?</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <a href="blog.html">
+                  <div class="card blog-card rotate-on-hover" style="background-image: url('assets/img/blog/cards/coming.png'); background-color: #004b91;">
+                    <h3>Robotics</h3>
+                    <!-- <p>Explore advances in autonomous navigation, manipulation, and interaction.</p> -->
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <a href="blog.html">
+                  <div class="card blog-card rotate-on-hover" style="background-image: url('assets/img/blog/cards/coming.png'); background-color: #005bb5;">
+                    <h5>Long Context Modeling</h5>
+                    <!-- <p>A poin</p> -->
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="vendors/popper/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="vendors/countup/countUp.umd.js"></script>
+    <script src="vendors/swiper/swiper-bundle.min.js"></script>
+    <script src="vendors/lodash/lodash.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/hamburger.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 800, once: true });
+    </script>
+  </body>
+</html>

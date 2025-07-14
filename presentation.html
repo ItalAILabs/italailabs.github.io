@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="trjGoWqK4ZnLygnmefGpW0b2ev8If5_3QDtXC_rm83w" />
+    <title>ItalAI - About Us</title>
+    <meta name="description" content="Discover ItalAI: our mission, strategic partners, research, and team." />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/logos/ItalAI_logo_simple/ITALAI v3 32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/logos/ItalAI_logo_simple/ITALAI v3 16x16.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico" />
+    <link rel="manifest" href="assets/img/favicons/manifest.json" />
+    <meta name="msapplication-TileImage" content="assets/img/logos/ItalAI_logo_simple/ITALAI v3 150x150.png" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="assets/css/theme.css" rel="stylesheet" id="style-default" />
+    <link href="assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl" />
+    <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet" />
+
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Custom Styles for this page, mimicking ItalAI's aesthetic -->
+    <style>
+      body {
+        font-family: 'Open Sans', sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa; /* Light gray background from ItalAI */
+        color: #333;
+      }
+      .content-container {
+        max-width: 900px;
+        margin: 80px auto 50px auto; /* Adjust top margin for fixed navbar */
+        background: #fff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Soft shadow from ItalAI cards */
+      }
+      h1, h2, h3 {
+        color: #003abb; /* Primary blue from ItalAI */
+        text-align: center;
+        font-family: 'Roboto', sans-serif; /* Assuming Roboto for headings */
+        font-weight: bold;
+      }
+      h1 {
+        font-size: 2.8em;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 2.2em;
+        margin-top: 40px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid #dce7f0; /* Accent color for dividers */
+        padding-bottom: 10px;
+      }
+      h3 {
+        font-size: 1.8em;
+        margin-top: 30px;
+        margin-bottom: 20px;
+      }
+      p {
+        margin-bottom: 15px;
+      }
+      ul {
+        list-style-type: disc;
+        margin-left: 20px;
+        margin-bottom: 15px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      strong {
+        color: #003abb;
+      }
+      .section-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .partner-logo-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+      .partner-logo-grid img {
+        max-width: 180px;
+        height: auto;
+        transition: transform 0.3s ease;
+      }
+      .partner-logo-grid img:hover {
+        transform: scale(1.05);
+      }
+
+      /* Styles for vertical research images with text */
+      .research-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px; /* Space between each research item */
+        gap: 20px;
+      }
+
+      .research-item-text {
+        flex: 1;
+        text-align: right; /* Align text to the right */
+      }
+
+      .research-item-text h3 {
+        text-align: right; /* Ensure heading is also right-aligned */
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+
+      .research-item-image {
+        flex-shrink: 0; /* Prevent image from shrinking */
+        width: 300px; /* Fixed width for images */
+        height: 180px; /* Fixed height for images */
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        object-fit: cover;
+      }
+
+      /* Reverse order for alternating layout */
+      .research-item:nth-child(even) {
+        flex-direction: row-reverse; /* Image on left, text on right */
+      }
+
+      .research-item:nth-child(even) .research-item-text {
+        text-align: left; /* Align text to the left for even items */
+      }
+
+      .research-item:nth-child(even) .research-item-text h3 {
+        text-align: left; /* Ensure heading is also left-aligned for even items */
+      }
+
+
+      /* Styles for the fixed blue header */
+      .fixed-blue-header {
+        background-color: #003abb !important; /* Force blue background */
+      }
+      .fixed-blue-header .nav-link {
+        color: #fff !important; /* Ensure nav links are white on blue background */
+      }
+      .fixed-blue-header .navbar-brand {
+        filter: brightness(0) invert(1); /* Invert logo color for white background */
+      }
+      .fixed-blue-header .hamburger i {
+        color: #fff !important; /* Ensure hamburger icon is white */
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .content-container {
+          padding: 20px;
+          margin-top: 70px;
+        }
+        h1 {
+          font-size: 2.2em;
+        }
+        h2 {
+          font-size: 1.8em;
+        }
+        h3 {
+          font-size: 1.5em;
+        }
+        .partner-logo-grid {
+            gap: 20px;
+        }
+        .partner-logo-grid img {
+            max-width: 120px;
+        }
+        .research-item {
+            flex-direction: column; /* Stack text and image vertically on small screens */
+            align-items: center;
+            text-align: center;
+        }
+        .research-item-text,
+        .research-item-text h3 {
+            text-align: center !important; /* Center text for all research items on small screens */
+        }
+        .research-item-image {
+            width: 100%; /* Full width for image on small screens */
+            height: auto; /* Auto height to maintain aspect ratio */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main" id="top">
+      <div class="content">
+        <!-- ====================== NAVBARS ====================== -->
+        <nav class="navabarvis navbar navbar-expand-md fixed-top fixed-blue-header" id="navbar">
+          <div class="container-fluid px-1">
+            <a href="index.html">
+              <img class="navbar-brand w-25" src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png" alt="logo" />
+            </a>
+            <div class="collapse navbar-collapse justify-content-md-end" id="navbar-content" data-navbar-collapse="data-navbar-collapse">
+              <ul class="navbar-nav gap-md-2 gap-lg-3 pt-x1 pb-1 pt-md-0 pb-md-0" data-navbar-nav="data-navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="people.html">People</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="partners.html">Partners</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="research.html">Research</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="accelerating.html">Accelerating</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="tech_transfer.html">Tech Transfer</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="blog.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lh-xl" href="contact.html">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!--Hamburger menu -->
+        <nav class="hambarvis navbar fixed-top fixed-blue-header" id="hambar">
+          <div class="container-fluid px-1">
+            <ul class="navbar-nav-horizontal">
+              <li>
+                <a href="index.html">
+                  <img class="navbar-brand w-25" src="assets/img/logos/ItalAI_logo_simple/ITALAI v3 ( White transparent).png" alt="logo" />
+                </a>
+              </li>
+              <li style="float: right;">
+                <a class="hamburger" onclick="trigger_hamburger()">
+                  <i class="fa fa-bars"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="pt-2" id="nav-links">
+            <ul class="navbar-nav pt-0 pb-1 pt-md-0 pb-md-0 px-1 px-md-2" style="text-align: right;" data-navbar-nav="data-navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="people.html">People</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="partners.html">Partners</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="research.html">Research</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="accelerating.html">Accelerating</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="tech_transfer.html">Tech Transfer</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="blog.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="contact.html">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+
+          <!-- ==================== PAGE CONTENT START ==================== -->
+          <div class="content-container" data-aos="fade-up">
+              <h1>About ItalAI</h1>
+
+              <section data-aos="fade-up" data-aos-delay="100">
+                  <h2>Our Mission</h2>
+                  <ul>
+                      <li><strong>Research:</strong> We are at the forefront of AI innovation, publishing in top-tier conferences and journals.</li>
+                      <li><strong>Acceleration:</strong> We incubate projects into startups, transform them into independent companies, and accelerate external startups in the AI sector.</li>
+                      <li><strong>Technology Transfer:</strong> We help companies integrate AI into their workflows with customized solutions that drive new products, use cases, and efficiency.</li>
+                  </ul>
+              </section>
+
+              <section data-aos="fade-up" data-aos-delay="200">
+                  <h2>Collaboration for Innovation</h2>
+                  <div class="partner-logo-grid">
+                      <img src="assets/img/partners/pinlab.png" alt="Pinlab Logo">
+                      <img src="assets/img/partners/Panasonic-Logo.png" alt="Panasonic Logo">
+                      <img src="assets/img/partners/Sapienza-Full-Logo.png" alt="Sapienza University of Rome Logo">
+                  </div>
+              </section>
+
+              <section data-aos="fade-up" data-aos-delay="300">
+                  <h2>Global Academic Network</h2>
+                  <div class="partner-logo-grid">
+                      <img src="assets/img/partners/Stanford-Full-Logo.png" alt="Stanford University Logo">
+                      <img src="assets/img/partners/UC-Berkeley-Full-Logo.png" alt="UC Berkeley Logo">
+                      <img src="assets/img/partners/Catania-Logo.jpg" alt="University of Catania Logo">
+                      <img src="assets/img/partners/padova-logo.png" alt="University of Padua Logo">
+                      <img src="assets/img/partners/tum-logo.png" alt="Technical University of Munich Logo">
+                      <img src="assets/img/partners/Amsterdam-Logo.png" alt="University of Amsterdam Logo">
+                  </div>
+              </section>
+
+              <section data-aos="fade-up" data-aos-delay="400">
+                  <h2>Our Research and Publications</h2>
+                  <div class="research-items-container">
+                      <div class="research-item">
+                          <div class="research-item-text">
+                              <h3>Following the Human Thread In Social Navigation</h3>
+                              <p>This research explores how AI systems can better understand and predict human movement in social environments by analyzing subtle cues and interactions. The goal is to develop navigation systems that are more intuitive and respectful of human behavior.</p>
+                          </div>
+                          <img src="assets/img/research/sda.png" alt="Following the Human Thread In Social Navigation Research Image" class="research-item-image">
+                      </div>
+                      <div class="research-item">
+                          <div class="research-item-text">
+                              <h3>LongCodeBench</h3>
+                              <p>LongCodeBench focuses on evaluating and improving the capabilities of large language models (LLMs) in handling and generating long-form code. This project addresses the challenges of maintaining coherence and correctness over extended code sequences, crucial for complex software development tasks.</p>
+                          </div>
+                          <img src="assets/img/research/lcb.png" alt="LongCodeBench Research Image" class="research-item-image">
+                      </div>
+                      <div class="research-item">
+                          <div class="research-item-text">
+                              <h3>Human Motion Unlearning</h3>
+                              <p>This research investigates methods for "unlearning" specific human motion data from AI models. This is critical for privacy, security, and ethical considerations, allowing models to remove sensitive or unwanted motion patterns while retaining general knowledge.</p>
+                          </div>
+                          <img src="assets/img/research/hmu.png" alt="Human Motion Unlearning Research Image" class="research-item-image">
+                      </div>
+                  </div>
+              </section>
+
+              <section data-aos="fade-up" data-aos-delay="500">
+                  <h2>Our Team</h2>
+                  <p>Composed of researchers, engineers, and professionals with a solid academic foundation and strong ties to Silicon Valley.</p>
+                  <p>A unique blend of theoretical expertise and practical know-how.</p>
+                  <p>Dedicated to training the next generation of AI talent through programs like the Training Camp.</p>
+                  <img src="assets/img/team_photo.jpeg" alt="Image of the ItalAI team" class="section-image">
+              </section>
+
+              <section data-aos="fade-up" data-aos-delay="600">
+                  <h2>Contact Us</h2>
+                  <p><strong>Address:</strong> Corso Vittorio Emanuele II 287, Rome, 00186</p>
+                  <p><strong>Email:</strong> research@italailabs.com</p>
+                  <p><strong>Social Media:</strong></p>
+                  <ul>
+                      <li>Twitter (X): <a href="https://x.com/_italai" target="_blank" style="color: #003abb; text-decoration: none;">@_italai</a></li>
+                      <li>LinkedIn: <a href="https://www.linkedin.com/company/italai/" target="_blank" style="color: #003abb; text-decoration: none;">ItalAI</a></li>
+                  </ul>
+              </section>
+          </div>
+
+          <!-- Scroll to top button -->
+          <button class="btn scroll-to-top text-white rounded-circle d-flex justify-content-center align-items-center bg-primary" data-scroll-top="data-scroll-top">
+            <span class="uil uil-angle-up"></span>
+          </button>
+
+          <!-- Footer -->
+          <footer class="pt-7 pt-lg-8">
+            <div class="container">
+              <div class="row gy-2 py-3 justify-content-center justify-content-md-between">
+                <div class="col-auto ps-0">
+                  <p class="text-center text-md-start lh-xl text-1100">
+                    Corso Vittorio Emanuele II 287, Roma (RM), CAP 00186 - P.IVA 17384921007<br>
+                    &copy; 2024 ItalAI. All rights reserved.
+                  </p>
+                </div>
+                <div class="col-auto pe-0">
+                  <img style="max-height: 35px; margin-right: 50px;" src="assets/img/logos/ItalAI_logo_simple/ITALAI v3.png" alt="logo" />
+                  <img style="max-height: 55px;" src="assets/img/logos/startupSapienzaBig-640x299.png" alt="logo" />
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </main>
+
+      <!-- JS Scripts -->
+      <script src="vendors/popper/popper.min.js"></script>
+      <script src="vendors/bootstrap/bootstrap.min.js"></script>
+      <script src="vendors/is/is.min.js"></script>
+      <script src="vendors/countup/countUp.umd.js"></script>
+      <script src="vendors/swiper/swiper-bundle.min.js"></script>
+      <script src="vendors/lodash/lodash.min.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+      <script src="assets/js/theme.js"></script>
+      <script src="assets/js/hamburger.js"></script>
+
+      <!-- Contact Form Script (unchanged) -->
+      <script>
+        const form = document.getElementById("mailForm");
+        const errorMessage = document.getElementById("errorMessage");
+        const successMessage = document.getElementById("successMessage");
+
+        if (form) { // Check if form exists before adding event listener
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            try {
+              const response = await fetch(
+                "https://formspree.io/f/mwpejjrb",
+                {
+                  method: "POST",
+                  body: formData,
+                  headers: { Accept: "application/json" },
+                }
+              );
+
+              if (response.ok) {
+                form.reset();
+                if (successMessage) successMessage.style.display = "block";
+                if (errorMessage) errorMessage.style.display = "none";
+              } else {
+                throw new Error("Form submission failed");
+              }
+            } catch (error) {
+              console.error("Error:", error);
+              if (errorMessage) errorMessage.style.display = "block";
+              if (successMessage) successMessage.style.display = "none";
+            }
+          });
+        }
+      </script>
+
+      <!-- AOS (Animate On Scroll) JS -->
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+      <script>
+        AOS.init({
+          duration: 800, // Animation duration in ms
+          once: true,    // Animate only once
+        });
+      </script>
+    </body>
+  </html>

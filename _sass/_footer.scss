@@ -1,0 +1,184 @@
+/* Footer */
+.footer-section {
+    position: relative;
+    background-color: var(--standard-dark);
+}
+.footer-decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* tweak this height for the desired visible area */
+    display: block;
+    z-index: 0;
+    overflow: hidden;
+    img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: auto;
+        object-fit: none;
+        object-position: center;
+        z-index: 0;
+        opacity: .22;
+        filter: grayscale(1);
+    }
+}
+.footer-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-areas:
+        "info form"
+        "logo form";
+    grid-column: 1fr 1fr;
+    grid-row: auto auto;
+    gap: 0 4rem;
+    padding: 3rem 2rem 6rem;
+    text-align: left;
+
+    /* Contact Info Section */
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: var(--standard-light);
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        .socials {
+            font-weight: 800;
+            display: flex;
+            flex-wrap: wrap;
+            flex-basis: 50%;
+            justify-content: space-between;
+            align-items: end;
+
+            > * {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .email {
+                font-size: var(--font-size);
+                color: var(--standard-blue);
+            }
+
+            .social-icon {
+                font-size: 2rem;
+                color: var(--standard-blue);
+                text-decoration: none;
+                display: inline;
+            }
+        }
+    }
+
+    /* Contact Form Section */
+    .contact-form {
+        .contact-card {
+            padding: 36px;
+            background: var(--standard-blue);
+            border-radius: var(--radius-2xl);
+            box-shadow: 0 25px 70px rgba(106, 124, 255, 0.4);
+            color: var(--standard-light);
+
+            h2 {
+                margin: 0;
+            }
+
+            button {
+                margin-top: 3rem;
+            }
+
+            .error-message,
+            .success-message {
+                margin-top: 0.5rem;
+            }
+
+            .error-message {
+                color: red;
+            }
+
+            .success-message {
+                color: green;
+            }
+        }
+    }
+
+    /* Logo */
+    .logo {
+        align-self: end;
+        width: 70%;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .grid-1 { grid-area: info; }
+    .grid-2 { grid-area: form; }
+    .grid-3 { grid-area: logo; }
+}
+
+/* Form Group - Shared across forms */
+.form-group {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 10px 10px 0;
+    margin-bottom: var(--space-lg);
+
+    input,
+    textarea {
+        width: 100%;
+        padding-bottom: 12px;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid var(--standard-light);
+        font-size: var(--font-size);
+        color: inherit;
+        opacity: 0.59;
+        transition: opacity 0.3s, border-bottom-color 0.3s;
+
+        &:focus {
+            outline: none;
+            border-bottom-color: var(--standard-light);
+            opacity: 1;
+        }
+
+        &:not(:placeholder-shown) {
+            opacity: 1;
+        }
+
+        &::placeholder {
+            color: var(--standard-light);
+        }
+
+        // Floating label trigger
+        &:focus + .floater,
+        &:not(:placeholder-shown) + .floater {
+            transform: translateY(0);
+            color: inherit;
+        }
+    }
+
+    textarea {
+        resize: none;
+        min-height: 80px;
+    }
+
+    .floater {
+        display: block;
+        color: var(--standard-light);
+        opacity: 0.59;
+        white-space: nowrap;
+        pointer-events: none;
+        transform: translateY(calc(100% + 0.3rem));
+        transition: color 0.3s, transform 0.3s;
+    }
+}

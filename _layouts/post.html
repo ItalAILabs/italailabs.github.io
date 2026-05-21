@@ -1,0 +1,171 @@
+---
+layout: default
+---
+
+{% assign all_categories = site.posts | map: "category" | uniq | compact %}
+{% assign hero_image = page.hero_image | default: page.image %}
+
+<style>
+  /* Scope post body images to lazy-render and avoid layout shifts */
+  .post-body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    content-visibility: auto;
+    contain-intrinsic-size: 800px auto;
+  }
+</style>
+
+{% capture crumb_parent %}
+  {
+    "url": "/insights",
+    "label": "insights"
+  }
+{% endcapture %}
+
+{% include hero.html
+  heading=page.title
+  crumb_parent_url="/insights"
+  crumb_parent_label="INSIGHTS"
+  crumb_current=page.series
+  tagline=page.excerpt
+  title-style="color: var(--standard-light);"
+  hero-style="background: var(--standard-dark);"
+  breadcrumb-style="background: var(--standard-light); color: var(--standard-dark);"
+  bg_image=page.hero_image
+%}
+
+<!-- Post Content Section -->
+<section class="post-content-section">
+  <div class="container">
+    <div class="post-layout">
+      
+      <!-- Sidebar -->
+      <aside class="post-sidebar">
+        <!-- Post Categories -->
+        <div class="sidebar-widget">
+          <h2 class="sidebar-title h5-size">TAGS</h2>
+          <div class="category-tags">
+            {% if page.categories %}
+              {% for category in page.categories %}
+              <a href="/insights/?category={{ category | slugify }}" class="filter-btn">{{ category | upcase }}</a>
+              {% endfor %}
+            {% elsif page.category %}
+              <a href="/insights/?category={{ page.category | slugify }}" class="filter-btn">{{ page.category | upcase }}</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Recent Posts -->
+        <div class="sidebar-widget">
+          <h2 class="sidebar-title h5-size">RECENT POSTS</h2>
+          <div class="recent-posts">
+            {% comment %}
+            Sort posts by date (descending), then by series and part number.
+            For posts with the same date, sort by part number (ascending) so Part 1 comes before Part 2.
+            {% endcomment %}
+            {% assign sorted_posts = site.posts | where_exp: "post", "post.published_in_blog != false" | sort: "part" | sort: "date" | reverse %}
+            {% for i in (0..2) %}
+            {% assign post = sorted_posts[i] %}
+            <a href="{{ post.url }}" class="recent-post-item">
+              <div style="position: relative">
+                <span class="recent-post-date">{{ post.date | date: "%d-%b-%Y" }}</span>
+                <img src="{{ post.hero_image }}" alt="{{ post.title }}" class="recent-post-thumb">
+              </div>
+              <div class="recent-post-info">
+                <p class="recent-post-title">{{ post.title | strip_html }}</p>
+                <p class="recent-post-excerpt">{{ post.excerpt | strip_html }}</p>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <article class="post-main">
+        <!-- Featured Image -->
+        {% if page.hero_image %}
+        <div class="post-featured-image">
+          {% if page.date %}
+          <span class="insight-tag" style="top: auto; bottom: var(--space-sm);">{{ page.date | date: "%d %B %Y" }}</span>
+          {% endif %}
+          <img src="{{ page.image |  default: page.hero_image }}" alt="{{ page.title }}" fetchpriority="high">
+        </div>
+        {% endif %}
+
+        <!-- Post Body -->
+        <div class="post-body">
+          {{ content }}
+        </div>
+
+        <!-- Author Info (centralized from _data/people.yml) -->
+        {% if page.author %}
+        {% assign author_name = page.author %}
+        {% assign author_data = nil %}
+        {% for group in site.data.people %}
+          {% assign group_list = group[1] %}
+          {% if group_list %}
+            {% for person in group_list %}
+              {% if person.name == author_name %}
+                {% assign author_data = person %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+        <div class="post-author">
+          <h4 class="h4-size">BY {{ author_name | upcase }}</h4>
+          {% if author_data %}
+            {% assign author_excerpt = author_data.excerpt | default: author_data.bio %}
+            {% if author_excerpt %}
+              <p>{{ author_excerpt | strip_html }}</p>
+            {% else %}
+              <p>{{ author_data.role }}{% if author_data.credentials %} — {{ author_data.credentials }}{% endif %}</p>
+            {% endif %}
+          {% elsif page.author_bio %}
+            <p>{{ page.author_bio | strip_html }}</p>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Post Navigation -->
+        {% if page.series and page.part %}
+        {% assign series_posts = site.posts | where: "series", page.series | sort: "part" %}
+        {% assign current_part = page.part | plus: 0 %}
+        {% assign prev_part = current_part | minus: 1 %}
+        {% assign next_part = current_part | plus: 1 %}
+        {% assign prev_post = nil %}
+        {% assign next_post = nil %}
+        {% for post in series_posts %}
+          {% if post.part == prev_part %}
+            {% assign prev_post = post %}
+          {% endif %}
+          {% if post.part == next_part %}
+            {% assign next_post = post %}
+          {% endif %}
+        {% endfor %}
+
+        <nav class="post-navigation">
+          {% if prev_post %}
+          <a class="cta-button-alt prev" href="{{ prev_post.url }}">
+            ← Previous
+          </a>
+          {% else %}
+          <span class="cta-button-alt disabled">← Previous</span>
+          {% endif %}
+          
+          {% if next_post %}
+          <a class="cta-button-alt next" href="{{ next_post.url }}">
+            Next →
+          </a>
+          {% else %}
+          <span class="cta-button-alt disabled">Next →</span>
+          {% endif %}
+        </nav>
+        {% endif %}
+
+      </article>
+    </div>
+  </div>
+</section>
+<script src="/assets/js/katex-loader.js" defer></script>

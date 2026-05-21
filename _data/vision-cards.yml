@@ -1,0 +1,39 @@
+- title: "BEYOND DIGITAL INTELLIGENCE"
+  text:
+    - "AI has reshaped digital systems, enabling models that reason within virtual environments."
+    - "The next challenge is <span class=\"highlight-light-alt italic strong\">operating in the physical world</span>, where uncertainty and time are unavoidable."
+  card_style: "blue"
+  section_style: "dark"
+  image: "/assets/images/code.webp"
+
+- title: "WHY THE PHYSICAL WORLD MATTERS"
+  text:
+    - "Outside controlled settings, intelligence must perceive incomplete information and act in real-time."
+    - "This shift demands systems that are robust, adaptive, and aware of their environment."
+  card_style: "dark"
+  section_style: "blue"
+  image: "/assets/images/schematic.webp"
+
+- title: "ROBOTICS AS A CONVERGENCE POINT"
+  text:
+    - "Robotics brings perception, learning, reasoning, and action into a single system."
+    - "It forces AI to confront physical constraints, making it a catalyst for its next evolution."
+  card_style: "blue"
+  section_style: "dark"
+  image: "/assets/images/robot.png"
+
+- title: "WHERE WE'RE HEADING"
+  text:
+    - "At ItalAI, robotics is a long-term strategic direction."
+    - "We focus on building the foundations of physical AI that operate safely beyond the lab."
+  card_style: "dark"
+  section_style: "blue"
+  image: "/assets/images/assembly-line.webp"
+
+- title: "A LONG TERM PERSPECTIVE"
+  text:
+    - "This is not a short-term trend or isolated breakthrough."
+    - "Physical AI marks a structural shift in how intelligent systems will be built and deployed."
+  card_style: "blue"
+  section_style: "dark"
+  image: "/assets/images/robot2.webp"

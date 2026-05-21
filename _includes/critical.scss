@@ -1,0 +1,77 @@
+:root {
+  --standard-green: #32b692;
+  --standard-green-alt: #C6FFE0;
+  --standard-light: #F6F4EC;
+  --standard-light-alt: #D9CBB5;
+  --standard-dark: #0D0221;
+  --standard-dark-alt: #2C2C2C;
+  --header-family: "JetBrains Mono", monospace;
+  --body-family: "DM Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--body-family);
+  background-color: var(--standard-light);
+  color: var(--standard-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// *, *::before, *::after {
+//   box-sizing: inherit;
+// }
+
+/* Loading Screen - Critical */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--standard-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+/* No-JS fallback: hide loading screen after animation */
+.no-js #loading-screen {
+  animation: fadeOutLoading 0.6s ease 2s forwards;
+}
+
+#loading-screen.loaded {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.loading-logo {
+  width: 120px;
+  height: auto;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fadeOutLoading {
+  to {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+}

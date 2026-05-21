@@ -1,0 +1,108 @@
+---
+layout: default
+title: Insights
+image: "/assets/logo.png"
+description: "ItalAI Insights: Research perspectives from AI to reality. Explore our deep dives into state space models, Mamba architecture, transformer alternatives, sequence modeling, and cutting-edge developments in artificial intelligence and machine learning systems."
+---
+
+{%- capture hero_heading -%}
+SHARING IDEAS THAT SHAPE<br>
+<span class="highlight-blue italic weak">INTELLIGENT SYSTEMS</span><span class="period">.</span>
+{%- endcapture -%}
+{% include hero.html
+  heading=hero_heading
+  crumb_current="INSIGHTS"
+  tagline="Read our blog."
+  title-style="color: var(--standard-dark);"
+  hero-style="background: var(--standard-light-alt);"
+  breadcrumb-style="background: var(--standard-light); color: var(--standard-dark);"
+  bg_image="/assets/images/insights-hero.webp"
+%}
+
+<!-- Filter Section -->
+<section class="insights-filter" id="filter">
+  <div class="container">
+    <div class="filter-controls">
+      <div class="filter-dash">
+        <h2 class="filter-title h6-size">
+          <i class="fa-solid fa-filter"></i>
+          FILTER BY CATEGORY
+        </h2>
+        <button class="filter-clear" id="clearFilter" style="display: none;">
+          <i class="fa-solid fa-xmark"></i>
+          Clear filter
+        </button>
+      </div>
+      
+      <div class="filter-buttons" id="filterButtons">
+        <button class="filter-btn active" data-category="all">ALL</button>
+        {% assign published_posts = site.posts | where_exp: "post", "post.published_in_blog != false" %}
+        
+        <!-- Map all categories (flattened) and single categories -->
+        {% assign cat_arrays = published_posts | map: "categories" | compact %}
+        {% assign cats = published_posts | map: "category" | compact | concat: cat_arrays%}
+        
+        {% assign all_categories = "" | split: "," %}
+        
+        <!-- Process single category strings -->
+        {% for cat in cats %}
+          {% assign cat_lower = cat | downcase %}
+          {% unless all_categories contains cat_lower %}
+            {% assign all_categories = all_categories | push: cat_lower %}
+          {% endunless %}
+        {% endfor %}
+        
+        {% assign all_categories = all_categories | sort %}
+        {% for category in all_categories %}
+          {% assign slug = category | slugify %}
+          {% assign display_name = site.data.category_display[slug] | default: category %}
+          <button class="filter-btn" data-category="{{ slug }}">{{ display_name }}</button>
+        {% endfor %}
+      </div>
+      
+      <div class="filter-dash">
+        <p class="filter-count" id="filterCount">Showing all insights</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Insights Grid Section -->
+<section class="insights-hub">
+  <div class="container">
+    {% assign per_page = site.insights_manifest.per_page | default: 12 %}
+    {% assign insights_posts = site.posts | sort: "part" | sort: "date" | reverse %}
+    {% assign total_items = insights_posts | size %}
+    {% assign initial_posts = insights_posts | slice: 0, per_page %}
+    {% if total_items > per_page %}
+      {% assign next_page_path = "/assets/data/insights/insights-page2.json" %}
+    {% else %}
+      {% assign next_page_path = "" %}
+    {% endif %}
+    <div
+      class="insights-grid"
+      id="insightsGrid"
+      data-total-items="{{ total_items }}"
+      data-next-page="{{ next_page_path }}"
+      data-per-page="{{ per_page }}"
+    >
+      {% for post in initial_posts %}
+        {% include insight-card.html post=post on_insights_page=true %}
+      {% endfor %}
+    </div>
+
+    <!-- Pagination/Load More Section -->
+    <div class="insights-pagination" id="insightsPagination">
+      <span id="itemsShown" class="cta-label">Showing all insights</span>
+      <button class="cta-button-alt" id="loadMoreBtn" style="display: none;">
+        LOAD MORE INSIGHTS
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="/assets/js/insights.js"></script>
+
+<template id="insightCardTemplate">
+  {% include insight-card.html post="" %}
+</template>

@@ -1,0 +1,109 @@
+---
+layout: default
+title: What We Do
+image: "/assets/logo.png"
+description: "ItalAI turns research into working AI systems. Our capabilities span foundation models, computer vision, NLP, robotics, reinforcement learning, and MLOps. From fundamental research through system design to deployment - where scientific rigor meets real-world constraints."
+---
+
+{%- capture hero_heading -%}
+Turning top-tier research into<br>
+<span class="highlight-blue italic weak">working AI solutions</span>
+<span class="period">.</span>
+{%- endcapture -%}
+{% include hero.html
+  heading=hero_heading
+  crumb_current="WHAT WE DO"
+  tagline="From idea ot execution."
+  title-style="color: var(--standard-dark);"
+  hero-style="background: var(--standard-green-alt);"
+  breadcrumb-style="background: var(--standard-green); color: var(--standard-light);"
+  bg_image="/assets/images/work-hero.webp"
+%}
+
+<!-- What We Focus On Section -->
+<section class="focus-section">
+  <div class="container">
+    <div class="focus-grid">
+      <div class="focus-image">
+        <img src="/assets/images/work.webp" alt="What We Focus On" loading="lazy">
+      </div>
+      <div class="focus-content">
+      <div class="section-label">WHAT WE FOCUS ON</div>
+      <h2 class="h3-size">
+        Solving AI for YOu<span class="period">.</span>
+      </h3>
+      <p class="small description">
+        We build innovation from scratch: our work starts with top-level research and continues trhough system design and deployment.
+      </p>
+      <p class="small description">
+        We believe that scientific rigor and real-world adaptation must coexist.
+      </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Capabilities Section -->
+<section class="capabilities-section">
+    <div class="container">
+        <div class="capabilities-content">
+            <div class="section-label">WHAT WE BUILD</div>
+            <h2 class="h3-size">
+                CORE RESEARCH AND<br>
+                SYSTEM CAPABILITIES<span class="period">.</span>
+            </h2>
+            <div class="capabilities-list">
+            {% for capability in site.data.capabilities %}
+            <details class="capability-item">
+                <summary class="capability-summary">
+                <span class="text-wrapper">
+                    <h3 class="text-content h3-size" aria-label="{{ capability.title }}">
+                      <span class="text-light">
+                          <div class="capability-number h2-size">{{ capability.number }}</div>
+                          <div class="capability-title weak h1-size">{{ capability.title }}</div>
+                      </span>
+                      <span class="text-dark">
+                          <div class="capability-number h2-size">{{ capability.number }}</div>
+                          <div class="capability-title weak h1-size">{{ capability.title }}</div>
+                      </span>
+                    </h3>
+                </span>
+                </summary>
+                <div class="capability-details">
+                {% if capability.type == 'papers' %}
+                <div class="papers-list">
+                    {% for paper in capability.papers %}
+                    <div class="paper-item">
+                    <div class="paper-date-col">
+                        <p class="medium paper-date">{{ paper.date }}</p>
+                    </div>
+                    <div class="paper-topic-col">
+                        <p class="small paper-topic">{{ paper.topic }}</p>
+                    </div>
+                    <div class="paper-content-col">
+                        <div class="paper-title h5-size">
+                          <a href="{{ paper.link }}">{{ paper.title }}</a>
+                        </div>
+                        <p class="paper-description">{{ paper.description }}</p>
+                    </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-summary">
+                    <div class="capability-number h2-size" style="height: 1px; opacity: 0;">{{ capability.number }}</div>
+                    <span>
+                      {{ capability.content | markdownify | replace: '<p>', '<p class="medium capability-text" style="">' }}
+                    </span>
+                </div>
+                {% endif %}
+                </div>
+            </details>
+            {% endfor %}
+            </div>
+
+        </div>
+    </div>
+    <a href="/roadmap" class="cta-center cta-button cta-overlap">DISCOVER WHAT'S NEXT</a>
+</section>

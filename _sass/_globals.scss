@@ -1,0 +1,162 @@
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: never;
+    font-family: var(--body-family);
+    background-color: var(--standard-light);
+    color: var(--standard-dark);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    &.no-scroll {
+        overflow: hidden;
+    }
+}
+
+:root {
+    scroll-padding-top: 110px; // Navbar height offset
+
+    // Responsive Breakpoints
+    --viewport-mobile: 575px;
+    --viewport-mobile-extra: 767px;
+    --viewport-tablet: 991px;
+    --viewport-tablet-extra: 1279px;
+    --viewport-laptop: 1600px;
+    --viewport-widescreen: 1921px;
+
+    // Wide Screen Restriction
+    --content-width: 1380px;
+
+    // Standard Color Pallete
+    --standard-green: #32b692;
+    --standard-green-alt: #C6FFE0;
+    --standard-light: #F6F4EC;
+    --standard-light-alt: #D9CBB5;
+    --standard-dark: #0D0221;
+    --standard-dark-alt: #2C2C2C;
+    --standard-red: #e4453a;
+    --standard-blue: #6a7cff;
+    --standard-disabled: #EAEAEA;
+
+    // Typography
+    --letter-spacing: -6%;
+    --header-family: "JetBrains Mono", monospace;
+    --body-family: "DM Sans", sans-serif;
+
+    /* Designer constants (px) -> max values in rem (base 16px) */
+    /* --h1-size: 70px;  -> 4.375rem */
+    /* --h2-size: 60px;  -> 3.75rem */
+    /* --h3-size: 50px;  -> 3.125rem */
+    /* --h4-size: 40px;  -> 2.5rem */
+    /* --h5-size: 25px;  -> 1.5625rem */
+    /* --h6-size: 22px;  -> 1.375rem */
+    /* --h7-size: 20px;  -> 1.25rem */
+    /* --p-large-size: 28px; -> 1.75rem */
+    /* --p-medium-size: 25px; -> 1.5625rem */
+    /* --p-small-size: 22px; -> 1.375rem */
+
+
+    --h1-size: clamp(2rem, 4vw + 1.25rem, 4.375rem); /* 32px -> 70px */
+    --h2-size: clamp(1.75rem, 3.2vw + 1rem, 3.75rem); /* 28px -> 60px */
+    --h3-size: clamp(1.5rem, 2.5vw + 0.75rem, 3.125rem); /* 24px -> 50px */
+    --h4-size: clamp(1.25rem, 2vw + 0.5rem, 2.5rem); /* 20px -> 40px */
+    --h5-size: clamp(1rem, 1.25vw + 0.5rem, 1.5625rem); /* 16px -> 25px */
+    --h6-size: clamp(0.875rem, 0.8vw + 0.45rem, 1.375rem); /* 14px -> 22px */
+    --h7-size: clamp(0.85rem, 0.6vw + 0.4rem, 1.25rem); /* 13.6px -> 20px */
+
+    --p-large-size: clamp(1rem, 1vw + 0.9rem, 1.75rem); /* 16px -> 28px */
+    --p-medium-size: clamp(0.9375rem, 0.6vw + 0.85rem,  1.5625rem); /* 15px -> 25px */
+    --p-small-size: clamp(0.875rem, 0.5vw + 0.8rem, 1.375rem); /* 14px -> 22px */
+    --font-size: clamp(0.9rem, 0.45vw + 0.9rem, 1rem);
+
+    --button-font-family: "JetBrains Mono", monospace;
+    --button-font-size: 16px;
+
+    --paragraph-spacing: 1.875rem;
+
+    --blue-dark: linear-gradient(var(--standard-dark), var(--standard-dark)) padding-box, linear-gradient(90deg, var(--standard-blue) 0%, var(--standard-light) 38.02%, var(--standard-blue) 75.83%) border-box;
+    --blue-blue: linear-gradient(var(--standard-blue), var(--standard-blue)) padding-box, linear-gradient(90deg, var(--standard-blue) 0%, var(--standard-light) 38.02%, var(--standard-blue) 75.83%) border-box;
+    --blue-light: linear-gradient(var(--standard-light), var(--standard-light)) padding-box, linear-gradient(90deg, var(--standard-blue) 0%, var(--standard-light) 38.02%, var(--standard-blue) 75.83%) border-box;
+    --blue-green: linear-gradient(var(--standard-green-alt), var(--standard-green-alt)) padding-box, linear-gradient(90deg, var(--standard-blue) 0%, var(--standard-light) 38.02%, var(--standard-blue) 75.83%) border-box;
+
+    /* Spacing & radii */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+    --space-2xl: 4rem;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 25px;
+    --radius-2xl: 33px;
+    --radius-3xl: 50px;
+    --radius-full: 50px;
+}
+
+textarea,
+input {
+    font-size: var(--body-xs-size);
+    font-weight: var(--body-xs-weight);
+    letter-spacing: var(--body-xs-letter-spacing);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+    font-family: var(--header-family);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 1rem 0;
+    letter-spacing: -6%;
+}
+
+p,
+label,
+input,
+textarea {
+    font-family: var(--body-family);
+    letter-spacing: 0%;
+}
+p.large {
+    font-size: var(--p-large-size);
+}
+p.medium {
+    font-size: var(--p-medium-size);
+}
+p.small {
+    font-size: var(--p-small-size);
+}
+
+// h1 { font-size: var(--h1-size); }
+// h2 { font-size: var(--h2-size); }
+// h3 { font-size: var(--h3-size); }
+// h4 { font-size: var(--h4-size); }
+// h5 { font-size: var(--h5-size); }
+// h6 { font-size: var(--h6-size); }
+
+//Were Headers in Design, but aren't for accessibility reasons
+.size-base {
+    font-family: var(--header-family);
+    letter-spacing: -6%;
+    margin: 1rem 0;
+    font-weight: 800;
+}
+/* Font size utility classes for accessibility */
+.h1-size { @extend .size-base; font-size: var(--h1-size) !important; }
+.h2-size { @extend .size-base; font-size: var(--h2-size) !important; }
+.h3-size { @extend .size-base; font-size: var(--h3-size) !important; }
+.h4-size { @extend .size-base; font-size: var(--h4-size) !important; }
+.h5-size { @extend .size-base; font-size: var(--h5-size) !important; }
+.h6-size { @extend .size-base; font-size: var(--h6-size) !important; }
+.h7-size { @extend .size-base; font-size: var(--h7-size) !important; }

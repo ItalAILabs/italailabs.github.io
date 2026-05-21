@@ -1,0 +1,95 @@
+<div id="loading-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0D0221;display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1">
+    <img src="/assets/logo.svg" alt="Loading" class="loading-logo" style="width:120px;height:auto">
+</div>
+<script>
+(function() {
+    var DEBUG = {{ site.loading_debug | default: false }};
+    var startTime = (window.performance && typeof window.performance.now === 'function')
+        ? window.performance.now()
+        : Date.now();
+    
+    function log() {
+        if (DEBUG) console.log.apply(console, arguments);
+    }
+    
+    function warn() {
+        if (DEBUG) console.warn.apply(console, arguments);
+    }
+    
+    function error() {
+        if (DEBUG) console.error.apply(console, arguments);
+    }
+    
+    log('[Loading] Script started');
+    log('[Loading] Document ready state:', document.readyState);
+
+    function getElapsedMs() {
+        var now = (window.performance && typeof window.performance.now === 'function')
+            ? window.performance.now()
+            : Date.now();
+        return now - startTime;
+    }
+
+    function getMinimumDurationMs(elapsedMs) {
+        return Math.min(1000, Math.max(500, elapsedMs));
+    }
+
+    function hideLoadingScreenWithDelay(elapsedMs) {
+        var loadingScreen = document.getElementById('loading-screen');
+        if (!loadingScreen) {
+            error('[Loading] Loading screen element not found!');
+            return;
+        }
+
+        var minDuration = getMinimumDurationMs(elapsedMs);
+        var remaining = Math.max(0, minDuration - elapsedMs);
+        log('[Loading] Minimum duration:', minDuration + 'ms');
+        log('[Loading] Remaining delay:', remaining + 'ms');
+
+        setTimeout(function() {
+            log('[Loading] Loading screen found, adding loaded class');
+            loadingScreen.classList.add('loaded');
+            setTimeout(function() {
+                log('[Loading] Removing loading screen from DOM');
+                loadingScreen.remove();
+            }, 600);
+        }, remaining);
+    }
+    
+    if (document.readyState === 'complete') {
+        log('[Loading] Document already complete, hiding immediately');
+        hideLoadingScreenWithDelay(getElapsedMs());
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        log('[Loading] DOMContentLoaded fired');
+    });
+    
+    window.addEventListener('load', function() {
+        log('[Loading] Window load event fired');
+        log('[Loading] All resources loaded at:', new Date().toISOString());
+        
+        hideLoadingScreenWithDelay(getElapsedMs());
+    });
+    
+    if (DEBUG) {
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName) {
+                error('[Loading] Resource failed to load:', e.target.tagName, e.target.src || e.target.href);
+            }
+        }, true);
+    }
+    
+    setTimeout(function() {
+        if (document.readyState !== 'complete') {
+            warn('[Loading] Timeout reached, document still not complete');
+            warn('[Loading] Ready state:', document.readyState);
+        }
+        var loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen && !loadingScreen.classList.contains('loaded')) {
+            warn('[Loading] Force hiding loading screen after 5s timeout');
+            hideLoadingScreenWithDelay(getElapsedMs());
+        }
+    }, 5000);
+})();
+</script>

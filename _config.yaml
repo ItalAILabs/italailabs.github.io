@@ -1,0 +1,57 @@
+permalink: /insights/:title/
+destination: ./_site
+source: ./
+
+url: "https://italailabs.com"
+
+title: "ItalAI Labs"
+tagline: "Artificial Intelligence Research and Development"
+description: "ItalAI is an AI research laboratory developing advanced artificial intelligence systems. Not Italy. ItalAI - pioneering the future of intelligent machines."
+author: "ItalAI"
+logo: "/assets/logo.svg"
+loading_debug: true
+
+# Do not publish legacy raster assets; only WebP should ship in the build artifacts.
+exclude:
+  # - "assets/images/**/*.jpg"
+  # - "assets/images/**/*.jpeg"
+  # - "assets/images/**/*.png"
+  # - "assets/images/**/*.gif"
+  - "scripts"
+  - "README.md"
+
+social:
+  twitter: https://x.com/_italai
+  linkedin: https://www.linkedin.com/company/italai/
+  github: https://github.com/ItalAILabs
+
+locale: en_US.UTF
+
+webmaster_verifications:
+  google: trjGoWqK4ZnLygnmefGpW0b2ev8If5_3QDtXC_rm83w
+
+markdown: kramdown
+kramdown:
+  toc_levels: 2..5
+  math_engine: null
+  math_output: latex
+sass:
+  style: compressed
+  
+safe: false
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-minifier
+
+jekyll-minifier:
+  exclude: ['robots.txt']
+  compress_css: false
+  compress_javascript: true
+  compress_json: false 
+
+insights_manifest:
+  per_page: 12
+  output_dir: assets/data/insights
+  per_category: true
+  ndjson: true

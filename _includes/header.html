@@ -1,0 +1,41 @@
+<nav class="navbar">
+  <a class="logo" href="/">
+    <img class="logo" src="/assets/logo.svg" alt="ItalAI" style="max-height: 48px;">
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="/about" {% if page.url contains "/about" %}class="active"{% endif %}>About</a></li>
+    <li><a href="/work" {% if page.url contains "/work" %}class="active"{% endif %}>What We Do</a></li>
+    <li><a href="/roadmap" {% if page.url contains "/roadmap" %}class="active"{% endif %}>What's Next</a></li>
+    <li><a href="/insights" {% if page.url contains "/insights" %}class="active"{% endif %}>Insights</a></li>
+  </ul>
+
+  <!-- CTA for desktop -->
+  <a href="#contact" class="cta-button-alt desktop-cta" style="margin-left: auto;">Get in Touch</a>
+
+  <!-- CSS-only hamburger menu -->
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+  <label for="menu-toggle" class="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+  <label for="menu-toggle" class="overlay"></label>
+  <div class="mobile-nav">
+    <ul>
+      <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>Home</a></li>
+      <li><a href="/about" {% if page.url contains "/about" %}class="active"{% endif %}>About</a></li>
+      <li><a href="/work" {% if page.url contains "/work" %}class="active"{% endif %}>What We Do</a></li>
+      <li><a href="/roadmap" {% if page.url contains "/roadmap" %}class="active"{% endif %}>What's Next</a></li>
+      <li><a href="/insights" {% if page.url contains "/insights" %}class="active"{% endif %}>Insights</a></li>
+    </ul>
+    <a href="#contact" class="cta-button">Get in Touch</a>
+  </div>
+</nav>
+<script>
+document.querySelectorAll('.mobile-nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('menu-toggle').checked = false;
+  });
+});
+</script>

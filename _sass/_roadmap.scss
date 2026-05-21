@@ -1,0 +1,217 @@
+.ahead-section {
+
+}
+.ahead-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        border-radius: var(--radius-lg);
+        max-width: 100%;
+        height: auto;
+        margin-bottom: auto;
+    }
+}
+.ahead-grid {
+    padding: 2rem 2rem;
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr 2fr;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ===============================
+   Vision Cards Layout
+================================ */
+
+
+.vision-card-section {}
+
+.vision-card-content {
+  position: relative;
+  padding: 2rem 2rem;
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-rows: 1fr;
+  gap: 1rem;
+  box-sizing: border-box;
+}
+
+
+/* Vision Card Styles (merged and deduped) */
+.vision-card {
+  /* Layout and sticky positioning */
+  position: sticky;
+  top: 6.25rem;
+  z-index: 1;
+  padding: 1rem 3rem;
+  border-radius: 1.5rem; /* match image rounding */
+  overflow: hidden;      /* keeps scaled image inside card */
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end; // aligns children to the bottom
+  justify-content: flex-start;
+
+  /* Coverage-driven animation */
+  --cover-progress: 0;
+  transform: scale(calc(1 - (var(--cover-progress) * 0.06)));
+//   opacity: calc(1 - (var(--cover-progress) * 0.6));
+  filter: brightness(calc(1 - var(--cover-progress)));
+  will-change: transform, opacity, filter;
+  transform-origin: center top;
+
+  /* Smooth scaling for background image */
+  .vc-img {
+    transition: transform 0.3s ease;
+    filter: grayscale(.75)
+    opacity(.5)
+  }
+  &:hover .vc-img {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  &::before {
+    content: '';
+    // Add positioning/sizing as needed
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; // Behind the card content
+  }
+  &.blue {
+    background: var(--standard-blue);
+  }
+  &.dark {
+    background: var(--standard-dark);
+  }
+  &.blue::before {
+    background: var(--standard-blue);
+    opacity: 0.65;
+  }
+  &.dark::before {
+    background: var(--standard-dark);
+    opacity: 0.65;
+  }
+}
+
+/* Background image for vision card */
+.vc-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  z-index: 0;
+  border-radius: 1.5rem;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.3s ease;
+}
+
+/* Card content */
+.vc-content {
+  max-width: calc((var(--content-width) - 4rem) / 2.5 );
+  color: var(--standard-light);
+  z-index: 1;
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  height: 100%;                /* Allow the card to take full height of its parent */
+  box-sizing: border-box;      /* Include padding and border in height calculation */
+
+  // Color variants
+  &.blue {
+    background: var(--standard-blue);
+  }
+  &.dark {
+    background: var(--standard-dark);
+  }
+
+  /* Typography */
+  h2 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--standard-green-alt);
+  }
+  p {
+    margin: 0;
+  }
+}
+
+/* Responsive */
+@media (max-width: 48rem) {
+  .vc-content-container {
+    padding: 0 1rem;
+  }
+  .vc-content {
+    padding: 2em;
+  }
+}
+@media (max-width: 30rem) {
+  .vc-content {
+    padding: 1.5em;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.vision-section {
+    position: relative;
+    background: var(--standard-blue);
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--standard-blue);
+        opacity: 0.65;
+        z-index: 1;
+        pointer-events: none;
+    }
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.20;
+        object-fit: cover;
+        object-position: center; // anchor to bottom edge
+        z-index: 0;
+        filter: grayscale(1.0);
+    }
+}
+.vision-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    h2 {
+        color: var(--standard-light);
+        span {
+            font-weight: 400;
+        }
+    }
+}

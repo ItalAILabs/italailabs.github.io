@@ -1,0 +1,64 @@
+---
+layout: default
+sitemap: false
+---
+<section class="vcard-page">
+    <div class="vc-card-wrapper">
+        <div class="vc-card">
+            <div class="person-card">
+                {% if page.vcard %}
+                <a class="cta-button vc-download-btn" href="{{ page.vcard }}" download title="Download contact info">
+                    <i class="fa-solid fa-download"></i>
+                </a>
+                {% endif %}
+                <div class="person-image">
+                    <img
+                        src="/assets/images/people/{{ page.person.name | replace: ' ', '-' | downcase }}.png"
+                        alt="{{ page.person.name }}"
+                        class="person-img"
+                    >
+                </div>
+
+                <div class="person-info">
+                    <h1 class="person-name">{% if page.person.professor %}Prof.{% endif %}{{ page.person.name }}</h1>
+                    {% if page.person.role %}
+                    <p class="person-role">{{ page.person.role }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="contact-info">
+                    {% if page.person.phone %}
+                    <a class="vc-contact-row" href="tel:{{ page.person.phone | remove: ' ' | remove: '-' | remove: '(' | remove: ')' }}">
+                        <span class="vc-contact-icon"><i class="fa-solid fa-mobile-screen"></i></span>
+                        <span class="vc-contact-value">{{ page.person.phone }}</span>
+                    </a>
+                    {% endif %}
+
+                    {% if page.person.email %}
+                    <a class="vc-contact-row" href="mailto:{{ page.person.email }}">
+                        <span class="vc-contact-icon"><i class="fa-solid fa-envelope"></i></span>
+                        <span class="vc-contact-value">{{ page.person.email }}</span>
+                    </a>
+                    {% endif %}
+
+                    {% if page.person.location %}
+                    <div class="vc-contact-row">
+                        <span class="vc-contact-icon"><i class="fa-solid fa-location-dot"></i></span>
+                        <span class="vc-contact-value">{{ page.person.location }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if page.person.links %}
+                <ul class="team-socials">
+                    {% if page.person.links.linkedin %}<li><a class="socials" href="{{ page.person.links.linkedin }}" target="_blank" aria-label="{{ page.person.name }}'s LinkedIn Profile"><i class="fa-brands fa-linkedin-in"></i></a></li>{% endif %}
+                    {% if page.person.links.x %}<li><a class="socials" href="{{ page.person.links.x }}" target="_blank" aria-label="{{ page.person.name }}'s X Profile"><i class="fa-brands fa-x-twitter"></i></a></li>{% endif %}
+                    {% if page.person.links.scholar %}<li><a class="socials" href="{{ page.person.links.scholar }}" target="_blank" aria-label="{{ page.person.name }}'s Google Scholar Profile"><i class="fa-brands fa-google-scholar"></i></a></li>{% endif %}
+                    {% if page.person.links.github %}<li><a class="socials" href="{{ page.person.links.github }}" target="_blank" aria-label="{{ page.person.name }}'s GitHub Profile"><i class="fa-brands fa-github"></i></a></li>{% endif %}
+                    {% if page.person.links.url %}<li><a class="socials" href="{{ page.person.links.url }}" target="_blank" aria-label="{{ page.person.name }}'s External Site"><i class="fa-solid fa-globe"></i></a></li>{% endif %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

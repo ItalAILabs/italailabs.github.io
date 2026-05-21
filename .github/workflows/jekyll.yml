@@ -1,0 +1,168 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# Sample workflow for building and deploying a Jekyll site to GitHub Pages
+name: Deploy Jekyll site to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout generated-assets branch
+        id: checkout-generated
+        uses: actions/checkout@v4
+        with:
+          ref: generated-assets
+          path: generated-assets
+          token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Hash source images and build manifest
+        id: manifest
+        run: |
+          > changed_images.manifest
+
+          while IFS= read -r -d '' src; do
+            rel="${src#./}"
+            current_hash=$(sha256sum "$src" | cut -d' ' -f1)
+            stored=$(grep "  $rel$" generated-assets/manifest.sha256 2>/dev/null | cut -d' ' -f1)
+            if [ -z "$stored" ] || [ "$current_hash" != "$stored" ]; then
+              echo "Changed or missing: $rel"
+              echo "$rel" >> changed_images.manifest
+            fi
+          done < <(find assets/images \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print0 2>/dev/null)
+
+          COUNT=$(wc -l < changed_images.manifest | tr -d ' ')
+          echo "changed_count=$COUNT" >> $GITHUB_OUTPUT
+
+          if [ "$COUNT" -gt "0" ]; then
+            echo "any_changed=true" >> $GITHUB_OUTPUT
+            echo "$COUNT image(s) need regeneration"
+          else
+            echo "any_changed=false" >> $GITHUB_OUTPUT
+            echo "All images are up to date"
+          fi
+
+      - name: Print manifest
+        run: |
+          echo "any_changed: ${{ steps.manifest.outputs.any_changed }}"
+          echo "changed_count: ${{ steps.manifest.outputs.changed_count }}"
+          echo "---"
+          cat changed_images.manifest
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@4a9ddd6f338a97768b8006bf671dfbad383215f4
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Install libvips
+        if: steps.manifest.outputs.any_changed == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libvips-dev
+
+      - name: Generate WebP images
+        if: steps.manifest.outputs.any_changed == 'true'
+        run: bundle exec ruby _plugins/vips-webp-generator.rb
+        env:
+          WEBP_MANIFEST: ${{ github.workspace }}/changed_images.manifest
+
+      - name: Commit and push to generated-assets branch
+        if: steps.manifest.outputs.any_changed == 'true'
+        continue-on-error: true
+        run: |
+          if [ "${{ steps.checkout-generated.outcome }}" == "success" ]; then
+            echo "generated-assets branch found — using existing checkout"
+            cd generated-assets
+          else
+            echo "generated-assets branch not found — initialising orphan branch"
+            cd generated-assets
+            git checkout --orphan generated-assets
+            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Copy generated WebPs from the jekyll build
+          find ../assets/images -name "*.webp" | while IFS= read -r f; do
+            rel="${f#../}"
+            mkdir -p "$(dirname "$rel")"
+            cp "$f" "$rel"
+          done
+
+          # Rebuild manifest.sha256 from current source images
+          > manifest.sha256
+          find ../assets/images \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | while IFS= read -r f; do
+            rel="${f#../}"
+            echo "$(sha256sum "$f" | cut -d' ' -f1)  $rel" >> manifest.sha256
+          done
+
+          git add .
+          git diff --staged --quiet && echo "Nothing to commit" && exit 0
+          git commit -m "chore: regenerate WebP images (${{ steps.manifest.outputs.changed_count }} changed)"
+          git push origin HEAD:generated-assets
+
+          echo "---"
+          echo "Push succeeded"
+          echo "Commit: $(git rev-parse HEAD)"
+
+      - name: Overlay generated WebP images from generated-assets branch
+        run: |
+          rsync -a --ignore-missing-args --include='*.webp' --include='*/' --exclude='*' generated-assets/assets/images/ assets/images/
+          if [ -f generated-assets/manifest.sha256 ]; then
+            cp generated-assets/manifest.sha256 assets/images/manifest.sha256
+          fi
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site/
+    
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

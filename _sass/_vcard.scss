@@ -1,0 +1,344 @@
+
+.vcard-page {
+  --vc-border: color-mix(in srgb, var(--standard-blue) 20%, transparent);
+  --vc-blue-dim: color-mix(in srgb, var(--standard-blue) 10%, transparent);
+  width: 100%;
+  background: var(--standard-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vc-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--space-lg);
+}
+
+
+
+
+/* ── Card ── */
+.vc-card {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  gap: 0;
+  width: 100%;
+  max-width: 450px;
+  background: linear-gradient(135deg, var(--standard-blue) 0%, color-mix(in srgb, var(--standard-blue) 80%, var(--standard-light)) 100%);
+  border: 4px solid var(--standard-green-alt);
+  border-radius: 30px;
+}
+
+
+.vc-contact-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  text-decoration: none;
+  color: white;
+  background: transparent;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.vc-contact-row:hover {
+  transform: scale(1.05);
+  color: color-mix(in srgb, var(--standard-blue) 20%, white);
+}
+
+
+/* Icon for contact rows */
+.vc-contact-icon {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  opacity: 0.9;
+}
+
+
+.vc-contact-value {
+  font-family: var(--header-family);
+  font-size: 1rem;
+  color: white;
+  transition: color 0.2s;
+}
+
+/* Keep old styles for backward compatibility */
+.vc-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  border-bottom: 1px solid var(--vc-border);
+  text-decoration: none;
+  color: var(--vc-text);
+  background: transparent;
+  transition: background 0.18s;
+}
+
+.vc-row:last-child {
+  border-bottom: none;
+}
+
+.vc-row:hover:not(.no-hover) {
+  background: var(--vc-blue-dim);
+}
+
+.vc-row:hover:not(.no-hover) .vc-row-icon-wrap {
+  border-color: var(--standard-blue);
+  color: var(--standard-blue);
+  background: color-mix(in srgb, var(--standard-blue) 15%, transparent);
+}
+
+.vc-row:hover:not(.no-hover) .vc-row-value {
+  color: var(--vc-text);
+}
+
+
+/* Icon in a small outlined box */
+.vc-row-icon-wrap {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--vc-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  color: var(--standard-light-alt);
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+}
+
+
+.vc-row-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.vc-row-label {
+  font-family: var(--header-family);
+  font-size: 0.48rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--standard-light-alt);
+  opacity: 0.7;
+}
+
+.vc-row-value {
+  font-family: var(--header-family);
+  font-size: 0.7rem;
+  color: color-mix(in srgb, var(--standard-light) 75%, transparent);
+  transition: color 0.18s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+/* ── Download button ── */
+.vc-btn {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.vc-btn:hover {
+  background: var(--standard-green);
+  color: var(--standard-dark);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--standard-green) 30%, transparent);
+}
+
+
+/* ── Person Card ── */
+.person-card {
+  position: relative;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: 0;
+  width: 100%;
+}
+
+.person-image {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  background: transparent;
+  border-radius: 50%;
+  border: 4px solid var(--standard-green-alt);
+  margin-top: var(--space-lg);
+}
+
+.person-image img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  transition: background 0.18s;
+  border-radius: 50%;
+}
+
+.person-info {
+  padding: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.person-name {
+  text-transform: capitalize;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.02em;
+}
+
+.person-role {
+  margin: 0;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.team-socials {
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  background: transparent;
+  border-radius: 0;
+  padding: var(--space-lg) 0;
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+.team-socials li {
+  margin: 0;
+  width: auto;
+  display: flex;
+  justify-content: center;
+}
+.team-socials a {
+  width: var(--trigger-icon-size, 28px);
+  height: var(--trigger-icon-size, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 1px solid color-mix(in srgb, white 50%, transparent);
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+.team-socials a i {
+  font-size: var(--social-icon-size, 14px);
+}
+.team-socials a:hover {
+  background: color-mix(in srgb, white 20%, transparent);
+  border-color: color-mix(in srgb, white 80%, transparent);
+  border-radius: 50%;
+  transform: scale(1.15);
+}
+
+.socials {
+  text-decoration: none;
+  color: white;
+}
+.socials:hover {
+  color: color-mix(in srgb, var(--standard-blue) 20%, white);
+}
+
+
+/* Download button - small circle in upper right */
+.vc-download-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 20;
+  width: 50px;
+  height: 50px;
+  padding: 0 !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.vc-download-btn:hover {
+  transform: scale(1.1);
+}
+
+
+/* Desktop layout */
+@media (min-width: 768px) {
+  .person-image {
+    width: 240px;
+    height: 240px;
+  }
+  .person-name {
+    font-size: 2.2rem;
+  }
+  .person-role {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 767px) {
+  .person-image {
+    width: 160px;
+    height: 160px;
+  }
+  .person-name {
+    font-size: 1.7rem;
+  }
+  .person-role {
+    font-size: 1rem;
+  }
+  .vc-contact-value {
+    font-size: 0.95rem;
+  }
+}

@@ -1,0 +1,101 @@
+- number: "01"
+  title: "Frontier AI Research"
+  type: "papers"
+  papers:
+    - date: "CVPR'24"
+      topic: "Procedural Learning & Anomaly Detection"
+      title: "PREGO"
+      description: "Online mistake detection in PRocedural EGOcentric videos."
+      link: "https://arxiv.org/abs/2404.01933"
+      
+    - date: "ICLM'24"
+      topic: "Uncertainty Estimation & Domain Adaptation"
+      title: "HALO"
+      description: "Hyperbolic Active Learning for Semantic Segmentation under Domain Shift."
+      link: "https://arxiv.org/abs/2306.11180"
+      
+    - date: "ICLM'24"
+      topic: "LLMs and Long-Term Dependency recognition"
+      title: "SERPENT"
+      description: "Selective Resampling for Expressive State Space Models."
+      link: "https://arxiv.org/abs/2306.11180"
+      
+    - date: "COLM'25"
+      topic: "LLMs and Long-Term Dependency recognition"
+      title: "LONGCODEBENCH"
+      description: "Evaluating Coding LLMs at 1M Context Windows."
+      link: "https://arxiv.org/abs/2306.11180"
+      
+    - date: "ECCV'24"
+      topic: "Multimodal Foundation Models"
+      title: "HYBERMODAL MULTIMODAL"
+      description: "Hyperbolic Learning with Multimodal Large Language Models."
+      link: "https://arxiv.org/abs/2408.05097"
+      
+    - date: "ICLR'25"
+      topic: "Multimodal Foundation Models"
+      title: "HYCOCLIP"
+      description: "Compositional Entailment Learning for Hyperbolic Vision-Language Models."
+      link: "https://arxiv.org/abs/2410.06912"
+      
+    - date: "IROS'24"
+      topic: "Embodied AI"
+      title: "HYP2NAV"
+      description: "Hyperbolic Planning and Curiosity for Crowd Navigation."
+      link: "https://arxiv.org/abs/2410.06912"
+      
+    - date: "ICLR'24"
+      topic: "Embodied AI"
+      title: "SDA"
+      description: "Following the Human Thread in Social Navigation."
+      link: "https://arxiv.org/abs/2404.11327"
+      
+    - date: "AAAI'26"
+      topic: "Computer Vision & Pattern Recognition"
+      title: "LCR"
+      description: "Human Motion Unlearning."
+      link: "https://arxiv.org/abs/2503.18674"
+      
+    - date: "ICLR'26"
+      topic: "Computer Vision & Pattern Recognition"
+      title: "VIDEO UNLEARNING"
+      description: "via Low-Rank Refusal Vector"
+      link: "https://arxiv.org/abs/2506.07891"
+      
+    - date: "ICLR'26"
+      topic: "Robotics"
+      title: "LEGO"
+      description: "Learning to Grasp Anything by Playing with Random Toys."
+      link: "https://arxiv.org/abs/2510.12866"
+
+- number: "02"
+  title: "Learning, Perception, and Representation"
+  type: "text"
+  content: |
+    We apply _advanced machine learning methods_ to complex, _real-world data_, with a strong focus on multimodal learning and representation.
+
+    Our work spans perception, learning under uncertainty, and vision-language models, enabling AI systems to reason across multiple data sources and time scales.
+
+    **We focus on methods that remain robust under domain shift and imperfect data, conditions that define real operational environments.**
+
+- number: "03"
+  title: "System-Level AI Design"
+  type: "text"
+  content: |
+    We design AI at the _**system level**_, not as isolated models. 
+    
+    Our work spans the _**full stack**_: from data pipelines and learning architectures to deployment constraints, compute efficiency, and long-term maintainability. 
+    
+    We focus on how components interact in real settings — where perception, decision-making, and learning must operate together under latency, reliability, and safety constraints. 
+    
+    **This approach allows us to build AI systems that are not only performant in controlled environments, but stable and scalable in production.**
+
+- number: "04"
+  title: "From Research to Real-World Systems"
+  type: "text"
+  content: |
+    We translate cutting-edge research into **deployable, real-world AI systems**. 
+    
+    Our team works closely with **industry partners** to move from _prototypes to operational systems_, ensuring that research outcomes deliver **measurable impact** _beyond the lab_.
+    
+    The result is AI that is grounded in strong scientific foundations while remaining usable, reliable, and aligned with real business and operational needs.

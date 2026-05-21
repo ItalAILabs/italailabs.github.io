@@ -1,0 +1,53 @@
+- id: foundations
+  title_short: "Foundations"
+  title: "AI IS SCALING"
+  title_emphasis: "BEYOND EXPECTATIONS."
+  background_image: "/assets/images/ai-scale.png"
+  paragraphs:
+    - "Models are getting bigger, faster, and more capable. What once required teams of specialists can now be automated. AI systems are moving beyond narrow, single-task problems and starting to handle real-world complexity. This isn't just incremental improvement—it's a fundamental shift in what machines can do."
+    - "The scaling isn't stopping. As more data, compute, and talent pour into AI, we're seeing capabilities that challenge what we thought was uniquely human. And this acceleration is just getting started. The window for adaptation is closing fast." 
+
+- id: robotics
+  title_short: "Robotics//AI"
+  title: "Robots+AI"
+  title_emphasis: "MEANS ROBOTS<br>IN THE REAL WORLD."
+  background_image: "/assets/images/robotics.png"
+  paragraphs:
+    - "Robots combined with modern AI models means they will go beyond research labs or controlled environments such as factories. Advances in AI, simulation, and learning systems are enabling robots to operate in real, complex, and dynamic environments. This shift is transforming how we build, inspect, design, and operate, across manufacturing, infrastructure, logistics, and beyond."
+    - "This shift is transforming how we will operate robots across vast swaths of the economy from consumer proucts, to logistics, health-care, and manufacturing."
+
+- id: acceleration
+  title_short: "Acceleration"
+  title: "RESEARCH IS ACCELERATING"
+  title_emphasis: "DISCOVERY TIMELINES."
+  background_image: "/assets/images/research-acceleration.png"
+  paragraphs:
+    - "Drug discovery that took years can now happen in months. Climate models that required supercomputers and teams of researchers can run on accessible infrastructure. AI is compressing the feedback loops of scientific experimentation, letting researchers fail faster and iterate harder. Discoveries that seemed years away are now on the horizon."
+    - "This acceleration is reshaping what science looks like. New possibilities emerge faster than institutions can adapt. The researchers and organizations that learn to work alongside AI systems will make breakthroughs. The ones that don't will find themselves several laps behind."
+
+# - id: ai-scale
+#   title_short: "AI at Scale"
+#   title: "AI IS SCALING"
+#   title_emphasis: "BEYOND EXPECTATIONS."
+#   background_image: "/assets/images/ai-scale.png"
+#   paragraphs:
+#     - "Models are getting bigger, faster, and more capable. What once required teams of specialists can now be automated. AI systems are moving beyond narrow, single-task problems and starting to handle real-world complexity. This isn't just incremental improvement—it's a fundamental shift in what machines can do."
+#     - "The scaling isn't stopping. As more data, compute, and talent pour into AI, we're seeing capabilities that challenge what we thought was uniquely human. And this acceleration is just getting started. The window for adaptation is closing fast." 
+
+# - id: industry-transformation
+#   title_short: "Industry Transformation"
+#   title: "INDUSTRIES ARE TRANSFORMING"
+#   title_emphasis: "AT BREAKNECK SPEED."
+#   background_image: "/assets/images/industry-transformation.png"
+#   paragraphs:
+#     - "Every industry is being touched by this wave. Finance, healthcare, energy, construction—the old ways of doing things are becoming obsolete. Companies that built moats around decades-old processes now find AI dismantling those walls. The pace of change is outrunning traditional business cycles."
+#     - "There's no industry immune to this disruption. The question isn't if you'll be affected, but how quickly you can adapt. Startups are building new business models from scratch on AI foundations. Established players are scrambling to keep pace. And the gap between leaders and laggards is widening by the month."
+
+# - id: research-acceleration
+#   title_short: "Research Acceleration"
+#   title: "RESEARCH IS ACCELERATING"
+#   title_emphasis: "DISCOVERY TIMELINES."
+#   background_image: "/assets/images/research-acceleration.png"
+#   paragraphs:
+#     - "Drug discovery that took years can now happen in months. Climate models that required supercomputers and teams of researchers can run on accessible infrastructure. AI is compressing the feedback loops of scientific experimentation, letting researchers fail faster and iterate harder. Discoveries that seemed years away are now on the horizon."
+#     - "This acceleration is reshaping what science looks like. New possibilities emerge faster than institutions can adapt. The researchers and organizations that learn to work alongside AI systems will make breakthroughs. The ones that don't will find themselves several laps behind."

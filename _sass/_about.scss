@@ -1,0 +1,667 @@
+.who-section {
+
+}
+.who-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        border-radius: var(--radius-lg);
+        max-width: 100%;
+        height: auto;
+        margin-bottom: auto;
+    }
+}
+.who-grid {
+    padding: 2rem 2rem;
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr 2fr;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.who-content h2 {
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: var(--space-md);
+  color: var(--standard-dark);
+}
+
+.principle-light {
+  background: var(--standard-green-alt);
+}
+.principle-dark {
+  background: var(--standard-dark);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--standard-dark);
+    opacity: 0.65;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+  }
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+}
+.principles-grid {
+  display: grid;
+  overflow: hidden;
+  padding: 4rem 2rem 1rem;
+}
+
+.principle-cell {
+  text-align: left;
+  letter-spacing: -6%;
+  font-family: inherit;
+  // border: 1px solid #111;
+}
+
+.principle-depth, .principle-rigor {
+  grid-column: 1;
+  text-align: right;
+}
+
+.principle-scale, .principle-speed {
+  grid-column: 2;
+  font-style: italic;
+}
+
+.principle-scale, .principle-speed,
+.principle-depth, .principle-rigor {
+  font-size: clamp(18px, 7.8cqw, 115px);
+}
+
+.principle-desc {
+  padding: 0 2rem 2rem;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: fit-content;
+  justify-self: end; /* hugs right wall within the grid column */
+  font-weight: 800;
+  grid-column: 2;
+  letter-spacing: 0%;
+  font-size: clamp(14px, calc(7.8cqw * 0.3), 29.75px);
+
+  * {
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  .highlight-blue {
+    white-space: nowrap;
+    align-self: stretch;
+  }
+
+  span:not(.highlight-blue) {
+    width: 0;
+    min-width: 100%;
+  }
+}
+.principle-label {
+  font-size: inherit;
+  font-weight: 900;
+}
+
+
+.values-content {
+  padding: 4rem 2rem 2rem;
+  color: var(--standard-light);
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.values-header {
+  margin-bottom: 3rem;
+}
+
+.values-title {
+  color: var(--standard-light);
+}
+
+.values-header-row {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-xl);
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.values-intro {
+  color: var(--standard-light);
+}
+
+/* Carousel Container */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+}
+
+.values-grid {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 1rem;
+}
+
+.value-card {
+  flex: 0 0 calc(33.333% - 0.667rem);
+  min-width: 0;
+}
+
+.value-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  transition: all var(--transition-base);
+  align-items: center;
+}
+
+.value-number {
+  font-weight: 800;
+  grid-column: 1;
+  grid-row: 1;
+  color: var(--standard-green-alt);
+  margin: 0;
+}
+
+.value-card-title {
+  margin: 0;
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--standard-blue);
+}
+
+.value-card-text {
+  grid-column: 2;
+  grid-row: 2;
+  color: var(--standard-light);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .value-card {
+    flex: 0 0 calc(50% - 0.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .values-title {
+    font-size: 2rem;
+  }
+  
+  .value-card {
+    flex: 0 0 100%;
+  }
+  
+  .value-content {
+    padding: 1.5rem;
+  }
+  
+  .value-number {
+    font-size: 2rem;
+  }
+  
+  .value-card-title {
+    font-size: 1.25rem;
+  }
+}
+
+
+/* PartnerShips and Team Section */
+.partners-section {
+    padding: 2rem;
+}
+
+.partners-content {
+    /* Add styles if needed */
+}
+
+/* Container */
+.partner-container {
+    position: relative;
+    background: var(--standard-dark);
+    border-radius: var(--radius-xl);
+    padding: 1rem;
+}
+
+/* Desktop Grid */
+.partners-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+/* Partner Cards */
+.partner-card {
+    width: 200px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.partner-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Hide carousel on desktop */
+.partners-carousel {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Owl Carousel Base Fixes */
+.partners-carousel .owl-stage-outer {
+    overflow: hidden;
+}
+
+.partners-carousel .owl-stage {
+    display: flex;
+    align-items: center;
+}
+
+.partners-carousel .owl-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ensure partner cards maintain size in carousel */
+.partners-carousel .partner-card {
+    width: 200px;
+    height: 90px;
+    margin: 1rem auto;
+}
+
+/* Navigation Buttons - Hidden */
+.owl-nav {
+    display: none;
+}
+
+/* Dots */
+.owl-dots {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.owl-dots button {
+    background: none;
+    border: none;
+    color: transparent;
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.owl-dots .owl-dot span {
+    margin: 0.2rem;
+    position: relative;
+    width: 12px;
+    height: 12px;
+    
+    background: var(--blue-light);
+    color: var(--standard-dark);
+    &:hover {
+        background: var(--blue-blue);
+        color: var(--standard-light);
+    }
+
+    display: block;
+    transition: border-color 0.3s ease, width 0.3s ease;
+    border-radius: 50%;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+    border-color: var(--standard-green-alt);
+}
+
+/* Force show nav and dots */
+.owl-nav.disabled,
+.owl-dots.disabled {
+    display: block;
+}
+
+.owl-nav.disabled button,
+.owl-dots.disabled button {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* Style Owl Carousel Buttons like CTA Button */
+.owl-nav button {
+    background:
+        linear-gradient(var(--color-primary), var(--color-primary)) padding-box,
+        linear-gradient(90deg, var(--color-primary) 0%, var(--color-bg-light) 38.02%, var(--color-primary) 75.83%) border-box;
+    color: var(--color-text-light);
+    padding: calc(var(--space-xs) + 0.25rem) var(--space-lg);
+    border: 2px solid transparent;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    font-size: var(--fz-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.owl-nav button:hover {
+    box-shadow: 0 6px 30px rgba(106, 124, 255, 0.6);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .partners-grid {
+        display: none;
+    }
+
+    .partners-carousel {
+        position: relative;
+        clip: auto;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        white-space: normal;
+    }
+
+    .partner-container {
+        padding: 2rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .partner-card {
+        width: 180px;
+        height: 85px;
+    }
+
+    .partners-carousel .partner-card {
+        width: 180px;
+        height: 85px;
+    }
+}
+
+.team-content {
+    padding: 4rem 2rem 2rem;
+    color: var(--standard-dark);
+}
+
+.work-with-us-card {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+}
+
+.work-with-us-content {
+  // text-align: left;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  height: 100%;
+}
+
+/* Person cards - single slot (25% width minus gap) */
+/* Team Grid Container */
+.team-grid {
+  display: flex;
+  flex-wrap: none;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+/* Person Card */
+.person-card {
+  position: relative;
+  background: var(--standard-light);
+  border: 1px solid var(--standard-dark);
+  border-radius: 29px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    .person-image::before {
+        content: '';
+        position: absolute;
+        top: 60%; /* Centered vertically */
+        left: 50%; /* Centered horizontally */
+        transform: translate(-50%) rotate(5deg); /* Proper centering and rotation */
+        width: 200%;
+        height: 100%;
+        opacity: 0; /* Initially hidden */
+        filter: blur(50px);
+        border-radius: 50%;
+        transition: opacity 0.3s ease-in-out; /* Smooth transition */
+        z-index: 1;
+        background-color: var(--standard-blue); /* Make visible on hover */
+        pointer-events: none; // Pathhrough for mouse events to the image
+    }
+    &:hover .person-image:not(:has(img.no-hover))::before {
+      opacity: 1; /* Make visible on hover */
+    }
+    &:hover .person-image img:not(.no-hover) {
+      filter: grayscale(0%);
+    }
+}
+.blank-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.person-card,
+.research-driven-card {
+  flex: 22.76%;
+}
+
+// .person-card:hover {
+//   transform: translateY(-5px);
+//   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+// }
+
+.person-image {
+    position: relative; /* Ensure pseudo-element is positioned relative to the image */
+    width: 100%;
+    overflow: hidden;
+    background: var(--standard-blue);
+    border-radius: 25px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(100%);
+        transition: filter 0.3s ease; /* Smooth transition for grayscale */
+    }
+}
+
+// .person-card:hover .person-img {
+//   transform: scale(1.05);
+// }
+
+.person-info {
+  padding: 20px;
+}
+
+.person-name {
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--standard-dark);
+}
+
+.person-role {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--standard-blue);
+  line-height: 1.4;
+}
+
+/* Social trigger positioned over image */
+.team-item-socials {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 10;
+  background: rgba(0, 0, 0);
+  border-radius: 10px;
+  padding: 10px;
+  transition: all 0.3s ease;
+  /* Icon size variables */
+  --trigger-icon-size: 18px;
+  --social-icon-size: 18px;
+}
+
+.socials-trigger {
+  width: var(--trigger-icon-size);
+  height: var(--trigger-icon-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Fade out trigger when hovering the card */
+.person-card:hover .socials-trigger {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Social links container */
+.team-socials-wrapper {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.team-socials {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 12;
+  background: rgba(0, 0, 0);
+  border-radius: 10px;
+  padding: 10px;
+  transform: translateY(-100%);
+  transition: transform 0.6s cubic-bezier(0.77, 0, 0.01, 0.98);
+
+  li {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  a {
+    width: var(--trigger-icon-size);
+    height: var(--trigger-icon-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: background 0.3s ease, transform 0.2s ease;
+
+    i {
+      font-size: var(--social-icon-size);
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      transform: scale(1.1);
+    }
+  }
+}
+
+/* Slide down the social links on card hover */
+.person-card:hover .team-socials {
+  transform: translateY(0);
+}
+.socials {
+  text-decoration: none;
+  color: var(--standard-light);
+  &:hover {
+    color: var(--standard-blue);
+  }
+}
+
+
+
+/* Work With Us Card */
+.work-with-us-card {
+  flex: 48.5%;
+}
+
+.research-driven-card {
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+}
+
+.research-label {
+  margin: 0 0 10px 0;
+}
+
+.research-subtext {
+  color: var(--standard-dark);
+}

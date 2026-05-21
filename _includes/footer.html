@@ -1,0 +1,76 @@
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-decor">
+            <img src="/assets/images/footer.webp" alt="" />
+        </div>
+        <div class="footer-grid">
+            <!-- Left Column -->
+            <div class="contact-info grid-1">
+                <div>
+                    <h2 class="h2-size">
+                        BUILDING THE<br/> NEXT
+                        <span class="highlight-blue italic weak">INDUSTRIAL<br/> REVOLUTION</span><span class="period">.</span>
+                    </h2>
+                    <p>We turn frontier AI and robotics research into systems that work in the real world.
+                    <br/>Designed for scale. Built for impact.</p>
+                </div>
+                <div class="socials">
+                    <div>
+                        <p>Partnership & Collaborations</p>
+                        <a href="mailto:research@italailabs.com" class="email">research@italailabs.com</a>
+                    </div>
+
+                    <div>
+                        <p style="margin-bottom: 0">Stay tuned</p>
+                        <div>
+                            <a href="{{ site.social.linkedin }}" target="_blank" aria-label="LinkedIn" class="social-icon fa-brands fa-linkedin"></a>
+                            <a href="{{ site.social.twitter }}" target="_blank" aria-label="Twitter" class="social-icon fa-brands fa-x-twitter"></a>
+                            <a href="{{ site.social.github }}" target="_blank" aria-label="GitHub" class="social-icon fa-brands fa-github"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="contact-form grid-2" id="contact">
+                <div class="contact-card">
+                    <h2 class="h2-size">GET IN TOUCH</h2>
+                    <p>Let's explore how AI and robotics can move your project beyond the lab.</p>
+
+                    <form id="mailForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required autocomplete="off" placeholder=" " />
+                            <label for="name" class="floater">Full name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required autocomplete="off" placeholder=" " />
+                            <label for="email" class="floater">Email</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" required autocomplete="off" placeholder=" " />
+                            <label for="subject" class="floater">Subject</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="idea" name="idea" required autocomplete="off" placeholder=" "></textarea>
+                            <label for="idea" class="floater">Message</label>
+                        </div>
+                        <button type="submit" class="cta-button">SEND MESSAGE</button>
+                    </form>
+                    <!-- Success/Error Messages -->
+                    <div id="errorMessage" class="error-message mt-2 highlight-red" style="display: none;">
+                        An error occurred. We are sorry, but
+                        our contact form is not working at
+                        the moment. Please contact us using
+                        the info listed on this page.
+                    </div>
+                    <div id="successMessage" class="success-message mt-2 highlight-green" style="display: none;">
+                        Message sent successfully!
+                    </div>
+                </div>
+            </div>
+
+            <img class="logo grid-3" src="/assets/logo.svg" alt="ItalAI">
+        </div>
+    </div>
+</footer>
+<script src="/assets/js/form.js" defer></script>

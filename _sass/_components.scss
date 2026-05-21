@@ -1,0 +1,446 @@
+.container {
+    max-width: var(--content-width);
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.cta-overlap {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    top: 50%;
+    transform: translateY(50%);
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.cta-label {
+    color: #0D0221;
+    padding: 8px 20px;
+    font-size: calc(var(--font-size) / 1.1);
+    font-weight: 100;
+    font-style: italic;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-family: var(--header-family);
+}
+
+%cta-button-base {
+    color: var(--standard-light);
+    border: 2px solid transparent;
+    font-family: var(--button-font-family);
+    font-size: var(--font-size);
+    border-radius: 100px;
+    padding: 10px 35px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bolder;
+    width: fit-content;
+    white-space: nowrap;
+
+    &:hover:not(:disabled):not(.disabled) {
+        color: var(--standard-blue);
+    }
+    &.cta-center {
+        display: block;
+        margin: auto;
+    }
+    &:disabled,
+    &.disabled {
+        background: var(--standard-disabled);
+        border-color: var(--standard-light);
+    }
+}
+
+.cta-button {
+    @extend %cta-button-base;
+    background: var(--blue-dark);
+
+    &:hover:not(:disabled):not(.disabled) {
+        background: var(--blue-light);
+    }
+}
+
+.cta-button-alt {
+    @extend %cta-button-base;
+    background: var(--blue-blue);
+
+    &:hover:not(:disabled):not(.disabled) {
+        background: var(--blue-green);
+    }
+}
+
+.tag-button {
+    @extend %cta-button-base;
+    // padding: 10px 0;
+    justify-content: center;
+    text-align: center;
+    border-radius: 5px;
+    background: var(--blue-light);
+    color: var(--standard-dark);
+    width: auto;
+    box-shadow: 0 4px 19.3px 0 var(--standard-light-alt);
+    cursor: pointer;
+    border: 2px solid transparent;
+    &:hover,
+    &.selected {
+        box-shadow: 0 4px 19.3px 0 var(--standard-blue);
+    }
+    &:hover {
+        background: var(--blue-blue);
+        color: var(--standard-light);
+    }
+    &:hover:not(:disabled):not(.disabled) {
+        color: var(--standard-light);
+    }
+    &.selected {
+        background: var(--blue-blue);
+        color: var(--standard-light);
+    }
+}
+
+.values-carousel-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+}
+
+.carousel-arrow {
+    padding: 0.75rem 1.5rem;
+    background: var(--standard-light);
+    border: 2px solid var(--standard-blue);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--standard-dark);
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    min-width: 60px;
+    line-height: 1;
+}
+
+.carousel-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.carousel-arrow.prev {
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    border-right: 0px solid var(--standard-blue);
+}
+
+.carousel-arrow.next {
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    border-left: 0px solid var(--standard-blue);
+}
+
+.carousel-arrow:not(:disabled):hover {
+    background: var(--standard-blue);
+    color: var(--standard-light);
+    transform: scale(1.05);
+    z-index: 1;
+}
+.spacer {
+    padding: 1rem;
+}
+// Common Hero Section Styles
+.common-hero {
+}
+
+.common-hero-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.common-hero-spacer {
+    padding: 1rem;
+}
+
+.common-hero-content {
+    padding: var(--space-lg) var(--space-2xl);
+    position: relative;
+    overflow: hidden;
+    border-radius: 48px;
+    height: 300px;
+    display: flex;
+    z-index: 1;
+    flex-direction: column;
+    // box-sizing: border-box;
+
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.2;
+        pointer-events: none;
+    }
+}
+
+.common-hero-title {
+    margin: auto 0;
+    z-index: 2;
+}
+
+.common-hero-content h1 {
+    font-weight: 800;
+    line-height: 1.2;
+    margin: auto 0;
+    text-transform: uppercase;
+    color: var(--standard-light);
+}
+
+.breadcrumb {
+    color: var(--standard-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem var(--space-md);
+    border-radius: var(--radius-md);
+    gap: var(--space-sm);
+    z-index: 2;
+    font-family: var(--header-family);
+}
+
+.breadcrumb span:not(.strong) {
+    font-weight: 400;
+}
+
+.breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+}
+.breadcrumb-trail,
+.breadcrumb-tagline {
+    flex: 1;
+}
+.breadcrumb-tagline {
+    margin-left: auto;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-align: right;
+    font-family: var(--body-family);
+}
+
+.section-label {
+    font-family: var(--header-family);
+    font-size: var(--h7-size);
+    text-transform: uppercase;
+    color: var(--standard-green);
+}
+.highlight-green {
+    color: var(--standard-green);
+}
+.highlight-green-alt {
+    color: var(--standard-green-alt);
+}
+.highlight-light {
+    color: var(--standard-light);
+}
+.highlight-light-alt {
+    color: var(--standard-light-alt);
+}
+.highlight-dark {
+    color: var(--standard-dark);
+}
+.highlight-dark-alt {
+    color: var(--standard-dark-alt);
+}
+.highlight-blue {
+    color: var(--standard-blue);
+}
+.highlight-red {
+    color: var(--standard-red);
+}
+.period {
+    @extend .highlight-red;
+    font-style: normal;
+    font-size: 125%;
+    line-height: 0.2;
+}
+.italic {
+    font-style: italic;
+}
+
+strong,
+.strong {
+    font-weight: 800;
+}
+weak,
+.weak {
+    font-weight: 400;
+}
+.uppercase {
+    text-transform: uppercase;
+}
+.lowercase {
+    text-transform: lowercase;
+}
+
+.emphasis {
+  color: var(--standard-blue);
+  font-weight: 600;
+}
+
+/* Universal Animations */
+
+/* ========================================
+   CARD SLIDE-IN ANIMATIONS
+   ======================================== */
+
+/* Base card setup - apply to all animated cards */
+.card-animated {
+    opacity: 0;
+    animation-duration: 1.25s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+
+/* Animation triggers when card is visible */
+.card-animated.is-visible {
+    animation-play-state: running;
+}
+
+/* No-JS fallback: show all cards in final state (no animation) */
+.no-js .card-animated {
+    opacity: 1;
+    animation: none;
+}
+
+.word {
+    white-space: nowrap;
+    perspective: 800px;
+    perspective-origin: 50% 50%;
+}
+
+.char {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    opacity: 0;
+    transform-origin: 50% 100%;
+    transform: rotateX(90deg);
+    animation:
+        fadeIn 0.3s cubic-bezier(0.26, -0.14, 0, 1.01) forwards,
+        headingAnimation 0.7s cubic-bezier(0.26, -0.14, 0, 1.01) forwards;
+    animation-play-state: paused;
+}
+
+.char.header-animated.is-visible {
+    animation-play-state: running;
+}
+
+/* No-JS fallback: show headers in final state (no animation) */
+.no-js .char {
+    opacity: 1;
+    transform: rotateX(0);
+    animation: none;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes headingAnimation {
+    from {
+        -webkit-transform: rotateX(90deg);
+        -ms-transform: rotateX(90deg);
+        transform: rotateX(90deg);
+    }
+    to {
+        -webkit-transform: rotateX(0);
+        -ms-transform: rotateX(0);
+        transform: rotateX(0);
+    }
+}
+
+/* ========================================
+   BASIC SLIDE DIRECTIONS
+   ======================================== */
+
+/* Slide from Left */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translate3d(-40px, 0, 0);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+        filter: blur(0);
+    }
+}
+
+.slide-in-left {
+    animation-name: slideInLeft;
+}
+
+/* Slide from Right */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translate3d(40px, 0, 0);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+        filter: blur(0);
+    }
+}
+
+.slide-in-right {
+    animation-name: slideInRight;
+}
+
+/* Slide from Top */
+@keyframes slideInTop {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -40px, 0);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+        filter: blur(0);
+    }
+}
+
+.slide-in-top {
+    animation-name: slideInTop;
+}
+
+/* Slide from Bottom */
+@keyframes slideInBottom {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+        filter: blur(0);
+    }
+}
+
+.slide-in-bottom {
+    animation-name: slideInBottom;
+}

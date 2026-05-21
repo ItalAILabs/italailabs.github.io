@@ -1,0 +1,290 @@
+---
+layout: default
+title: About Us
+image: "/assets/images/team.webp"
+description: "ItalAI is Europe leading AI-first accelerator bridging academia and industry. Founded in 2024, we collaborate with leading universities and glocal corporations and startups to advance artificial intelligence and robotics through fundamental research, technology transfer, and system-level design with emphasis on reliability and scalability."
+---
+
+{%- capture hero_heading -%}
+ITALAI IS <span class='highlight-green italic weak'>EUROPE's FIRST AI-ACCELERATOR</span>
+BRIDGING ACADEMIA AND INDUSTRY<span class='period'>.</span>
+{%- endcapture -%}
+{% include hero.html
+  heading=hero_heading
+  crumb_current="ABOUT"
+  tagline="Building intelligent systems from scratch."
+  title-style="color: var(--standard-light);"
+  hero-style="background: var(--standard-dark);"
+  breadcrumb-style="background: var(--standard-blue); color: var(--standard-light);"
+  bg_image="/assets/images/about-hero.webp"
+%}
+
+<!-- Who We Are Section - 1/3 Image, 2/3 Content -->
+<section class="who-section">
+  <div class="container">
+    <div class="who-grid">
+      <div class="who-image">
+        <img src="/assets/images/about.webp" alt="Who We Are" loading="lazy">
+      </div>
+      <div class="who-content">
+        <div class="section-label">WHO WE ARE</div>
+        <h2 class="h2-size">
+          A <span class="highlight-green italic weak">AI-FIRST</span> organization<span class="period">.</span>
+        </h2>
+        <p class="description">
+          Founded in 2024, ItalAI operates at the intersection of academic research and industrial application.
+        </p>
+        <p class="description">
+          <span class="strong">We collaborate with leading universities, research centers,</span> and <span class="strong">industry partners</span> to advance artificial intelligence, and translate that knowledge into deployable systems. Our work spans fundamental research, applied AI, and system-level design, with a <span class="emphasis">strong emphasis on correctness, reliability, and scalability.</span>
+        </p>
+        <!-- <p class="description">
+          We do not position ourselves as a traditional AI consultancy. Our role is to <span class="emphasis">invent, engineer, and validate AI systems</span> designed to function beyond experimental settings.
+        </p> -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Principles Section - Light Background -->
+<section class="principle-light">
+  <div class="container">
+    <div class="principles-grid"> 
+      <div class="principle-cell principle-depth"> 
+        <span class="principle-label highlight-green">FIRST PRINCIPLES&nbsp;</span>
+      </div>
+      <div class="principle-cell principle-scale">BUILT<span class="period">.</span></div>
+      <div class="principle-cell principle-rigor">
+        <span class="principle-label highlight-blue">ENGINEERED FOR&nbsp;</span>
+      </div>
+      <div class="principle-cell principle-speed"> IMPACT<span class="period">.</span></div>
+    </div>
+    <div class="principle-desc">
+      <span class="highlight-blue">We develop solutions from first principles.</span>
+      <span>Starting from strong scientific foundations, we quickly transfer technology into applications for maximum impact.</span>
+    </div>
+    <span class="cta-label cta-overlap">Want to know more?</span>
+    <a class="cta-button-alt cta-overlap" href="#contact">
+      GET IN TOUCH
+    </a>
+  </div>
+</section>
+
+<!-- Values Section - Dark Background -->
+<section class="principle-dark">
+  <img src="/assets/images/about-principles.webp" alt="" class="values-decorative" aria-hidden="true">
+  <div class="container">
+    <div class="values-content">
+      <div class="values-header">
+        <div class="section-label">VALUES</div>
+        <h2 class="values-title h2-size">Our principles<span class="period">.</span></h2>
+        <div class="values-header-row">
+          <p class="values-intro">These principles guide how we research, design, and collaborate, independent of technologies or market cycles.</p>
+          <div class="values-carousel-nav">
+            <button class="carousel-arrow prev" id="prevBtn" aria-label="Previous principle">←</button>
+            <button class="carousel-arrow next" id="nextBtn" aria-label="Next principle">→</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-container">
+        <div class="carousel-wrapper">
+          <div class="values-grid" id="valuesGrid">
+          {% for principle in site.data.principles.principles %}
+            <div class="value-card">
+              <div class="value-content">
+                <div class="value-number h2-size">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</div>
+                <h3 class="value-card-title h5-size">{{ principle.title }}<span class="period">.</span></h3>
+                <p class="value-card-text">{{ principle.text }}</p>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="/assets/js/values-carousel.js" defer></script>
+
+<!-- Partners Section -->
+<section class="partners-section">
+  <div class="container">
+    <div class="partners-content">
+      <div class="section-label">PARTNERSHIPS</div>
+      <h2 class="partners-title uppercase h3-size">
+        Advancing AI through<br>
+        <span class="highlight-blue uppercase weak italic">global collaboration</span><span class="period">.</span>
+      </h2>
+      <div class="partner-container">
+          <!-- Static Grid for Desktop -->
+          <div class="partners-grid">
+            {% assign partners_dir = "/assets/images/partners/" %}
+
+            {% for file in site.static_files %}
+              {% if file.extname == ".webp" %}
+                {% assign file_dir = file.path | remove: file.name %}
+                {% if file_dir == partners_dir %}
+                  {% unless file.name contains "w.webp" %}
+                    <div class="partner-card">
+                      <img 
+                        src="{{ file.path }}" 
+                        alt="{{ file.name | split: '.' | first | replace: '-', ' ' | replace: '_', ' ' | capitalize }}" 
+                        class="partner-logo" 
+                        loading="lazy">
+                    </div>
+                  {% endunless %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <!-- Carousel for Mobile/Tablet (same content) -->
+          <div class="partners-carousel owl-carousel owl-theme">
+            {% assign partners_dir = "/assets/images/partners/" %}
+
+            {% for file in site.static_files %}
+              {% if file.extname == ".webp" %}
+                {% assign file_dir = file.path | remove: file.name %}
+                {% if file_dir == partners_dir %}
+                  {% unless file.name contains "w.webp" %}
+                    <div class="partner-card">
+                      <img src="{{ file.path }}" alt="{{ file.name | split: "." | first | replace: "-", " " | replace: "_", " " | capitalize }}" class="partner-logo" loading="lazy">
+                    </div>
+                  {% endunless %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+$(document).ready(function(){
+    var owl = $('.partners-carousel');
+
+    owl.owlCarousel({
+        loop: true,
+        margin: 20,
+        dots: true,
+        autoplay: false,
+        responsive: {
+            0: {
+                items: 1,
+                nav: true,
+                dots: true
+            },
+            480: {
+                items: 2,
+                nav: true,
+                dots: true
+            },
+            600: {
+                items: 3,
+                nav: true,
+                dots: true
+            }
+        }
+    });
+
+    // Force enable navigation after initialization
+    setTimeout(function() {
+        $('.owl-nav').removeClass('disabled');
+        $('.owl-dots').removeClass('disabled');
+    }, 100);
+});
+</script>
+
+<!-- Team Section -->
+<section class="team-section">
+  <div class="container">
+    <div class="team-content">
+      {% assign total_points = site.data.people.team.size | plus: 3 %}
+      {% assign grid_points = 0 %}
+
+      <div class="team-grid">
+      {% for person in site.data.people.team %}
+        {% if forloop.index0 == 0 %}
+          <div class="work-with-us-card">
+            <div class="work-with-us-content">
+              <div class="section-label">TEAM</div>
+              <h2 class="h3-size">
+                Blending AI research<br>
+                and Industry<br>
+                Expertise<span class="period">.</span>
+              </h2>
+              <a class="cta-button" href="#contact">
+                WORK WITH US
+              </a>
+            </div>
+          </div>
+          {% assign grid_points = grid_points | plus: 2 %}
+        {% endif %}
+
+        {% if forloop.index0 == 4 %}
+          <div class="research-driven-card">
+            <h3 class="research-label highlight-green h3-size">Research<br>driven</h3>
+            <p class="large research-subtext strong">Team</p>
+          </div>
+          {% assign grid_points = grid_points | plus: 1 %}
+        {% endif %}
+
+        <div class="person-card">
+          {% if person.links %}
+            <div class="team-item-socials">
+              <div class="socials-trigger">
+                <i class="fa-solid fa-share-nodes"></i>
+              </div>
+              <div class="team-socials-wrapper">
+                <ul class="team-socials wrapper-socials">
+                  {% if person.links.linkedin %}<li><a class="socials" href="{{ person.links.linkedin }}" target="_blank" aria-label="{{ person.name }}'s LinkedIn Profile"><i class="fa-brands fa-linkedin-in"></i></a></li>{% endif %}
+                  {% if person.links.x %}<li><a class="socials" href="{{ person.links.x }}" target="_blank" aria-label="{{ person.name }}'s X Profile"><i class="fa-brands fa-x-twitter"></i></a></li>{% endif %}
+                  {% if person.links.scholar %}<li><a class="socials" href="{{ person.links.scholar }}" target="_blank" aria-label="{{ person.name }}'s Google Scholar Profile"><i class="fa-brands fa-google-scholar"></i></a></li>{% endif %}
+                  {% if person.links.github %}<li><a class="socials" href="{{ person.links.github }}" target="_blank" aria-label="{{ person.name }}'s GitHub Profile"><i class="fa-brands fa-github"></i></a></li>{% endif %}
+                  {% if person.links.website %}<li><a class="socials" href="{{ person.links.website }}" target="_blank" aria-label="{{ person.name }}'s External Site"><i class="fa-solid fa-globe"></i></a></li>{% endif %}
+                </ul>
+              </div>
+            </div>
+          {% endif %}
+          <div class="person-image">
+            {% assign person_slug = person.name | replace: ' ', '-' | downcase %}
+            <a
+              tabindex="-1" aria-disabled="true"
+            > <!-- Incase a url is ever added in the future -->
+              <img
+                src="/assets/images/people/{{ person_slug }}.png"
+                alt="Photo of {{ person.name }}{% if person.role %}, {{ person.role }}{% endif %}{% if person.credentials %}, {{ person.credentials }}{% endif %}"
+                class="person-img"
+                loading="lazy"
+              >
+            </a>
+          </div>
+          <div class="person-info">
+            <h3 class="person-name h5-size">{% if person.professor %}Prof. {% endif %}{{ person.name }}</h3>
+            <p class="person-role">{{ person.role }}{% if person.credentials %}, {{ person.credentials }}{% endif %}</p>
+          </div>
+        </div>
+        {% assign grid_points = grid_points | plus: 1 %}
+        {% if grid_points == 4 %}
+          </div>
+          {% assign grid_points = 0 %}
+          {% assign last_index = total_points | minus: 1 %}
+          {% if forloop.index0 != last_index %}
+            <div class="team-grid">
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% assign remaining_points = 4 | minus: grid_points %}
+      {% for i in (1..remaining_points) %}
+        <div class="person-card blank-card">
+          <!-- Empty card to fill the grid -->
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

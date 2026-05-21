@@ -1,0 +1,298 @@
+// Main Hero Section
+/* Hero Section */
+.main-hero {
+    min-height: 450px;
+    color: var(--standard-light);
+    display: flex;
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--standard-dark);
+        opacity: 0.65;
+        z-index: 1;
+        pointer-events: none;
+    }
+    
+    // Original background image (fallback)
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        z-index: 0;
+    }
+    
+    // Flowmap deformation wrapper
+    .flowmap-deformation-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none; // Important: allows mouse events to pass through
+        
+        &.active {
+            opacity: 1;
+            
+            // Hide the original image when flowmap is active to prevent doubling
+            ~ img {
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+        }
+        
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center; // Match the img object-position
+            display: block;
+        }
+    }
+    
+    .container .main-hero-content {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 2;
+        padding: 0 2rem 0;
+
+        h1 {
+            font-weight: 800;
+            line-height: 1.1;
+            margin-top: 2.5rem;
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+        }
+
+        p {
+            font-weight: 400;
+            margin-top: 0;
+            margin-bottom: 0;
+            
+            &:last-of-type {
+                margin-bottom: 2em;
+            }
+        }
+        
+        .cta-button-alt {
+            left: 0;
+            margin-right: auto;
+        }
+    }
+}
+
+// Index Cards
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+
+    .card {
+        backdrop-filter: blur(10px);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all var(--transition-base);
+        position: relative;
+        overflow: hidden;
+        img {
+            --image-padding: 0.5rem;
+            position: absolute;
+            right: var(--image-padding);
+            top: var(--image-padding);
+            height: calc(100% - (var(--image-padding) * 2));
+            width: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+        }
+
+        > * {
+            margin: 0 0 1rem;
+            color: var(--standard-light);
+            position: relative;
+            z-index: 2;
+        }
+    }
+    *::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+    }
+    .blue {
+        background: #6A7CFF;
+    }
+    .dark {
+        background: #1C1C1E;
+    }
+    .green {
+        background: #32B692;
+    }
+}
+
+.content-section {
+    margin-top: 3rem;
+}
+.content {
+    padding: 0 2rem;
+}
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin: 3rem 0;
+}
+.feature-label {
+    margin: 0;
+}
+.feature-title {
+    margin-top: 0.5rem;
+}
+
+.why-section {
+    padding: 8rem 0 2rem;
+    background: var(--standard-dark);
+    color: var(--standard-light);
+}
+.why-content {
+    padding: 0 2rem;
+}
+
+.revolution-tabs {
+    // Container for radio inputs, labels, and cards
+}
+
+.tag-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(max-content, 1fr));
+    grid-template-rows: repeat(auto, auto);
+    gap: 1rem;
+}
+
+// Hide radio inputs
+.tag-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+// Style labels as buttons
+.tag-radio + .tag-button {
+    cursor: pointer;
+}
+
+.content-cards {
+    position: relative;
+}
+
+.content-card {
+    display: none;
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-3xl);
+    margin: var(--space-lg) 0;
+    padding: var(--space-2xl);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: opacity var(--transition-base);
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--standard-dark);
+        opacity: 0.76;
+        z-index: 1;
+        pointer-events: none;
+    }
+    img {
+        filter: saturate(0);
+    }
+
+    h3,
+    .content-text {
+        position: relative;
+        z-index: 2;
+        margin-top: 0;
+        margin-bottom: var(--space-sm);
+    }
+
+    .title-emphasis {
+        font-style: italic;
+        font-weight: 200;
+    }
+
+    .content-card-bg-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: 0;
+    }
+
+    p {
+        color: #F6F4EC;
+        font-weight: 100;
+        opacity: 0.9;
+        margin-bottom: 0;
+    }
+}
+
+
+.insights-section {
+    padding: 8rem 0 2rem;
+}
+.insights-content {
+    padding: 0 2rem;
+    .insights-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 1rem;
+        
+        h2 {
+            margin: 0;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+    }
+}
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}

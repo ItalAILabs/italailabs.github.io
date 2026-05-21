@@ -1,0 +1,85 @@
+team:
+  - name: Luca Rigazio
+    role: Co-founder & CEO
+    phone: +1 (408) 256-1590
+    email: luca.rigazio@italailabs.com
+    bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    links:
+      linkedin: https://www.linkedin.com/in/lucarigazio/
+    
+  - name: Fabio Galasso
+    professor: true
+    role: Co-founder & CTO
+    phone: +39 345 5969678
+    email: fabio.galasso@italailabs.com
+    bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    links:
+      github: https://github.com/fgalasso
+      linkedin: https://www.linkedin.com/in/fabio-galasso-61141b32/
+      scholar: https://scholar.google.com/citations?user=2gSuGBEAAAAJ
+      x: https://x.com/GalassoFab10
+      url: https://fgalasso.bitbucket.io/
+    
+  - name: Luca Franco
+    role: General Manager
+    credentials: PhD in Data Science
+    phone: +39 393 3801982
+    email: luca.franco@italailabs.com
+    links:
+      linkedin: https://www.linkedin.com/in/luca-franco-968819196/
+
+  - name: Alessio Sampieri
+    role: Lead Researcher
+    credentials: PhD in Data Science
+    phone: +39 334 2769490
+    email: alessio.sampieri@italailabs.com
+    links:
+      linkedin: https://www.linkedin.com/in/alessio-sampieri/
+      twitter: https://x.com/AlessioSampier1
+    
+  - name: Anastasiia Motyreva
+    role: Head of Marketing & Communications
+
+  - name: Cristiana Polici
+    role: VP & Operations
+
+  - name: Matteo Migliarini
+    role: Researcher
+    credentials: PhD student in Computer Science
+    
+  - name: Christian Bianchi
+    role: Researcher
+    credentials: MSc in AI & Robotics
+    
+  - name: Stefano D'Arrigo
+    role: Researcher
+    credentials: PhD student in AI
+    
+  - name: Luca Romani
+    role: Researcher
+    credentials: PhD-c in AI
+
+  - name: Edoardo De Matteis
+    role: Research Intern
+    credentials: PhD-c in Computer Science
+    
+  - name: Michele Palma
+    role: Research Intern
+    credentials: MSc in Computer Science
+    
+  - name: Stefano Saravalle
+    role: Researcher Intern
+    credentials: PhD student in AI
+    
+  - name: Matteo Gioia
+    role: ItalAI Intern at Panasonic R&D Labs
+    credentials: PhD student in Data Science
+    
+  - name: Luca Zhou
+    role: ItalAI Intern at Panasonic R&D Labs
+    credentials: PhD student in Computer Science
+
+other:
+  - name: Guido Maria D'Amely di Melendugno
+    role: Post-Doc Research Associate
+    bio: Guido M. D'Amely di Melendugno is a postdoctoral researcher at the PINlab research group in the Department of Computer Science at Sapienza University of Rome. His research focuses on deep learning, with a particular interest in computer vision and hyperbolic learning. He is currently working on generative models for video, online mistake detection, and hierarchical image-text alignment. Passionate about both research and teaching, he enjoys sharing complex AI concepts in a clear and accessible way. 

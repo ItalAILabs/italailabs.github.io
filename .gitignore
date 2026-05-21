@@ -1,5 +1,14 @@
-_site
-Gemfile.lock
+/.bundle
+/.env
+/.jekyll-cache
+/styles
+/vendor
+/_site
+/node_modules
+/.lighthouseci
+/lighthouse-reports
 
-# ignore .code-workspaces
-*.code-workspace
+# Images - only track WebP format
+*.webp
+*.webp.meta
+*.vcf

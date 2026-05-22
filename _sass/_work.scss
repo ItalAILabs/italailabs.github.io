@@ -76,7 +76,7 @@
     color: var(--standard-green);
     opacity: 41%;
     transition: transform 0.4s ease;
-    transform: translateY(0);
+    // transform: translateY(0);
     display: flex;
     width: 100%;
     gap: 2rem;
@@ -91,22 +91,28 @@
     left: 0;
     width: 100%;
     transition: transform 0.4s ease;
-    transform: translateY(100%);
+    // transform: translateY(100%);
     pointer-events: none;
     display: flex;
     gap: 2rem;
 }
 
-/* Scroll up on hover or when open */
-.capability-summary:hover .text-light,
-.capability-item[open] .text-light {
-    transform: translateY(-100%);
+// On hover, clip-path bottom to top to reveal dark copy
+.text-light {
+  opacity: 0.41;
+  transition: opacity 0.3s ease;
+}
+
+.text-dark {
+  clip-path: inset(100% 0 0 0);
+  transform: translateY(2px) translateX(2px); // subtle offset for shadow effect
+  transition: clip-path 0.4s linear, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1;
 }
 
 .capability-summary:hover .text-dark,
 .capability-item[open] .text-dark {
-    transform: translateY(0);
-    pointer-events: auto;
+  clip-path: inset(0 0 0 0);
 }
 
 .capability-number {

@@ -106,7 +106,8 @@ $mobile: 575px;
         grid-template-areas:
             "info"
             "form"
-            "logo";
+            "logo"
+            "legal";
         grid-column: 1fr;
         gap: 2rem 0; // Reduce or remove horizontal gap
         // padding: 2rem 1rem 3rem; // Reduce side padding

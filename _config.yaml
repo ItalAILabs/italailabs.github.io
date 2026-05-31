@@ -11,6 +11,9 @@ author: "ItalAI"
 logo: "/assets/logo.svg"
 loading_debug: true
 
+address: Corso Vittorio Emanuele II 287, 00186 Roma RM
+iva: 17384921007 
+
 # Do not publish legacy raster assets; only WebP should ship in the build artifacts.
 exclude:
   # - "assets/images/**/*.jpg"

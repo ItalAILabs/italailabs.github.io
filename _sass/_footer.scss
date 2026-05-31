@@ -32,11 +32,12 @@
     display: grid;
     grid-template-areas:
         "info form"
-        "logo form";
+        "logo form"
+        "legal legal";
     grid-column: 1fr 1fr;
     grid-row: auto auto;
     gap: 0 4rem;
-    padding: 3rem 2rem 6rem;
+    padding: 3rem 2rem 2rem;
     text-align: left;
 
     /* Contact Info Section */
@@ -124,6 +125,13 @@
     .grid-1 { grid-area: info; }
     .grid-2 { grid-area: form; }
     .grid-3 { grid-area: logo; }
+    .grid-4 { grid-area: legal; }
+    .footer-legal {
+        color: var(--standard-light);
+        font-size: 0.875rem;
+        text-align: center;
+        margin-top: 2rem;
+    }
 }
 
 /* Form Group - Shared across forms */

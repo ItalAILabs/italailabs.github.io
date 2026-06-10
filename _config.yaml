@@ -6,11 +6,12 @@ url: "https://italailabs.com"
 
 title: "ItalAI Labs"
 tagline: "Artificial Intelligence Research and Development"
-description: "ItalAI is an AI research laboratory developing advanced artificial intelligence systems. Not Italy. ItalAI - pioneering the future of intelligent machines."
+description: "ItalAI is an AI research laboratory developing advanced artificial intelligence systems. ItalAI - pioneering the future of intelligent machines."
 author: "ItalAI"
 logo: "/assets/logo.svg"
 loading_debug: true
 
+legal_name: "ItalAI S.R.L."
 address: Corso Vittorio Emanuele II 287, 00186 Roma RM
 iva: 17384921007 
 

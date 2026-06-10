@@ -6,6 +6,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% seo %}
 
+{% if page.url == "/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchOrganization",
+  "name": "{{ site.legal_name }}",  
+  "alternateName": [
+    "ItalAI",
+    "ItalAI Labs",
+    "Italian AI"
+  ],
+  "url": "{{ site.url }}",
+  "logo": "{{ site.url }}/assets/logo.svg",
+  "description": "{{ site.description }}",
+  "vatID": "{{ site.iva }}",
+  {% if site.address %}
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ site.address }}",
+    "addressCountry": "{{ site.country_code | default: 'IT' }}"
+  },
+  {% endif %}
+  {% if site.social.links %}
+  "sameAs": [
+    {% for link in site.social.links %}"{{ link }}"{% unless forloop.last %},{% endunless %}{% endfor %}
+  ]
+  {% endif %}
+}
+</script>
+{% endif %}
+
 <!-- Critical CSS - Compiled from SCSS and inlined -->
 <style>{% capture critical_css %}{% include critical.scss %}{% endcapture %}{{ critical_css | strip }}</style>
 

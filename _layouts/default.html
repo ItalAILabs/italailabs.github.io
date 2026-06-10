@@ -29,9 +29,11 @@
     "addressCountry": "{{ site.country_code | default: 'IT' }}"
   },
   {% endif %}
-  {% if site.social.links %}
+  {% if site.social %}
   "sameAs": [
-    {% for link in site.social.links %}"{{ link }}"{% unless forloop.last %},{% endunless %}{% endfor %}
+    {% for platform in site.social %}
+      "{{ platform[1] }}"{% unless forloop.last %},{% endunless %}
+    {% endfor %}
   ]
   {% endif %}
 }

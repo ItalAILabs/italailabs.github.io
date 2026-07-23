@@ -2,7 +2,7 @@
     const grid = document.getElementById("insightsGrid");
     const loadMoreBtn = document.getElementById("loadMoreBtn");
     const itemsShown = document.getElementById("itemsShown");
-    const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
+    const filterButtons = Array.from(document.querySelectorAll(".filter-pill"));
     const categoryDropdown = document.getElementById("categoryDropdown");
     const clearFilterBtn = document.getElementById("clearFilter");
     const filterCount = document.getElementById("filterCount");

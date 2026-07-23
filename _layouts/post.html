@@ -23,73 +23,58 @@ layout: default
   }
 {% endcapture %}
 
-{% include hero.html
-  heading=page.title
-  crumb_parent_url="/insights"
-  crumb_parent_label="INSIGHTS"
-  crumb_current=page.series
-  tagline=page.excerpt
-  title-style="color: var(--standard-light);"
-  hero-style="background: var(--standard-dark);"
-  breadcrumb-style="background: var(--standard-light); color: var(--standard-dark);"
-  bg_image=page.hero_image
-%}
+<section class="post-hero">
+  <div class="post-hero-inner">
+    <div class="post-hero-breadcrumb">
+      <a href="/">HOME</a> /
+      <a href="/insights">INSIGHTS</a> /
+      {% if page.series %}
+        <span class="post-hero-breadcrumb-active">{{ page.series | upcase }} · P{{ page.part }}</span>
+      {% else %}
+        <span class="post-hero-breadcrumb-active">{{ page.title | upcase }}</span>
+      {% endif %}
+    </div>
+    <div class="post-hero-badges">
+      {% if page.category %}
+        <span class="post-hero-category">{{ page.category | upcase }}</span>
+      {% endif %}
+      {% if page.date %}
+        <span class="post-hero-date">{{ page.date | date: "%d %b %Y" | upcase }}</span>
+      {% endif %}
+    </div>
+    <h1 class="post-hero-title">{{ page.title | remove: "🦛 " | remove: "🏆 " | remove: "🚀 " }}<span class="period"></span></h1>
+    {% if page.excerpt %}
+      <p class="post-hero-excerpt">{{ page.excerpt }}</p>
+    {% endif %}
+    {% if page.author %}
+      {% assign author_name = page.author %}
+      {% assign name_parts = author_name | split: " " %}
+      {% assign author_initials = name_parts.first | slice: 0, 1 %}
+      {% if name_parts.size > 1 %}
+        {% assign last_initial = name_parts.last | slice: 0, 1 %}
+        {% assign author_initials = author_initials | append: last_initial %}
+      {% endif %}
+      <div class="post-hero-author">
+        <div class="post-hero-avatar">{{ author_initials }}</div>
+        <div class="post-hero-author-info">
+          <div class="post-hero-author-name">{{ author_name }}</div>
+          <div class="post-hero-author-role">{{ page.author_role | default: "Researcher" }}{% if page.read_time %} · {{ page.read_time }}{% endif %}</div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
 
 <!-- Post Content Section -->
 <section class="post-content-section">
   <div class="container">
     <div class="post-layout">
-      
-      <!-- Sidebar -->
-      <aside class="post-sidebar">
-        <!-- Post Categories -->
-        <div class="sidebar-widget">
-          <h2 class="sidebar-title h5-size">TAGS</h2>
-          <div class="category-tags">
-            {% if page.categories %}
-              {% for category in page.categories %}
-              <a href="/insights/?category={{ category | slugify }}" class="filter-btn">{{ category | upcase }}</a>
-              {% endfor %}
-            {% elsif page.category %}
-              <a href="/insights/?category={{ page.category | slugify }}" class="filter-btn">{{ page.category | upcase }}</a>
-            {% endif %}
-          </div>
-        </div>
-
-        <!-- Recent Posts -->
-        <div class="sidebar-widget">
-          <h2 class="sidebar-title h5-size">RECENT POSTS</h2>
-          <div class="recent-posts">
-            {% comment %}
-            Sort posts by date (descending), then by series and part number.
-            For posts with the same date, sort by part number (ascending) so Part 1 comes before Part 2.
-            {% endcomment %}
-            {% assign sorted_posts = site.posts | where_exp: "post", "post.published_in_blog != false" | sort: "part" | sort: "date" | reverse %}
-            {% for i in (0..2) %}
-            {% assign post = sorted_posts[i] %}
-            <a href="{{ post.url }}" class="recent-post-item">
-              <div style="position: relative">
-                <span class="recent-post-date">{{ post.date | date: "%d-%b-%Y" }}</span>
-                <img src="{{ post.hero_image }}" alt="{{ post.title }}" class="recent-post-thumb">
-              </div>
-              <div class="recent-post-info">
-                <p class="recent-post-title">{{ post.title | strip_html }}</p>
-                <p class="recent-post-excerpt">{{ post.excerpt | strip_html }}</p>
-              </div>
-            </a>
-            {% endfor %}
-          </div>
-        </div>
-      </aside>
 
       <!-- Main Content -->
       <article class="post-main">
         <!-- Featured Image -->
         {% if page.hero_image %}
         <div class="post-featured-image">
-          {% if page.date %}
-          <span class="insight-tag" style="top: auto; bottom: var(--space-sm);">{{ page.date | date: "%d %B %Y" }}</span>
-          {% endif %}
           <img src="{{ page.image |  default: page.hero_image }}" alt="{{ page.title }}" fetchpriority="high">
         </div>
         {% endif %}
@@ -168,4 +153,25 @@ layout: default
     </div>
   </div>
 </section>
+
+<!-- Keep Reading Section -->
+{% assign related_posts = site.posts | where_exp: "post", "post.url != page.url" | where_exp: "post", "post.published_in_blog != false" | sort: "part" | sort: "date" | reverse | slice: 0, 3 %}
+{% if related_posts.size > 0 %}
+<section class="keep-reading-section">
+  <div class="container">
+    <div class="section-label">Keep reading</div>
+    <div class="keep-reading-grid">
+      {% for post in related_posts %}
+        {% include insight-card.html post=post %}
+      {% endfor %}
+      {% assign placeholders_needed = 3 | minus: related_posts.size %}
+      {% if placeholders_needed > 0 %}
+        {% for i in (1..placeholders_needed) %}
+          <div class="insights-coming-soon">MORE COMING SOON</div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
 <script src="/assets/js/katex-loader.js" defer></script>

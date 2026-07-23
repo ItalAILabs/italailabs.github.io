@@ -1,217 +1,156 @@
-.ahead-section {
-
-}
-.ahead-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-        border-radius: var(--radius-lg);
-        max-width: 100%;
-        height: auto;
-        margin-bottom: auto;
-    }
-}
-.ahead-grid {
-    padding: 2rem 2rem;
-    display: grid;
-    gap: 40px;
-    grid-template-columns: 1fr 2fr;
-
-    @media (max-width: 768px) {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
 /* ===============================
-   Vision Cards Layout
+   Vision Rows Layout
 ================================ */
 
-
-.vision-card-section {}
-
-.vision-card-content {
-  position: relative;
-  padding: 2rem 2rem;
-  display: grid;
-  grid-template-columns: auto;
-  grid-auto-rows: 1fr;
-  gap: 1rem;
-  box-sizing: border-box;
+.vision-rows-section {
+  background: var(--standard-dark);
 }
 
+.vision-rows {
+  padding: 1.25rem 2rem 1.875rem;
+}
 
-/* Vision Card Styles (merged and deduped) */
-.vision-card {
-  /* Layout and sticky positioning */
-  position: sticky;
-  top: 6.25rem;
-  z-index: 1;
-  padding: 1rem 3rem;
-  border-radius: 1.5rem; /* match image rounding */
-  overflow: hidden;      /* keeps scaled image inside card */
-  width: 100%;
-  box-sizing: border-box;
+.vision-row {
   display: flex;
-  align-items: flex-end; // aligns children to the bottom
-  justify-content: flex-start;
+  align-items: stretch;
+  gap: 3rem;
+  padding: 2.75rem 0;
+  border-top: 1px solid #1b1533;
 
-  /* Coverage-driven animation */
-  --cover-progress: 0;
-  transform: scale(calc(1 - (var(--cover-progress) * 0.06)));
-//   opacity: calc(1 - (var(--cover-progress) * 0.6));
-  filter: brightness(calc(1 - var(--cover-progress)));
-  will-change: transform, opacity, filter;
-  transform-origin: center top;
+  &--reverse {
+    flex-direction: row-reverse;
+  }
+}
 
-  /* Smooth scaling for background image */
-  .vc-img {
-    transition: transform 0.3s ease;
-    filter: grayscale(.75)
-    opacity(.5)
-  }
-  &:hover .vc-img {
-    transform: translate(-50%, -50%) scale(1.05);
-  }
-  &::before {
-    content: '';
-    // Add positioning/sizing as needed
+.vision-row-media {
+  position: relative;
+  flex: 1 1 50%;
+  min-height: 300px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: radial-gradient(90% 90% at 55% 45%, #241a4a 0%, #150d33 60%, var(--standard-dark) 100%);
+
+  img {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; // Behind the card content
-  }
-  &.blue {
-    background: var(--standard-blue);
-  }
-  &.dark {
-    background: var(--standard-dark);
-  }
-  &.blue::before {
-    background: var(--standard-blue);
-    opacity: 0.65;
-  }
-  &.dark::before {
-    background: var(--standard-dark);
-    opacity: 0.65;
+    object-fit: cover;
   }
 }
 
-/* Background image for vision card */
-.vc-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 110%;
-  height: 110%;
-  object-fit: cover;
-  z-index: 0;
-  border-radius: 1.5rem;
-  pointer-events: none;
-  transform: translate(-50%, -50%) scale(1);
-  transition: transform 0.3s ease;
+.vision-row-content {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Card content */
-.vc-content {
-  max-width: calc((var(--content-width) - 4rem) / 2.5 );
+.vision-row-number {
+  font-family: var(--header-family);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #6f6a9a;
+  margin-bottom: 1rem;
+}
+
+.vision-row-content h3 {
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+  font-family: var(--header-family);
+  font-weight: 700;
+  font-size: 1.75rem; // 28px
+  line-height: 1.25;
   color: var(--standard-light);
-  z-index: 1;
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  height: 100%;                /* Allow the card to take full height of its parent */
-  box-sizing: border-box;      /* Include padding and border in height calculation */
+}
 
-  // Color variants
-  &.blue {
-    background: var(--standard-blue);
-  }
-  &.dark {
-    background: var(--standard-dark);
+.vision-row-content p {
+  margin: 0;
+  max-width: 460px;
+  font-family: var(--body-family);
+  font-size: 1.125rem; // 18px
+  line-height: 1.65;
+  color: #b8b2c8;
+}
+
+/* Intro row — "Looking Ahead" is the first card in the alternating
+   list, sharing the same divider/rhythm as the image rows below it
+   (no image of its own, so the label stands in for the media slot). */
+.vision-row--intro {
+  .vision-row-label {
+    flex: 1 1 42%;
+    align-self: flex-start;
+    position: sticky;
+    top: 104px;
   }
 
-  /* Typography */
+  .vision-row-content {
+    flex: 1 1 58%;
+    max-width: none;
+  }
+
+  .vision-row-content p {
+    max-width: none;
+    color: #c2bcd2;
+    font-size: clamp(1rem, 1.2vw, 1.1875rem);
+    margin: 0 0 1.25rem;
+
+    &:not(:first-of-type) {
+      color: #8e88a6;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.vision-row-label {
+  .section-label {
+    margin-bottom: 1rem;
+  }
+
   h2 {
     margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    color: var(--standard-green-alt);
-  }
-  p {
-    margin: 0;
-  }
-}
-
-/* Responsive */
-@media (max-width: 48rem) {
-  .vc-content-container {
-    padding: 0 1rem;
-  }
-  .vc-content {
-    padding: 2em;
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.5vw, 2.0625rem);
+    line-height: 1.22;
+    letter-spacing: -0.5px;
+    color: var(--standard-light);
   }
 }
-@media (max-width: 30rem) {
-  .vc-content {
-    padding: 1.5em;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .vision-section {
     position: relative;
-    background: var(--standard-blue);
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--standard-blue);
-        opacity: 0.65;
-        z-index: 1;
-        pointer-events: none;
-    }
-    img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.20;
-        object-fit: cover;
-        object-position: center; // anchor to bottom edge
-        z-index: 0;
-        filter: grayscale(1.0);
-    }
+    background: linear-gradient(180deg, #150d33 0%, var(--standard-dark) 100%);
+    border-top: 1px solid #1b1533;
 }
+
 .vision-content {
     position: relative;
     z-index: 2;
-    padding: 2rem 2rem 4rem;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 88px 2rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+
     h2 {
+        font-family: var(--header-family);
+        font-weight: 700;
+        font-size: clamp(1.75rem, 3vw, 2.25rem); // ~36px
+        line-height: 1.28;
+        letter-spacing: -0.5px;
+        text-transform: uppercase;
+        text-wrap: balance;
         color: var(--standard-light);
+        margin: 0 0 30px;
+
         span {
-            font-weight: 400;
+            color: var(--standard-blue-soft);
         }
     }
 }

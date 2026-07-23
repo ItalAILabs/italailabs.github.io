@@ -6,10 +6,91 @@ $mobile-extra: 767px;
 $mobile: 575px;
 
 @media (max-width: $tablet-extra) {
-    .insights-grid {
-        display: grid;
+    .main-hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main-hero-media {
+        min-height: 280px;
+        order: -1;
+    }
+
+    /* Full-bleed hero responsive */
+    .full-bleed-hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-bleed-hero-content {
+        padding: 60px 40px 40px;
+    }
+
+    .full-bleed-hero-media {
+        min-height: 280px;
+        order: -1;
+    }
+
+    .what-we-do-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .what-we-do-intro {
+        position: static;
+    }
+
+    /* Vision rows responsive (What's Next) */
+    .vision-row,
+    .vision-row--reverse {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .vision-row-media {
+        min-height: 240px;
+    }
+
+    .vision-row--intro .vision-row-label {
+        position: static;
+    }
+
+    .partners-bar-section {
+        margin-top: 0;
+        padding-top: 2rem;
+    }
+
+    .partners-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    /* Proportional shrink for all partner names — driven off the same
+       --partner-size custom property set in _includes/partners-bar.html,
+       so this scales any partner without per-slug rules. */
+    .partner-name {
+        font-size: calc(var(--partner-size, 24px) * 0.82);
+    }
+
+    .why-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .why-sticky {
+        position: static;
+        padding-bottom: 0;
+    }
+
+    .why-scroll {
+        padding: 1rem 0 2rem;
+    }
+
+    .why-block {
+        min-height: 0;
+    }
+
+    .in-action-grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(auto, auto);
     }
 }
 
@@ -74,21 +155,20 @@ $mobile: 575px;
         }
     }
 
-
-    .card-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 columns */
-        grid-template-rows: repeat(2, 1fr); /* 2 rows */
+    /* Post hero responsive */
+    .post-hero {
+        padding: 50px 32px 32px;
     }
-    .features-grid {
-        display: grid;
+
+    /* Insights grid responsive */
+    .insights-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    .tag-grid {
-        display: grid;
-        grid-template-columns: repeat(1, auto);
-        grid-template-rows: repeat(auto, auto);
+
+    .keep-reading-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
+
     .team-grid {
         flex-wrap: wrap;
     }
@@ -101,49 +181,91 @@ $mobile: 575px;
     }
 }
 
-@media (max-width: $mobile-extra) {
-    footer .container > * {
-        grid-template-areas:
-            "info"
-            "form"
-            "logo"
-            "legal";
-        grid-column: 1fr;
-        gap: 2rem 0; // Reduce or remove horizontal gap
-        // padding: 2rem 1rem 3rem; // Reduce side padding
-        box-sizing: border-box; // Ensure padding is included in width
-    }
-    footer .logo {
-        // align to bottom left
-        align-self: end;
-        // center to div
-        margin: auto;
-        margin-top: 4rem;
-        width: 50%
+@media (max-width: $tablet) {
+    .footer-sitemap {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
     }
 
-    .card-grid {
-        display: grid;
-        grid-template-columns: 1fr;      /* 1 column */
-        grid-template-rows: repeat(3, 1fr); /* 3 rows */
+    .footer-logo-col {
+        grid-column: 1 / -1;
     }
-    .insights-grid {
-        display: grid;
-        grid-template-columns: repeat(1, auto);
-        grid-template-rows: repeat(auto, auto);
+
+    .insights-rail {
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
-    .who-grid,
-    .focus-grid,
-    .ahead-grid {
+}
+
+@media (max-width: $mobile-extra) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-sitemap {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem 2rem;
+    }
+
+    .card-grid .card {
+        flex-wrap: wrap;
+        gap: 0.75rem 1.5rem;
+    }
+
+    .in-action-grid {
         grid-template-columns: 1fr;
     }
+
     .breadcrumb-tagline {
         display: none;
     }
-    .work-with-us-card {
-        grid-column: span 1;
+
+    /* Full-bleed hero mobile */
+    .full-bleed-hero-content {
+        padding: 48px 24px 36px;
+    }
+
+    /* Post hero mobile */
+    .post-hero {
+        padding: 40px 24px 28px;
+    }
+
+    /* Insights mobile */
+    .insights-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .keep-reading-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-bar {
+        padding: 24px 0;
+        gap: 12px;
+    }
+
+    .filter-pill {
+        padding: 7px 14px;
+        font-size: 11px;
+    }
+
+    /* Vision rows mobile (What's Next) */
+    .vision-rows {
+        padding: 1rem 1.25rem 1.5rem;
+    }
+
+    .vision-row {
+        padding: 2rem 0;
     }
 }
 @media (max-width: $mobile) {
+    .footer-sitemap {
+        grid-template-columns: 1fr;
+    }
 
+    .footer-logo-col {
+        grid-column: auto;
+    }
 }

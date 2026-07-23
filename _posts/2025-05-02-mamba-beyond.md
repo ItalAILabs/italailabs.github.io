@@ -1,15 +1,17 @@
 ---
 layout: post
-title: "🦛 Beyond Vanilla SSMs"
+title: "Beyond Vanilla SSMs"
 description: "ItalAI explores advanced state space models beyond vanilla SSMs: HiPPO initialization, S4 architecture, and Mamba's selective scan algorithm. Deep dive into next-generation neural architectures for efficient long-sequence modeling and their applications in vision, audio, and language processing."
-image: "/assets/images/blog/cards/ssm.webp"
+image: "/assets/images/blog/cards/mamba-p3-beyond.svg"
 category: "Transformers"
-hero_image: "/assets/images/blog/cards/ssm.webp"
+hero_image: "/assets/images/blog/cards/mamba-p3-beyond.svg"
 excerpt: "Is there an alternative to transformer networks?"
 series: mamba
 part: 3
 published_in_blog: true
 author: "Guido Maria D'Amely di Melendugno"
+author_role: "Post-Doc Research Associate"
+read_time: "8 min read"
 last_modified_at: 2026-02-03
 ---
 

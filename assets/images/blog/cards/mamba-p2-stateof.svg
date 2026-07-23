@@ -1,0 +1,31 @@
+<svg viewBox="0 0 330 168" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c2c4a"/>
+      <stop offset="100%" stop-color="#101d34"/>
+    </linearGradient>
+    <marker id="ah2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#7da3e0"/>
+    </marker>
+  </defs>
+  <rect width="330" height="168" fill="url(#bg2)"/>
+  <g stroke="#7da3e0" stroke-width="1.5" fill="none">
+    <line x1="87" y1="84" x2="116" y2="84" marker-end="url(#ah2)"/>
+    <line x1="155" y1="84" x2="184" y2="84" marker-end="url(#ah2)"/>
+    <line x1="223" y1="84" x2="252" y2="84" marker-end="url(#ah2)"/>
+    <line x1="70" y1="128" x2="70" y2="106" marker-end="url(#ah2)"/>
+    <line x1="138" y1="128" x2="138" y2="106" marker-end="url(#ah2)"/>
+    <line x1="206" y1="128" x2="206" y2="106" marker-end="url(#ah2)"/>
+    <line x1="274" y1="128" x2="274" y2="106" marker-end="url(#ah2)"/>
+    <line x1="70" y1="67" x2="70" y2="42" marker-end="url(#ah2)"/>
+    <line x1="138" y1="67" x2="138" y2="42" marker-end="url(#ah2)"/>
+    <line x1="206" y1="67" x2="206" y2="42" marker-end="url(#ah2)"/>
+    <line x1="274" y1="67" x2="274" y2="42" marker-end="url(#ah2)"/>
+  </g>
+  <g fill="#13243f" stroke="#9bb8ec" stroke-width="1.5">
+    <rect x="53" y="67" width="34" height="34" rx="5"/>
+    <rect x="121" y="67" width="34" height="34" rx="5"/>
+    <rect x="189" y="67" width="34" height="34" rx="5"/>
+    <rect x="257" y="67" width="34" height="34" rx="5"/>
+  </g>
+</svg>

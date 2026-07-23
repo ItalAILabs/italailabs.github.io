@@ -1,0 +1,17 @@
+{% for partner in site.data.partners %}
+  {% if forloop.index0 > 0 %}<div class="partner-divider"></div>{% endif %}
+  {% assign partner_font = "var(--body-family)" %}
+  {% if partner.font == "spectral" %}{% assign partner_font = "var(--accent-family)" %}{% endif %}
+  {% capture partner_style %}--partner-font: {{ partner_font }}; --partner-weight: {{ partner.weight }}; --partner-size: {{ partner.size }}px; --partner-tracking: {{ partner.tracking }}px;{% endcapture %}
+  {% assign name_class = "partner-name" %}
+  {% if partner.uppercase %}{% assign name_class = name_class | append: " partner-name--upper" %}{% endif %}
+  {% if partner.group %}
+  <div class="partner-name-group">
+    {% if partner.label_position == "before" %}<span class="partner-name-label">{{ partner.label }}</span>{% endif %}
+    <span class="{{ name_class }}" style="{{ partner_style | strip_newlines }}">{{ partner.name }}</span>
+    {% if partner.label_position == "after" %}<span class="partner-name-label">{{ partner.label }}</span>{% endif %}
+  </div>
+  {% else %}
+  <span class="{{ name_class }}" style="{{ partner_style | strip_newlines }}">{{ partner.name }}</span>
+  {% endif %}
+{% endfor %}

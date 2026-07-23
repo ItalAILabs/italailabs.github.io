@@ -2,8 +2,11 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--standard-dark);
+    background: rgba(12, 7, 23, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: var(--standard-light);
+    border-bottom: 1px solid #1b1533;
 
     display: flex;
     align-items: center;
@@ -12,14 +15,14 @@
     padding: 1rem 2rem;
     height: calc(80px - 2rem);
 
-    // a div that contains an img tag with class logo
-
+    // Logo anchor: fill the navbar height, vertically center the image
     a.logo {
         display: block;
         height: 100%;
         width: auto;
     }
 
+    // Logo image
     a img.logo {
         height: 100%; /* Fill the anchor's height */
         width: auto; /* Maintain aspect ratio */
@@ -35,24 +38,41 @@
 .nav-links {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 38px;
     list-style: none;
+    margin: 0px;
 
     a {
         text-transform: uppercase;
-        letter-spacing: var(--letter-spacing);
+        letter-spacing: 1px;
         padding: 2px 6px;
-        font-weight: 800;
-        color: inherit;
+        font-weight: 700;
+        font-size: 13px;
+        color: #cfc9d8;
         text-decoration: none;
-        border-radius: 5px;
-        background: #1C1C1C1E;
+        background: none;
         white-space: nowrap;
+        transition: color 0.2s ease;
 
         &:hover,
         &.active {
-            background: var(--standard-blue);
+            color: var(--standard-light);
+            background: none;
         }
+    }
+}
+
+/* Desktop "Get in Touch" CTA — outlined pill that fills with accent on hover */
+.desktop-cta.cta-button-alt {
+    background: none;
+    border: 1px solid #4a4560;
+    color: var(--standard-light);
+    transition: background 0.18s ease, border-color 0.18s ease;
+
+    &:hover:not(:disabled):not(.disabled) {
+        background: var(--standard-blue);
+        border-color: var(--standard-blue);
+        color: var(--standard-light);
     }
 }
 

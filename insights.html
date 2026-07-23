@@ -6,36 +6,24 @@ description: "ItalAI Insights: Research perspectives from AI to reality. Explore
 ---
 
 {%- capture hero_heading -%}
-SHARING IDEAS THAT SHAPE<br>
-<span class="highlight-blue italic weak">INTELLIGENT SYSTEMS</span><span class="period">.</span>
+SHARING IDEAS THAT SHAPE INTELLIGENT SYSTEMS
 {%- endcapture -%}
 {% include hero.html
+  layout="full-bleed"
   heading=hero_heading
   crumb_current="INSIGHTS"
   tagline="Read our blog."
-  title-style="color: var(--standard-dark);"
-  hero-style="background: var(--standard-light-alt);"
-  breadcrumb-style="background: var(--standard-light); color: var(--standard-dark);"
-  bg_image="/assets/images/insights-hero.webp"
+  title-style="color: var(--standard-light);"
+  hero-style=""
 %}
 
 <!-- Filter Section -->
 <section class="insights-filter" id="filter">
   <div class="container">
-    <div class="filter-controls">
-      <div class="filter-dash">
-        <h2 class="filter-title h6-size">
-          <i class="fa-solid fa-filter"></i>
-          FILTER BY CATEGORY
-        </h2>
-        <button class="filter-clear" id="clearFilter" style="display: none;">
-          <i class="fa-solid fa-xmark"></i>
-          Clear filter
-        </button>
-      </div>
-      
+    <div class="filter-bar">
+      <span class="filter-label">Filter</span>
       <div class="filter-buttons" id="filterButtons">
-        <button class="filter-btn active" data-category="all">ALL</button>
+        <button class="filter-pill active" data-category="all">ALL</button>
         {% assign published_posts = site.posts | where_exp: "post", "post.published_in_blog != false" %}
         
         <!-- Map all categories (flattened) and single categories -->
@@ -56,13 +44,13 @@ SHARING IDEAS THAT SHAPE<br>
         {% for category in all_categories %}
           {% assign slug = category | slugify %}
           {% assign display_name = site.data.category_display[slug] | default: category %}
-          <button class="filter-btn" data-category="{{ slug }}">{{ display_name }}</button>
+          <button class="filter-pill" data-category="{{ slug }}">{{ display_name }}</button>
         {% endfor %}
       </div>
-      
-      <div class="filter-dash">
-        <p class="filter-count" id="filterCount">Showing all insights</p>
-      </div>
+      <button class="filter-clear" id="clearFilter" style="display: none;">
+        <i class="fa-solid fa-xmark"></i>
+        Clear
+      </button>
     </div>
   </div>
 </section>
@@ -70,6 +58,7 @@ SHARING IDEAS THAT SHAPE<br>
 <!-- Insights Grid Section -->
 <section class="insights-hub">
   <div class="container">
+    <div class="insights-count" id="filterCount">Showing all insights</div>
     {% assign per_page = site.insights_manifest.per_page | default: 12 %}
     {% assign insights_posts = site.posts | sort: "part" | sort: "date" | reverse %}
     {% assign total_items = insights_posts | size %}
@@ -89,6 +78,10 @@ SHARING IDEAS THAT SHAPE<br>
       {% for post in initial_posts %}
         {% include insight-card.html post=post on_insights_page=true %}
       {% endfor %}
+      <!-- More Coming Soon placeholder -->
+      <div class="insights-coming-soon">
+        MORE COMING SOON
+      </div>
     </div>
 
     <!-- Pagination/Load More Section -->

@@ -7,178 +7,133 @@ description: "ItalAI - Where frontier AI research meets real-world impact. We bu
 
 <!-- Hero Section -->
 {% include hero.html
+    eyebrow="Frontier AI &middot; Roma"
     title="WHERE FRONTIER AI|RESEARCH,highlight-green|break|meets,italic weak lowercase|break|REAL-WORLD IMPACT,period"
-    subtitle="We build the technologies powering<br/>the next industrial revolution."
+    subtitle="We build the technologies powering<br/>the next industrial revolution &mdash; turning AI and robotics research into systems that work beyond the lab."
     cta_text="Discover Who We Are"
-    bg_image="/assets/images/hero-bg.webp"
+    secondary_text="See Our Work &rarr;"
+    secondary_url="/work"
+    media_tag="Research &rarr; Reality"
+    bg_image="/assets/images/hero-hands.webp"
 %}
+
+<!-- Partners Bar -->
+<section class="partners-bar-section">
+  <div class="partners-bar">
+    <div class="partners-bar-label">In collaboration with</div>
+    <div class="partners-bar-logos">
+      {% include partners-bar.html %}
+    </div>
+  </div>
+</section>
 
 <!-- Cards Section -->
 <section class="cards-section">
   <div class="container">
-    <div class="card-grid">
-        <div class="card blue card-animated slide-in-top" data-delay="300">
-            <img
-            src="/assets/images/frontier-research.webp"
-            alt=""
-            loading="lazy"
-            />
-            <h2 class="uppercase h5-size">Frontier<br/>Research</h2>
-            <p>
-                Deep AI & robotics<br>research at global scale.
-            </p>
-        </div>
-        <div class="card dark card-animated slide-in-top" data-delay="600">
-            <img
-            src="/assets/images/applied-intelligence.webp"
-            alt=""
-            loading="lazy"
-            />
-            <h2 class="uppercase h5-size">Applied<br/>Intelligence</h2>
-            <p>
-                From scientific breakthroughs<br>to real-world systems.
-            </p>
-        </div>
-        <div class="card green card-animated slide-in-top" data-delay="900">
-            <img
-            src="/assets/images/global-ecosystem.webp"
-            alt=""
-            loading="lazy"
-            />
-            <h2 class="uppercase h5-size">Global<br/>Network</h2>
-            <p>
-                Collaborating with UC Berkeley,<br>Stanford, Panasonic,<br>Sapienza.
-            </p>
-        </div>
-    </div>
+    <div class="what-we-do-grid">
+      <div class="what-we-do-intro">
+        <div class="section-label">What We Do</div>
 
-    <a class="cta-button cta-center" href="#contact">Work With Us</a>
-  </div>
-</section>
+        {% include animated-header.html title="Turning frontier research into|real-world systems,highlight-blue period" tag="h2" class="h3-size" %}
 
-<!-- Content Section -->
-<section class="content-section">
-  <div class="container">
-    <div class="content">
-      <div class="section-label">What We Do</div>
+        <p class="medium content-description weak">
+          Three capabilities, one continuum — from open-ended research, to deployed intelligence, to the partners who put it to work.
+        </p>
 
-      {% include animated-header.html title="Turning frontier|AI and robotics,highlight-blue|break|research,highlight-blue|into|real-world systems,highlight-blue italic weak period" tag="h2" class="h3-size" %}
+        <a class="cta-outlined" href="/work">What We Do</a>
+      </div>
 
-      <p class="medium content-description weak">
-        We design and deploy AI and robotics systems<br> that move beyond the lab and work in real<br>environments.
-      </p>
-
-      <div class="features-grid">
-        <div class="feature card-animated slide-in-bottom" data-delay="300">
-          <h3 class="feature-label highlight-green h5-size">RESEARCH</h3>
-          <p class="feature-title">
-            Frontier AI & robotics<br>research at global scale.
-          </p>
-        </div>
-
-        <div class="feature card-animated slide-in-bottom" data-delay="600">
-          <h3 class="feature-label highlight-blue h5-size">ROBOTICS</h3>
-          <p class="feature-title">Systems designed for<br>real environments.</p>
-        </div>
-
-        <div class="feature card-animated slide-in-bottom" data-delay="900">
-          <h3 class="feature-label highlight-dark h5-size">TECH TRANSFER</h3>
-          <p class="feature-title">From lab breakthroughs<br>to real products.</p>
-        </div>
-
-        <div class="feature card-animated slide-in-bottom" data-delay="1200">
-          <h3 class="feature-label highlight-green h5-size">INDUSTRIAL IMPACT</h3>
-          <p class="feature-title">
-            Automation, reliability, and<br>intelligent operations.
-          </p>
-        </div>
+      <div class="card-grid">
+          <div class="card blue card-animated slide-in-top" data-delay="300">
+              <div class="card-index">01</div>
+              <div class="card-copy">
+                <h2 class="uppercase h5-size">Frontier Research</h2>
+                <p>Deep AI &amp; robotics research at global scale &mdash; exploring architectures, learning systems and embodied intelligence years ahead of deployment.</p>
+              </div>
+              <div class="card-arrow">&rarr;</div>
+          </div>
+          <div class="card dark card-animated slide-in-top" data-delay="600">
+              <div class="card-index">02</div>
+              <div class="card-copy">
+                <h2 class="uppercase h5-size">Applied Intelligence</h2>
+                <p>From scientific breakthroughs to real-world systems &mdash; taking models out of the lab and into manufacturing, logistics and infrastructure.</p>
+              </div>
+              <div class="card-arrow">&rarr;</div>
+          </div>
+          <div class="card green card-animated slide-in-top" data-delay="900">
+              <div class="card-index">03</div>
+              <div class="card-copy">
+                <h2 class="uppercase h5-size">Global Network</h2>
+                <p>Partnerships with Silicon Valley and Japan's top companies and universities &mdash; a network that turns frontier ideas into industrial reality.</p>
+              </div>
+              <div class="card-arrow">&rarr;</div>
+          </div>
       </div>
     </div>
-    <a class="cta-center cta-button-alt cta-overlap" href="/work">What We Do</a>
   </div>
 </section>
 
 <section class="why-section">
   <div class="container">
-    <div class="why-content">
-      <div class="section-label">Why Now</div>
-      <h2 class="h2-size">
-        A <span class="highlight-blue italic weak">new industrial revolution</span
-        ><br/>
-        has begun<span class="period">.</span>
-      </h2>
-      <div class="revolution-tabs">
-        {% for card in site.data.revolution-cards %}
-        <input
-          type="radio"
-          name="revolution-card"
-          id="tab-{{ card.id }}"
-          class="tag-radio"
-          {% if forloop.first %}checked{% endif %}
-        />
-        {% endfor %}
-        
-        <nav class="tag-grid">
+    <div class="why-grid">
+      <div class="why-sticky">
+        <div class="section-label section-label--bright">Why Now</div>
+        <h2 class="h2-size">
+          A <span class="highlight-blue-soft italic weak">new industrial revolution</span
+          ><br/>
+          has begun<span class="period">.</span>
+        </h2>
+        <nav class="why-steps">
           {% for card in site.data.revolution-cards %}
-          <label
-            for="tab-{{ card.id }}"
-            class="tag-button"
-            aria-label="Show {{ card.title_short }}"
-          >
-            {{ card.title_short }}
-          </label>
-          {% endfor %}
-        </nav>
-        
-        <div class="content-cards">
-          {% for card in site.data.revolution-cards %}
-          <div
-            class="content-card"
-            id="card-{{ card.id }}"
-          >
-            {% if card.background_image != "" %}
-            <img
-              src="{{ card.background_image }}"
-              alt=""
-              class="content-card-bg-image"
-              loading="lazy"
-            />
-            {% endif %}
-            <h3 class="h4-size">
-              {{ card.title }}
-              <em class="title-emphasis">{{ card.title_emphasis }}</em>
-            </h3>
-            <div class="content-text">
-              {% for paragraph in card.paragraphs %}
-              <p class="medium">{{ paragraph }}</p>
-              {% endfor %}
-            </div>
+          <div class="why-step" data-step="{{ forloop.index0 }}">
+            <span class="why-step-num">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span>
+            <span class="why-step-label">{{ card.title_short | upcase }}</span>
           </div>
           {% endfor %}
+        </nav>
+        <a class="cta-light" href="/roadmap">SEE WHERE WE ARE GOING</a>
+      </div>
+
+      <div class="why-scroll">
+        {% for card in site.data.revolution-cards %}
+        <div class="why-block" data-why-block="{{ forloop.index0 }}">
+          <div class="why-block-label">{{ forloop.index | prepend: "0" | slice: -2, 2 }} / {{ card.title_short | upcase }}</div>
+          <h3 class="h3-size">
+            {{ card.title }}
+            <em class="title-emphasis">{{ card.title_emphasis }}</em>
+          </h3>
+          <div class="content-text">
+            {% for paragraph in card.paragraphs %}
+            <p class="medium">{{ paragraph }}</p>
+            {% endfor %}
+          </div>
         </div>
+        {% endfor %}
       </div>
     </div>
-    <a class="cta-center cta-button-alt" href="/roadmap">SEE WHERE WE ARE GOING</a>
   </div>
 </section>
-<style>
-  /* Selected state via :checked - target labels */
-  {% for card in site.data.revolution-cards %}
-  #tab-{{ card.id }}:checked ~ .tag-grid label[for="tab-{{ card.id }}"]{% if forloop.last %} { {% else %},{% endif %}
-  {% endfor %}
-    background: var(--blue-blue);
-    color: var(--standard-light);
-    box-shadow: 0 4px 19.3px 0 var(--standard-blue);
-  }
-  
-  /* Show cards based on checked radio buttons */
-  {% for card in site.data.revolution-cards %}
-  #tab-{{ card.id }}:checked ~ .content-cards #card-{{ card.id }}{% if forloop.last %} { {% else %},{% endif %}
-  {% endfor %}
-    display: block;
-    opacity: 1;
-  }
-</style>
+<script>
+(() => {
+  const track = () => {
+    const blocks = document.querySelectorAll('[data-why-block]');
+    const steps = document.querySelectorAll('[data-step]');
+    if (!blocks.length || !steps.length) return;
+    const center = window.innerHeight * 0.5;
+    let best = 0, bestDist = Infinity;
+    blocks.forEach((b, i) => {
+      const r = b.getBoundingClientRect();
+      const mid = r.top + r.height / 2;
+      const d = Math.abs(mid - center);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    steps.forEach((s, i) => s.classList.toggle('active', i === best));
+  };
+  window.addEventListener('scroll', track, { passive: true });
+  window.addEventListener('resize', track);
+  track();
+})();
+</script>
 
 <!-- Project Section -->
 <section class="project-section">
@@ -197,7 +152,7 @@ description: "ItalAI - Where frontier AI research meets real-world impact. We bu
           adapts instantly, and operates in the real world.<br>
           <span class="highlight-green italic weak">Frontier science</span> becoming <span class="highlight-blue italic weak">industrial reality</span>.
         </p>
-        <a class="cta-button cta-center" href="https://fascetta.github.io/WIZARD/">Find Out More</a>
+        <a class="cta-dark cta-center" href="https://fascetta.github.io/WIZARD/">Find Out More</a>
         <div class="project-stats">
           <div class="stat-card stat-card--green">
             <div class="stat-number"><span class="stat-approx">~</span>14×</div>
@@ -213,32 +168,61 @@ description: "ItalAI - Where frontier AI research meets real-world impact. We bu
   </div>
 </section>
 
+<!-- In Action Section -->
+<section class="in-action-section">
+  <div class="container">
+    <div class="in-action-header">
+      <div>
+        <div class="section-label section-label--bright">In action</div>
+        <h2 class="h2-size">
+          Research, running in the <span class="highlight-blue-soft italic weak">real world</span><span class="period">.</span>
+        </h2>
+      </div>
+      <p class="in-action-desc">Live footage from WIZARD, LEGO and T-Rex — models operating on real hardware, outside the lab.</p>
+    </div>
+    <div class="in-action-grid">
+      <div class="in-action-item">
+        <video src="https://fascetta.github.io/WIZARD/static/videos/LIBERO_Goal/task3_put_the_wine_bottle_on_top_of_the_cabinet.mp4" autoplay muted loop playsinline></video>
+        <span class="in-action-tag">WIZARD</span>
+        <span class="in-action-caption">Wine bottle &rarr; cabinet</span>
+      </div>
+      <div class="in-action-item">
+        <video src="https://fascetta.github.io/WIZARD/static/videos/Real_World/Cup.mp4" autoplay muted loop playsinline></video>
+        <span class="in-action-tag">WIZARD</span>
+        <span class="in-action-caption">Cup pickup &middot; real world</span>
+      </div>
+      <div class="in-action-item">
+        <video src="https://lego-grasp.github.io/static/videos/franka_eval_joint.mp4" autoplay muted loop playsinline></video>
+        <span class="in-action-tag">LEGO</span>
+        <span class="in-action-caption">Zero-shot grasp</span>
+      </div>
+      <div class="in-action-item">
+        <video src="https://tactile-reactive-dexterous.github.io/figures/hero_short.mp4" autoplay muted loop playsinline></video>
+        <span class="in-action-tag">T-REX</span>
+        <span class="in-action-caption">Tactile dexterity</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="insights-section">
   <div class="container">
     <div class="insights-content">
       <div class="section-label">INSIGHTS</div>
       <div class="insights-title">
         <h2 class="h2-size">
-          From <span class="highlight-green italic weak">research</span> to
-          <span class="word highlight-blue italic weak">reality<span class="period">.</span></span>
-          
+          From research to <span class="highlight-green">reality<span class="period">.</span></span>
         </h2>
-        <a class="cta-button-alt" href="/insights" aria-label="View all insights articles">READ MORE</a>
+        <a class="cta-outlined" href="/insights" aria-label="View all insights articles">READ MORE</a>
       </div>
-      <div class="insights-grid">
+      <div class="insights-rail ital-rail">
         {% assign sorted_posts = site.posts | sort: "part" | sort: "date" | reverse %}
         {% assign visible_count = 0 %}
         {% for post in sorted_posts %}
-          {% if post.published_in_blog != false and visible_count < 2 %}
-              {% if visible_count == 0 %}
-                <div class="card-animated slide-in-left" data-delay="0">
-                  {% include insight-card.html post=post %}
-                </div>
-              {% elsif visible_count == 1 %}
-                <div class="card-animated slide-in-right" data-delay="200">
-                  {% include insight-card.html post=post %}
-                </div>
-              {% endif %}
+          {% if post.published_in_blog != false and visible_count < 4 %}
+              <div class="card-animated slide-in-bottom" data-delay="{{ visible_count | times: 150 }}">
+                {% include insight-card.html post=post %}
+              </div>
             {% assign visible_count = visible_count | plus: 1 %}
           {% endif %}
         {% endfor %}
@@ -246,6 +230,7 @@ description: "ItalAI - Where frontier AI research meets real-world impact. We bu
     </div>
   </div>
 </section>
+
 <script>
 (() => {
   const t = new Map;

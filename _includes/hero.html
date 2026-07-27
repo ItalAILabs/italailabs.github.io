@@ -1,5 +1,5 @@
 {% if page.url == "/" %}
-<section class="main-hero">
+<section class="main-hero"{% if include.bg_image %} style="--hero-bg: url('{{ include.bg_image }}')"{% endif %}>
     <div class="container">
         <div class="main-hero-grid">
             <div class="main-hero-content">

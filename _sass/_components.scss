@@ -3,6 +3,7 @@
     height: 100%;
     width: 100%;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .cta-label {
@@ -280,7 +281,7 @@ weak,
     text-decoration: none;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.18s ease;
+    transition: all var(--transition-base);
     white-space: nowrap;
 
     &:hover {
@@ -305,7 +306,7 @@ weak,
     text-decoration: none;
     text-transform: uppercase;
     cursor: pointer;
-    transition: transform 0.18s ease;
+    transition: transform var(--transition-base);
     white-space: nowrap;
 
     &:hover {
@@ -329,7 +330,7 @@ weak,
     text-decoration: none;
     text-transform: uppercase;
     cursor: pointer;
-    transition: transform 0.18s ease;
+    transition: transform var(--transition-base);
     white-space: nowrap;
 
     &:hover {
@@ -581,7 +582,7 @@ weak,
     display: flex;
     flex-direction: column;
     gap: 2px;
-    color: #43403a;
+    color: var(--standard-warm);
 }
 
 .partner-name-label {
@@ -599,7 +600,7 @@ weak,
     font-size: var(--partner-size, 24px);
     letter-spacing: var(--partner-tracking, 0);
     line-height: 1;
-    color: #43403a;
+    color: var(--standard-warm);
 }
 
 .partner-name--upper {
@@ -644,7 +645,7 @@ weak,
     font-family: var(--body-family);
     font-size: clamp(1rem, 1.2vw, 1.1875rem);
     line-height: 1.65;
-    color: #3f3c2e;
+    color: var(--standard-warm);
     margin: 0 0 20px;
 }
 

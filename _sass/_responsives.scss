@@ -78,15 +78,31 @@ $mobile: 575px;
 
     .why-sticky {
         position: static;
+        height: auto;
         padding-bottom: 0;
     }
 
     .why-scroll {
-        padding: 1rem 0 2rem;
+        padding: 1rem 0 0;
     }
 
     .why-block {
         min-height: 0;
+    }
+
+    /* Move the "See Where We Are Going" CTA below the cards on mobile,
+       since .why-sticky is no longer sticky and stacks above .why-scroll. */
+    .why-cta-desktop {
+        display: none;
+    }
+
+    .why-grid {
+        padding-bottom: var(--space-xl);
+    }
+
+    .why-cta-mobile {
+        display: inline-block;
+        margin-top: 0.5rem;
     }
 
     .in-action-grid {
@@ -119,40 +135,7 @@ $mobile: 575px;
     }
 
     .nav-links {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 40%;
-        background: var(--standard-dark);
-        border: 1px solid var(--standard-blue);
-        border-radius: 24px;
-
-        flex-direction: column;
-        align-items: center;
-        gap: 0; // Remove gap
-
-        padding: 2rem 0;
         display: none;
-        margin: 0;
-
-        &.active {
-            display: flex;
-        }
-
-        li {
-            position: relative;
-            width: 100%;
-            text-align: center;
-        }
-
-        li:not(:last-child)::after {
-            content: "";
-            display: block;
-            height: 1px;
-            width: 80%; // or 100% for full width
-            margin: 0.75rem auto; // vertical spacing
-            background: var(--standard-blue);
-        }
     }
 
     /* Post hero responsive */
@@ -198,9 +181,89 @@ $mobile: 575px;
 }
 
 @media (max-width: $mobile-extra) {
+    /* ── Global gutter system ──────────────────────────────────────────
+       .container has zero padding at desktop so each section controls
+       its own gutters. On mobile we flip this: give .container a
+       consistent 1.25rem edge, then zero out the horizontal component
+       of every section that self-pads (avoids double-guttering).
+       Full-bleed sections (navbar, full-bleed-hero) are NOT in
+       .container and are unaffected.
+    ─────────────────────────────────────────────────────────────────── */
+    .container {
+        padding-inline: 1.25rem;
+    }
+
+    /* Hero: image as background layer behind text — hides the stacked media panel
+       and composites the image behind a gradient overlay via CSS custom property. */
+    .main-hero {
+        background-image:
+            linear-gradient(180deg, rgba(19, 11, 46, 0.82) 0%, rgba(10, 6, 24, 0.95) 100%),
+            var(--hero-bg, none);
+        background-size: auto, cover;
+        background-position: center, center;
+    }
+
+    .main-hero-media {
+        display: none;
+    }
+
+    .main-hero {
+        --hero-pad-block: var(--space-xl);
+        --hero-pad-inline: 0px;
+    }
+
+    /* What We Do: was 72px 3.5rem 80px */
+    .what-we-do-grid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .what-we-do-intro h2 {
+        overflow-wrap: anywhere; // fallback if a word group still exceeds column width at very narrow viewports
+    }
+
+    /* Why section: was 0 3.5rem */
+    .why-grid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Project section: was 52px 3.5rem 56px */
+    .project-content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* In Action: was 4rem 3.5rem 0 / 0 3.5rem 4.5rem */
+    .in-action-header {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .in-action-grid {
+        grid-template-columns: 1fr;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Home insights rail: was 0 3.5rem */
+    .insights-content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Insights rail inner: overrides $tablet rule that adds 2rem per side */
+    .insights-rail {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Contact: was 72px 3.5rem 56px */
     .contact-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .footer-sitemap {
@@ -211,30 +274,32 @@ $mobile: 575px;
     .card-grid .card {
         flex-wrap: wrap;
         gap: 0.75rem 1.5rem;
-    }
-
-    .in-action-grid {
-        grid-template-columns: 1fr;
+        margin: 0; // neutralise desktop -1.5rem bleed that overflows container gutter
     }
 
     .breadcrumb-tagline {
         display: none;
     }
 
-    /* Full-bleed hero mobile */
+    /* Full-bleed hero — inside .container, zero horizontal (container provides gutter) */
     .full-bleed-hero-content {
-        padding: 48px 24px 36px;
+        padding: 48px 0 36px;
     }
 
-    /* Post hero mobile */
+    /* Common hero card — reduce internal horizontal padding; container provides edge gutter */
+    .common-hero-content {
+        padding: var(--space-lg) var(--space-sm);
+    }
+
+    /* Post hero — NOT inside .container (full-bleed section), keeps its own side padding */
     .post-hero {
         padding: 40px 24px 28px;
     }
 
-    /* Insights mobile */
+    /* Insights grid: was padding: 1rem (1rem all sides) — zero horizontal */
     .insights-grid {
         grid-template-columns: 1fr;
-        padding: 1rem;
+        padding: 1rem 0;
     }
 
     .keep-reading-grid {
@@ -249,15 +314,41 @@ $mobile: 575px;
     .filter-pill {
         padding: 7px 14px;
         font-size: 11px;
+        min-height: 44px;
     }
 
-    /* Vision rows mobile (What's Next) */
+    /* Vision rows: was 1rem 1.25rem 1.5rem — zero horizontal */
     .vision-rows {
-        padding: 1rem 1.25rem 1.5rem;
+        padding: 1rem 0 1.5rem;
     }
 
     .vision-row {
         padding: 2rem 0;
+    }
+
+    /* Partners bar — not inside .container so manages its own gutters.
+       At desktop it overlaps the hero with margin-top:-66px (removed at
+       tablet-extra already). Here we centre the wordmarks and fix padding. */
+    .partners-bar {
+        padding: var(--space-md);
+        align-items: center;
+        margin: 0 var(--space-sm);
+    }
+
+    .partners-bar-label {
+        max-width: none;
+        text-align: center;
+    }
+
+    .partners-bar-logos {
+        justify-content: center;
+        gap: var(--space-md);
+    }
+
+    /* Why Now step-nav is a sidebar indicator — meaningless once the sticky
+       panel collapses to static. Hide it; the blocks scroll fine without it. */
+    .why-steps {
+        display: none;
     }
 }
 @media (max-width: $mobile) {

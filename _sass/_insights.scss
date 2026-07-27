@@ -1,6 +1,7 @@
 // Insights Hub Section
 .insights-hub {
   background: var(--standard-light);
+  padding: 2rem 0;
 }
 
 // Insight Card Container
@@ -195,7 +196,7 @@
 /* ===== Filter Section (rework redesign) ===== */
 
 .insights-filter {
-    background: #efece1;
+    background: var(--standard-cream);
     border-bottom: 1px solid #e1ddce;
 }
 
@@ -233,6 +234,9 @@
     background: transparent;
     border: 1px solid #cfcabb;
     padding: 9px 18px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.2s ease;

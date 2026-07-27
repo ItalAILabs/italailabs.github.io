@@ -1,6 +1,9 @@
 // Main Hero Section
 /* Hero Section */
 .main-hero {
+    --hero-pad-block: 84px 132px;
+    --hero-pad-inline: 56px;
+
     min-height: 560px;
     color: var(--standard-light);
     background: linear-gradient(180deg, #130b2e 0%, var(--standard-dark) 100%);
@@ -45,7 +48,8 @@
         justify-content: center;
         position: relative;
         z-index: 2;
-        padding: 84px 56px 132px;
+        padding-block: var(--hero-pad-block);
+        padding-inline: var(--hero-pad-inline);
 
         .main-hero-eyebrow {
             font-family: var(--header-family);
@@ -85,6 +89,7 @@
 
         .main-hero-ctas {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 1.75rem;
         }
@@ -191,7 +196,7 @@
 
     p {
         font-size: clamp(1rem, 1.4vw, 1.0625rem); // mockup: 17px
-        color: #54513f;
+        color: var(--standard-dark-alt);
         margin: 0 0 1.75rem;
     }
 }
@@ -306,6 +311,11 @@
         margin: 0 0 2.25rem;
         max-width: 420px;
     }
+
+    .cta-light {
+        margin-top: 2.5rem; // comp: 40px separation from steps nav
+        align-self: flex-start; // prevent flex column stretch from expanding button full-width
+    }
 }
 
 .why-steps {
@@ -347,6 +357,10 @@
 
 .why-scroll {
     padding: 18vh 0;
+}
+
+.why-cta-mobile {
+    display: none;
 }
 
 .why-block {
@@ -429,7 +443,7 @@
     grid-area: text;
     align-self: start;
     margin: 0;
-    color: #3f3c2e;
+    color: var(--standard-warm);
     font-size: clamp(1rem, 1.4vw, 1.0625rem); // mockup: 17px
     line-height: 1.55;
   }
@@ -503,9 +517,6 @@
     border-left: none;
     border-top: 1px solid #ece8da;
 
-    &:first-child {
-      border-top: none;
-    }
   }
 
   .stat-card--green {
@@ -604,7 +615,7 @@
 
 .insights-section {
     padding: 68px 0 80px;
-    background: #efece1;
+    background: var(--standard-cream);
     border-top: 1px solid #e1ddce;
 }
 .insights-content {
@@ -639,6 +650,8 @@
 
 /* Thin styled scrollbar for horizontal rails */
 .ital-rail {
+    overflow-x: auto;
+    overflow-y: hidden;
     scrollbar-width: thin;
     scrollbar-color: #c9c4b4 transparent;
 

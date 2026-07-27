@@ -40,6 +40,12 @@ body {
     --standard-blue-soft: #9b9cf7;
     --standard-disabled: #EAEAEA;
     --standard-viola: #34147D;
+    --standard-cream: #efece1;   // secondary section surface (cards, blockquotes, alt-section bg)
+    --standard-warm: #33301f;    // warm-dark body text on light/cream backgrounds
+
+    // Transitions
+    --transition-base: 0.2s ease;
+    --transition-fast: 0.15s ease;
 
     // Typography
     --header-family: "JetBrains Mono", monospace;
@@ -100,9 +106,9 @@ body {
 
 textarea,
 input {
-    font-size: var(--body-xs-size);
-    font-weight: var(--body-xs-weight);
-    letter-spacing: var(--body-xs-letter-spacing);
+    font-size: 1rem; // iOS auto-zooms on inputs < 16px
+    font-weight: 400;
+    letter-spacing: normal;
 }
 
 h1,

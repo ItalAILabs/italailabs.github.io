@@ -47,7 +47,7 @@
             {% endif %}
             <span class="full-bleed-breadcrumb-active">{{ include.crumb_current | default: page.title | upcase }}</span>
           </div>
-          <h1 class="full-bleed-hero-title" {% if include.title-style %}style="{{ include.title-style }}"{% endif %}>{{ include.heading }}<span class="period"></span></h1>
+          <h1 class="full-bleed-hero-title{% if include.title_class %} {{ include.title_class }}{% endif %}" {% if include.title-style %}style="{{ include.title-style }}"{% endif %}>{{ include.heading }}<span class="period"></span></h1>
           {% if include.tagline %}
             <p class="full-bleed-hero-tagline">{{ include.tagline }}</p>
           {% endif %}

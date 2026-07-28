@@ -170,8 +170,12 @@
 }
 
 .post-featured-image img {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     display: block;
     background: var(--standard-light);
 }
@@ -332,6 +336,10 @@
     margin-top: var(--space-2xl);
     padding-top: var(--space-xl);
     border-top: 2px solid rgba(107, 108, 245, 0.3);
+}
+
+.post-navigation .next {
+    margin-left: auto;
 }
 
 .post-navigation .nav-btn {

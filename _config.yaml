@@ -59,3 +59,13 @@ insights_manifest:
   output_dir: assets/data/insights
   per_category: true
   ndjson: true
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+
+projects_manifest:
+  per_page: 12
+  output_dir: assets/data/projects
+  ndjson: true

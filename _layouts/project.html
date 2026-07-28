@@ -1,0 +1,72 @@
+---
+layout: default
+---
+
+<section class="project-hero">
+  <div class="container">
+    <div class="project-hero-inner">
+      <div class="project-hero-breadcrumb">
+        <a href="/">HOME</a> /
+        <a href="/projects">PROJECTS</a> /
+        <span class="project-hero-breadcrumb-active">{{ page.title | upcase }}</span>
+      </div>
+      <div class="project-hero-grid">
+        <div class="project-hero-copy">
+          {% if page.category %}
+          <div class="project-hero-category">{{ page.category }}</div>
+          {% endif %}
+          <h1 class="project-hero-title">{{ page.title }}<span class="period"></span></h1>
+          {% if page.excerpt or page.description %}
+          <p class="project-hero-excerpt">{{ page.description | default: page.excerpt }}</p>
+          {% endif %}
+          {% if page.external_url %}
+          <a class="cta-light" href="{{ page.external_url }}" target="_blank" rel="noopener">{{ page.external_cta_label | default: page.cta_label | default: "PROJECT PAGE" }} &#8599;</a>
+          {% endif %}
+        </div>
+        {% if page.stats %}
+        <div class="project-hero-stats">
+          {% for stat in page.stats %}
+          <div class="stat-card{% cycle 'stat-card--green', 'stat-card--blue' %}">
+            <div class="stat-number">{{ stat.value }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if page.has_writeup %}
+
+{% if page.in_action %}
+<section class="in-action-section">
+  <div class="container">
+    <div class="in-action-header">
+      <div class="section-label section-label--bright">In action</div>
+    </div>
+    <div class="in-action-grid in-action-grid--2col">
+      {% for clip in page.in_action %}
+      <div class="in-action-item">
+        <video src="{{ clip.video }}" autoplay muted loop playsinline{% if clip.zoom %} style="transform: scale({{ clip.zoom }});"{% endif %}></video>
+        {% if clip.caption %}
+        <span class="in-action-caption">{{ clip.caption }}</span>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="project-content-section">
+  <div class="container">
+    <div class="project-content-body">
+      <h2 class="h4-size">How it works</h2>
+      {{ content }}
+    </div>
+  </div>
+</section>
+
+{% endif %}

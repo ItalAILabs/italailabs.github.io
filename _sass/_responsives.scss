@@ -29,6 +29,11 @@ $mobile: 575px;
         order: -1;
     }
 
+    /* Project detail hero responsive */
+    .project-hero-grid {
+        grid-template-columns: 1fr;
+    }
+
     .what-we-do-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -181,18 +186,6 @@ $mobile: 575px;
 }
 
 @media (max-width: $mobile-extra) {
-    /* ── Global gutter system ──────────────────────────────────────────
-       .container has zero padding at desktop so each section controls
-       its own gutters. On mobile we flip this: give .container a
-       consistent 1.25rem edge, then zero out the horizontal component
-       of every section that self-pads (avoids double-guttering).
-       Full-bleed sections (navbar, full-bleed-hero) are NOT in
-       .container and are unaffected.
-    ─────────────────────────────────────────────────────────────────── */
-    .container {
-        padding-inline: 1.25rem;
-    }
-
     /* Hero: image as background layer behind text — hides the stacked media panel
        and composites the image behind a gradient overlay via CSS custom property. */
     .main-hero {
@@ -230,6 +223,22 @@ $mobile: 575px;
 
     /* Project section: was 52px 3.5rem 56px */
     .project-content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Project card row (listing): was 0.9fr 1.1fr */
+    .project-card {
+        grid-template-columns: 1fr;
+    }
+
+    /* Project detail hero inner: was 70px 56px 60px */
+    .project-hero-inner {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .project-content-body {
         padding-left: 0;
         padding-right: 0;
     }
@@ -349,6 +358,12 @@ $mobile: 575px;
        panel collapses to static. Hide it; the blocks scroll fine without it. */
     .why-steps {
         display: none;
+    }
+
+    /* vCard: shrink the avatar to match the narrower card */
+    .vc-person-image {
+        width: 160px;
+        height: 160px;
     }
 }
 @media (max-width: $mobile) {

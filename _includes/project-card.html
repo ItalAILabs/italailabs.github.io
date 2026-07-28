@@ -1,0 +1,30 @@
+<div class="project-card">
+  <div class="project-card-media">
+    <video src="{{ include.project.video }}" autoplay muted loop playsinline{% if include.project.video_zoom %} style="transform: scale({{ include.project.video_zoom }});"{% endif %}></video>
+    {% if include.project.tag %}
+    <span class="project-card-tag">{{ include.project.tag }}</span>
+    {% endif %}
+  </div>
+  <div class="project-card-content">
+    {% if include.project.category %}
+    <div class="project-card-category">{{ include.project.category }}</div>
+    {% endif %}
+    <h3 class="project-card-title">{{ include.project.title }}</h3>
+    <p class="project-card-excerpt">{{ include.project.excerpt }}</p>
+    {% if include.project.stats %}
+    <div class="project-card-stats">
+      {% for stat in include.project.stats %}
+      <div class="project-card-stat">
+        <div class="project-card-stat-value">{{ stat.value }}</div>
+        <div class="project-card-stat-label">{{ stat.label }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if include.project.has_writeup %}
+    <a class="cta-dark project-card-cta" href="{{ include.project.url }}">{{ include.project.cta_label | default: "VIEW PROJECT" }} &rarr;</a>
+    {% else %}
+    <a class="cta-dark project-card-cta" href="{{ include.project.external_url }}" target="_blank" rel="noopener">{{ include.project.cta_label | default: "READ THE PAPER" }} &#8599;</a>
+    {% endif %}
+  </div>
+</div>

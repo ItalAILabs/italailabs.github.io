@@ -130,23 +130,21 @@ layout: default
           {% endif %}
         {% endfor %}
 
+        {% if prev_post or next_post %}
         <nav class="post-navigation">
           {% if prev_post %}
           <a class="cta-button-alt prev" href="{{ prev_post.url }}">
             ← Previous
           </a>
-          {% else %}
-          <span class="cta-button-alt disabled">← Previous</span>
           {% endif %}
-          
+
           {% if next_post %}
           <a class="cta-button-alt next" href="{{ next_post.url }}">
             Next →
           </a>
-          {% else %}
-          <span class="cta-button-alt disabled">Next →</span>
           {% endif %}
         </nav>
+        {% endif %}
         {% endif %}
 
       </article>

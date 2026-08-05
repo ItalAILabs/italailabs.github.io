@@ -16,6 +16,7 @@ sitemap: false
                         src="/assets/images/people/{{ page.person.name | replace: ' ', '-' | downcase }}.png"
                         alt="{{ page.person.name }}"
                         class="vc-person-img"
+                        onerror="this.onerror=null;this.src='/assets/images/people/placeholder.svg';"
                     >
                 </div>
 

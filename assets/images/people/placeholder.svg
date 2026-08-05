@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 819 819" width="819" height="819">
+  <circle cx="409" cy="256" r="215" fill="#C9C9C9"/>
+  <path d="M 262 452
+           C 224 471 190 497 162 528
+           C 106 591 68 673 60 762
+           C 58 782 57 800 57 819
+           L 761 819
+           C 761 800 760 782 758 762
+           C 750 673 712 591 656 528
+           C 628 497 594 471 556 452
+           C 520 490 466 514 409 514
+           C 352 514 298 490 262 452 Z"
+        fill="#C9C9C9"/>
+  <rect x="219" y="505" width="380" height="84" rx="42" fill="#F4F1E6" stroke="#C9C9C9" stroke-width="2"/>
+  <text x="409" y="547" text-anchor="middle" dominant-baseline="central"
+        font-family="'JetBrains Mono', monospace" font-size="34" font-weight="700"
+        letter-spacing="2.5" fill="#33301F">COMING SOON</text>
+</svg>

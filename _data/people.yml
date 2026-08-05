@@ -18,9 +18,12 @@ team:
       x: https://x.com/GalassoFab10
       url: https://fgalasso.bitbucket.io/
     
+  - name: Cristiana Polici
+    role: VP & Head of Operations
+
   - name: Luca Franco
     role: General Manager
-    credentials: PhD in Data Science
+    credentials: PhD, Data Science
     phone: +39 393 3801982
     email: luca.franco@italailabs.com
     links:
@@ -28,7 +31,7 @@ team:
 
   - name: Alessio Sampieri
     role: Lead Researcher
-    credentials: PhD in Data Science
+    credentials: PhD, Data Science
     phone: +39 334 2769490
     email: alessio.sampieri@italailabs.com
     links:
@@ -38,44 +41,48 @@ team:
   - name: Anastasiia Motyreva
     role: Head of Marketing & Communications
 
-  - name: Cristiana Polici
-    role: VP & Operations
 
-  - name: Matteo Migliarini
-    role: Researcher
-    credentials: PhD student in Computer Science
+  - name: Russell Shyvers
+    role: Operations Engineer
+    credentials: BSc, Data Analytics & IS
+
     
   - name: Christian Bianchi
     role: Researcher
-    credentials: MSc in AI & Robotics
+    credentials: MSc, AI & Robotics
     
   - name: Stefano D'Arrigo
     role: Researcher
-    credentials: PhD student in AI
-    
+    credentials: PhD Student, AI
+
+  - name: Matteo Migliarini
+    role: Researcher
+    credentials: PhD Student, Computer Science
+
   - name: Luca Romani
     role: Researcher
-    credentials: PhD-c in AI
+    credentials: PhD(c), AI
 
   - name: Edoardo De Matteis
-    role: Research Intern
-    credentials: PhD-c in Computer Science
-    
+    role: Researcher Intern
+    credentials: PhD(c), Computer Science
+
   - name: Michele Palma
-    role: Research Intern
-    credentials: MSc in Computer Science
+    role: Researcher Intern
+    credentials: MSc, Computer Science
     
   - name: Stefano Saravalle
     role: Researcher Intern
-    credentials: PhD student in AI
+    credentials: PhD Student, AI
     
+
   - name: Matteo Gioia
     role: ItalAI Intern at Panasonic R&D Labs
-    credentials: PhD student in Data Science
+    credentials: PhD Student, Data Science
     
   - name: Luca Zhou
     role: ItalAI Intern at Panasonic R&D Labs
-    credentials: PhD student in Computer Science
+    credentials: PhD Student, Computer Science
 
 other:
   - name: Guido Maria D'Amely di Melendugno

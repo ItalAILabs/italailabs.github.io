@@ -54,12 +54,6 @@ $mobile: 575px;
         padding-top: 2rem;
     }
 
-    .partners-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
     .partners-bar.partners-bar--split {
         grid-template-columns: 1fr;
         gap: 1.5rem;

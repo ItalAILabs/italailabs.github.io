@@ -2,7 +2,7 @@ permalink: /blog/:title/
 destination: ./_site
 source: ./
 
-url: "https://italailabs.com"
+url: "https://italailabs.landofsharks.com"
 
 title: "ItalAI Labs"
 tagline: "Artificial Intelligence Research and Development"

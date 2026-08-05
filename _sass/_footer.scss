@@ -197,12 +197,6 @@
     padding-top: 56px;
 }
 
-/* Logo + description column */
-.footer-logo-col {
-    display: flex;
-    flex-direction: column;
-}
-
 .footer-logo {
     height: 26px;
     width: auto;
@@ -312,10 +306,6 @@
     .footer-sitemap {
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
-    }
-
-    .footer-logo-col {
-        grid-column: 1 / -1;
     }
 }
 

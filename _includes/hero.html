@@ -13,7 +13,7 @@
                 </p>
                 {% endif %}
                 <div class="main-hero-ctas">
-                    <a class="cta-light" href="/about">{{ include.cta_text }}</a>
+                    <a class="cta-light" href="{{ include.cta_url | default: '/about' }}">{{ include.cta_text }}</a>
                     {% if include.secondary_text %}
                     <a class="main-hero-secondary" href="{{ include.secondary_url | default: '/work' }}">{{ include.secondary_text }}</a>
                     {% endif %}

@@ -26,7 +26,7 @@ layout: default
         {% if page.stats %}
         <div class="project-hero-stats">
           {% for stat in page.stats %}
-          <div class="stat-card{% cycle 'stat-card--green', 'stat-card--blue' %}">
+          <div class="stat-card {% cycle 'stat-card--green', 'stat-card--blue' %}">
             <div class="stat-number">{{ stat.value }}</div>
             <div class="stat-label">{{ stat.label }}</div>
           </div>
@@ -37,6 +37,21 @@ layout: default
     </div>
   </div>
 </section>
+
+{% if page.strip %}
+<section class="project-strip-section">
+  <div class="container">
+    <div class="project-strip-grid">
+      {% for cell in page.strip %}
+      <div class="project-strip-cell">
+        <div class="project-strip-label">{{ cell.label }}</div>
+        <div class="project-strip-text">{{ cell.text }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
 
 {% if page.has_writeup %}
 

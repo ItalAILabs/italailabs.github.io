@@ -1,4 +1,4 @@
-permalink: /insights/:title/
+permalink: /blog/:title/
 destination: ./_site
 source: ./
 
@@ -34,6 +34,8 @@ locale: en_US.UTF
 webmaster_verifications:
   google: trjGoWqK4ZnLygnmefGpW0b2ev8If5_3QDtXC_rm83w
 
+ga_measurement_id: G-70VK7F6E5Q
+
 markdown: kramdown
 kramdown:
   toc_levels: 2..5
@@ -54,9 +56,9 @@ jekyll-minifier:
   compress_javascript: true
   compress_json: false 
 
-insights_manifest:
+blogs_manifest:
   per_page: 12
-  output_dir: assets/data/insights
+  output_dir: assets/data/blog
   per_category: true
   ndjson: true
 

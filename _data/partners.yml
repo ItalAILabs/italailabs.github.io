@@ -24,12 +24,6 @@
   weight: 700
   size: 28
   tracking: -0.5
-- slug: pinlab
-  name: "PINlab"
-  font: dm
-  weight: 700
-  size: 28
-  tracking: -0.5
 - slug: sapienza
   name: "Sapienza"
   font: spectral

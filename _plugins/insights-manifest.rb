@@ -3,52 +3,52 @@ require 'json'
 require 'jekyll/utils'
 
 module Jekyll
-  class InsightsManifestGenerator < Generator
+  class BlogsManifestGenerator < Generator
     safe true
     priority :low
 
     def generate(site)
-      Jekyll.logger.info "InsightsManifest:", "🚀 Starting generation"
+      Jekyll.logger.info "blogsManifest:", "🚀 Starting generation"
 
-      cfg = site.config.fetch('insights_manifest', {})
+      cfg = site.config.fetch('blogs_manifest', {})
       per_page = (cfg['per_page'] || 12).to_i
-      output_dir = cfg['output_dir'] || 'assets/data/insights'
+      output_dir = cfg['output_dir'] || 'assets/data/blog'
       include_per_category = cfg.key?('per_category') ? cfg['per_category'] : true
       emit_ndjson = cfg.key?('ndjson') ? cfg['ndjson'] : true
 
-      Jekyll.logger.info "InsightsManifest:", "Configuration:"
-      Jekyll.logger.info "InsightsManifest:", "  - per_page: #{per_page}"
-      Jekyll.logger.info "InsightsManifest:", "  - output_dir: #{output_dir}"
-      Jekyll.logger.info "InsightsManifest:", "  - per_category: #{include_per_category}"
-      Jekyll.logger.info "InsightsManifest:", "  - emit_ndjson: #{emit_ndjson}"
+      Jekyll.logger.info "blogsManifest:", "Configuration:"
+      Jekyll.logger.info "blogsManifest:", "  - per_page: #{per_page}"
+      Jekyll.logger.info "blogsManifest:", "  - output_dir: #{output_dir}"
+      Jekyll.logger.info "blogsManifest:", "  - per_category: #{include_per_category}"
+      Jekyll.logger.info "blogsManifest:", "  - emit_ndjson: #{emit_ndjson}"
 
       all_posts = site.posts.docs
-      Jekyll.logger.info "InsightsManifest:", "📝 Total posts in site: #{all_posts.size}"
+      Jekyll.logger.info "blogsManifest:", "📝 Total posts in site: #{all_posts.size}"
 
       posts = all_posts.select { |doc| doc.data['published_in_blog'] != false }
-      Jekyll.logger.info "InsightsManifest:", "✅ Posts after filter: #{posts.size}"
+      Jekyll.logger.info "blogsManifest:", "✅ Posts after filter: #{posts.size}"
 
       if posts.empty?
-        Jekyll.logger.warn "InsightsManifest:", "⚠️  No posts found! Check 'published_in_blog' filter"
+        Jekyll.logger.warn "blogsManifest:", "⚠️  No posts found! Check 'published_in_blog' filter"
         return
       end
 
       posts.sort_by! { |doc| [(doc.data['date'] || doc.date || Time.at(0)), (doc.data['part'] || 0).to_i] }
       posts.reverse!
 
-      write_manifests(site, posts, output_dir, per_page, 'insights', emit_ndjson)
+      write_manifests(site, posts, output_dir, per_page, 'blog', emit_ndjson)
 
       return unless include_per_category
 
       grouped = group_by_category(posts)
-      Jekyll.logger.info "InsightsManifest:", "📂 Found #{grouped.size} categories"
+      Jekyll.logger.info "blogsManifest:", "📂 Found #{grouped.size} categories"
 
       grouped.each do |slug, docs|
-        Jekyll.logger.info "InsightsManifest:", "  - Category '#{slug}': #{docs.size} posts"
+        Jekyll.logger.info "blogsManifest:", "  - Category '#{slug}': #{docs.size} posts"
         write_manifests(site, docs, File.join(output_dir, 'categories'), per_page, "category-#{slug}", emit_ndjson, category: slug)
       end
 
-      Jekyll.logger.info "InsightsManifest:", "✨ Generation complete!"
+      Jekyll.logger.info "blogsManifest:", "✨ Generation complete!"
     end
 
     private
@@ -72,7 +72,7 @@ module Jekyll
       chunks = docs.each_slice(per_page).to_a
       total_pages = chunks.size
 
-      Jekyll.logger.info "InsightsManifest:", "📄 Writing #{total_pages} page(s) for '#{base_name}'"
+      Jekyll.logger.info "blogsManifest:", "📄 Writing #{total_pages} page(s) for '#{base_name}'"
 
       chunks.each_with_index do |chunk, idx|
         page_num = idx + 1
@@ -89,12 +89,12 @@ module Jekyll
 
         json_file = "#{base_name}-page#{page_num}.json"
         write_json(site, out_dir, json_file, payload)
-        Jekyll.logger.info "InsightsManifest:", "  ✓ Created #{File.join(out_dir, json_file)}"
+        Jekyll.logger.info "blogsManifest:", "  ✓ Created #{File.join(out_dir, json_file)}"
 
         if emit_ndjson
           ndjson_file = "#{base_name}-page#{page_num}.ndjson"
           write_ndjson(site, out_dir, ndjson_file, payload)
-          Jekyll.logger.info "InsightsManifest:", "  ✓ Created #{File.join(out_dir, ndjson_file)}"
+          Jekyll.logger.info "blogsManifest:", "  ✓ Created #{File.join(out_dir, ndjson_file)}"
         end
       end
     end
@@ -128,7 +128,7 @@ module Jekyll
       page = Jekyll::PageWithoutAFile.new(site, site.source, dir, filename)
       page.content = JSON.pretty_generate(payload)
       page.data['layout'] = nil
-      Jekyll.logger.debug "InsightsManifest:", "    Adding page: #{page.url} (#{page.class})"
+      Jekyll.logger.debug "blogsManifest:", "    Adding page: #{page.url} (#{page.class})"
       site.pages << page
     end
 
@@ -142,7 +142,7 @@ module Jekyll
       page = Jekyll::PageWithoutAFile.new(site, site.source, dir, filename)
       page.content = lines.join("\n") + "\n"
       page.data['layout'] = nil
-      Jekyll.logger.debug "InsightsManifest:", "    Adding page: #{page.url} (#{page.class})"
+      Jekyll.logger.debug "blogsManifest:", "    Adding page: #{page.url} (#{page.class})"
       site.pages << page
     end
   end

@@ -1,0 +1,370 @@
+﻿ItalAI — Phase 3: Website Redesign
+
+
+1. Final Sitemap 
+The proposed sitemap follows the navigation logic established in Phase 3: organized around what a buyer needs to verify, not around what ItalAI wants to say about itself. Every page earns its place by answering a specific buyer question that no other page answers.
+  
+
+The sub-pages for About (Origin & Network, Partners & Team, How We Work) are sections within a single scrollable About page rather than separate URL destinations — the sitemap shows them as sub-pages to indicate the content blocks, not separate pages in the navigation. The same applies to Blog post types, which are content categories within the single Blog page rather than separate pages.
+Research and Projects are the only pages where sub-pages represent genuinely separate URLs: individual paper pages under Research, and the dedicated WIZARD and T-Rex pages under Projects. These are deep-linked destinations a buyer might arrive at directly from a LinkedIn post or a paper citation, so they need their own URLs and page logic.
+Get In Touch has no sub-pages — it is a single page whose only job is to filter and convert.
+
+
+Page by Page Rationale
+Homepage is the only page every type of visitor lands on first, regardless of how they arrive. Its job is not to explain everything — it is to answer four questions fast enough that the right buyer stays and the wrong buyer self-selects out. No other page can do this because every other page assumes prior context.
+About is where both primary audiences go for different reasons. The Technical Decision-Maker goes to verify that the team matches the credentials. The Commercial Sponsor, introduced by the TDM, goes to understand the partnership model before engaging commercially. One page serving two distinct audiences at different stages of the same journey — removing it would break both paths.
+Research earns its own place because publications are ItalAI's single strongest proof asset for the primary ICP, and they currently have no page that treats them as the primary content rather than a buried expandable. A dedicated page signals that the research record is central to ItalAI's identity, not a supporting detail. It also separates the credibility verification function from the About page, which serves a different purpose.
+Projects earns its place because publications prove depth of knowledge and built systems prove that knowledge ships. A buyer who has verified the Research page still has one open question — does this research translate into anything real? The projects page closes that question. Without it, the credibility journey has a gap between "they publish" and "we should talk."
+Blog is the primary channel through which buyers who do not already know ItalAI will encounter it for the first time — through a LinkedIn post, a conference mention, a paper citation that leads to an article. It is also the only page that stays live and current, signaling that ItalAI is actively producing research intelligence rather than maintaining a static presence. Without it, there is no ongoing mechanism for the funnel to start.
+Get In Touch is the single conversion point in the entire architecture. Every other page builds toward it. The ICP filter line above the form means it is the last selectivity checkpoint before a buyer makes contact — removing it or merging it elsewhere would lose that control point.
+Pages Removed and Why
+What We Do is removed because its function — explaining what ItalAI does — is now handled more effectively in two better places: the homepage positioning statement and proof signals answer "what does ItalAI do" in thirty seconds, and the About page's third block answers "what does working with ItalAI look like" for buyers who want more. A third page saying the same thing in a different register adds length to the navigation without adding a new buyer question answered.
+What's Next is removed because its content — a market narrative about why Physical AI matters — belongs in two better homes: the factual context moves into About, and the forward-looking intelligence becomes Blog content authored by the Bay Area co-founder, where it is more credible as live, regularly updated perspective than as a static page. The page's visual design and strongest line ("The future of AI will not be defined by smarter models, but by systems that work in the real world") are preserved and relocated, not discarded.
+________________
+
+
+2. Homepage wireframe / copy skeleton
+┌────────────────────────────────────────────────────────
+│  01 — HERO                                          "Who?"    
+│  Positioning statement, above the fold, no scroll needed.    
+│  Keep: current dark hero visual design.                      
+│  Change: headline copy only.                                 
+└────────────────────────────────────────────────────────
+                              ▼
+┌────────────────────────────────────────────────────────
+│  02 — PROOF SIGNALS                          "Why believe it?”
+│  Three visual anchors. Icons/numbers, no paragraphs.          
+│  Keep: current three-card layout.                            
+│  Change: content inside the cards.                           
+└────────────────────────────────────────────────────────
+                              ▼
+┌────────────────────────────────────────────────────────
+│  03 — FEATURED PROJECTS                    "What have they    
+│  WIZARD and T-Rex. One sentence each on problem,               
+│  approach, and deployment stage.                    built?"   
+│  Keep: "Meet WIZARD" section design.                           
+│  Change: register — research note, not press release.          
+│  Add: T-Rex alongside WIZARD.                                  
+└────────────────────────────────────────────────────────
+                              ▼
+┌────────────────────────────────────────────────────────
+│  04 — AUDIENCE FIT (ICP FILTER)              "Is this for me?”
+│  Short statement placed before the CTA.                       
+│  Right buyer recognizes themselves; wrong buyer recognizes    
+│  the mismatch. Both outcomes intentional.                     
+└────────────────────────────────────────────────────────
+                              ▼
+┌────────────────────────────────────────────────────────
+│  05 — CONTACT CTA                                       "Act" 
+│  Single CTA reflecting the ICP statement above —                
+│  not a generic "get in touch."                                 
+│  Keep: current contact form design.                             
+│  Change: label and surrounding copy.                           
+└────────────────────────────────────────────────────────
+
+
+Publications · Partners · Blog · Team all live on their own pages —
+not the homepage. The homepage answers four questions and stops.
+Everything else is one click away.
+Example  
+Copy Skeleton by Section
+01 — Hero
+Element
+	Copy
+	Headline (positioning statement)
+	"ItalAI turns frontier robotics research into deployable Physical AI — bridging academia and industry for enterprise R&D teams."
+	Subhead (optional, one line)
+	"Research-grade partnership for teams facing problems off-the-shelf tools and standard consulting engagements aren't built to solve."
+	Visual
+	Keep current dark hero treatment — no new imagery direction needed at this stage
+	02 — Proof Signals
+Card
+	Label
+	Content
+	1
+	Publications
+	Top-tier venues named: CVPR · ICLR · ECCV · IROS · AAAI
+	2
+	Active partnerships
+	UC Berkeley · Stanford · Sapienza
+	3
+	Anchor relationship
+	Panasonic — multi-year industrial partnership
+	Format: icon + number/name only, no paragraph copy. This is the "credible before reading a word" signal from Section 2.1.2.
+03 — Featured Projects
+Project
+	Problem (1 sentence)
+	Approach (1 sentence)
+	Deployment stage (1 sentence)
+	WIZARD
+	A robot that watches once and adapts instantly to real operating environments.
+	"Developed in active collaboration with UC Berkeley, WIZARD uses one-shot imitation learning to enable adaptation to new tasks with zero retraining. The 14x performance gain and video demonstration remain the key supporting proof points. 
+	Active research project, not yet production; framed as current and live.
+	T-Rex
+	Multi-institutional research on tactile-reactive dexterous manipulation.
+	36-researcher collaboration; ItalAI's contribution is documented, not claimed as sole authorship.
+	An active multi-institutional research collaboration, currently in the research and validation stage. 
+	Register: written for a technical peer outside that specific subdomain — not an academic abstract, not a press release.
+04 — Audience Fit
+Element
+	Copy
+	ICP statement
+	"We work with enterprise R&D teams on Physical AI problems that require sustained research engagement — teams with a hard technical challenge and the internal expertise to develop it seriously."
+	Placement
+	Immediately before the CTA, not after — this line does the filtering work before contact happens
+	05 — Contact CTA
+Element
+	Copy
+	CTA label
+	"Tell us about your challenge" or "Start a conversation"
+	Surrounding copy
+	None needed beyond the Section 04 ICP line directly above it
+	Form
+	Keep current contact form design and layout
+	
+
+________________
+
+
+3. Page-by-page purpose
+Homepage
+What it must achieve: Answer four questions in sequence — what is ItalAI, why believe it, what have they built, and is this for me — before the visitor reaches the contact CTA. The homepage is the only page every visitor sees regardless of how they arrive; it must close the legibility gap within 30 seconds.
+Audience: All visitors. Primary path serves Audience 1 (Technical Decision-Maker); the proof signals bar and ICP filter line also serve the Audience 2 (Commercial Sponsor) handoff when a link is shared by a colleague.
+Proof points: Positioning statement above the fold. Three proof signal cards: publication venues (CVPR, ICLR, ECCV, IROS, AAAI), institutional partnerships (Berkeley, Stanford, Sapienza), Panasonic anchor relationship. WIZARD and T-Rex featured as research notes. ICP filter line immediately before the CTA.
+Next action: CTA to Get In Touch. Secondary: navigation to Research or Projects for buyers who want to verify before contacting.
+About
+What it must achieve: Build trust by explaining who ItalAI is and why its position is distinctive. Organized around three narrative blocks: Origin and Institutional Standing, The Transatlantic Network, How We Work. The transatlantic network block is the most important addition relative to the current site — it is currently absent and it is the primary differentiator no competitor in the analysed set replicates.
+Audience: Audience 1 and Audience 2 at the evaluation stage. Audience 1 assesses whether the team and institutional network match the credentials signaled on the homepage. Audience 2 — typically arriving via a shared link from the Technical Decision-Maker — assesses whether the partnership model is commercially workable before engaging directly. Audience 3 (Institutional Sponsors) also uses this page to evaluate academic alignment and reputational fit.
+Proof points: Sapienza spinout origin. Transatlantic network narrative — co-founder Bay Area presence, Berkeley and Stanford as active working partnerships, what the network enables in practice, not just logos. Panasonic as a named long-term anchor partnership. Founder and researcher profiles with credentials. Three condensed values specific to ItalAI: depth before scale, research-grade or nothing, long-term partnership over transactional delivery.
+Next action: Technical Decision-Makers directed to Research via contextual CTA at the end of the How We Work block. Commercial Sponsors directed to Get In Touch. Persistent navigation available throughout.
+Research
+What it must achieve: Allow a Technical Decision-Maker to verify ItalAI's publication record independently — venues, domains, recency — without clicking through expandables or navigating multiple sections. The page's only job is credibility verification. It does not explain implementation; that is the Projects page's role.
+Audience: Primarily Audience 1. A technically literate buyer who reads papers, attends ICRA or ICLR, and knows what CVPR means. They arrive here after the homepage proof signals bar has given them a reason to look closer.
+Proof points: All publications visible by default, organized by domain (Computer Vision, Embodied AI, Robotics, Multimodal) and filterable by venue. Venue names prominent — CVPR, ICLR, ECCV, IROS, AAAI. Each entry includes paper title, venue, year, and one plain-language sentence describing the contribution. One short framing paragraph at the top connecting the multi-disciplinary span to Physical AI requirements.
+Next action: Contextual links to relevant project pages where research domains and project work overlap. Persistent CTA to Get In Touch for buyers who have verified enough to initiate contact.
+Projects
+What it must achieve: Prove that ItalAI's research translates into built systems operating in physical environments — not just papers. This is where a buyer who has verified the Research page answers the remaining question: does the research ship?
+Audience: Audience 1 and Audience 2. Technical Decision-Makers evaluate research approach, methodology, and deployment stage. Commercial Sponsors look for evidence that research produces outcomes they can describe internally.
+Proof points: WIZARD — problem (a robot that watches once and adapts instantly), Berkeley collaboration, 14x performance on unseen tasks with zero retraining, one-video demonstration framing, current active stage. T-Rex — 36-researcher multi-institutional collaboration with ItalAI affiliation, honestly framed as network participation rather than sole authorship. Both written as research notes for a technical peer, not press releases.
+Next action: Each project page closes with a direct CTA — "Discuss a similar challenge" or "Start a research partnership" — linking to Get In Touch. Contextual link back to Research for buyers who want to explore the underlying publications.
+Blog
+What it must achieve: Serve as the primary discovery channel for buyers who have not yet encountered ItalAI — the Stage 2–3 entry point in the acquisition funnel. Signal that ItalAI is actively producing research intelligence, not maintaining a static presence. Author credentials displayed prominently on every post; the buyer must see immediately they are reading something written by a researcher, not a content team.
+Audience: Primarily Audience 1 at the early discovery stage — buyers who encounter ItalAI through a post or citation before they have verified credentials or assessed fit. Secondary reach to Audience 3 through research and institutional content.
+Proof points: Three post types, each serving a different proof function. Project posts (WIZARD first) prove research-to-deployment translation. Research explainer posts by PinLab collaborators prove multi-disciplinary depth across Physical AI domains. Trend posts by the Bay Area co-founder prove live Silicon Valley research intelligence — the transatlantic asset made concrete and regularly updated.
+Next action: Each post includes contextual links to relevant Research publications and Project pages. Persistent CTA visible throughout directing qualified readers toward Get In Touch.
+Get In Touch
+What it must achieve: Convert a qualified visitor into a documented inbound conversation. The ICP filter line above the form does the final filtering work — the right buyer recognizes themselves, the wrong buyer recognizes the mismatch. The page is already close to correct; the only structural change is the addition of that filter line and the attribution field.
+Audience: Audience 1 who has completed the verification journey (Research → Projects → About). Audience 2 arriving via a shared link at the handoff stage. Both arrive with prior context; the page does not need to re-explain ItalAI.
+Proof points: ICP filter line: "We work with enterprise R&D teams on Physical AI and Robotics projects that require genuine research depth." Partnership and Collaborations label alongside research@italailabs.com confirms the research-partner register. A discreet link to the one-page partnership summary gives Commercial Sponsors a self-serve orientation option when the handoff happens without a live conversation.
+Next action: Form submission. Attribution field captures how the visitor heard about ItalAI (short list: LinkedIn, Blog, Conference, Paper citation, Search, Referral from colleague, Other) and whether they have had prior contact with anyone at ItalAI. These two fields feed the KPI system in Stream 7 directly.
+________________
+
+
+4. Proof Asset Register
+Four levels govern all external communication. Every asset ItalAI holds is assigned to one level. The level determines where the asset can be used and whether approval is needed before use.
+Level 1 — Public
+Freely usable across all channels. Independently verifiable by any buyer.
+* All published papers at CVPR, ICLR, ECCV, IROS, AAAI, COLM — full citation, venue, year, abstract
+* Conference participation — named venues, years, research areas
+* Researcher affiliations as published in paper author lists
+* WIZARD — existence, scope, Berkeley collaboration, 14x performance figure, one-shot imitation learning approach, public project page
+* T-Rex — existence, 36-researcher multi-institutional affiliation, public project page
+* Sapienza spinout origin
+* UC Berkeley partnership — documented through WIZARD and T-Rex public pages
+* Stanford partnership — referenced on website and social channels
+* Panasonic — partnership existence, multi-year duration, identity as a global industrial technology leader
+* Bay Area co-founder — physical presence in Silicon Valley, event participation, LinkedIn presence
+* All founder and researcher public profiles and credentials
+* Cost arbitrage salary data (Glassdoor 2025; Levels.fyi 2025) — for US commercial conversations only, never in public positioning materials
+Level 2 — Requires approval before use
+Real and referenceable, but specific framing or detail must be confirmed with the relevant partner or stakeholder before external communication.
+* IP-retention direction — can be introduced in commercial conversations as a direction being developed, not a proven model
+* Engagement milestone structure — general description of how engagements are scoped and governed
+* Any specific claim about the Panasonic relationship beyond existence and duration
+* Any named reference to the B2G institutional deal once it becomes referenceable (estimated 6-month horizon)
+Level 3 — Anonymised use only
+The underlying work is real but the client or partner identity cannot be named. Problem type, methodology, and research approach can be described without identifying the organisation.
+* WIZARD commercial context and IP discussion — describable as a live test case for partnership model transition, without naming terms or outcomes
+* Any future project work not yet publicly disclosed but where methodology can be described generically
+* Anonymised technical case snapshots for blog and commercial presentation use
+Level 4 — NDA-sensitive. Internal use only.
+Cannot appear in any external communication under any circumstances without specific legal review.
+* Panasonic project architecture, technical outputs, and commercial terms
+* B2G deal identity, project detail, and any associated commercial or institutional terms until formally cleared
+* Specific IP or commercial terms agreed with any client or partner
+* Forthcoming papers under embargo until publication
+* Any client-specific performance data or deployment outcomes not publicly documented
+* Researcher compensation and internal organisational information
+________________
+
+
+5. First month Content Plan
+Phase 4 operationalises the content architecture defined in Phase 3 by translating ItalAI’s narrowed positioning into a concrete first set of content assets. The purpose of this month-one plan is not volume for its own sake, but the creation of a credible public presence that allows unfamiliar enterprise buyers to recognise ItalAI as a research-grade Physical AI partner. In this sense, the first month functions as a proof-building phase: it introduces the blog structure, establishes the first flagship project post, and sets a repeatable publishing rhythm across website and social channels.
+Launching of the blog
+The blog should play a central strategic role in ItalAI’s digital presence. For an enterprise buyer encountering the company for the first time, it should function as a visible signal that ItalAI is an active research organisation rather than a static consultancy website. Before any new content is published, three foundational adjustments should be made to the existing blog page.
+1. The page should open with a framing statement such as: “Technical perspectives from the ItalAI team on Physical AI, robotics, and what’s coming next.” This positions the blog as a source of expert technical interpretation rather than generic corporate commentary. 
+2. Author names and institutional credentials should be displayed prominently on every “post card”, since author visibility is a direct credibility signal for technically literate decision-makers. 
+3. The two existing posts on state-space models and transformer alternatives should remain in place, but subsequent posts should be redirected more explicitly toward Physical AI and robotics.
+These changes preserve legitimate research output while making the page more legible to ItalAI’s target audience.
+The blog should also reflect the three-part content architecture established in Phase 3: project posts, research explainer posts written by collaborators and connecting academic work to industrial application, and trend posts authored by the Bay Area co-founder to report on Silicon Valley updates. This structure is strategically useful because it allows ItalAI to communicate depth, relevance, and transatlantic awareness through distinct but complementary editorial formats. Each research explainer should conclude with one concrete sentence connecting the research to an industrial use case, since this is the most direct way to close the primary proof gap between publication credibility and enterprise legibility.
+First blog post Plan
+The first article should be the WIZARD project post, because it is ItalAI’s strongest and most concrete proof point. It is also the most effective opening asset for operationalising Pillar 1, since it translates research depth into a project narrative that technical decision-makers can immediately evaluate.
+The post should be framed as a research note rather than a promotional announcement. Its structure should answer four sequential questions: what problem is being solved, what research approach is being used and why it is technically distinctive, what the UC Berkeley collaboration contributes, and how the project relates to production deployment. The retained 14x performance figure and existing video demonstration should remain central, but they should be contextualised so that the reader understands why the result matters in terms of capability and not merely headline performance.
+Element
+	Specification
+	Title direction
+	A robot that watches once, adapts instantly: inside the WIZARD project
+	Content type
+	Project post (Blog Type 1 of 3)
+	Primary audience
+	Technical Decision-Maker (CTO, Head of Innovation, AI/Robotics Director)
+	Structure
+	(1) the problem being solved, (2) the research approach and what makes it technically distinctive, (3) the UC Berkeley collaboration, (4) current stage relative to production deployment
+	Register
+	Written for a technical peer, not a general audience; research-note tone, not press release
+	Required proof
+	The 14x performance figure and existing video demonstration, retained from the homepage, plus added research context explaining why the figure matters
+	Evidence level
+	Level 2 — approved partnership/project proof 
+	Author byline
+	Named researcher/founder with institutional affiliation displayed on the card
+	Distribution
+	Company LinkedIn post plus founder/researcher LinkedIn post linking to the article; X post summarizing the core finding
+	CTA
+	Implicit — link to Research and Projects pages, no direct sales CTA (per Discipline 1–3 tone rules)
+	Month-one calendar
+The calendar below adapts the Phase 3 prototype editorial calendar into concrete first-month deliverables, following the stated cadence of one founder/researcher post every two weeks, and one monthly technical article. Week one and week three feature blog‑led pieces that are subsequently amplified across social channels, while week two prioritizes a social‑first asset that is also repurposed as a short website snippet.
+
+
+
+
+Week
+	Topic
+	Content type
+	Primary audience
+	Website section
+	Evidence source
+	1
+	WIZARD project post launch
+	Blog — project post
+	Technical Decision-Maker
+	Project
+	Level 2 approved project proof
+	2
+	What makes an industrial challenge a Physical AI problem?
+	Category framing (Pillar 1)
+	Technical Decision-Maker
+	Website snippet
+	Technical-lead-approved definition 
+	3
+	From perception to control: the requirements of deployable Physical AI
+	Blog — research explainer
+	Technical Decision-Maker
+	Blog
+	Level 4 attributable expert analysis
+	Monthly
+	Website proof refresh
+	Research credibility update
+	All audiences
+	Website update (Research/Projects /Pubblication pages)
+	Level 1–2 evidence only
+	
+
+General Content Planning Going Forward
+Beyond the first month, content planning should follow governance logic rather than a purely calendar-driven approach. The central principle is evidence discipline: only Level 1–4 evidence should be published, while Level 5 claims remain excluded unless formally approved through the relevant review process. This protects ItalAI’s credibility and prevents overstatement, which would be particularly damaging for a company trying to present itself as research-grade.
+From month two onward, the content cadence follows the three-type rotation established in Phase 3 — one blog post per month alternating between research explainer and trend post formats, with project posts added at research milestones. This avoids overdependence on a single editorial register and ensures that the site continues to communicate both technical depth and market awareness. Every planned asset should also pass subject-matter review before publication, especially where terminology, diagrams, or performance claims are involved. Finally, content performance should be measured against the funnel-stage metrics defined in Phase 3, so that underperformance can be diagnosed accurately as either a content problem or a proof-asset problem.
+________________
+
+
+6. Commercial one-pager 
+ItalAI — Partnership Overview
+For enterprise R&D teams evaluating a Physical AI research partner
+What is ItalAI 
+ItalAI is a research-grade Physical AI and robotics partner. We work with enterprise R&D teams on hard problems that off-the-shelf tools and standard consulting engagements aren't built to solve — in computer vision, sensor fusion, embodied AI, and real-time control for physical systems.
+Our research network spans Sapienza University in Rome, UC Berkeley, and Stanford. Our work is published at CVPR, ICLR, ECCV, IROS, and AAAI. Our primary anchor partnership is a multi-year relationship with Panasonic — a global industrial technology leader — which we can speak to as evidence of how we work, even where project detail remains confidential.
+We maintain a maximum of 2–3 active partnerships at any time. Every partner receives the full attention of the team.
+What an engagement looks like
+Every engagement begins with a scoping conversation: understanding the technical problem, defining what a successful outcome looks like, and building a research plan around it.
+From there, engagements are structured around milestones — defined deliverables at each stage, agreed upfront. Progress is reported on a business cadence separate from the technical research detail: clear, plain-language updates on what has been delivered and what comes next, without requiring you to track the underlying research day to day.
+From first conversation to an active working engagement, the typical timeline runs a few months — long enough to scope correctly, not so long that momentum is lost.
+How success is measured
+At each milestone, ItalAI delivers a defined output and a plain-language explanation of what it means for the capability being built. The update should be usable directly in your own internal reporting — to finance, to leadership, to whoever needs to know the program is on track. If you cannot clearly explain what you are paying for and how you will know it is working, the engagement has not been scoped correctly. That is what the milestone structure exists to prevent.
+The partnership model
+We structure partnerships to create shared long-term value rather than a standard consulting arrangement. We are happy to discuss what that looks like in your specific context. The point of this document is to open that conversation, not to close it with fixed terms before fit has been established on both sides.
+How to start
+A short scoping call — no formal proposal required to begin. We assess fit on both sides before any commitment is made.
+research@italailabs.com
+italailabs.com
+________________
+
+
+7. KPI and Attribution Setup
+This measurement system is designed to answer one question: do the specific decisions made in Phase 4 close the legibility gap identified in Phase 2? Every metric below traces back to a specific Phase 4 decision, and the reporting logic tells ItalAI which decision to revisit when a number is off.
+Four Phase 4 decisions carry the weight of this system. The new navigation (About / Research / Projects / Blog / Get In Touch) is built to guide two distinct buyer paths rather than one generic journey. The ICP filter line on the homepage and Get In Touch page is built to make wrong-fit buyers self-exclude before they make contact. The Research page, with publications visible by default rather than behind an expandable, is built to make credibility verification take seconds. The proof signals bar on the homepage is built to answer "why believe it" before the buyer has read a paragraph. Each has a measurable consequence, and each metric below is tagged to the decision it tests.
+Inbound conversations — tests the Get In Touch page and the ICP filter line
+The outcome metric from Phase 2 stands: a minimum of three documented inbound conversations from ICP-matching buyers who arrive without a personal introduction within 12 months of go-live. Total submissions and unreferred submissions are tracked separately, and only the unreferred count feeds the target.
+The distinction that matters here: unreferred contact is generated by the blog and social channels driving discovery — Stage 2–3 of the funnel — not by the website itself. The website's job is conversion, not discovery. If unreferred contact is low, the fault may lie with reach (content cadence, social presence) rather than with anything the website does. This is why the diagnostic logic below treats low submission volume and low ICP fit as two different problems with two different fixes.
+Source of contact — tests the blog's content pillars, not just the channel
+Source of contact should not stop at "LinkedIn" or "organic search." It should identify which content pillar and which post type drove the visit — a project post, a research explainer, a Bay Area co-founder trend post, a paper citation, or a conference mention — because that distinction tells ItalAI which pillar is converting, not just which platform is.  A channel-only view cannot distinguish between the performance of the research explainer series and that of the trend commentary series — findings that point to different content decisions.
+ICP fit — tests the ICP filter line specifically
+ICP fit rate and disqualification reasons are tracked as before, but disqualification is now tied to the specific page where the filtering language lives. If disqualification clusters on a specific criterion — for example, "no internal technical counterpart" — the fix is not to loosen qualification; it is to revise the ICP statement on whichever page is underperforming: homepage Section 04, About Block 3, or the Get In Touch line. Each of these three is a named lever, not an abstract "revisit ICP language" instruction.
+Attribution setup — UTM taxonomy
+The contact form uses a short list with an "Other" field rather than free text, given the volume expected in the first 12 months — a short list is far easier to aggregate into the source-of-contact metric above, and free text at low volume adds cleanup work without adding blog.
+Inbound links are tagged with a consistent three-part UTM structure:
+* Source — linkedin / x / bluesky / organic / direct / conference
+* Medium — company-post / researcher-post / blog-post / paper-citation / event
+* Campaign — physical-ai-framing / research-capability / transatlantic / selective-fit (the four content pillars)
+This means the data returning from any link is immediately interpretable against a specific pillar and post type, without requiring manual tagging or cleanup before it can be analyzed.
+Diagnostic decision tree
+Data collection starts at go-live. The following logic connects a measurement outcome to a specific Phase 4 corrective action, rather than treating the review as a status report:
+* If Research/Projects page views are high but Get In Touch submissions are low → the legibility gap has not closed; revise the ICP filter line and the path from Research/Projects to Get In Touch.
+* If submission volume is adequate but ICP fit rate is low → the website is generating contact but not filtering it; sharpen the ICP statement on the homepage and Get In Touch page.
+* If unreferred contact is at or near zero by Month 6 → the problem is reach, not legibility; the fix is the content calendar and social cadence, not the website.
+* If disqualification clusters on one criterion → revise the specific page carrying that claim (identified per-criterion in the ICP fit row above), not the qualification process itself.
+* At Month 12, the funnel table is used to attribute the result to a specific stage — the diagnosis should start at Stage 6→7 (fit self-assessment to contact) before assuming the issue is top-of-funnel reach, since that transition is where the ICP filter line is designed to do its work.
+KPI Table — Website Performance Measurement
+Funnel stage
+	KPI
+	Tests which Phase 4 decision
+	How it's captured
+	What it diagnoses
+	2–3. Awareness
+	Impressions, engagement rate, click-through by content pillar
+	Blog content pillars and post types
+	Social/analytics platforms, UTM campaign tag
+	Whether pillar content is reaching and resonating with the TDM audience
+	4–5. Credibility
+	Research/Projects page views, average dwell time, scroll depth
+	Research page publications-by-default design
+	Website analytics
+	Whether credibility verification is happening on-site, or buyers are dropping off before Stage 6
+	6. Fit
+	About page views, scroll-to-view on ICP line, click-through from About to Get In Touch
+	ICP filter line (homepage, About, Get In Touch)
+	Website analytics
+	Whether the ICP statement is legible enough to prompt self-selection before contact
+	7. Contact — total
+	Total contact-form submissions
+	Get In Touch page and CTA
+	Form submission count
+	Whether the site is generating contact at all
+	7. Contact — unreferred
+	% of submissions with no prior personal connection to ItalAI
+	Content cadence and social channels (upstream of website)
+	Yes/no field on the form
+	The number that actually counts toward the 3-conversation target
+	7. Contact — source
+	Which pillar/post type/channel drove the submission
+	Content pillar attribution
+	Short-list + Other field, cross-referenced with UTM medium/campaign
+	Which pillar is converting, not just producing traffic
+	8. Qualification
+	ICP fit rate; disqualification reasons by criterion
+	ICP filter line (specific page identified per criterion)
+	Qualification scoring at review
+	Whether the site's filtering language is working, or which specific page needs revision
+	9. Conversion
+	Scoping conversations held; conversion to engagement overview shared; conversion to signed engagement
+	Get In Touch → founder-led handoff
+	Internal CRM / manual tracking
+	Funnel health past the website, where content ends and relationship-building begins

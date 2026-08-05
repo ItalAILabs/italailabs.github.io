@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,700&amp;family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&amp;family=Spectral:ital,wght@0,400;0,500;0,600;1,500&amp;display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: #9b9cf7; }
+    a:hover { color: #c4c4fb; }
+  </style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#0c0717">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0c0717"></rect>
+    <text x="600" y="400" font-family="'JetBrains Mono', monospace" font-weight="800" font-size="150" letter-spacing="6" fill="#f4f1e6" text-anchor="middle" dominant-baseline="middle">ITAL<tspan fill="#6b6cf5">A</tspan>I</text>
+    <circle cx="848" cy="330" r="20" fill="#E63A1E"></circle>
+  </svg>
+</template>
+
+<div style="{{ rootStyle }}">
+
+  <!-- ============ NAV ============ -->
+  <div style="position:sticky; top:0; z-index:60; height:74px; background:rgba(12,7,23,0.92); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:space-between; padding:0 56px; border-bottom:1px solid #1b1533;">
+    <a href="ItalAI%20Home.dc.html"><img src="assets/logo.svg" alt="ItalAI" style="height:26px; display:block;"></a>
+    <div style="display:flex; gap:38px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#cfc9d8;">
+      <a href="ItalAI%20About.dc.html" style="color:#cfc9d8; text-decoration:none;">ABOUT</a><a href="ItalAI%20Research.dc.html" style="color:#f4f1e6; text-decoration:none;">RESEARCH</a><a href="ItalAI%20Projects.dc.html" style="color:#cfc9d8; text-decoration:none;">PROJECTS</a><a href="ItalAI%20blogs.dc.html" style="color:#cfc9d8; text-decoration:none;">blogs</a>
+    </div>
+    <a href="ItalAI%20Contact.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#f4f1e6; border:1px solid #4a4560; padding:12px 22px; border-radius:40px; cursor:pointer; text-decoration:none; transition:all .18s ease;" style-hover="background:var(--accent,#6b6cf5); border-color:var(--accent,#6b6cf5);">GET IN TOUCH</a>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section style="background:linear-gradient(180deg, #130b2e 0%, #0c0717 100%);">
+    <div style="max-width:1180px; margin:0 auto; padding:70px 56px 66px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a9a; margin-bottom:26px;"><a href="ItalAI%20Home.dc.html" style="color:#6f6a9a; text-decoration:none;">HOME</a> / <span style="color:#9b9cf7;">RESEARCH</span></div>
+      <div style="display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:end;">
+        <h1 style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:42px; line-height:1.16; letter-spacing:-0.5px; color:#f4f1e6; margin:0; text-transform:uppercase; text-wrap:balance;">The publication record<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:#E63A1E;margin-left:7px;vertical-align:baseline;"></span></h1>
+        <div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:18px; line-height:1.6; color:#b8b2c8; margin:0 0 14px;">Physical AI is not one discipline. A system that works on a factory floor needs perception, representation learning, planning and control to hold together at once — so our record spans all four.</p>
+          <p style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.6; color:#8e88a6; margin:0;">Everything below is peer-reviewed and public. Each entry links to the paper.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FILTER ============ -->
+  <section style="background:#f4f1e6; border-bottom:1px solid #e6e1d0; position:sticky; top:74px; z-index:40;">
+    <div style="max-width:1180px; margin:0 auto; padding:20px 56px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+      <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#a09b8a; text-transform:uppercase;">Venue</span>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <sc-for list="{{ venues }}" as="v" hint-placeholder-count="7">
+          <div style="{{ v.style }}" onclick="{{ v.onClick }}">{{ v.label }}</div>
+        </sc-for>
+      </div>
+      <span style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#8a8676;">{{ countLabel }}</span>
+    </div>
+  </section>
+
+  <!-- ============ PAPERS BY DOMAIN ============ -->
+  <section style="background:#f4f1e6;">
+    <div style="max-width:1180px; margin:0 auto; padding:52px 56px 70px; display:flex; flex-direction:column; gap:52px;">
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
+        <div>
+          <div style="display:flex; align-items:baseline; gap:18px; margin-bottom:22px; padding-bottom:14px; border-bottom:1px solid #ddd9c9;">
+            <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:22px; letter-spacing:-0.3px; color:#0c0717; margin:0;">{{ g.name }}</h2>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#a09b8a;">{{ g.count }}</span>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:18px;">
+            <sc-for list="{{ g.papers }}" as="p" hint-placeholder-count="2">
+              <a href="{{ p.url }}" target="_blank" style="display:flex; flex-direction:column; background:#fbfaf3; border:1px solid #e6e1d0; border-radius:12px; padding:24px 24px 22px; text-decoration:none; transition:transform .18s ease, box-shadow .18s ease;" style-hover="transform:translateY(-3px); box-shadow:0 10px 24px rgba(12,7,23,.08);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                  <span style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11px; letter-spacing:1px; color:var(--accent,#6b6cf5);">{{ p.venue }}</span>
+                  <span style="font-family:'JetBrains Mono',monospace; font-size:16px; color:#c3bfae;">↗</span>
+                </div>
+                <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:18px; letter-spacing:.5px; color:#0c0717; margin-bottom:8px;">{{ p.name }}</div>
+                <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#3f3c2e; margin-bottom:12px;">{{ p.title }}</div>
+                <div style="font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.55; color:#6f6b58;">{{ p.contribution }}</div>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ============ CROSS-LINK TO PROJECTS ============ -->
+  <section style="background:#efece1; border-top:1px solid #e1ddce;">
+    <div style="max-width:1180px; margin:0 auto; padding:56px 56px 60px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:3px; color:#29b485; text-transform:uppercase; margin-bottom:14px;">Where it goes next</div>
+        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:27px; line-height:1.24; letter-spacing:-0.5px; color:#0c0717; margin:0 0 14px; max-width:520px;">Papers prove the method. Projects prove it runs.<span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
+        <p style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.6; color:#54513f; margin:0; max-width:520px;">WIZARD builds on the one-shot imitation work with UC Berkeley. T-Rex builds on the tactile and manipulation line. Both operate on real hardware.</p>
+      </div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end;">
+        <a href="ItalAI%20Project%20WIZARD.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#0c0717; border:1px solid #0c0717; padding:14px 26px; border-radius:40px; text-decoration:none; transition:all .18s ease;" style-hover="background:#0c0717; color:#f4f1e6;">WIZARD</a>
+        <a href="ItalAI%20Projects.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#0c0717; border:1px solid #0c0717; padding:14px 26px; border-radius:40px; text-decoration:none; transition:all .18s ease;" style-hover="background:#0c0717; color:#f4f1e6;">ALL PROJECTS</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section style="background:#0c0717;">
+    <div style="max-width:1180px; margin:0 auto; padding:66px 56px 70px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;">
+      <div>
+        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:32px; line-height:1.22; letter-spacing:-0.5px; color:#f4f1e6; margin:0 0 14px;">Bring us a <span style="font-style:italic; font-weight:500; color:#9b9cf7;">hard problem</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
+        <p style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.6; color:#b8b2c8; margin:0; max-width:480px;">You will be talking to the researchers who would do the work, not to an account team.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-start; gap:16px;">
+        <a href="ItalAI%20Contact.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#0c0717; background:#f4f1e6; padding:16px 30px; border-radius:40px; text-decoration:none; transition:transform .18s ease;" style-hover="transform:translateY(-2px);">TELL US ABOUT YOUR CHALLENGE</a>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a85; text-transform:uppercase;">Research &amp; collaborations</div>
+        <a href="mailto:research@italailabs.com" style="font-family:'DM Sans',sans-serif; font-size:17px; color:#9b9cf7; text-decoration:none; border-bottom:1px solid #4a4560; padding-bottom:2px;">research@italailabs.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER / SITEMAP ============ -->
+  <section style="background:#08040f;">
+    <div style="max-width:1180px; margin:0 auto; padding:56px 56px 0;">
+      <div style="display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:44px; padding-bottom:48px; border-bottom:1px solid #1d1736;">
+        <div>
+          <img src="assets/logo.svg" alt="ItalAI" style="height:26px; display:block; margin-bottom:18px;">
+          <p style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6; color:#7a7590; margin:0 0 22px; max-width:300px;">Research-grade Physical AI and robotics. A Sapienza spinout, built in Roma.</p>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#9b9cf7;">research@italailabs.com</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Company</div>
+          <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
+            <a href="ItalAI%20About.dc.html" style="color:#b8b2c8; text-decoration:none;">About</a><a href="ItalAI%20Partnership%20Overview.dc.html" style="color:#b8b2c8; text-decoration:none;">How an engagement works</a><a href="ItalAI%20Careers.dc.html" style="color:#b8b2c8; text-decoration:none;">Careers</a><a href="ItalAI%20Contact.dc.html" style="color:#b8b2c8; text-decoration:none;">Get in touch</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Research</div>
+          <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
+            <a href="ItalAI%20Research.dc.html" style="color:#b8b2c8; text-decoration:none;">Research &amp; publications</a><a href="ItalAI%20Projects.dc.html" style="color:#b8b2c8; text-decoration:none;">Projects</a><a href="ItalAI%20Project%20WIZARD.dc.html" style="color:#b8b2c8; text-decoration:none;">WIZARD</a><a href="ItalAI%20blogs.dc.html" style="color:#b8b2c8; text-decoration:none;">blogs</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Connect</div>
+          <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
+            <a href="https://www.linkedin.com/company/italai/" style="color:#b8b2c8; text-decoration:none;">LinkedIn</a><a href="https://x.com/_italai" style="color:#b8b2c8; text-decoration:none;">X / Twitter</a><a href="https://github.com/ItalAILabs" style="color:#b8b2c8; text-decoration:none;">GitHub</a><a href="ItalAI%20Contact.dc.html" style="color:#b8b2c8; text-decoration:none;">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:30px 0;"><img src="assets/logo.svg" alt="ItalAI" style="width:440px; max-width:78%; display:block; opacity:0.10;"></div>
+      <div style="border-top:1px solid #14102a; padding:24px 0 34px; display:flex; flex-wrap:wrap; gap:8px 28px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5e5878;">
+        <span>© 2026 ItalAI S.R.L. All rights reserved.</span>
+        <span>Corso Vittorio Emanuele II 287, 00186 Roma RM</span>
+        <span>P.IVA 17384921007</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Periwinkle&quot;, &quot;Emerald&quot;, &quot;Italian Red&quot;], &quot;default&quot;: &quot;Periwinkle&quot;, &quot;tsType&quot;: &quot;string&quot; }
+}">
+const PAPERS = [
+  { name: 'LEGO', venue: "ICLR'26", url: 'https://arxiv.org/abs/2510.12866', domain: 'Robotics & Manipulation',
+    title: 'Learning to grasp anything by playing with random toys.',
+    contribution: 'Training a grasping policy on randomly assembled shape primitives generalises to unseen real objects, with no in-domain data collection.' },
+  { name: 'HYP2NAV', venue: "IROS'24", url: 'https://arxiv.org/abs/2410.06912', domain: 'Embodied AI',
+    title: 'Hyperbolic planning and curiosity for crowd navigation.',
+    contribution: 'Planning in hyperbolic space gives an agent a better structural prior for navigating dense human crowds.' },
+  { name: 'SDA', venue: "ICLR'24", url: 'https://arxiv.org/abs/2404.11327', domain: 'Embodied AI',
+    title: 'Following the human thread in social navigation.',
+    contribution: 'Tracking human intent as a continuous signal, rather than as obstacles, produces socially legible robot motion.' },
+  { name: 'PREGO', venue: "CVPR'24", url: 'https://arxiv.org/abs/2404.01933', domain: 'Computer Vision',
+    title: 'Online mistake detection in procedural egocentric videos.',
+    contribution: 'Detects a procedural error as it happens from a first-person view — the perception half of any assistive or inspection system.' },
+  { name: 'HALO', venue: "ICML'24", url: 'https://arxiv.org/abs/2306.11180', domain: 'Computer Vision',
+    title: 'Hyperbolic active learning for semantic segmentation under domain shift.',
+    contribution: 'Chooses which pixels are worth labelling when the deployment domain differs from the training one — directly a data-cost problem.' },
+  { name: 'LCR', venue: "AAAI'26", url: 'https://arxiv.org/abs/2503.18674', domain: 'Computer Vision',
+    title: 'Human motion unlearning.',
+    contribution: 'Removes specific learned motions from a generative model without retraining it from scratch.' },
+  { name: 'VIDEO UNLEARNING', venue: "ICLR'26", url: 'https://arxiv.org/abs/2506.07891', domain: 'Computer Vision',
+    title: 'Unlearning in video models via a low-rank refusal vector.',
+    contribution: 'A low-rank edit suppresses unwanted generations, giving a practical control surface for deployed video models.' },
+  { name: 'HYCOCLIP', venue: "ICLR'25", url: 'https://arxiv.org/abs/2410.06912', domain: 'Multimodal & Foundation Models',
+    title: 'Compositional entailment learning for hyperbolic vision-language models.',
+    contribution: 'Learns part-whole structure between images and text, so the model composes concepts instead of memorising pairs.' },
+  { name: 'HYPERBOLIC MULTIMODAL', venue: "ECCV'24", url: 'https://arxiv.org/abs/2408.05097', domain: 'Multimodal & Foundation Models',
+    title: 'Hyperbolic learning with multimodal large language models.',
+    contribution: 'Shows hyperbolic representations scale to multimodal LLMs, improving how hierarchy is encoded across modalities.' },
+  { name: 'SERPENT', venue: "ICML'24", url: 'https://arxiv.org/abs/2306.11180', domain: 'Multimodal & Foundation Models',
+    title: 'Selective resampling for expressive state space models.',
+    contribution: 'Makes state space models more expressive at long range while keeping their linear-time advantage over attention.' },
+  { name: 'LONGCODEBENCH', venue: "COLM'25", url: 'https://arxiv.org/abs/2306.11180', domain: 'Multimodal & Foundation Models',
+    title: 'Evaluating coding LLMs at one-million-token context windows.',
+    contribution: 'A benchmark showing where long-context claims break down in practice on real codebases.' }
+];
+const DOMAINS = ['Robotics & Manipulation', 'Embodied AI', 'Computer Vision', 'Multimodal & Foundation Models'];
+
+class Component extends DCLogic {
+  state = { venue: 'All' };
+
+  accentHex() {
+    const map = { 'Periwinkle': '#6b6cf5', 'Emerald': '#1f9d6b', 'Italian Red': '#cf4034' };
+    return map[this.props.accent] || map['Periwinkle'];
+  }
+
+  venueList() {
+    const seen = [];
+    PAPERS.forEach(p => { const v = p.venue.split("'")[0]; if (seen.indexOf(v) < 0) seen.push(v); });
+    return ['All'].concat(seen.sort());
+  }
+
+  pillStyle(active) {
+    return {
+      fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: '12px', letterSpacing: '1px',
+      padding: '7px 15px', borderRadius: '30px', cursor: 'pointer', transition: 'all .18s ease',
+      border: '1px solid ' + (active ? this.accentHex() : '#ddd8c7'),
+      background: active ? this.accentHex() : 'transparent',
+      color: active ? '#fff' : '#43403a'
+    };
+  }
+
+  renderVals() {
+    const sel = this.state.venue;
+    const match = (p) => sel === 'All' || p.venue.indexOf(sel) === 0;
+    const shown = PAPERS.filter(match);
+    const groups = DOMAINS.map(d => {
+      const papers = shown.filter(p => p.domain === d);
+      return { name: d, count: papers.length + (papers.length === 1 ? ' paper' : ' papers'), papers: papers };
+    }).filter(g => g.papers.length > 0);
+
+    return {
+      rootStyle: { background: '#f4f1e6', fontFamily: "'DM Sans', sans-serif", color: '#0c0717', '--accent': this.accentHex() },
+      countLabel: shown.length + ' of ' + PAPERS.length + ' shown',
+      groups: groups,
+      venues: this.venueList().map(v => ({
+        label: v.toUpperCase(),
+        style: this.pillStyle(v === sel),
+        onClick: () => this.setState({ venue: v })
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

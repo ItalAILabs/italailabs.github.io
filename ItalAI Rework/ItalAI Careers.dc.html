@@ -30,16 +30,22 @@
   </svg>
 </template>
 <div style="background:#f4f1e6; font-family:'DM Sans',sans-serif; color:#0c0717; zoom:0.9;">
-<div style="position:sticky; top:0; z-index:60; height:74px; background:rgba(12,7,23,0.92); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:space-between; padding:0 56px; border-bottom:1px solid #1b1533;">
+<!-- ============ NAV ============ -->
+  <div style="position:sticky; top:0; z-index:60; height:74px; background:rgba(12,7,23,0.92); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:space-between; padding:0 56px; border-bottom:1px solid #1b1533;">
     <a href="ItalAI%20Home.dc.html"><img src="assets/logo.svg" alt="ItalAI" style="height:26px; display:block;"></a>
-    <div style="display:flex; gap:38px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px;"><a href="ItalAI%20About.dc.html" style="color:#cfc9d8; text-decoration:none;">ABOUT</a><a href="ItalAI%20What%20We%20Do.dc.html" style="color:#cfc9d8; text-decoration:none;">WHAT WE DO</a><a href="ItalAI%20Whats%20Next.dc.html" style="color:#cfc9d8; text-decoration:none;">WHAT'S NEXT</a><a href="ItalAI%20Insights.dc.html" style="color:#cfc9d8; text-decoration:none;">INSIGHTS</a></div>
-    <a href="ItalAI%20Contact.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#f4f1e6; border:1px solid #4a4560; padding:12px 22px; border-radius:40px; cursor:pointer; text-decoration:none; transition:all .18s ease;" style-hover="background:#6b6cf5; border-color:#6b6cf5;">GET IN TOUCH</a>
-  </div><section style="background:linear-gradient(180deg, #130b2e 0%, #0c0717 100%); overflow:hidden;">
+    <div style="display:flex; gap:38px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#cfc9d8;">
+      <a href="ItalAI%20About.dc.html" style="color:#cfc9d8; text-decoration:none;">ABOUT</a><a href="ItalAI%20Research.dc.html" style="color:#cfc9d8; text-decoration:none;">RESEARCH</a><a href="ItalAI%20Projects.dc.html" style="color:#cfc9d8; text-decoration:none;">PROJECTS</a><a href="ItalAI%20blogs.dc.html" style="color:#cfc9d8; text-decoration:none;">blogs</a>
+    </div>
+    <a href="ItalAI%20Contact.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#f4f1e6; border:1px solid #4a4560; padding:12px 22px; border-radius:40px; cursor:pointer; text-decoration:none; transition:all .18s ease;" style-hover="background:var(--accent,#6b6cf5); border-color:var(--accent,#6b6cf5);">GET IN TOUCH</a>
+  </div>
+
+
+  <section style="background:linear-gradient(180deg, #130b2e 0%, #0c0717 100%); overflow:hidden;">
     <div style="display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr); align-items:stretch; min-height:440px;">
       <div style="padding:78px 56px 84px; display:flex; flex-direction:column; justify-content:center; max-width:720px;">
         <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a9a; margin-bottom:26px;"><a href="ItalAI%20Home.dc.html" style="color:#6f6a9a; text-decoration:none;">HOME</a> / <span style="color:#9b9cf7;">CAREERS</span></div>
-        <h1 style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:44px; line-height:1.16; letter-spacing:-0.5px; color:#f4f1e6; margin:0; text-transform:uppercase; text-wrap:balance;">Build the next industrial revolution with us<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:#E63A1E;margin-left:7px;vertical-align:baseline;"></span></h1>
-        <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.55; color:#b8b2c8; max-width:520px; margin:24px 0 0;">We hire researchers and engineers who want their work to leave the lab.</p>
+        <h1 style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:44px; line-height:1.16; letter-spacing:-0.5px; color:#f4f1e6; margin:0; text-transform:uppercase; text-wrap:balance;">Build Physical AI that leaves the lab<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:#E63A1E;margin-left:7px;vertical-align:baseline;"></span></h1>
+        <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.55; color:#b8b2c8; max-width:520px; margin:24px 0 0;">We hire researchers and engineers who want to publish and then see the method run on real hardware. Small team, few problems, taken all the way down.</p>
       </div>
       <div style="position:relative; min-height:360px; background:radial-gradient(90% 90% at 60% 45%, #241a4a 0%, #150d33 55%, #0c0717 100%); overflow:hidden;">
         <image-slot id="careers-hero" shape="rect" fit="cover" style="position:absolute; inset:0; width:100%; height:100%;" placeholder="Team at work"></image-slot>
@@ -50,7 +56,7 @@
     <div style="max-width:1180px; margin:0 auto; padding:64px 56px 30px;">
       <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#29b485; text-transform:uppercase; margin-bottom:14px;">Why ItalAI</div>
       <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:31px; line-height:1.2; letter-spacing:-0.5px; color:#0c0717; margin:0 0 34px;">Depth, ownership, and impact<span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
-      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px;"><div style="background:#fbfaf3; border:1px solid #e6e1d0; border-radius:14px; padding:28px 26px;"><div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">Frontier problems</div><div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.55; color:#54513f;">Work on research that ships — not slideware. Publish, and see it run on real hardware.</div></div><div style="background:#fbfaf3; border:1px solid #e6e1d0; border-radius:14px; padding:28px 26px;"><div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">Academic depth</div><div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.55; color:#54513f;">Direct collaboration with Berkeley, Stanford, Panasonic and Sapienza.</div></div><div style="background:#fbfaf3; border:1px solid #e6e1d0; border-radius:14px; padding:28px 26px;"><div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">Real ownership</div><div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.55; color:#54513f;">Small team, high trust. You own problems end to end, from idea to deployment.</div></div><div style="background:#fbfaf3; border:1px solid #e6e1d0; border-radius:14px; padding:28px 26px;"><div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">Roma</div><div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.55; color:#54513f;">Build world-class AI from one of the most beautiful cities on earth.</div></div></div>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px;"><div style="background:#fbfaf3; border:1px solid #e6e1d0; border-radius:14px; padding:28px 26px;"><div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">Frontier problems</div><div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.55; color:#54513f;">Peer-reviewed work that then has to survive contact with hardware. Both halves, on the same problem.</div></div><div style="background:#fbfaf3; border:1px solid #e6e1d0; border-radius:14px; padding:28px 26px;"><div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">Academic depth</div><div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.55; color:#54513f;">Working research relationships with UC Berkeley, Stanford and Sapienza, plus industrial work with Panasonic.</div></div><div style="background:#fbfaf3; border:1px solid #e6e1d0; border-radius:14px; padding:28px 26px;"><div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">Real ownership</div><div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.55; color:#54513f;">Small team, high trust. You own problems end to end, from idea to deployment.</div></div><div style="background:#fbfaf3; border:1px solid #e6e1d0; border-radius:14px; padding:28px 26px;"><div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">Roma</div><div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.55; color:#54513f;">The lab sits inside the Sapienza research ecosystem — shared supervision, and its people down the corridor.</div></div></div>
     </div>
   </section>
   <section style="background:#f4f1e6;">
@@ -78,14 +84,14 @@
   <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#8a8676; white-space:nowrap;">Roma · Full-time</div>
   <div style="font-family:'JetBrains Mono',monospace; font-size:20px; color:#6b6cf5;">→</div>
 </a></div>
-      <p style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.6; color:#54513f; margin:30px 0 0;">Don't see your role? We're always glad to meet exceptional people. Write to us at <a href="mailto:research@italailabs.com" style="color:#6b6cf5; text-decoration:none;">research@italailabs.com</a>.</p>
+      <p style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.6; color:#54513f; margin:30px 0 0;">Nothing matching? If you are working on something in this space, write anyway — <a href="mailto:research@italailabs.com" style="color:#6b6cf5; text-decoration:none;">research@italailabs.com</a>.</p>
     </div>
   </section><section style="background:#0c0717;">
     <div style="max-width:1180px; margin:0 auto; padding:72px 56px 56px; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start;">
       <div style="max-width:520px;">
-        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:38px; line-height:1.2; letter-spacing:-0.5px; color:#f4f1e6; margin:0 0 18px;">Building the next <span style="font-style:italic; font-weight:500; color:#9b9cf7;">industrial revolution</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
-        <p style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.6; color:#b8b2c8; margin:0 0 32px; max-width:440px;">We turn frontier AI and robotics research into systems that work in the real world. Designed for scale. Built for impact.</p>
-        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a85; text-transform:uppercase; margin-bottom:10px;">Partnership &amp; Collaborations</div>
+        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:38px; line-height:1.2; letter-spacing:-0.5px; color:#f4f1e6; margin:0 0 18px;">Bring us a <span style="font-style:italic; font-weight:500; color:#9b9cf7;">hard problem</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
+        <p style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.6; color:#b8b2c8; margin:0 0 32px; max-width:440px;">You will be talking to the researchers who would do the work, not to an account team. If we think we can move the problem, we will tell you how — and if we cannot, we will tell you that too.</p>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a85; text-transform:uppercase; margin-bottom:10px;">Research &amp; collaborations</div>
         <a href="mailto:research@italailabs.com" style="font-family:'DM Sans',sans-serif; font-size:18px; color:#9b9cf7; text-decoration:none; border-bottom:1px solid #4a4560; padding-bottom:2px;">research@italailabs.com</a>
         <div style="display:flex; gap:14px; margin-top:30px;">
           <a href="https://www.linkedin.com/company/italai/" style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#cfc9d8; border:1px solid #332e4d; padding:9px 16px; border-radius:30px; text-decoration:none;">LinkedIn</a>
@@ -95,12 +101,12 @@
       </div>
       <div style="background:#15102b; border:1px solid #2a2444; border-radius:18px; padding:38px 36px;">
         <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:24px; letter-spacing:.5px; color:#f4f1e6; text-transform:uppercase; margin-bottom:8px;">Get in touch</div>
-        <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#9a95ad; margin-bottom:30px;">Let's explore how AI and robotics can move your project beyond the lab.</div>
+        <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#9a95ad; margin-bottom:30px;">Tell us about the technical problem you are working on and who inside your team would own it.</div>
         <div style="margin-bottom:22px;"><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">Full name</div><input type="text" placeholder="Jane Doe" style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0;"></div>
         <div style="margin-bottom:22px;"><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">Email</div><input type="email" placeholder="jane@company.com" style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0;"></div>
-        <div style="margin-bottom:22px;"><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">Subject</div><input type="text" placeholder="What's this about?" style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0;"></div>
-        <div style="margin-bottom:30px;"><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">Message</div><textarea rows="3" placeholder="Tell us a little more…" style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0; resize:none;"></textarea></div>
-        <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#f4f1e6; background:#6b6cf5; padding:15px 30px; border-radius:40px; text-align:center; cursor:pointer; transition:transform .18s ease;" style-hover="transform:translateY(-2px);">SEND MESSAGE</div>
+        <div style="margin-bottom:22px;"><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">Subject</div><input type="text" placeholder="The problem in one line" style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0;"></div>
+        <div style="margin-bottom:30px;"><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">Message</div><textarea rows="3" placeholder="What have you tried, and what does a successful outcome look like?" style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0; resize:none;"></textarea></div>
+        <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#f4f1e6; background:#6b6cf5; padding:15px 30px; border-radius:40px; text-align:center; cursor:pointer; transition:transform .18s ease;" style-hover="transform:translateY(-2px);">TELL US ABOUT YOUR CHALLENGE</div>
       </div>
     </div>
   </section><section style="background:#08040f;">
@@ -108,15 +114,35 @@
       <div style="display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:44px; padding-bottom:48px; border-bottom:1px solid #1d1736;">
         <div>
           <img src="assets/logo.svg" alt="ItalAI" style="height:26px; display:block; margin-bottom:18px;">
-          <p style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6; color:#7a7590; margin:0 0 22px; max-width:300px;">Frontier AI &amp; robotics, built in Roma for the next industrial revolution.</p>
-          <a href="mailto:research@italailabs.com" style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#9b9cf7; text-decoration:none;">research@italailabs.com</a>
+          <p style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6; color:#7a7590; margin:0 0 22px; max-width:300px;">Research-grade Physical AI and robotics. A Sapienza spinout, built in Roma.</p>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#9b9cf7;">research@italailabs.com</div>
         </div>
-        <div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Company</div><div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px;"><a href="ItalAI%20About.dc.html" style="color:#b8b2c8; text-decoration:none;">About</a><a href="ItalAI%20What%20We%20Do.dc.html" style="color:#b8b2c8; text-decoration:none;">What we do</a><a href="ItalAI%20Whats%20Next.dc.html" style="color:#b8b2c8; text-decoration:none;">What's next</a><a href="ItalAI%20Careers.dc.html" style="color:#b8b2c8; text-decoration:none;">Careers</a></div></div>
-        <div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Research</div><div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px;"><a href="ItalAI%20Projects.dc.html" style="color:#b8b2c8; text-decoration:none;">Projects</a><a href="ItalAI%20Project%20WIZARD.dc.html" style="color:#b8b2c8; text-decoration:none;">Wizard</a><a href="ItalAI%20Insights.dc.html" style="color:#b8b2c8; text-decoration:none;">Insights</a><a href="ItalAI%20What%20We%20Do.dc.html" style="color:#b8b2c8; text-decoration:none;">Publications</a></div></div>
-        <div><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Connect</div><div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px;"><a href="https://www.linkedin.com/company/italai/" style="color:#b8b2c8; text-decoration:none;">LinkedIn</a><a href="https://x.com/_italai" style="color:#b8b2c8; text-decoration:none;">X / Twitter</a><a href="https://github.com/ItalAILabs" style="color:#b8b2c8; text-decoration:none;">GitHub</a><a href="ItalAI%20Contact.dc.html" style="color:#b8b2c8; text-decoration:none;">Contact</a></div></div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Company</div>
+          <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
+            <a href="ItalAI%20About.dc.html" style="color:#b8b2c8; text-decoration:none;">About</a><a href="ItalAI%20Partnership%20Overview.dc.html" style="color:#b8b2c8; text-decoration:none;">How an engagement works</a><a href="ItalAI%20Careers.dc.html" style="color:#b8b2c8; text-decoration:none;">Careers</a><a href="ItalAI%20Contact.dc.html" style="color:#b8b2c8; text-decoration:none;">Get in touch</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Research</div>
+          <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
+            <a href="ItalAI%20Research.dc.html" style="color:#b8b2c8; text-decoration:none;">Research &amp; publications</a><a href="ItalAI%20Projects.dc.html" style="color:#b8b2c8; text-decoration:none;">Projects</a><a href="ItalAI%20Project%20WIZARD.dc.html" style="color:#b8b2c8; text-decoration:none;">WIZARD</a><a href="ItalAI%20blogs.dc.html" style="color:#b8b2c8; text-decoration:none;">blogs</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Connect</div>
+          <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
+            <a href="https://www.linkedin.com/company/italai/" style="color:#b8b2c8; text-decoration:none;">LinkedIn</a><a href="https://x.com/_italai" style="color:#b8b2c8; text-decoration:none;">X / Twitter</a><a href="https://github.com/ItalAILabs" style="color:#b8b2c8; text-decoration:none;">GitHub</a><a href="ItalAI%20Contact.dc.html" style="color:#b8b2c8; text-decoration:none;">Contact</a>
+          </div>
+        </div>
       </div>
+
       <div style="padding:30px 0;"><img src="assets/logo.svg" alt="ItalAI" style="width:440px; max-width:78%; display:block; opacity:0.10;"></div>
-      <div style="border-top:1px solid #14102a; padding:24px 0 34px; display:flex; flex-wrap:wrap; gap:8px 28px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5e5878;"><span>© 2026 ItalAI S.R.L. All rights reserved.</span><span>Corso Vittorio Emanuele II 287, 00186 Roma RM</span><span>P.IVA 17384921007</span></div>
+      <div style="border-top:1px solid #14102a; padding:24px 0 34px; display:flex; flex-wrap:wrap; gap:8px 28px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5e5878;">
+        <span>© 2026 ItalAI S.R.L. All rights reserved.</span>
+        <span>Corso Vittorio Emanuele II 287, 00186 Roma RM</span>
+        <span>P.IVA 17384921007</span>
+      </div>
     </div>
   </section>
 </div>

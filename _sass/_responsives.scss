@@ -6,15 +6,6 @@ $mobile-extra: 767px;
 $mobile: 575px;
 
 @media (max-width: $tablet-extra) {
-    .main-hero-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .main-hero-media {
-        min-height: 280px;
-        order: -1;
-    }
-
     /* Full-bleed hero responsive */
     .full-bleed-hero-grid {
         grid-template-columns: 1fr;
@@ -69,45 +60,31 @@ $mobile: 575px;
         gap: 1rem;
     }
 
+    .partners-bar.partners-bar--split {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .partners-bar-block:first-child {
+        padding-right: 0;
+        padding-bottom: 1.25rem;
+        border-right: none;
+        border-bottom: 1px solid #e6e1d0;
+    }
+
+    .capability-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-projects-grid {
+        grid-template-columns: 1fr;
+    }
+
     /* Proportional shrink for all partner names — driven off the same
        --partner-size custom property set in _includes/partners-bar.html,
        so this scales any partner without per-slug rules. */
     .partner-name {
         font-size: calc(var(--partner-size, 24px) * 0.82);
-    }
-
-    .why-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .why-sticky {
-        position: static;
-        height: auto;
-        padding-bottom: 0;
-    }
-
-    .why-scroll {
-        padding: 1rem 0 0;
-    }
-
-    .why-block {
-        min-height: 0;
-    }
-
-    /* Move the "See Where We Are Going" CTA below the cards on mobile,
-       since .why-sticky is no longer sticky and stacks above .why-scroll. */
-    .why-cta-desktop {
-        display: none;
-    }
-
-    .why-grid {
-        padding-bottom: var(--space-xl);
-    }
-
-    .why-cta-mobile {
-        display: inline-block;
-        margin-top: 0.5rem;
     }
 
     .in-action-grid {
@@ -148,8 +125,8 @@ $mobile: 575px;
         padding: 50px 32px 32px;
     }
 
-    /* Insights grid responsive */
-    .insights-grid {
+    /* blogs grid responsive */
+    .blogs-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -179,21 +156,27 @@ $mobile: 575px;
         grid-column: 1 / -1;
     }
 
-    .insights-rail {
+    .blogs-rail {
         padding-left: 2rem;
         padding-right: 2rem;
     }
 }
 
 @media (max-width: $mobile-extra) {
-    /* Hero: image as background layer behind text — hides the stacked media panel
-       and composites the image behind a gradient overlay via CSS custom property. */
+    /* Hero: image stays beside the heading (2-col grid) all the way down to this
+       breakpoint, then switches straight to a background layer behind text —
+       hides the stacked media panel and composites the image behind a gradient
+       overlay via CSS custom property. */
     .main-hero {
         background-image:
             linear-gradient(180deg, rgba(19, 11, 46, 0.82) 0%, rgba(10, 6, 24, 0.95) 100%),
             var(--hero-bg, none);
         background-size: auto, cover;
         background-position: center, center;
+    }
+
+    .main-hero-grid {
+        grid-template-columns: 1fr;
     }
 
     .main-hero-media {
@@ -215,16 +198,26 @@ $mobile: 575px;
         overflow-wrap: anywhere; // fallback if a word group still exceeds column width at very narrow viewports
     }
 
-    /* Why section: was 0 3.5rem */
-    .why-grid {
-        padding-left: 0;
-        padding-right: 0;
+    /* Bridge section: was 76px 3.5rem 84px.
+       padding-inline is set directly on .container (not a nested wrapper),
+       so zeroing it here would remove the base .container gutter entirely
+       instead of just this section's extra inset — restore the base 1.25rem
+       instead of 0, matching every section whose padding lives on a child. */
+    .bridge-section .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
     }
 
-    /* Project section: was 52px 3.5rem 56px */
-    .project-content {
-        padding-left: 0;
-        padding-right: 0;
+    /* Featured projects section: was 76px 3.5rem 84px — see note above */
+    .featured-projects-section .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    /* ICP section: was 60px 3.5rem 76px — see note above */
+    .icp-section .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
     }
 
     /* Project card row (listing): was 0.9fr 1.1fr */
@@ -255,14 +248,14 @@ $mobile: 575px;
         padding-right: 0;
     }
 
-    /* Home insights rail: was 0 3.5rem */
-    .insights-content {
+    /* Home blogs rail: was 0 3.5rem */
+    .blogs-content {
         padding-left: 0;
         padding-right: 0;
     }
 
-    /* Insights rail inner: overrides $tablet rule that adds 2rem per side */
-    .insights-rail {
+    /* blogs rail inner: overrides $tablet rule that adds 2rem per side */
+    .blogs-rail {
         padding-left: 0;
         padding-right: 0;
     }
@@ -305,8 +298,8 @@ $mobile: 575px;
         padding: 40px 24px 28px;
     }
 
-    /* Insights grid: was padding: 1rem (1rem all sides) — zero horizontal */
-    .insights-grid {
+    /* blogs grid: was padding: 1rem (1rem all sides) — zero horizontal */
+    .blogs-grid {
         grid-template-columns: 1fr;
         padding: 1rem 0;
     }
@@ -352,12 +345,6 @@ $mobile: 575px;
     .partners-bar-logos {
         justify-content: center;
         gap: var(--space-md);
-    }
-
-    /* Why Now step-nav is a sidebar indicator — meaningless once the sticky
-       panel collapses to static. Hide it; the blocks scroll fine without it. */
-    .why-steps {
-        display: none;
     }
 
     /* vCard: shrink the avatar to match the narrower card */

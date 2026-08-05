@@ -8,9 +8,11 @@ hero_image: "/assets/images/blog/cards/wizard-p1-one-demo.svg"
 excerpt: "How Wizard generalises from a single watch."
 series: wizard
 part: 1
-published_in_blog: false
+published_in_blog: true
 author: "Christian Bianchi"
 author_role: "Researcher"
+institution: "Sapienza"
+post_type: "Project"
 read_time: "TODO"
 ---
 

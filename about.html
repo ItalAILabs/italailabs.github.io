@@ -2,17 +2,17 @@
 layout: default
 title: About Us
 image: "/assets/images/team.webp"
-description: "ItalAI is Europe leading AI-first accelerator bridging academia and industry. Founded in 2024, we collaborate with leading universities and glocal corporations and startups to advance artificial intelligence and robotics through fundamental research, technology transfer, and system-level design with emphasis on reliability and scalability."
+description: "ItalAI is a Sapienza University of Rome spinout building Physical AI systems for industrial environments, with a research record published at CVPR, ICLR, ECCV, IROS and AAAI."
 ---
 
 {%- capture hero_heading -%}
-ITALAI IS EUROPE'S FIRST AI-ACCELERATOR BRIDGING ACADEMIA AND INDUSTRY
+A SAPIENZA SPINOUT BRIDGING FRONTIER RESEARCH AND INDUSTRY
 {%- endcapture -%}
 {% include hero.html
   layout="full-bleed"
   heading=hero_heading
   crumb_current="ABOUT"
-  tagline="Building intelligent systems from scratch."
+  tagline="Founded in 2024 out of Sapienza University of Rome. We build Physical AI systems for industrial environments, with a research record published at CVPR, ICLR, ECCV, IROS and AAAI."
   title-style="color: var(--standard-light);"
   hero-style=""
 %}
@@ -22,14 +22,14 @@ ITALAI IS EUROPE'S FIRST AI-ACCELERATOR BRIDGING ACADEMIA AND INDUSTRY
   <div class="container">
     <div class="who-grid">
       <div class="who-intro">
-        <div class="section-label">WHO WE ARE</div>
+        <div class="section-label">ORIGIN &amp; STANDING</div>
         <h2 class="h2-size">
-          An AI-first organization<span class="period">.</span>
+          Research first, by construction<span class="period">.</span>
         </h2>
       </div>
       <div class="who-content">
         <p class="description">
-          Founded in 2024, ItalAI operates at the intersection of academic research and industrial application.
+          ItalAI is a spinout of Sapienza University of Rome, founded in 2024 and staffed by researchers who publish in the venues our field is judged by.
         </p>
         <p class="description" style="margin-bottom: 40px;">
           We collaborate with leading universities, research centers, and industry partners to advance artificial intelligence, and translate that knowledge into deployable systems. Our work spans fundamental research, applied AI, and system-level design, with a strong emphasis on correctness, reliability, and scalability.
@@ -50,13 +50,46 @@ ITALAI IS EUROPE'S FIRST AI-ACCELERATOR BRIDGING ACADEMIA AND INDUSTRY
   </div>
 </section>
 
+<!-- Transatlantic Network Section -->
+<section class="network-section">
+  <div class="container">
+    <div class="network-header">
+      <div class="section-label section-label--bright">THE NETWORK</div>
+      <h2 class="network-title h2-size">One team, two research cultures<span class="period">.</span></h2>
+      <p class="network-intro">
+        Our co-founder works from the Bay Area. That is not a satellite office &mdash; it is how we stay inside the conversation that sets the direction of this field months before it reaches a paper.
+      </p>
+      <p class="network-intro">
+        Rome gives us researchers who go deep and stay on a problem. The Bay Area gives us line of sight to what is about to matter. Work moves in both directions: a method read early in California gets stress-tested in Rome, and a result from Rome gets shown to the people best placed to break it.
+      </p>
+    </div>
+    <div class="network-grid">
+      <div class="network-cell">
+        <div class="network-cell-label">Roma</div>
+        <div class="network-cell-wordmark">SAPIENZA</div>
+        <p>Where the lab sits. Shared supervision of PhD researchers, and the origin of the spinout.</p>
+      </div>
+      <div class="network-cell">
+        <div class="network-cell-label">Bay Area</div>
+        <div class="network-cell-wordmark">Berkeley &amp; Stanford</div>
+        <p>Working research relationships, not logos &mdash; WIZARD and T-Rex are both co-authored collaborations.</p>
+      </div>
+      <div class="network-cell">
+        <div class="network-cell-label">Industry</div>
+        <div class="network-cell-wordmark network-cell-wordmark--dm">Panasonic</div>
+        <p>A multi-year relationship with a global industrial technology leader. Project detail stays confidential.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Values Section - Light Background -->
 <section class="values-section">
   <div class="container">
     <div class="values-header">
-      <div class="section-label">VALUES</div>
+      <div class="section-label">PRINCIPLES</div>
       <h2 class="values-title h2-size">Our principles<span class="period">.</span></h2>
-      <p class="values-intro">These principles guide how we research, design, and collaborate — independent of technologies or market cycles.</p>
+      <p class="values-intro">Independent of technologies or market cycles.</p>
     </div>
     <div class="values-grid">
       {% for principle in site.data.principles.principles %}
@@ -70,13 +103,55 @@ ITALAI IS EUROPE'S FIRST AI-ACCELERATOR BRIDGING ACADEMIA AND INDUSTRY
   </div>
 </section>
 
+<!-- How We Work Section -->
+<section class="how-we-work-section">
+  <div class="container">
+    <div class="how-we-work-grid">
+      <div class="how-we-work-intro">
+        <div class="section-label">HOW WE WORK</div>
+        <h2 class="h2-size">From open question to working system<span class="period">.</span></h2>
+        <p class="description">
+          Work is organised around milestones with defined outputs, and reported in plain language you can put straight into an internal update.
+        </p>
+        <div class="how-we-work-ctas">
+          <a class="cta-outlined" href="/research">SEE THE RESEARCH RECORD</a>
+          <a class="cta-text-dark" href="/partnership">HOW AN ENGAGEMENT WORKS &rarr;</a>
+        </div>
+      </div>
+      <div class="how-we-work-steps">
+        <div class="how-we-work-step">
+          <div class="how-we-work-step-num">01</div>
+          <div class="how-we-work-step-copy">
+            <h3>FRAME THE PROBLEM</h3>
+            <p>We start by establishing what a successful outcome actually looks like, and whether the problem is research-shaped at all. Sometimes the honest answer is that it is not.</p>
+          </div>
+        </div>
+        <div class="how-we-work-step">
+          <div class="how-we-work-step-num">02</div>
+          <div class="how-we-work-step-copy">
+            <h3>BUILD AGAINST A BENCHMARK</h3>
+            <p>Every milestone produces something measurable and an explanation of what it means for the capability being built &mdash; not a status report.</p>
+          </div>
+        </div>
+        <div class="how-we-work-step">
+          <div class="how-we-work-step-num">03</div>
+          <div class="how-we-work-step-copy">
+            <h3>MOVE IT ONTO HARDWARE</h3>
+            <p>A method that only works in simulation is not finished. We validate on real hardware, in the conditions the system will meet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Partners Section -->
 <section class="partners-section">
   <div class="container">
     <div class="partners-header">
-      <div class="section-label">PARTNERSHIPS</div>
+      <div class="section-label">COLLABORATIONS</div>
       <h2 class="partners-title h2-size">
-        Advancing AI through global collaboration<span class="period">.</span>
+        Who we work with<span class="period">.</span>
       </h2>
     </div>
     <div class="partners-bar">
@@ -95,7 +170,7 @@ ITALAI IS EUROPE'S FIRST AI-ACCELERATOR BRIDGING ACADEMIA AND INDUSTRY
           Blending AI research and industry expertise<span class="period">.</span>
         </h2>
       </div>
-      <a class="cta-outlined" href="#contact">WORK WITH US</a>
+      <a class="cta-outlined" href="/contact">WORK WITH US</a>
     </div>
 
     <!-- Leadership Row -->

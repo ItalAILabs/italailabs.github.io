@@ -18,8 +18,8 @@ layout: default
 
 {% capture crumb_parent %}
   {
-    "url": "/insights",
-    "label": "insights"
+    "url": "/blog",
+    "label": "blog"
   }
 {% endcapture %}
 
@@ -27,7 +27,7 @@ layout: default
   <div class="post-hero-inner">
     <div class="post-hero-breadcrumb">
       <a href="/">HOME</a> /
-      <a href="/insights">INSIGHTS</a> /
+      <a href="/blog">BLOG</a> /
       {% if page.series %}
         <span class="post-hero-breadcrumb-active">{{ page.series | upcase }} · P{{ page.part }}</span>
       {% else %}
@@ -160,12 +160,12 @@ layout: default
     <div class="section-label">Keep reading</div>
     <div class="keep-reading-grid">
       {% for post in related_posts %}
-        {% include insight-card.html post=post %}
+        {% include blog-card.html post=post %}
       {% endfor %}
       {% assign placeholders_needed = 3 | minus: related_posts.size %}
       {% if placeholders_needed > 0 %}
         {% for i in (1..placeholders_needed) %}
-          <div class="insights-coming-soon">MORE COMING SOON</div>
+          <div class="blogs-coming-soon">MORE COMING SOON</div>
         {% endfor %}
       {% endif %}
     </div>

@@ -19,6 +19,7 @@
 }
 
 %cta-button-base {
+    align-self: flex-start;
     color: var(--standard-light);
     border: 2px solid transparent;
     font-family: var(--button-font-family);
@@ -315,10 +316,43 @@ weak,
     }
 }
 
+/* Muted mono text link — small "see more" style link on dark backgrounds. */
+.cta-text {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 1px;
+    color: #8a85a0;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: var(--standard-light);
+    }
+}
+
+/* Muted mono text link — small "see more" style link on light backgrounds. */
+.cta-text-dark {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 1px;
+    color: var(--standard-dark-alt);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: var(--standard-dark);
+    }
+}
+
 /* Dark pill button — solid dark bg, light text, lifts on hover.
    Used for primary CTAs on light backgrounds (WIZARD, etc.). */
 .cta-dark {
     display: inline-block;
+    align-self: flex-start;
     font-family: var(--button-font-family);
     font-size: var(--font-size);
     font-weight: 700;
@@ -426,6 +460,10 @@ weak,
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+}
+
+.in-action-grid--3col {
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .in-action-item {

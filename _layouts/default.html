@@ -47,7 +47,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-{% if page.url contains '/insights/' and page.url != '/insights/' %}
+{% if page.url contains '/blog/' and page.url != '/blog/' %}
   {% assign stylesheet = 'post' %}
 {% elsif page.url contains '/projects/' and page.url != '/projects/' %}
   {% assign stylesheet = 'project' %}
@@ -78,6 +78,17 @@
 </noscript>
 </head>
 <body class="no-js">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_measurement_id }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '{{ site.ga_measurement_id }}');
+  </script>
+  <script src="/assets/js/utm.js" defer></script>
+
     <script>
       document.body.classList.remove('no-js'); 
       document.body.classList.add('js');

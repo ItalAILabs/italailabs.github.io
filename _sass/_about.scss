@@ -88,6 +88,172 @@
 }
 
 /* ============================================
+   TRANSATLANTIC NETWORK SECTION
+   ============================================ */
+.network-section {
+  background: var(--standard-dark);
+  color: var(--standard-light);
+
+  .container {
+    padding-block: 70px 76px;
+    padding-inline: 3.5rem;
+  }
+}
+
+.network-header {
+  max-width: 720px;
+  margin-bottom: 40px;
+}
+
+.network-title {
+  font-size: clamp(1.5rem, 2.5vw, 2.0625rem) !important;
+  margin: 0 0 20px;
+}
+
+.network-intro {
+  font-family: var(--body-family);
+  font-size: clamp(0.9375rem, 1vw, 1.0625rem);
+  line-height: 1.6;
+  color: #b8b2c8;
+  margin: 0 0 16px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.network-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #1d1736;
+  border: 1px solid #1d1736;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.network-cell {
+  background: #120c26;
+  padding: 28px 26px;
+
+  p {
+    font-family: var(--body-family);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: #b8b2c8;
+    margin: 0;
+  }
+}
+
+.network-cell-label {
+  font-family: var(--header-family);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--standard-blue-soft);
+  margin-bottom: 10px;
+}
+
+.network-cell-wordmark {
+  font-family: var(--accent-family);
+  font-weight: 600;
+  font-size: 1.375rem;
+  color: var(--standard-light);
+  margin-bottom: 14px;
+}
+
+.network-cell-wordmark--dm {
+  font-family: var(--body-family);
+  font-weight: 700;
+}
+
+/* ============================================
+   HOW WE WORK SECTION
+   ============================================ */
+.how-we-work-section {
+  background: var(--standard-cream);
+  border-top: 1px solid #e1ddce;
+
+  .container {
+    padding-block: 68px 76px;
+    padding-inline: 3.5rem;
+  }
+}
+
+.how-we-work-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.how-we-work-intro {
+  position: sticky;
+  top: 104px;
+
+  h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2.0625rem) !important;
+    margin: 0 0 20px;
+    color: var(--standard-dark);
+  }
+
+  .description {
+    margin: 0 0 28px;
+  }
+}
+
+.how-we-work-ctas {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.how-we-work-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.how-we-work-step {
+  display: flex;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid #ddd9c9;
+
+  &:last-child {
+    border-bottom: 1px solid #ddd9c9;
+  }
+}
+
+.how-we-work-step-num {
+  font-family: var(--header-family);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--standard-blue);
+  flex: none;
+  width: 2.5rem;
+}
+
+.how-we-work-step-copy {
+  h3 {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    letter-spacing: 0.5px;
+    color: var(--standard-dark);
+    margin: 0 0 10px;
+  }
+
+  p {
+    font-family: var(--body-family);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--standard-dark-alt);
+    margin: 0;
+  }
+}
+
+/* ============================================
    VALUES / PRINCIPLES SECTION
    ============================================ */
 .values-section {
@@ -304,6 +470,19 @@
     position: static;
   }
 
+  .how-we-work-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .how-we-work-intro {
+    position: static;
+  }
+
+  .network-grid {
+    grid-template-columns: 1fr;
+  }
+
   .values-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -325,6 +504,15 @@
 }
 
 @media (max-width: 767px) {
+  /* padding-inline lives directly on .container for these two sections
+     (not a nested wrapper), so zeroing it removes the base gutter entirely —
+     restore the base 1.25rem instead of 0. */
+  .network-section .container,
+  .how-we-work-section .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
   .values-grid {
     grid-template-columns: 1fr;
   }

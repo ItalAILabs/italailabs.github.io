@@ -1,5 +1,5 @@
 (function () {
-    const grid = document.getElementById("insightsGrid");
+    const grid = document.getElementById("blogsGrid");
     const loadMoreBtn = document.getElementById("loadMoreBtn");
     const itemsShown = document.getElementById("itemsShown");
     const filterButtons = Array.from(document.querySelectorAll(".filter-pill"));
@@ -9,8 +9,8 @@
 
     if (!grid) return;
 
-    const BASE_PATH = "/assets/data/insights/insights-page1.json";
-    const CATEGORY_BASE = "/assets/data/insights/categories/category-";
+    const BASE_PATH = "/assets/data/blog/blog-page1.json";
+    const CATEGORY_BASE = "/assets/data/blog/categories/category-";
     const USE_NDJSON = true; // prefer streaming when CDN allows
 
     const TRANSITIONS = {
@@ -119,26 +119,26 @@
 
     function renderCard(item) {
         const el = document.createElement("div");
-        el.className = "insight-card";
+        el.className = "blog-card";
         el.innerHTML = `
-      <div class="insight-card-image-wrapper">
+      <div class="blog-card-image-wrapper">
         <a href="${item.url}">
-          <img src="${item.hero_image || "/assets/images/blog/cards/coming.webp"}" alt="${escapeHtml(item.title || "Placeholder Title")}" class="insight-card-image">
+          <img src="${item.hero_image || "/assets/images/blog/cards/coming.webp"}" alt="${escapeHtml(item.title || "Placeholder Title")}" class="blog-card-image">
         </a>
-        ${item.date ? `<span class="insight-tag insight-date">${formatDate(item.date)}</span>` : ""}
+        ${item.date ? `<span class="blog-tag blog-date">${formatDate(item.date)}</span>` : ""}
       </div>
-      <div class="insight-card-content">
-        <a class="insight-card-title" href="${item.url}">
-          <h3 class="insight-card-title h7-size">${escapeHtml(item.title || "")}</h3>
-          <p class="insight-card-excerpt">
+      <div class="blog-card-content">
+        <a class="blog-card-title" href="${item.url}">
+          <h3 class="blog-card-title h7-size">${escapeHtml(item.title || "")}</h3>
+          <p class="blog-card-excerpt">
               ${escapeHtml(item.excerpt || "")}
           </p>
         </a>
-        <div class="insight-card-footer">
-          <div class="insight-card-tags">
+        <div class="blog-card-footer">
+          <div class="blog-card-tags">
             ${renderTags(item.categories)}
           </div>
-          ${item.series && item.part ? `<span class="insight-card-series">${escapeHtml(String(item.series)).toUpperCase()} • P${escapeHtml(String(item.part))}</span>` : ""}
+          ${item.series && item.part ? `<span class="blog-card-series">${escapeHtml(String(item.series)).toUpperCase()} • P${escapeHtml(String(item.part))}</span>` : ""}
         </div>
       </div>
     `;
@@ -156,7 +156,7 @@
         cats.forEach((cat) => {
             const slug = slugify(cat);
             const tag = document.createElement("button");
-            tag.className = "insight-card-tag";
+            tag.className = "blog-card-tag";
             tag.setAttribute("data-tag-category", slug);
             tag.textContent = `${cat}`;
             frag.appendChild(tag);
@@ -206,7 +206,7 @@
         if (!itemsShown) return;
         const total =
             typeof totalAvailable === "number" ? totalAvailable : renderedCount;
-        itemsShown.textContent = `Showing ${renderedCount} of ${total} insights`;
+        itemsShown.textContent = `Showing ${renderedCount} of ${total} posts`;
     }
     
     function updateFilterUI() {
@@ -219,15 +219,15 @@
         
         // Update top filter count
         if (filterCount) {
-            const renderedCount = grid.querySelectorAll(".insight-card").length;
+            const renderedCount = grid.querySelectorAll(".blog-card").length;
             if (isFiltered) {
                 const categoryName = state.currentCategory
                     .split("-")
                     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                     .join(" ");
-                filterCount.textContent = `Showing ${renderedCount} insights in ${categoryName}`;
+                filterCount.textContent = `Showing ${renderedCount} posts in ${categoryName}`;
             } else {
-                filterCount.textContent = `Showing ${renderedCount} insights`;
+                filterCount.textContent = `Showing ${renderedCount} posts`;
             }
         }
     }
@@ -238,7 +238,7 @@
     }
 
     function attachTagHandlers(scope) {
-        const tags = scope.querySelectorAll(".insight-card-tag");
+        const tags = scope.querySelectorAll(".blog-card-tag");
         tags.forEach((tag) => {
             tag.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -266,7 +266,7 @@
             if (reset) clearGrid();
             appendItems(items);
             updateMeta(meta);
-            const renderedCount = grid.querySelectorAll(".insight-card").length;
+            const renderedCount = grid.querySelectorAll(".blog-card").length;
             updateCounters(renderedCount, meta.total_items);
             updateFilterUI();
             toggleLoadMore(Boolean(meta.next_page_path));
@@ -281,7 +281,7 @@
         if (categorySlug && categorySlug !== "all") {
             return `${CATEGORY_BASE}${categorySlug}-page${pageNum}.json`;
         }
-        return `/assets/data/insights/insights-page${pageNum}.json`;
+        return `/assets/data/blog/blog-page${pageNum}.json`;
     }
 
     async function swapFilterData(categorySlug) {
@@ -362,7 +362,7 @@
     }
 
     function setupInitialState() {
-        const renderedCount = grid.querySelectorAll(".insight-card").length;
+        const renderedCount = grid.querySelectorAll(".blog-card").length;
         const totalItems = Number(grid.dataset.totalItems) || renderedCount;
         const perPage = Number(grid.dataset.perPage) || state.perPage;
         const nextPage = grid.dataset.nextPage || null;

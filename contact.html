@@ -1,0 +1,147 @@
+---
+layout: default
+title: Get In Touch
+image: "/assets/logo.png"
+description: "Start a conversation with ItalAI about a Physical AI or robotics research challenge. Research collaborations, industrial projects and press — read by the team, not a form queue."
+---
+
+{%- capture hero_heading -%}
+Start with the problem
+{%- endcapture -%}
+{% include hero.html
+  layout="full-bleed"
+  heading=hero_heading
+  crumb_current="CONTACT"
+  tagline="Research collaborations, industrial projects and press. Everything here is read by the team, not by a form queue."
+  title-style="color: var(--standard-light);"
+  hero-style=""
+%}
+
+<!-- Info Row: Email / Studio / Follow -->
+<section class="contact-info-row-section">
+  <div class="container">
+    <div class="contact-info-row">
+      <div class="contact-info-card">
+        <div class="contact-info-card-label">Email</div>
+        <a href="mailto:research@italailabs.com" class="contact-info-card-value contact-info-card-value--link">research@italailabs.com</a>
+      </div>
+      <div class="contact-info-card">
+        <div class="contact-info-card-label">Studio</div>
+        <div class="contact-info-card-value">{{ site.address }}, Italy</div>
+      </div>
+      <div class="contact-info-card">
+        <div class="contact-info-card-label">Follow</div>
+        <div class="contact-info-card-socials">
+          <a href="{{ site.social.linkedin }}" target="_blank" rel="noopener" class="social-pill social-pill--light">LinkedIn</a>
+          <a href="{{ site.social.twitter }}" target="_blank" rel="noopener" class="social-pill social-pill--light">X</a>
+          <a href="{{ site.social.github }}" target="_blank" rel="noopener" class="social-pill social-pill--light">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Before You Write / ICP filter -->
+<section class="contact-icp-section">
+  <div class="container">
+    <div class="contact-icp-grid">
+      <div class="contact-icp-label">Before you write</div>
+      <div>
+        <p class="contact-icp-statement">We build Physical AI systems for problems that have no off-the-shelf answer &mdash; perception, manipulation and real-time control in environments that break standard tooling.</p>
+        <p class="contact-icp-substatement">The work is research first, which means it needs a technical counterpart on your side to develop it seriously. If that describes what you are holding, the form below is the right place to start.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT SECTION ============ -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Left: info + socials -->
+      <div class="contact-info">
+        <h2 class="h2-size">
+          Bring us a <span class="highlight-blue-soft italic" style="font-weight:500;">hard problem</span><span class="period">.</span>
+        </h2>
+        <p>You will be talking to the researchers who would do the work, not to an account team.
+        If we think we can move the problem, we will tell you how — and if we cannot, we will tell you that too.</p>
+
+        <div class="contact-email-block">
+          <div class="contact-email-label">Research &amp; Collaborations</div>
+          <a href="mailto:research@italailabs.com" class="contact-email-link">research@italailabs.com</a>
+        </div>
+
+        <a class="contact-secondary-link" href="/partnership">HOW AN ENGAGEMENT WORKS &rarr;</a>
+
+        <div class="contact-socials">
+          <a href="{{ site.social.linkedin }}" target="_blank" rel="noopener" class="social-pill">LinkedIn</a>
+          <a href="{{ site.social.twitter }}" target="_blank" rel="noopener" class="social-pill">X</a>
+          <a href="{{ site.social.github }}" target="_blank" rel="noopener" class="social-pill">GitHub</a>
+        </div>
+      </div>
+
+      <!-- Right: contact form -->
+      <div class="contact-form">
+        <div class="contact-card">
+          <h2 class="h2-size">GET IN TOUCH</h2>
+          <p class="contact-card-desc">Tell us about the technical problem you are working on and who inside your team would own it.</p>
+
+          <form id="mailForm">
+            <div class="static-field">
+              <div class="static-field-label">Full name</div>
+              <input type="text" id="name" name="name" required autocomplete="off" placeholder="Jane Doe">
+            </div>
+            <div class="static-field">
+              <div class="static-field-label">Email</div>
+              <input type="email" id="email" name="email" required autocomplete="off" placeholder="jane@company.com">
+            </div>
+            <div class="static-field">
+              <div class="static-field-label">Subject</div>
+              <input type="text" id="subject" name="subject" required autocomplete="off" placeholder="The problem in one line">
+            </div>
+            <div class="static-field" style="margin-bottom:30px;">
+              <div class="static-field-label">Message</div>
+              <textarea id="idea" name="idea" rows="3" required autocomplete="off" placeholder="What have you tried, and what does a successful outcome look like?" style="resize:none;"></textarea>
+            </div>
+            <div class="static-field">
+              <div class="static-field-label">How did you hear about us</div>
+              <select id="source" name="source">
+                <option value="">Select one</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Blog">Blog</option>
+                <option value="Conference">Conference</option>
+                <option value="Paper citation">Paper citation</option>
+                <option value="Search">Search</option>
+                <option value="Referral from a colleague">Referral from a colleague</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="static-field" style="margin-bottom:30px;">
+              <div class="static-field-label">Have you spoken with anyone at ItalAI before?</div>
+              <div class="pill-toggle" role="radiogroup" aria-label="Have you spoken with anyone at ItalAI before?">
+                <input type="radio" id="prior_contact_yes" name="prior_contact" value="yes">
+                <label for="prior_contact_yes">YES</label>
+                <input type="radio" id="prior_contact_no" name="prior_contact" value="no">
+                <label for="prior_contact_no">NO</label>
+              </div>
+            </div>
+            <input type="hidden" name="utm_source">
+            <input type="hidden" name="utm_medium">
+            <input type="hidden" name="utm_campaign">
+            <button type="submit" class="cta-submit">TELL US ABOUT YOUR CHALLENGE</button>
+          </form>
+          <div id="errorMessage" class="error-message" style="display: none;">
+            An error occurred. We are sorry, but our contact form is not working at the moment. Please contact us using the info listed on this page.
+          </div>
+          <div id="successMessage" class="success-message" style="display: none;">
+            Message sent successfully!
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="/assets/js/form.js" defer></script>

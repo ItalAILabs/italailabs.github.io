@@ -14,9 +14,9 @@
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; }
-    input, textarea { font-family: 'DM Sans', sans-serif; }
+    input, textarea, select { font-family: 'DM Sans', sans-serif; }
     input::placeholder, textarea::placeholder { color: #6f6a85; }
-    input:focus, textarea:focus { outline: none; border-color: #6b6cf5 !important; }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: #6b6cf5 !important; }
     .ital-rail { scrollbar-width: thin; scrollbar-color: #c9c4b4 transparent; }
     .ital-rail::-webkit-scrollbar { height: 8px; }
     .ital-rail::-webkit-scrollbar-thumb { background: #cfcabb; border-radius: 8px; }
@@ -40,7 +40,7 @@
   <div style="position:sticky; top:0; z-index:60; height:74px; background:rgba(12,7,23,0.92); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:space-between; padding:0 56px; border-bottom:1px solid #1b1533;">
     <a href="ItalAI%20Home.dc.html"><img src="assets/logo.svg" alt="ItalAI" style="height:26px; display:block;"></a>
     <div style="display:flex; gap:38px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#cfc9d8;">
-      <a href="ItalAI%20About.dc.html" style="color:#cfc9d8; text-decoration:none;">ABOUT</a><a href="ItalAI%20What%20We%20Do.dc.html" style="color:#cfc9d8; text-decoration:none;">WHAT WE DO</a><a href="ItalAI%20Whats%20Next.dc.html" style="color:#cfc9d8; text-decoration:none;">WHAT'S NEXT</a><a href="ItalAI%20Insights.dc.html" style="color:#cfc9d8; text-decoration:none;">INSIGHTS</a>
+      <a href="ItalAI%20About.dc.html" style="color:#cfc9d8; text-decoration:none;">ABOUT</a><a href="ItalAI%20Research.dc.html" style="color:#cfc9d8; text-decoration:none;">RESEARCH</a><a href="ItalAI%20Projects.dc.html" style="color:#cfc9d8; text-decoration:none;">PROJECTS</a><a href="ItalAI%20blogs.dc.html" style="color:#cfc9d8; text-decoration:none;">blogs</a>
     </div>
     <a href="ItalAI%20Contact.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#f4f1e6; border:1px solid #4a4560; padding:12px 22px; border-radius:40px; cursor:pointer; text-decoration:none; transition:all .18s ease;" style-hover="background:var(--accent,#6b6cf5); border-color:var(--accent,#6b6cf5);">GET IN TOUCH</a>
   </div>
@@ -49,14 +49,14 @@
   <section style="background:var(--hero-grad, linear-gradient(180deg, #130b2e 0%, #0c0717 100%)); overflow:hidden;">
     <div style="display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr); align-items:stretch; min-height:560px;">
       <div style="padding:84px 56px 132px; display:flex; flex-direction:column; justify-content:center; max-width:680px;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--accent,#6b6cf5); text-transform:uppercase; margin-bottom:22px;">Frontier AI · Roma</div>
-        <h1 style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:46px; line-height:1.18; letter-spacing:-0.5px; color:#f4f1e6; margin:0; text-transform:uppercase; text-wrap:balance;">
-          Where frontier AI <span style="color:#2fcb92;">research</span> meets real-world impact<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:#E63A1E;margin-left:7px;vertical-align:baseline;"></span>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--accent,#6b6cf5); text-transform:uppercase; margin-bottom:22px;">Physical AI Research · Roma</div>
+        <h1 style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:38px; line-height:1.22; letter-spacing:-0.5px; color:#f4f1e6; margin:0; text-transform:uppercase; text-wrap:balance;">
+          Turning frontier research into deployable <span style="color: rgb(47, 203, 146);">Physical AI</span><span style="display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: rgb(230, 58, 30); margin-left: 7px; vertical-align: baseline;"></span>
         </h1>
-        <p style="font-family:'DM Sans',sans-serif; font-size:20px; line-height:1.55; color:#b8b2c8; max-width:520px; margin:26px 0 0;">We build the technologies powering the next industrial revolution — turning AI and robotics research into systems that work beyond the lab.</p>
+        <p style="font-family:'DM Sans',sans-serif; font-size:20px; line-height:1.55; color:#b8b2c8; max-width:540px; margin:26px 0 0;">Research-grade solutions to problems off-the-shelf tools and consultants aren't built to solve.</p>
         <div style="display:flex; align-items:center; gap:28px; margin-top:38px;">
-          <a href="ItalAI%20About.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#0c0717; background:#f4f1e6; padding:16px 30px; border-radius:40px; cursor:pointer; text-decoration:none; transition:transform .18s ease;" style-hover="transform:translateY(-2px);">DISCOVER WHO WE ARE</a>
-          <a href="ItalAI%20What%20We%20Do.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#8a85a0; cursor:pointer; text-decoration:none;">SEE OUR WORK →</a>
+          <a href="ItalAI%20Research.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#0c0717; background:#f4f1e6; padding:16px 30px; border-radius:40px; cursor:pointer; text-decoration:none; transition:transform .18s ease;" style-hover="transform:translateY(-2px);">SEE THE RESEARCH</a>
+          <a href="ItalAI%20Projects.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#8a85a0; cursor:pointer; text-decoration:none;">WHAT WE'VE BUILT →</a>
         </div>
       </div>
       <div style="position:relative; min-height:420px; background:transparent; overflow:hidden;">
@@ -66,130 +66,153 @@
     </div>
   </section>
 
-  <!-- ============ PARTNERS (overlaps hero bottom — breaks the band rhythm) ============ -->
-  <section style="background:#f4f1e6;">
-    <div style="max-width:1180px; margin:-66px auto 0; position:relative; z-index:10; background:#fbfaf3; border:1px solid #e6e1d0; border-radius:16px; box-shadow:0 20px 50px rgba(12,7,23,0.16); padding:30px 44px; display:flex; align-items:center; gap:48px; flex-wrap:wrap;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.5; letter-spacing:2px; color:#8a8676; text-transform:uppercase; flex:none; max-width:150px;">In collaboration with</div>
-      <div style="display:flex; align-items:center; gap:40px; flex-wrap:wrap; flex:1; opacity:0.92;">
-        <div style="display:flex; flex-direction:column; gap:2px; color:#43403a;">
-          <span style="font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:2px; color:#7a766a;">UNIVERSITY OF CALIFORNIA</span>
-          <span style="font-family:'Spectral',serif; font-weight:600; font-size:27px; line-height:1; letter-spacing:-0.5px;">Berkeley</span>
-        </div>
-        <div style="width:1px; height:34px; background:#dcd7c6;"></div>
-        <span style="font-family:'Spectral',serif; font-weight:500; font-size:28px; line-height:1; letter-spacing:0.5px; color:#43403a;">Stanford</span>
-        <div style="width:1px; height:34px; background:#dcd7c6;"></div>
-        <span style="font-family:'DM Sans',sans-serif; font-weight:700; font-size:25px; line-height:1; letter-spacing:-0.5px; color:#43403a;">Panasonic</span>
-        <div style="width:1px; height:34px; background:#dcd7c6;"></div>
-        <div style="display:flex; flex-direction:column; gap:2px; color:#43403a;">
-          <span style="font-family:'Spectral',serif; font-weight:600; font-size:22px; line-height:1; letter-spacing:3px;">SAPIENZA</span>
-          <span style="font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:2px; color:#7a766a;">UNIVERSITÀ DI ROMA</span>
+  <!-- ============ PROOF SIGNALS (quiet band under the hero) ============ -->
+  <section style="background:#f4f1e6; border-bottom:1px solid #e6e1d0;">
+    <div style="max-width:1180px; margin:0 auto; padding:26px 56px 28px; display:grid; grid-template-columns:0.78fr 1.22fr; gap:48px; align-items:start;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#a09b8a; text-transform:uppercase; margin-bottom:11px;">Publications</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#43403a;">CVPR · ICLR · ECCV · IROS · AAAI</div>
+      </div>
+      <div style="border-left:1px solid #e6e1d0; padding-left:48px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#a09b8a; text-transform:uppercase; margin-bottom:11px;">Collaborations</div>
+        <div style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; color:#43403a; font-family:'Spectral',serif; font-size:19px; line-height:1.2;">
+          <span style="font-weight:600; letter-spacing:-0.3px;">Berkeley</span>
+          <span style="color:#c9c4b4;">·</span>
+          <span style="font-weight:500;">Stanford</span>
+          <span style="color:#c9c4b4;">·</span>
+          <span style="font-weight:600; font-size:15px; letter-spacing:2px;">SAPIENZA</span>
+          <span style="color:#c9c4b4;">·</span>
+          <span style="display:inline-flex; align-items:baseline; gap:9px; white-space:nowrap;">
+            <span style="font-family:'DM Sans',sans-serif; font-weight:700; font-size:18px; letter-spacing:-0.3px;">Panasonic</span>
+            
+          </span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ WHAT WE DO ============ -->
+  <!-- ============ CAPABILITY STRIP (replaces the What We Do band) ============ -->
   <section style="background:#f4f1e6;">
     <div style="max-width:1180px; margin:0 auto; padding:var(--pad-wd,72px 56px 80px);">
-      <div style="display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:start;">
-        <div style="position:sticky; top:104px;">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#29b485; text-transform:uppercase; margin-bottom:16px;">What we do</div>
-          <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:33px; line-height:1.25; letter-spacing:-0.5px; color:#0c0717; margin:0 0 22px;">Turning frontier research into real-world systems<span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
-          <p style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.6; color:#54513f; margin:0 0 28px; max-width:380px;">Three capabilities, one continuum — from open-ended research, to deployed intelligence, to the partners who put it to work.</p>
-          <div style="display:inline-block; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#0c0717; border:1px solid #0c0717; padding:15px 30px; border-radius:40px; cursor:pointer; transition:all .18s ease;" style-hover="background:#0c0717; color:#f4f1e6;" onclick="location.href='ItalAI%20What%20We%20Do.dc.html'">WHAT WE DO</div>
-        </div>
-
+      <div style="display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px; align-items:center;">
         <div>
-          <div style="display:flex; align-items:flex-start; gap:32px; padding:26px 24px; margin:0 -24px; background:var(--row1-bg,transparent); border-bottom:1px solid #ddd9c9; border-radius:10px; transition:background .18s ease; cursor:pointer;" style-hover="background:#ebe7d8;">
-            <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:20px; color:var(--accent,#6b6cf5); width:38px; flex:none; padding-top:4px;">01</div>
-            <div>
-              <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:21px; color:#0c0717; margin-bottom:8px;">FRONTIER RESEARCH</div>
-              <div style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.55; color:#54513f;">Deep AI &amp; robotics research at global scale — exploring architectures, learning systems and embodied intelligence years ahead of deployment.</div>
-            </div>
-            <div style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:20px; color:var(--accent,#6b6cf5); padding-top:2px;">→</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#29b485; text-transform:uppercase; margin-bottom:16px;">Where we work</div>
+          <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:28px; line-height:1.28; letter-spacing:-0.5px; color:#0c0717; margin:0; max-width:400px; text-wrap:pretty;">Hard problems in perception, control and physical systems<span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:#ddd9c9;">
+          <div style="background:var(--row1-bg,#f4f1e6); padding:22px 24px 24px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:15px; letter-spacing:.5px; color:#0c0717; margin-bottom:7px;">COMPUTER VISION</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.5; color:#6f6b58;">Detection, segmentation and understanding in uncontrolled scenes.</div>
           </div>
-          <div style="display:flex; align-items:flex-start; gap:32px; padding:26px 24px; margin:0 -24px; background:var(--row2-bg,transparent); border-bottom:1px solid #ddd9c9; border-radius:10px; transition:background .18s ease; cursor:pointer;" style-hover="background:#ebe7d8;">
-            <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:20px; color:#0c0717; width:38px; flex:none; padding-top:4px;">02</div>
-            <div>
-              <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:21px; color:#0c0717; margin-bottom:8px;">APPLIED INTELLIGENCE</div>
-              <div style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.55; color:#54513f;">From scientific breakthroughs to real-world systems — taking models out of the lab and into manufacturing, logistics and infrastructure.</div>
-            </div>
-            <div style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:20px; color:#0c0717; padding-top:2px;">→</div>
+          <div style="background:var(--row2-bg,#f4f1e6); padding:22px 24px 24px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:15px; letter-spacing:.5px; color:#0c0717; margin-bottom:7px;">SENSOR FUSION</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.5; color:#6f6b58;">Combining vision, tactile and proprioceptive signals into one state.</div>
           </div>
-          <div style="display:flex; align-items:flex-start; gap:32px; padding:26px 24px; margin:0 -24px; background:var(--row3-bg,transparent); border-radius:10px; transition:background .18s ease; cursor:pointer;" style-hover="background:#ebe7d8;">
-            <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:20px; color:#29b485; width:38px; flex:none; padding-top:4px;">03</div>
-            <div>
-              <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:21px; color:#0c0717; margin-bottom:8px;">GLOBAL NETWORK</div>
-              <div style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.55; color:#54513f;">Partnerships with Silicon Valley and Japan's top companies and universities — a network that turns frontier ideas into industrial reality.</div>
-            </div>
-            <div style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:20px; color:#29b485; padding-top:2px;">→</div>
+          <div style="background:var(--row3-bg,#f4f1e6); padding:22px 24px 24px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:15px; letter-spacing:.5px; color:#0c0717; margin-bottom:7px;">EMBODIED AI</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.5; color:#6f6b58;">Agents that learn tasks and generalise beyond their training set.</div>
+          </div>
+          <div style="background:var(--row1-bg,#f4f1e6); padding:22px 24px 24px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:15px; letter-spacing:.5px; color:#0c0717; margin-bottom:7px;">REAL-TIME CONTROL</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.5; color:#6f6b58;">Closing the loop on hardware, at the speed the environment demands.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ WHY NOW (scroll-pinned) ============ -->
-  <section ref="{{ whyRef }}" style="background:#0c0717;">
-    <div style="max-width:1180px; margin:0 auto; padding:0 56px; display:grid; grid-template-columns:0.92fr 1.08fr; gap:64px; align-items:start;">
-
-      <!-- sticky left -->
-      <div style="position:sticky; top:0; height:100vh; display:flex; flex-direction:column; justify-content:center; padding:40px 0;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#2fcb92; text-transform:uppercase; margin-bottom:16px;">Why now</div>
-        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:36px; line-height:1.22; letter-spacing:-0.5px; color:#f4f1e6; margin:0 0 36px; max-width:420px;">A <span style="font-style:italic; font-weight:500; color:#9b9cf7;">new industrial revolution</span> has begun<span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
-
-        <div style="display:flex; flex-direction:column; gap:6px; border-left:1px solid #221b3a; padding-left:0;">
-          <div style="{{ step0Style }}"><span style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:13px;">01</span><span style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px;">FOUNDATIONS</span></div>
-          <div style="{{ step1Style }}"><span style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:13px;">02</span><span style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px;">ROBOTICS // AI</span></div>
-          <div style="{{ step2Style }}"><span style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:13px;">03</span><span style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px;">ACCELERATION</span></div>
-        </div>
-
-        <div style="margin-top:40px;">
-          <div style="display:inline-block; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#0c0717; background:#f4f1e6; padding:15px 30px; border-radius:40px; cursor:pointer; transition:transform .18s ease;" style-hover="transform:translateY(-2px);" onclick="location.href='ItalAI%20Whats%20Next.dc.html'">SEE WHERE WE ARE GOING</div>
-        </div>
-      </div>
-
-      <!-- scrolling right -->
-      <div style="padding:18vh 0;">
-        <div data-why-block="" style="min-height:64vh; display:flex; flex-direction:column; justify-content:center; border-top:1px solid #1b1533; padding:48px 0;">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a9a; margin-bottom:18px;">01 / FOUNDATIONS</div>
-          <h3 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:27px; line-height:1.3; color:#f4f1e6; margin:0 0 22px;">AI is scaling beyond expectations</h3>
-          <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.65; color:#c2bcd2; margin:0 0 16px; max-width:560px;">Models are getting bigger, faster, and more capable. What once required teams of specialists can now be automated. AI systems are moving beyond narrow, single-task problems and starting to handle real-world complexity.</p>
-          <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.65; color:#8e88a6; margin:0; max-width:560px;">The scaling isn't stopping. As more data, compute, and talent pour into AI, we're seeing capabilities that challenge what we thought was uniquely human — and the window for adaptation is closing fast.</p>
-        </div>
-        <div data-why-block="" style="min-height:64vh; display:flex; flex-direction:column; justify-content:center; border-top:1px solid #1b1533; padding:48px 0;">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a9a; margin-bottom:18px;">02 / ROBOTICS // AI</div>
-          <h3 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:27px; line-height:1.3; color:#f4f1e6; margin:0 0 22px;">Robots + AI means robots in the real world</h3>
-          <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.65; color:#c2bcd2; margin:0 0 16px; max-width:560px;">Robots combined with modern AI move beyond research labs and controlled factories. Advances in AI, simulation, and learning systems let them operate in real, complex, and dynamic environments.</p>
-          <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.65; color:#8e88a6; margin:0; max-width:560px;">This shift is transforming how we build, inspect, and operate — across manufacturing, infrastructure, logistics, healthcare, and beyond.</p>
-        </div>
-        <div data-why-block="" style="min-height:64vh; display:flex; flex-direction:column; justify-content:center; border-top:1px solid #1b1533; padding:48px 0;">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a9a; margin-bottom:18px;">03 / ACCELERATION</div>
-          <h3 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:27px; line-height:1.3; color:#f4f1e6; margin:0 0 22px;">Research is accelerating discovery timelines</h3>
-          <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.65; color:#c2bcd2; margin:0 0 16px; max-width:560px;">Drug discovery that took years can now happen in months. Climate models that required supercomputers now run on accessible infrastructure. AI is compressing the feedback loops of scientific experimentation.</p>
-          <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.65; color:#8e88a6; margin:0; max-width:560px;">New possibilities emerge faster than institutions can adapt. The teams that learn to work alongside AI systems will make the breakthroughs — the ones that don't will fall laps behind.</p>
+  <!-- ============ BRIDGE (retained line from What's Next) ============ -->
+  <section style="background:#0c0717;">
+    <div style="max-width:1180px; margin:0 auto; padding:76px 56px 78px; display:grid; grid-template-columns:auto 1fr; gap:44px; align-items:start;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:3px; color:#2fcb92; text-transform:uppercase; padding-top:10px; white-space:nowrap;">Why now</div>
+      <div>
+        <p style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:30px; line-height:1.34; letter-spacing:-0.5px; color:#f4f1e6; margin:0; max-width:900px; text-wrap:pretty;">The future of AI will not be defined by smarter models, but by <span style="font-style:italic; font-weight:500; color:#9b9cf7;">systems that work in the real world</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></p>
+        <div style="display:flex; align-items:center; gap:26px; margin-top:30px; flex-wrap:wrap;">
+          <a href="ItalAI%20About.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#f4f1e6; border:1px solid #4a4560; padding:13px 26px; border-radius:40px; text-decoration:none; transition:all .18s ease;" style-hover="border-color:#f4f1e6;">HOW WE GOT HERE</a>
+          <a href="ItalAI%20blogs.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#8a85a0; text-decoration:none;">READ THE LATEST →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ WIZARD ============ -->
+  <!-- ============ FEATURED PROJECTS ============ -->
   <section style="background:#f4f1e6;">
-    <div style="max-width:1180px; margin:0 auto; padding:var(--pad-wiz,52px 56px 56px); display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;">
-      <div style="max-width:560px;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:3px; color:var(--accent,#6b6cf5); text-transform:uppercase; margin-bottom:12px;">Our projects</div>
-        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:28px; line-height:1.2; letter-spacing:-0.5px; color:#0c0717; margin:0 0 14px;">Meet <span style="color:#29b485;">Wizard</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
-        <p style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.55; color:#3f3c2e; margin:0 0 22px;">We don't stop at the theoretical. WIZARD is that in action — a robot that watches once, adapts instantly, and operates in the real world. Frontier science becoming industrial reality.</p>
-        <div style="display:inline-block; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#f4f1e6; background:#0c0717; padding:13px 26px; border-radius:40px; cursor:pointer; transition:transform .18s ease;" style-hover="transform:translateY(-2px);" onclick="location.href='ItalAI%20Project%20WIZARD.dc.html'">FIND OUT MORE</div>
-      </div>
-      <div style="display:flex; gap:0; border:1px solid #e4e0d2; border-radius:12px; background:#fff; overflow:hidden;">
-        <div style="flex:1; padding:22px 24px; border-left:3px solid #29b485;">
-          <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:30px; color:#29b485; line-height:1;">~14×</div>
-          <div style="font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.4; color:#54513f; margin-top:8px;">performance on unseen tasks, zero retraining.</div>
+    <div style="max-width:1180px; margin:0 auto; padding:var(--pad-wiz,52px 56px 56px);">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:28px; flex-wrap:wrap; margin-bottom:30px;">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--accent,#6b6cf5); text-transform:uppercase; margin-bottom:14px;">Featured projects</div>
+          <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:31px; line-height:1.2; letter-spacing:-0.5px; color:#0c0717; margin:0;">Research that <span style="color:#29b485;">ships</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
         </div>
-        <div style="flex:1; padding:22px 24px; border-left:1px solid #ece8da; box-shadow:inset 3px 0 0 var(--accent,#6b6cf5);">
-          <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:30px; color:var(--accent,#6b6cf5); line-height:1;">1</div>
-          <div style="font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.4; color:#54513f; margin-top:8px;">video demonstration. that's all it takes.</div>
+        <a href="ItalAI%20Projects.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#0c0717; text-decoration:none; border-bottom:1px solid #c9c4b4; padding-bottom:3px;">ALL PROJECTS →</a>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:stretch;">
+        <div style="background:#fbfaf3; border:1px solid #e4e0d2; border-radius:14px; padding:30px 30px 28px; display:flex; flex-direction:column;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <span style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11px; letter-spacing:2px; color:#8a8676; text-transform:uppercase;">One-shot imitation learning</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1px; color:#8a8676;">ItalAI × UC Berkeley</span>
+          </div>
+          <h3 style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:26px; line-height:1.1; letter-spacing:-0.5px; color:#0c0717; margin:0 0 20px;"><span style="color:#29b485;">WIZARD</span></h3>
+          <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:22px;">
+            <div style="display:grid; grid-template-columns:92px 1fr; gap:18px; align-items:baseline;">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#a09b8a; text-transform:uppercase;">Problem</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.5; color:#3f3c2e;">Industrial robots need re-teaching for every new task and every change in the environment.</span>
+            </div>
+            <div style="height:1px; background:#eae5d5;"></div>
+            <div style="display:grid; grid-template-columns:92px 1fr; gap:18px; align-items:baseline;">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#a09b8a; text-transform:uppercase;">Approach</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.5; color:#3f3c2e;">One-shot imitation learning, developed in active collaboration with UC Berkeley: the system watches a single demonstration and adapts to new tasks with zero retraining.</span>
+            </div>
+            <div style="height:1px; background:#eae5d5;"></div>
+            <div style="display:grid; grid-template-columns:92px 1fr; gap:18px; align-items:baseline;">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#a09b8a; text-transform:uppercase;">Stage</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.5; color:#3f3c2e;">Active research project, not yet in production.</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:0; border:1px solid #e4e0d2; border-radius:10px; background:#fff; overflow:hidden; margin-bottom:24px;">
+            <div style="flex:1; padding:18px 20px; border-left:3px solid #29b485;">
+              <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:26px; color:#29b485; line-height:1;">1</div>
+              <div style="font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.4; color:#54513f; margin-top:7px;">demonstration, then autonomy on unseen tasks — no retraining.</div>
+            </div>
+            <div style="flex:1; padding:18px 20px; border-left:1px solid #ece8da; box-shadow:inset 3px 0 0 var(--accent,#6b6cf5);">
+              <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:26px; color:var(--accent,#6b6cf5); line-height:1;">~14×</div>
+              <div style="font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.4; color:#54513f; margin-top:7px;">success rate over the one-shot baseline on our evaluation set — benchmark on the project page.</div>
+            </div>
+          </div>
+          <a href="ItalAI%20Project%20WIZARD.dc.html" style="margin-top:auto; align-self:flex-start; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#0c0717; border:1px solid #0c0717; padding:13px 26px; border-radius:40px; text-decoration:none; transition:all .18s ease;" style-hover="background:#0c0717; color:#f4f1e6;">READ THE PROJECT NOTE</a>
+        </div>
+        <div style="background:#fbfaf3; border:1px solid #e4e0d2; border-radius:14px; padding:30px 30px 28px; display:flex; flex-direction:column;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <span style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11px; letter-spacing:2px; color:#8a8676; text-transform:uppercase;">Tactile-reactive manipulation</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1px; color:#8a8676;">Multi-institutional</span>
+          </div>
+          <h3 style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:26px; line-height:1.1; letter-spacing:-0.5px; color:#0c0717; margin:0 0 20px;">T-Rex</h3>
+          <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:22px;">
+            <div style="display:grid; grid-template-columns:92px 1fr; gap:18px; align-items:baseline;">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#a09b8a; text-transform:uppercase;">Problem</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.5; color:#3f3c2e;">Dexterous manipulation degrades when contact is uncertain and vision alone cannot resolve it.</span>
+            </div>
+            <div style="height:1px; background:#eae5d5;"></div>
+            <div style="display:grid; grid-template-columns:92px 1fr; gap:18px; align-items:baseline;">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#a09b8a; text-transform:uppercase;">Approach</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.5; color:#3f3c2e;">Tactile-reactive control fusing touch with vision. A 36-researcher multi-institutional collaboration — ItalAI’s contribution is documented in the author list, not claimed as sole authorship.</span>
+            </div>
+            <div style="height:1px; background:#eae5d5;"></div>
+            <div style="display:grid; grid-template-columns:92px 1fr; gap:18px; align-items:baseline;">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#a09b8a; text-transform:uppercase;">Stage</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.5; color:#3f3c2e;">Active collaboration, currently in the research and validation stage.</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:0; border:1px solid #e4e0d2; border-radius:10px; background:#fff; overflow:hidden; margin-bottom:24px;">
+            <div style="flex:1; padding:18px 20px; border-left:3px solid #29b485;">
+              <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:26px; color:#29b485; line-height:1;">36</div>
+              <div style="font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.4; color:#54513f; margin-top:7px;">researchers across the collaboration — ItalAI among the named affiliations.</div>
+            </div>
+            <div style="flex:1; padding:18px 20px; border-left:1px solid #ece8da; box-shadow:inset 3px 0 0 var(--accent,#6b6cf5);">
+              <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:26px; color:var(--accent,#6b6cf5); line-height:1;">2</div>
+              <div style="font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.4; color:#54513f; margin-top:7px;">sensing modalities fused — touch and vision, in one control loop.</div>
+            </div>
+          </div>
+          <a href="ItalAI%20Projects.dc.html" style="margin-top:auto; align-self:flex-start; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#0c0717; border:1px solid #0c0717; padding:13px 26px; border-radius:40px; text-decoration:none; transition:all .18s ease;" style-hover="background:#0c0717; color:#f4f1e6;">READ THE PROJECT NOTE</a>
         </div>
       </div>
     </div>
@@ -203,9 +226,9 @@
           <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#2fcb92; text-transform:uppercase; margin-bottom:16px;">In action</div>
           <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:33px; line-height:1.2; letter-spacing:-0.5px; color:#f4f1e6; margin:0;">Research, running in the <span style="color:#9b9cf7;">real world</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
         </div>
-        <p style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.6; color:#8e88a6; margin:0; max-width:360px;">Live footage from WIZARD, LEGO and T-Rex — models operating on real hardware, outside the lab.</p>
+        <p style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.6; color:#8e88a6; margin:0; max-width:360px;">Live footage from WIZARD and T-Rex — models operating on real hardware, outside the lab.</p>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
         <div style="position:relative; aspect-ratio:4/5; border-radius:14px; overflow:hidden; background:#140d2e; border:1px solid #241a44;">
           <video src="https://fascetta.github.io/WIZARD/static/videos/LIBERO_Goal/task3_put_the_wine_bottle_on_top_of_the_cabinet.mp4" autoplay="" muted="" loop="" playsinline="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"></video>
           <div style="position:absolute; left:12px; top:12px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:10px; letter-spacing:1.5px; color:#0c0717; background:#f4f1e6; padding:4px 9px; border-radius:30px; pointer-events:none;">WIZARD</div>
@@ -217,11 +240,6 @@
           <div style="position:absolute; left:12px; bottom:12px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.5px; color:#eae6f5; background:rgba(10,6,24,0.62); padding:5px 10px; border-radius:30px; pointer-events:none;">Cup pickup · real world</div>
         </div>
         <div style="position:relative; aspect-ratio:4/5; border-radius:14px; overflow:hidden; background:#140d2e; border:1px solid #241a44;">
-          <video src="https://lego-grasp.github.io/static/videos/franka_eval_joint.mp4" autoplay="" muted="" loop="" playsinline="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"></video>
-          <div style="position:absolute; left:12px; top:12px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:10px; letter-spacing:1.5px; color:#0c0717; background:#f4f1e6; padding:4px 9px; border-radius:30px; pointer-events:none;">LEGO</div>
-          <div style="position:absolute; left:12px; bottom:12px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.5px; color:#eae6f5; background:rgba(10,6,24,0.62); padding:5px 10px; border-radius:30px; pointer-events:none;">Zero-shot grasp</div>
-        </div>
-        <div style="position:relative; aspect-ratio:4/5; border-radius:14px; overflow:hidden; background:#140d2e; border:1px solid #241a44;">
           <video src="https://tactile-reactive-dexterous.github.io/figures/hero_short.mp4" autoplay="" muted="" loop="" playsinline="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"></video>
           <div style="position:absolute; left:12px; top:12px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:10px; letter-spacing:1.5px; color:#0c0717; background:#f4f1e6; padding:4px 9px; border-radius:30px; pointer-events:none;">T-REX</div>
           <div style="position:absolute; left:12px; bottom:12px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.5px; color:#eae6f5; background:rgba(10,6,24,0.62); padding:5px 10px; border-radius:30px; pointer-events:none;">Tactile dexterity</div>
@@ -230,15 +248,15 @@
     </div>
   </section>
 
-  <!-- ============ INSIGHTS (horizontal rail) ============ -->
+  <!-- ============ blogs (horizontal rail) ============ -->
   <section style="background:#efece1; border-top:1px solid #e1ddce;">
     <div style="max-width:1180px; margin:0 auto; padding:var(--pad-ins,68px 0 80px);">
       <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px; padding:0 56px;">
         <div>
-          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#29b485; text-transform:uppercase; margin-bottom:16px;">Insights</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#29b485; text-transform:uppercase; margin-bottom:16px;">blogs</div>
           <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:33px; line-height:1.2; letter-spacing:-0.5px; color:#0c0717; margin:0;">From research to <span style="color:#29b485;">reality</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
         </div>
-        <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#0c0717; border:1px solid #0c0717; padding:14px 26px; border-radius:40px; cursor:pointer; white-space:nowrap; transition:all .18s ease;" style-hover="background:#0c0717; color:#f4f1e6;" onclick="location.href='ItalAI%20Insights.dc.html'">READ MORE</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#0c0717; border:1px solid #0c0717; padding:14px 26px; border-radius:40px; cursor:pointer; white-space:nowrap; transition:all .18s ease;" style-hover="background:#0c0717; color:#f4f1e6;" onclick="location.href='ItalAI%20blogs.dc.html'">READ MORE</div>
       </div>
 
       <div class="ital-rail" style="display:flex; gap:24px; overflow-x:auto; padding:6px 56px 22px; scroll-snap-type:x mandatory;">
@@ -248,7 +266,8 @@
           </div>
           <div style="padding:24px 24px 26px;">
             <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">Beyond Vanilla SSMs</div>
-            <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#6f6b58; margin-bottom:24px;">Is there an alternative to transformer networks?</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#6f6b58; margin-bottom:12px;">Is there an alternative to transformer networks?</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1px; color:#8a8676; text-transform:uppercase; margin-bottom:22px;">ItalAI Research · Sapienza</div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.5px; color:var(--accent,#6b6cf5);">/ Transformers /</span>
               <span style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:12px; letter-spacing:.5px; color:#0c0717;">MAMBA · P3</span>
@@ -261,7 +280,8 @@
           </div>
           <div style="padding:24px 24px 26px;">
             <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">State Space Models, Explained</div>
-            <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#6f6b58; margin-bottom:24px;">Mapping the post-transformer landscape.</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#6f6b58; margin-bottom:12px;">Mapping the post-transformer landscape.</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1px; color:#8a8676; text-transform:uppercase; margin-bottom:22px;">ItalAI Research · Sapienza</div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.5px; color:var(--accent,#6b6cf5);">/ Architectures /</span>
               <span style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:12px; letter-spacing:.5px; color:#0c0717;">MAMBA · P2</span>
@@ -274,7 +294,8 @@
           </div>
           <div style="padding:24px 24px 26px;">
             <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">Sequence-to-Sequence, Revisited</div>
-            <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#6f6b58; margin-bottom:24px;">Where attention still wins — and where it doesn't.</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#6f6b58; margin-bottom:12px;">Where attention still wins — and where it doesn't.</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1px; color:#8a8676; text-transform:uppercase; margin-bottom:22px;">ItalAI Research · Sapienza</div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.5px; color:#29b485;">/ Foundations /</span>
               <span style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:12px; letter-spacing:.5px; color:#0c0717;">MAMBA · P1</span>
@@ -287,7 +308,8 @@
           </div>
           <div style="padding:24px 24px 26px;">
             <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px; color:#0c0717; margin-bottom:10px;">One Demo, Then Autonomy</div>
-            <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#6f6b58; margin-bottom:24px;">How Wizard generalises from a single watch.</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#6f6b58; margin-bottom:12px;">How Wizard generalises from a single watch.</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1px; color:#8a8676; text-transform:uppercase; margin-bottom:22px;">ItalAI Research · UC Berkeley collaboration</div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.5px; color:var(--accent,#6b6cf5);">/ Robotics /</span>
               <span style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:12px; letter-spacing:.5px; color:#0c0717;">WIZARD · 01</span>
@@ -298,15 +320,24 @@
     </div>
   </section>
 
-  <!-- ============ CONTACT ============ -->
+  <!-- ============ AUDIENCE FIT (ICP filter) + CONTACT ============ -->
   <section style="background:#0c0717;">
-    <div style="max-width:1180px; margin:0 auto; padding:72px 56px 56px; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start;">
+    <div style="max-width:1180px; margin:0 auto; padding:76px 56px 0;">
+      <div style="border-top:1px solid #1d1736; border-bottom:1px solid #1d1736; padding:44px 0; display:grid; grid-template-columns:auto 1fr; gap:44px; align-items:start;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:3px; color:var(--accent,#6b6cf5); text-transform:uppercase; padding-top:8px; white-space:nowrap;">What we build</div>
+        <div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:24px; line-height:1.5; color:#f4f1e6; margin:0; max-width:840px; text-wrap:pretty;">We build Physical AI systems for hard problems with no off-the-shelf solutions — perception, manipulation and real-time control in environments that break standard tooling.</p>
+          <p style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.6; color:#8e88a6; margin:16px 0 0; max-width:640px;">Every system starts as research: published, benchmarked, and developed alongside the institutions doing the underlying work. That is what it takes to build something that holds up outside the lab.</p>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1180px; margin:0 auto; padding:56px 56px; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start;">
 
       <div style="max-width:520px;">
-        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:38px; line-height:1.2; letter-spacing:-0.5px; color:#f4f1e6; margin:0 0 18px;">Building the next <span style="font-style:italic; font-weight:500; color:#9b9cf7;">industrial revolution</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
-        <p style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.6; color:#b8b2c8; margin:0 0 32px; max-width:440px;">We turn frontier AI and robotics research into systems that work in the real world. Designed for scale. Built for impact.</p>
+        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:38px; line-height:1.2; letter-spacing:-0.5px; color:#f4f1e6; margin:0 0 18px;">Bring us a <span style="font-style:italic; font-weight:500; color:#9b9cf7;">hard problem</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
+        <p style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.6; color:#b8b2c8; margin:0 0 32px; max-width:440px;">Talking to Physical AI researchers, not to an account team. If we think we can move the problem, we will tell you how — and if we cannot, we will tell you that too.</p>
 
-        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a85; text-transform:uppercase; margin-bottom:10px;">Partnership &amp; Collaborations</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a85; text-transform:uppercase; margin-bottom:10px;">Research &amp; collaborations</div>
         <a href="#" style="font-family:'DM Sans',sans-serif; font-size:18px; color:#9b9cf7; text-decoration:none; border-bottom:1px solid #4a4560; padding-bottom:2px;">research@italailabs.com</a>
 
         <div style="display:flex; gap:14px; margin-top:30px;">
@@ -318,7 +349,7 @@
 
       <div style="background:#15102b; border:1px solid #2a2444; border-radius:18px; padding:38px 36px;">
         <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:24px; letter-spacing:.5px; color:#f4f1e6; text-transform:uppercase; margin-bottom:8px;">Get in touch</div>
-        <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#9a95ad; margin-bottom:30px;">Let's explore how AI and robotics can move your project beyond the lab.</div>
+        <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#9a95ad; margin-bottom:30px;">Tell us about the technical problem you are working on and who inside your team would own it.</div>
 
         <div style="margin-bottom:22px;">
           <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">Full name</div>
@@ -330,13 +361,33 @@
         </div>
         <div style="margin-bottom:22px;">
           <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">Subject</div>
-          <input type="text" placeholder="What's this about?" style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0;">
+          <input type="text" placeholder="The problem in one line" style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0;">
         </div>
         <div style="margin-bottom:30px;">
           <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">Message</div>
-          <textarea rows="3" placeholder="Tell us a little more…" style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0; resize:none;"></textarea>
+          <textarea rows="3" placeholder="What have you tried, and what does a successful outcome look like?" style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0; resize:none;"></textarea>
         </div>
-        <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#f4f1e6; background:var(--accent,#6b6cf5); padding:15px 30px; border-radius:40px; text-align:center; cursor:pointer; transition:transform .18s ease;" style-hover="transform:translateY(-2px);">SEND MESSAGE</div>
+        <div style="margin-bottom:22px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">How did you hear about us</div>
+          <select style="width:100%; background:transparent; border:none; border-bottom:1px solid #3a3552; color:#f4f1e6; font-size:16px; padding:8px 0; appearance:none; cursor:pointer;">
+            <option style="color:#0c0717;">Select one</option>
+            <option style="color:#0c0717;">LinkedIn</option>
+            <option style="color:#0c0717;">ItalAI blogs</option>
+            <option style="color:#0c0717;">Conference</option>
+            <option style="color:#0c0717;">Paper citation</option>
+            <option style="color:#0c0717;">Search</option>
+            <option style="color:#0c0717;">Referral from a colleague</option>
+            <option style="color:#0c0717;">Other</option>
+          </select>
+        </div>
+        <div style="margin-bottom:30px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1.5px; color:#8a85a0; text-transform:uppercase; margin-bottom:8px;">Have you spoken with anyone at ItalAI before?</div>
+          <div style="display:flex; gap:10px; margin-top:12px;">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#cfc9d8; border:1px solid #3a3552; padding:9px 22px; border-radius:30px; cursor:pointer; transition:all .18s ease;" style-hover="border-color:var(--accent,#6b6cf5); color:#f4f1e6;">YES</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#cfc9d8; border:1px solid #3a3552; padding:9px 22px; border-radius:30px; cursor:pointer; transition:all .18s ease;" style-hover="border-color:var(--accent,#6b6cf5); color:#f4f1e6;">NO</span>
+          </div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#f4f1e6; background:var(--accent,#6b6cf5); padding:15px 30px; border-radius:40px; text-align:center; cursor:pointer; transition:transform .18s ease;" style-hover="transform:translateY(-2px);">TELL US ABOUT YOUR CHALLENGE</div>
       </div>
     </div>
   </section>
@@ -347,19 +398,19 @@
       <div style="display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:44px; padding-bottom:48px; border-bottom:1px solid #1d1736;">
         <div>
           <img src="assets/logo.svg" alt="ItalAI" style="height:26px; display:block; margin-bottom:18px;">
-          <p style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6; color:#7a7590; margin:0 0 22px; max-width:300px;">Frontier AI &amp; robotics, built in Roma for the next industrial revolution.</p>
+          <p style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6; color:#7a7590; margin:0 0 22px; max-width:300px;">Research-grade Physical AI and robotics. A Sapienza spinout, built in Roma.</p>
           <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#9b9cf7;">research@italailabs.com</div>
         </div>
         <div>
           <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Company</div>
           <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
-            <a href="ItalAI%20About.dc.html" style="color:#b8b2c8; text-decoration:none;">About</a><a href="ItalAI%20What%20We%20Do.dc.html" style="color:#b8b2c8; text-decoration:none;">What we do</a><a href="ItalAI%20Whats%20Next.dc.html" style="color:#b8b2c8; text-decoration:none;">What's next</a><a href="ItalAI%20Careers.dc.html" style="color:#b8b2c8; text-decoration:none;">Careers</a>
+            <a href="ItalAI%20About.dc.html" style="color:#b8b2c8; text-decoration:none;">About</a><a href="ItalAI%20Partnership%20Overview.dc.html" style="color:#b8b2c8; text-decoration:none;">How an engagement works</a><a href="ItalAI%20Careers.dc.html" style="color:#b8b2c8; text-decoration:none;">Careers</a><a href="ItalAI%20Contact.dc.html" style="color:#b8b2c8; text-decoration:none;">Get in touch</a>
           </div>
         </div>
         <div>
           <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Research</div>
           <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
-            <a href="ItalAI%20Projects.dc.html" style="color:#b8b2c8; text-decoration:none;">Projects</a><a href="ItalAI%20Project%20WIZARD.dc.html" style="color:#b8b2c8; text-decoration:none;">Wizard</a><a href="ItalAI%20Insights.dc.html" style="color:#b8b2c8; text-decoration:none;">Insights</a><a href="ItalAI%20What%20We%20Do.dc.html" style="color:#b8b2c8; text-decoration:none;">Publications</a>
+            <a href="ItalAI%20Research.dc.html" style="color:#b8b2c8; text-decoration:none;">Research &amp; publications</a><a href="ItalAI%20Projects.dc.html" style="color:#b8b2c8; text-decoration:none;">Projects</a><a href="ItalAI%20Project%20WIZARD.dc.html" style="color:#b8b2c8; text-decoration:none;">WIZARD</a><a href="ItalAI%20blogs.dc.html" style="color:#b8b2c8; text-decoration:none;">blogs</a>
           </div>
         </div>
         <div>
@@ -445,9 +496,11 @@ class Component extends DCLogic {
       heroGrad = 'linear-gradient(180deg, #130b2e 0%, #0c0717 100%)';
       rowMode = 0;
     }
-    let row1 = 'transparent', row2 = 'transparent', row3 = 'transparent';
-    if (rowMode === 1) { row1 = a.soft; row2 = 'rgba(12,7,23,0.035)'; row3 = 'rgba(41,180,133,0.06)'; }
-    if (rowMode === 2) { row1 = a.soft2; row2 = 'rgba(12,7,23,0.06)'; row3 = 'rgba(41,180,133,0.13)'; }
+    // capability cells sit on a 1px rule grid, so each tint must stay opaque over the beige base
+    const wash = (c) => 'linear-gradient(' + c + ',' + c + '), #f4f1e6';
+    let row1 = '#f4f1e6', row2 = '#f4f1e6', row3 = '#f4f1e6';
+    if (rowMode === 1) { row1 = wash(a.soft); row2 = wash('rgba(12,7,23,0.035)'); row3 = wash('rgba(41,180,133,0.06)'); }
+    if (rowMode === 2) { row1 = wash(a.soft2); row2 = wash('rgba(12,7,23,0.06)'); row3 = wash('rgba(41,180,133,0.13)'); }
 
     const f = ({ 'Compact': 0.78, 'Comfortable': 1.0, 'Spacious': 1.34 })[this.props.density] || 1.0;
     const pad = (t, b) => Math.round(t * f) + 'px 56px ' + Math.round(b * f) + 'px';

@@ -12,10 +12,6 @@
     position: relative;
     overflow: hidden;
 
-    .container {
-        width: 100%;
-    }
-
     .main-hero-grid {
         display: grid;
         grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
@@ -64,7 +60,7 @@
         h1 {
             // !important required: animated-header.html defaults to class="h1-size", whose
             // font-size in _globals.scss is itself !important, so a plain override here is a no-op.
-            font-size: clamp(1.5rem, 4.2vw, 2.875rem) !important; // mockup: 46px
+            font-size: clamp(1.5rem, 3.6vw, 2.375rem) !important; // mockup: 38px (previous "46px" comment was measured against a different, shorter headline)
             font-weight: 800;
             line-height: 1.18;
             margin-top: 0;
@@ -133,8 +129,8 @@
 .partners-bar-section {
     position: relative;
     z-index: 10;
-    margin-top: -66px;
     background: var(--standard-light);
+    border-bottom: 1px solid #e6e1d0;
 }
 
 .partners-bar {
@@ -171,26 +167,93 @@
     opacity: 0.92;
 }
 
-// "What We Do" — sticky intro column beside the numbered row list
+// Proof strip variant: Publications | Collaborations, 2-column split.
+// Flat full-bleed band, not the floating rounded card the base .partners-bar uses.
+.partners-bar.partners-bar--split {
+    display: grid;
+    grid-template-columns: 0.78fr 1.22fr;
+    align-items: start;
+    gap: 48px;
+    max-width: var(--content-width);
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 26px 56px 28px;
+}
+
+.partners-bar-block:first-child {
+    padding-right: 48px;
+    border-right: 1px solid #e6e1d0;
+}
+
+.partners-bar-venues {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    letter-spacing: 1px;
+    color: var(--standard-warm);
+}
+
+.partners-bar-names {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    color: var(--standard-warm);
+    font-family: var(--accent-family);
+    font-size: 1.1875rem;
+    line-height: 1.2;
+}
+
+.partners-bar-name {
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+.partners-bar-name--medium {
+    font-weight: 500;
+}
+
+.partners-bar-name--upper {
+    font-size: 0.9375rem;
+    letter-spacing: 2px;
+}
+
+.partners-bar-name--dm {
+    font-family: var(--body-family);
+    font-weight: 700;
+    font-size: 1.125rem;
+    letter-spacing: -0.3px;
+}
+
+.partners-bar-dot {
+    color: #c9c4b4;
+}
+
+.cards-section {
+    background: var(--standard-light);
+}
+
+// "Where We Work" — intro column vertically centered beside the capability grid
 .what-we-do-grid {
     display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    align-items: start;
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
     gap: 3.5rem;
     padding: 72px 3.5rem 80px;
 }
 
 .what-we-do-intro {
-    position: sticky;
-    top: 104px;
-
     .section-label {
         margin-bottom: 1rem;
     }
 
     h2 {
-        font-size: clamp(1.5rem, 3vw, 2.0625rem) !important; // mockup: 33px (h3-size is !important, see hero h1 note above)
-        line-height: 1.25;
+        font-size: clamp(1.5rem, 2vw, 1.75rem) !important; // mockup: 28px (h3-size is !important, see hero h1 note above)
+        line-height: 1.28;
+        letter-spacing: -0.5px;
+        max-width: 400px;
         margin: 0 0 1.25rem;
     }
 
@@ -201,293 +264,179 @@
     }
 }
 
-.card-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    padding: 0.5rem 0;
-    margin-top: 1rem;
+// "Where We Work" capability grid (replaces the old 3-card row)
+.capability-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgb(221, 217, 201);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
 
-    .card {
-        display: flex;
-        align-items: flex-start;
-        gap: 2rem;
-        padding: 1.6rem 1.5rem;
-        margin: 0 -1.5rem;
-        border-radius: var(--radius-md);
-        border-bottom: 1px solid #ddd9c9;
-        background: transparent;
-        transition: background 0.18s ease;
-        cursor: pointer;
+.capability-cell {
+    background: var(--standard-light);
+    padding: 28px 30px;
 
-        &:last-child {
-            border-bottom: none;
-        }
-
-        &:hover {
-            background: #ebe7d8;
-        }
-
-        > * {
-            margin: 0;
-            color: var(--standard-dark);
-            position: relative;
-        }
-
-        .card-index {
-            font-family: var(--header-family);
-            font-weight: 800;
-            font-size: 1.25rem;
-            width: 2.5rem;
-            flex: none;
-            padding-top: 0.25rem;
-        }
-
-        .card-copy {
-            flex: 1;
-
-            h2 {
-                font-size: 1.3125rem !important; // mockup: 21px (h5-size is !important, see hero h1 note above)
-                margin: 0 0 0.5rem;
-            }
-
-            p {
-                font-size: 1.0625rem; // mockup: 17px
-                margin: 0;
-                color: var(--standard-dark-alt);
-            }
-        }
-
-        .card-arrow {
-            font-family: var(--header-family);
-            font-size: 1.25rem;
-            padding-top: 0.15rem;
-            flex: none;
-        }
-    }
-
-    .blue .card-index,
-    .blue .card-arrow {
-        color: var(--standard-blue);
-    }
-
-    .dark .card-index,
-    .dark .card-arrow {
+    h2 {
+        font-size: 0.9375rem !important; // mockup: 15px (h6-size class default is too large at this viewport)
+        letter-spacing: 0.5px;
+        margin: 0 0 0.6rem;
         color: var(--standard-dark);
     }
 
-    .green .card-index,
-    .green .card-arrow {
-        color: var(--standard-green);
+    p {
+        font-size: 0.875rem; // mockup: 14px
+        color: var(--standard-dark-alt);
+        margin: 0;
+        line-height: 1.5;
     }
 }
 
-.why-section {
-    padding: 0;
+// "Why Now" bridge band (replaces the old sticky-scroll section)
+.bridge-section {
     background: var(--standard-dark);
     color: var(--standard-light);
+
+    // Padding lives on .container (not this section) so .container's own
+    // max-width:1180px isn't squeezed by outer padding at laptop widths
+    // (~1220-1290px) before the tablet-extra breakpoint kicks in.
+    .container {
+        padding-block: 76px 84px;
+        padding-inline: 3.5rem;
+    }
 }
 
-.why-grid {
-    padding: 0 3.5rem;
-    display: grid;
-    grid-template-columns: 0.92fr 1.08fr;
-    gap: 4rem;
-    align-items: start;
-}
-
-.why-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2.5rem 0;
+.bridge-content {
+    max-width: 760px;
 
     h2 {
-        font-size: clamp(1.75rem, 3.2vw, 2.25rem) !important; // mockup: 36px (h2-size is !important, see hero h1 note above)
-        line-height: 1.22;
-        margin: 0 0 2.25rem;
-        max-width: 420px;
-    }
-
-    .cta-light {
-        margin-top: 2.5rem; // comp: 40px separation from steps nav
-        align-self: flex-start; // prevent flex column stretch from expanding button full-width
+        font-size: clamp(1.5rem, 2.6vw, 1.875rem) !important; // mockup: 30px
+        font-weight: 700;
+        line-height: 1.35;
+        margin: 0 0 2rem;
     }
 }
 
-.why-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    border-left: 1px solid #221b3a;
-    margin: 0;
-}
-
-.why-step {
+.bridge-ctas {
     display: flex;
     align-items: center;
-    gap: 0.9rem;
-    padding: 0.7rem 0 0.7rem 1.1rem;
-    margin-left: -1px;
-    border-left: 2px solid transparent;
-    color: #6f6a85;
-    transition: color 0.25s ease, border-color 0.25s ease;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+}
 
-    .why-step-num {
-        font-family: var(--header-family);
-        font-weight: 800;
-        font-size: 0.8125rem;
-    }
+// Featured Projects — 2-card grid (replaces the old WIZARD-only section)
+.featured-projects-section {
+    background: var(--standard-light);
 
-    .why-step-label {
-        font-family: var(--header-family);
-        font-weight: 700;
-        font-size: 0.875rem;
-        letter-spacing: 1px;
-    }
-
-    &.active {
-        color: var(--standard-light);
-        border-left-color: var(--standard-blue);
+    .container {
+        padding-block: 76px 84px;
+        padding-inline: 3.5rem;
     }
 }
 
-.why-scroll {
-    padding: 18vh 0;
+.featured-projects-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.25rem;
+
+    h2 {
+        margin: 0.5rem 0 0;
+    }
 }
 
-.why-cta-mobile {
-    display: none;
+.featured-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
 }
 
-.why-block {
-    min-height: 64vh;
+.featured-project-card {
+    background: #fbfaf3;
+    border: 1px solid #e4e0d2;
+    border-radius: 14px;
+    padding: 28px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    border-top: 1px solid #1b1533;
-    padding: 3rem 0;
-
+    gap: 1.25rem;
+    height: 100%; // stretch to the taller card in the row (grid row already stretches by default; explicit for clarity)
+    box-sizing: border-box;
     h3 {
-        font-size: clamp(1.375rem, 2.4vw, 1.6875rem) !important; // mockup: 27px (h3-size is !important, see hero h1 note above)
-        line-height: 1.3;
-        margin: 0 0 1.25rem;
-    }
-
-    .title-emphasis {
-        font-style: italic;
-        font-weight: 200;
-    }
-
-    .content-text p {
-        font-size: clamp(1rem, 1.8vw, 1.1875rem); // mockup: 19px
-        line-height: 1.65;
-        color: #c2bcd2;
-        font-weight: 300;
-        margin: 0 0 1rem;
-
-        &:last-child {
-            color: #8e88a6;
-            margin-bottom: 0;
-        }
+        margin: 0;
     }
 }
 
-.why-block-label {
+.featured-project-tag {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
     font-family: var(--header-family);
     font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: #6f6a9a;
-    margin-bottom: 1.1rem;
-}
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--standard-blue);
 
-
-.project-section {
-    padding: 0;
-}
-.project-content {
-    padding: 52px 3.5rem 56px;
-    .project-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-top: 0.75rem;
-        margin-bottom: 0;
-        
-        h2 {
-            margin: 0;
-            font-weight: 700;
-            line-height: 1.2;
-            font-size: clamp(1.25rem, 2.2vw, 1.75rem) !important; // mockup: 28px
-        }
+    .featured-project-tag-sub {
+        color: #8a8676;
+        font-weight: 400;
     }
 }
 
-.project-body {
-  display: grid !important;
-  padding: 1.5rem 0 0;
-  grid-template-columns: 1.15fr 0.85fr;
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    "text  stats"
-    "cta   stats";
-  column-gap: 3.5rem;
-  row-gap: 1.5rem;
-  align-items: start;
-
-  > .content-description {
-    grid-area: text;
-    align-self: start;
+.featured-project-facts {
     margin: 0;
-    color: var(--standard-warm);
-    font-size: clamp(1rem, 1.4vw, 1.0625rem); // mockup: 17px
-    line-height: 1.55;
-  }
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
 
-  > .cta-dark {
-    grid-area: cta;
-    align-self: start;
-    width: fit-content;
-  }
+    dt {
+        font-family: var(--header-family);
+        font-size: 0.6875rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #a09b8a;
+        margin: 0 0 0.25rem;
+    }
+
+    dd {
+        margin: 0;
+        font-size: 0.9375rem;
+        line-height: 1.55;
+        color: var(--standard-dark-alt);
+    }
 }
 
-.project-stats {
-  grid-area: stats;
-  display: flex;
-  flex-direction: row;
-  border: 1px solid #e4e0d2;
-  border-radius: var(--radius-md);
-  background: #fff;
-  overflow: hidden;
+.featured-project-stats {
+    display: flex;
+    border: 1px solid #e4e0d2;
+    border-radius: var(--radius-md);
+    background: #fff;
+    overflow: hidden;
+    margin-top: auto; // anchors stats + the CTA below it to the card's bottom edge, regardless of how much text precedes them
+
+    .stat-card {
+        flex: 1;
+    }
 }
 
 @media (max-width: 768px) {
-  .project-body,
-  .insights-body {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "text"
-      "stats"
-      "cta";
-  }
-
-  .project-stats {
-    flex-direction: column;
-  }
+    .featured-project-stats {
+        flex-direction: column;
+    }
 }
 
-.insights-section {
+.blogs-section {
     padding: 68px 0 80px;
     background: var(--standard-cream);
     border-top: 1px solid #e1ddce;
 }
-.insights-content {
+.blogs-content {
     padding: 0 3.5rem;
-    .insights-title {
+    .blogs-title {
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
@@ -502,7 +451,7 @@
         }
     }
 }
-.insights-rail {
+.blogs-rail {
     display: flex;
     gap: 24px;
     overflow-x: auto;
@@ -513,6 +462,51 @@
         flex: 0 0 330px;
         scroll-snap-align: start;
     }
+}
+
+.icp-section {
+    background: var(--standard-dark);
+    color: var(--standard-light);
+
+    .container {
+        padding-block: 76px 0;
+        padding-inline: 3.5rem;
+    }
+}
+
+.icp-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 44px;
+    align-items: start;
+    border-top: 1px solid #1d1736;
+    border-bottom: 1px solid #1d1736;
+    padding: 44px 0;
+}
+
+.icp-label {
+    padding-top: 8px;
+    white-space: nowrap;
+    margin-bottom: 0;
+}
+
+.icp-copy {
+    max-width: 840px;
+}
+
+.icp-statement {
+    font-size: clamp(1.125rem, 1.8vw, 1.5rem); // mockup: 24px
+    line-height: 1.5;
+    margin: 0;
+    max-width: 840px;
+}
+
+.icp-substatement {
+    font-size: 1rem; // mockup: 16px
+    line-height: 1.6;
+    color: #8e88a6;
+    margin: 1rem 0 0;
+    max-width: 640px;
 }
 
 /* Thin styled scrollbar for horizontal rails */

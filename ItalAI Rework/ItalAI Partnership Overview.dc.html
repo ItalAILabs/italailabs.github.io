@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,700&amp;family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&amp;family=Spectral:ital,wght@0,400;0,500;0,600;1,500&amp;display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: #9b9cf7; }
+    a:hover { color: #c4c4fb; }
+  </style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#0c0717">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0c0717"></rect>
+    <text x="600" y="400" font-family="'JetBrains Mono', monospace" font-weight="800" font-size="150" letter-spacing="6" fill="#f4f1e6" text-anchor="middle" dominant-baseline="middle">ITAL<tspan fill="#6b6cf5">A</tspan>I</text>
+    <circle cx="848" cy="330" r="20" fill="#E63A1E"></circle>
+  </svg>
+</template>
+
+<div style="{{ rootStyle }}">
+
+  <!-- ============ NAV ============ -->
+  <div style="position:sticky; top:0; z-index:60; height:74px; background:rgba(12,7,23,0.92); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:space-between; padding:0 56px; border-bottom:1px solid #1b1533;">
+    <a href="ItalAI%20Home.dc.html"><img src="assets/logo.svg" alt="ItalAI" style="height:26px; display:block;"></a>
+    <div style="display:flex; gap:38px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#cfc9d8;">
+      <a href="ItalAI%20About.dc.html" style="color:#cfc9d8; text-decoration:none;">ABOUT</a><a href="ItalAI%20Research.dc.html" style="color:#cfc9d8; text-decoration:none;">RESEARCH</a><a href="ItalAI%20Projects.dc.html" style="color:#cfc9d8; text-decoration:none;">PROJECTS</a><a href="ItalAI%20blogs.dc.html" style="color:#cfc9d8; text-decoration:none;">blogs</a>
+    </div>
+    <a href="ItalAI%20Contact.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; letter-spacing:1px; color:#f4f1e6; border:1px solid #4a4560; padding:12px 22px; border-radius:40px; cursor:pointer; text-decoration:none; transition:all .18s ease;" style-hover="background:var(--accent,#6b6cf5); border-color:var(--accent,#6b6cf5);">GET IN TOUCH</a>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section style="background:linear-gradient(180deg, #130b2e 0%, #0c0717 100%);">
+    <div style="max-width:1180px; margin:0 auto; padding:70px 56px 72px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; color:#6f6a9a; margin-bottom:26px;"><a href="ItalAI%20Home.dc.html" style="color:#6f6a9a; text-decoration:none;">HOME</a> / <span style="color:#9b9cf7;">PARTNERSHIP OVERVIEW</span></div>
+      <div style="display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:end;">
+        <h1 style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:40px; line-height:1.16; letter-spacing:-0.5px; color:#f4f1e6; margin:0; text-transform:uppercase; text-wrap:balance;">How an engagement works<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:#E63A1E;margin-left:7px;vertical-align:baseline;"></span></h1>
+        <div>
+          <p style="font-family:'DM Sans',sans-serif; font-size:18px; line-height:1.6; color:#b8b2c8; margin:0 0 14px;">Written for whoever inside your organisation has to approve the work and explain it afterwards.</p>
+          <p style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.6; color:#8e88a6; margin:0;">No fixed terms here. This page exists to open the conversation, not to close it before fit has been established on both sides.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT ITALAI IS ============ -->
+  <section style="background:#f4f1e6;">
+    <div style="max-width:1180px; margin:0 auto; padding:70px 56px 74px; display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:start;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#29b485; text-transform:uppercase; margin-bottom:16px;">What ItalAI is</div>
+        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:31px; line-height:1.24; letter-spacing:-0.5px; color:#0c0717; margin:0;">A research group, not a delivery shop<span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
+      </div>
+      <div>
+        <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.65; color:#3f3c2e; margin:0 0 20px;">We work on hard problems in computer vision, sensor fusion, embodied AI and real-time control for physical systems — the class of problem where off-the-shelf tools and standard consulting engagements do not reach.</p>
+        <p style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.65; color:#54513f; margin:0 0 32px;">Our research network spans Sapienza University in Rome, UC Berkeley and Stanford. The work is published at CVPR, ICLR, ECCV, IROS and AAAI. Our anchor industrial relationship is a multi-year partnership with Panasonic, a global industrial technology leader — which we can speak to as evidence of how we work, even where the project detail stays confidential.</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid #e4e0d2; border-radius:14px; overflow:hidden; background:#fff;">
+          <div style="padding:26px 28px; border-right:1px solid #ece8da;">
+            <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:30px; color:var(--accent,#6b6cf5); line-height:1;">2–3</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#54513f; margin-top:10px;">active partnerships at any one time. Every partner gets the full attention of the team.</div>
+          </div>
+          <div style="padding:26px 28px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:30px; color:#29b485; line-height:1;">11</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.5; color:#54513f; margin-top:10px;">peer-reviewed papers, all public and linked on the research page.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT AN ENGAGEMENT LOOKS LIKE ============ -->
+  <section style="background:#0c0717;">
+    <div style="max-width:1180px; margin:0 auto; padding:76px 56px 80px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:28px; flex-wrap:wrap; margin-bottom:38px;">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#2fcb92; text-transform:uppercase; margin-bottom:14px;">Shape of the work</div>
+          <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:31px; line-height:1.2; letter-spacing:-0.5px; color:#f4f1e6; margin:0;">Scoped once, then milestone by milestone<span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.6; color:#8e88a6; margin:0; max-width:340px;">From first conversation to an active working engagement typically runs a few months — long enough to scope correctly, not so long that momentum is lost.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#1d1736; border:1px solid #1d1736; border-radius:14px; overflow:hidden;">
+        <div style="background:#120c26; padding:32px 30px 34px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:16px; color:var(--accent,#6b6cf5); margin-bottom:18px;">01</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:18px; color:#f4f1e6; margin-bottom:12px;">SCOPING</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6; color:#a49ebb;">We start by understanding the technical problem, defining what a successful outcome looks like, and building a research plan around it. Sometimes the honest conclusion is that the problem is not research-shaped — we say so.</div>
+        </div>
+        <div style="background:#120c26; padding:32px 30px 34px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:16px; color:#f4f1e6; margin-bottom:18px;">02</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:18px; color:#f4f1e6; margin-bottom:12px;">MILESTONES</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6; color:#a49ebb;">Work is structured around defined deliverables at each stage, agreed upfront. Nothing is open-ended.</div>
+        </div>
+        <div style="background:#120c26; padding:32px 30px 34px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:16px; color:#2fcb92; margin-bottom:18px;">03</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:18px; color:#f4f1e6; margin-bottom:12px;">REPORTING</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6; color:#a49ebb;">Progress is reported on a business cadence, separate from the technical detail: plain-language updates on what has been delivered and what comes next, without needing to track the research day to day.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW SUCCESS IS MEASURED ============ -->
+  <section style="background:#efece1; border-top:1px solid #e1ddce;">
+    <div style="max-width:1180px; margin:0 auto; padding:70px 56px 76px; display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:start;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#29b485; text-transform:uppercase; margin-bottom:16px;">Measurement</div>
+        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:31px; line-height:1.24; letter-spacing:-0.5px; color:#0c0717; margin:0;">You should be able to explain it upward<span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#E63A1E; margin-left:6px; vertical-align:baseline;"></span></h2>
+      </div>
+      <div>
+        <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.65; color:#3f3c2e; margin:0 0 20px;">At each milestone we deliver a defined output and a plain-language explanation of what it means for the capability being built. The update should go straight into your own internal reporting — to finance, to leadership, to whoever needs to know the programme is on track.</p>
+        <p style="font-family:'DM Sans',sans-serif; font-size:19px; line-height:1.65; color:#0c0717; margin:0; padding-left:22px; border-left:3px solid #29b485;">If you cannot clearly explain what you are paying for and how you will know it is working, the engagement has not been scoped correctly. That is what the milestone structure exists to prevent.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MODEL + START ============ -->
+  <section style="background:#0c0717;">
+    <div style="max-width:1180px; margin:0 auto; padding:76px 56px 40px; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#2fcb92; text-transform:uppercase; margin-bottom:16px;">The model</div>
+        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:28px; line-height:1.24; letter-spacing:-0.5px; color:#f4f1e6; margin:0 0 16px;">Shared long-term value, not a billing arrangement</h2>
+        <p style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.65; color:#b8b2c8; margin:0;">We structure partnerships to build something that keeps returning value after the engagement, rather than a standard consulting arrangement. What that looks like depends on your context, and we are happy to work through it.</p>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:#2fcb92; text-transform:uppercase; margin-bottom:16px;">How to start</div>
+        <h2 style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:28px; line-height:1.24; letter-spacing:-0.5px; color:#f4f1e6; margin:0 0 16px;">A short scoping call</h2>
+        <p style="font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.65; color:#b8b2c8; margin:0 0 28px;">No formal proposal required to begin. We assess fit on both sides before any commitment is made.</p>
+        <div style="display:flex; align-items:center; gap:24px; flex-wrap:wrap;">
+          <a href="ItalAI%20Contact.dc.html" style="font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px; letter-spacing:1px; color:#0c0717; background:#f4f1e6; padding:16px 30px; border-radius:40px; text-decoration:none; transition:transform .18s ease;" style-hover="transform:translateY(-2px);">TELL US ABOUT YOUR CHALLENGE</a>
+          <a href="mailto:research@italailabs.com" style="font-family:'DM Sans',sans-serif; font-size:17px; color:#9b9cf7; text-decoration:none; border-bottom:1px solid #4a4560; padding-bottom:2px;">research@italailabs.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER / SITEMAP ============ -->
+  <section style="background:#08040f;">
+    <div style="max-width:1180px; margin:0 auto; padding:56px 56px 0;">
+      <div style="display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:44px; padding-bottom:48px; border-bottom:1px solid #1d1736;">
+        <div>
+          <img src="assets/logo.svg" alt="ItalAI" style="height:26px; display:block; margin-bottom:18px;">
+          <p style="font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6; color:#7a7590; margin:0 0 22px; max-width:300px;">Research-grade Physical AI and robotics. A Sapienza spinout, built in Roma.</p>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#9b9cf7;">research@italailabs.com</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Company</div>
+          <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
+            <a href="ItalAI%20About.dc.html" style="color:#b8b2c8; text-decoration:none;">About</a><a href="ItalAI%20Partnership%20Overview.dc.html" style="color:#b8b2c8; text-decoration:none;">How an engagement works</a><a href="ItalAI%20Careers.dc.html" style="color:#b8b2c8; text-decoration:none;">Careers</a><a href="ItalAI%20Contact.dc.html" style="color:#b8b2c8; text-decoration:none;">Get in touch</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Research</div>
+          <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
+            <a href="ItalAI%20Research.dc.html" style="color:#b8b2c8; text-decoration:none;">Research &amp; publications</a><a href="ItalAI%20Projects.dc.html" style="color:#b8b2c8; text-decoration:none;">Projects</a><a href="ItalAI%20Project%20WIZARD.dc.html" style="color:#b8b2c8; text-decoration:none;">WIZARD</a><a href="ItalAI%20blogs.dc.html" style="color:#b8b2c8; text-decoration:none;">blogs</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:#5e5878; text-transform:uppercase; margin-bottom:18px;">Connect</div>
+          <div style="display:flex; flex-direction:column; gap:13px; font-family:'DM Sans',sans-serif; font-size:15px; color:#b8b2c8;">
+            <a href="https://www.linkedin.com/company/italai/" style="color:#b8b2c8; text-decoration:none;">LinkedIn</a><a href="https://x.com/_italai" style="color:#b8b2c8; text-decoration:none;">X / Twitter</a><a href="https://github.com/ItalAILabs" style="color:#b8b2c8; text-decoration:none;">GitHub</a><a href="ItalAI%20Contact.dc.html" style="color:#b8b2c8; text-decoration:none;">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:30px 0;"><img src="assets/logo.svg" alt="ItalAI" style="width:440px; max-width:78%; display:block; opacity:0.10;"></div>
+      <div style="border-top:1px solid #14102a; padding:24px 0 34px; display:flex; flex-wrap:wrap; gap:8px 28px; font-family:'DM Sans',sans-serif; font-size:13px; color:#5e5878;">
+        <span>© 2026 ItalAI S.R.L. All rights reserved.</span>
+        <span>Corso Vittorio Emanuele II 287, 00186 Roma RM</span>
+        <span>P.IVA 17384921007</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Periwinkle&quot;, &quot;Emerald&quot;, &quot;Italian Red&quot;], &quot;default&quot;: &quot;Periwinkle&quot;, &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const map = { 'Periwinkle': '#6b6cf5', 'Emerald': '#1f9d6b', 'Italian Red': '#cf4034' };
+    const accent = map[this.props.accent] || map['Periwinkle'];
+    return {
+      rootStyle: { background: '#f4f1e6', fontFamily: "'DM Sans', sans-serif", color: '#0c0717', '--accent': accent }
+    };
+  }
+}
+</script>
+</body>
+</html>

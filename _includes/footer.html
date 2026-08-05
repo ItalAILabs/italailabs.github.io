@@ -1,66 +1,3 @@
-<!-- ============ CONTACT SECTION ============ -->
-<section class="contact-section" id="contact">
-  <div class="container">
-    <div class="contact-grid">
-
-      <!-- Left: info + socials -->
-      <div class="contact-info">
-        <h2 class="h2-size">
-          Building the next <span class="highlight-blue-soft italic" style="font-weight:500;">industrial revolution</span><span class="period">.</span>
-        </h2>
-        <p>We turn frontier AI and robotics research into systems that work in the real world.
-        Designed for scale. Built for impact.</p>
-
-        <div class="contact-email-block">
-          <div class="contact-email-label">Partnership &amp; Collaborations</div>
-          <a href="mailto:research@italailabs.com" class="contact-email-link">research@italailabs.com</a>
-        </div>
-
-        <div class="contact-socials">
-          <a href="{{ site.social.linkedin }}" target="_blank" rel="noopener" class="social-pill">LinkedIn</a>
-          <a href="{{ site.social.twitter }}" target="_blank" rel="noopener" class="social-pill">X</a>
-          <a href="{{ site.social.github }}" target="_blank" rel="noopener" class="social-pill">GitHub</a>
-        </div>
-      </div>
-
-      <!-- Right: contact form -->
-      <div class="contact-form">
-        <div class="contact-card">
-          <h2 class="h2-size">GET IN TOUCH</h2>
-          <p class="contact-card-desc">Let's explore how AI and robotics can move your project beyond the lab.</p>
-
-          <form id="mailForm">
-            <div class="static-field">
-              <div class="static-field-label">Full name</div>
-              <input type="text" id="name" name="name" required autocomplete="off" placeholder="Jane Doe">
-            </div>
-            <div class="static-field">
-              <div class="static-field-label">Email</div>
-              <input type="email" id="email" name="email" required autocomplete="off" placeholder="jane@company.com">
-            </div>
-            <div class="static-field">
-              <div class="static-field-label">Subject</div>
-              <input type="text" id="subject" name="subject" required autocomplete="off" placeholder="What's this about?">
-            </div>
-            <div class="static-field" style="margin-bottom:30px;">
-              <div class="static-field-label">Message</div>
-              <textarea id="idea" name="idea" rows="3" required autocomplete="off" placeholder="Tell us a little more…" style="resize:none;"></textarea>
-            </div>
-            <button type="submit" class="cta-submit">SEND MESSAGE</button>
-          </form>
-          <div id="errorMessage" class="error-message" style="display: none;">
-            An error occurred. We are sorry, but our contact form is not working at the moment. Please contact us using the info listed on this page.
-          </div>
-          <div id="successMessage" class="success-message" style="display: none;">
-            Message sent successfully!
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- ============ FOOTER / SITEMAP ============ -->
 <footer class="footer-section">
   <div class="container">
@@ -69,7 +6,7 @@
       <!-- Logo + description column -->
       <div class="footer-logo-col">
         <img class="footer-logo" src="/assets/logo.svg" alt="ItalAI">
-        <p class="footer-tagline">Frontier AI &amp; robotics, built in Roma for the next industrial revolution.</p>
+        <p class="footer-tagline">Research-grade Physical AI and robotics. A Sapienza spinout, built in Roma.</p>
         <a href="mailto:research@italailabs.com" class="footer-email">research@italailabs.com</a>
       </div>
 
@@ -77,18 +14,18 @@
       <div class="footer-sitemap-col">
         <div class="footer-sitemap-label">Company</div>
         <a href="/about">About</a>
-        <a href="/work">What We Do</a>
-        <a href="/roadmap">What's Next</a>
-        <span class="footer-link-coming">Careers</span>
+        <a href="/partnership">Partnership</a>
+        <!-- <span class="footer-link-coming">Careers</span> -->
+        <a href="/contact">Contact</a>
       </div>
 
       <!-- Research -->
       <div class="footer-sitemap-col">
         <div class="footer-sitemap-label">Research</div>
+        <a href="/research">Publications</a>
         <a href="/projects">Projects</a>
         <a href="/projects/wizard">Wizard</a>
-        <a href="/insights">Insights</a>
-        <a href="/work">Publications</a>
+        <a href="/blog">Blog</a>
       </div>
 
       <!-- Connect -->
@@ -111,4 +48,3 @@
     </div>
   </div>
 </footer>
-<script src="/assets/js/form.js" defer></script>

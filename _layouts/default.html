@@ -19,15 +19,48 @@
     "Italian AI"
   ],
   "url": "{{ site.url }}",
-  "logo": "{{ site.url }}/assets/logo.svg",
+  "logo": "{{ site.url }}{{ site.logo }}",
   "description": "{{ site.description }}",
-  "vatID": "{{ site.iva }}",
+  "vatID": "IT{{ site.iva }}",
+  "foundingDate": "2024",
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Roma, Italy"
+  },
+  "knowsAbout": ["Physical AI", "Robotics", "Computer Vision", "Sensor Fusion", "Embodied AI", "Real-time Control Systems"],
+  {% if site.email %}
+  "email": "{{ site.email }}",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "{{ site.email }}",
+    "contactType": "research collaboration"
+  },
+  {% endif %}
   {% if site.address %}
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "{{ site.address }}",
     "addressCountry": "{{ site.country_code | default: 'IT' }}"
   },
+  {% endif %}
+  {% assign founders = site.data.people.team | where_exp: "p", "p.role contains 'Co-founder'" %}
+  {% if founders.size > 0 %}
+  "founder": [
+    {% for founder in founders %}
+    {
+      "@type": "Person",
+      "name": "{{ founder.name }}",
+      "jobTitle": "{{ founder.role }}"{% if founder.links.linkedin or founder.links.scholar %},
+      "sameAs": [
+        {% assign founder_links = "" | split: "," %}
+        {% if founder.links.linkedin %}{% assign founder_links = founder_links | push: founder.links.linkedin %}{% endif %}
+        {% if founder.links.scholar %}{% assign founder_links = founder_links | push: founder.links.scholar %}{% endif %}
+        {% for link in founder_links %}"{{ link }}"{% unless forloop.last %},{% endunless %}{% endfor %}
+      ]
+      {% endif %}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
   {% endif %}
   {% if site.social %}
   "sameAs": [

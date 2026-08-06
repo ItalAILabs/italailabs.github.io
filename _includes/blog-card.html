@@ -1,0 +1,45 @@
+<div class="blog-card">
+  <div class="blog-card-image-wrapper">
+    <a href="{{ include.post.url }}">
+      <img src="{{ include.post.hero_image | default: '/assets/images/blog/cards/coming.webp' }}" alt="{{ include.post.title | default: 'Placeholder Title' }}" class="blog-card-image">
+    </a>
+    {% if include.post.post_type %}
+    <span class="blog-card-type">{{ include.post.post_type }}</span>
+    {% endif %}
+    <span class="blog-tag blog-date">{{ include.post.date | date: "%d %b %Y" }}</span>
+  </div>
+  <div class="blog-card-content">
+    <a class="blog-card-title" href="{{ include.post.url }}">
+        <h3 class="blog-card-title h7-size">{{ include.post.title }}</h3>
+        <p class="blog-card-excerpt">
+            {{ include.post.excerpt | strip_html }}
+        </p>
+    </a>
+    {% if include.post.institution %}
+    <div class="blog-card-byline">ItalAI Research &middot; {{ include.post.institution }}</div>
+    {% endif %}
+    <div class="blog-card-footer">
+      <div class="blog-card-tags">
+        {% if include.post.categories %}
+          {% assign displayed_categories = include.post.categories | slice: 0, 2 %}
+          {% for cat in displayed_categories %}
+            {% if include.on_blogs_page %}
+            <button class="blog-card-tag" data-tag-category="{{ cat | slugify }}">{{ cat }}</button>
+            {% else %}
+            <a class="blog-card-tag" href="/blog/?category={{ cat | slugify }}">{{ cat }}</a>
+            {% endif %}
+          {% endfor %}
+        {% elsif include.post.category %}
+          {% if include.on_blogs_page %}
+          <button class="blog-card-tag" data-tag-category="{{ include.post.category | slugify }}">{{ include.post.category }}</button>
+          {% else %}
+          <a class="blog-card-tag" href="/blog/?category={{ include.post.category | slugify }}">{{ include.post.category }}</a>
+          {% endif %}
+        {% endif %}
+      </div>
+      {% if include.post.series and include.post.part %}
+        <span class="blog-card-series">{{ include.post.series | upcase }} · P{{ include.post.part }}</span>
+      {% endif %}
+    </div>
+  </div>
+</div>

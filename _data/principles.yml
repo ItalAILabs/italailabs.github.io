@@ -1,18 +1,9 @@
 principles:
-  - title: "Global Standards,<br>Local Excellence"
-    text: "We operate internationally while leveraging Italy's exceptional research talent and engineering culture."
-  
-  - title: "Long-term<br>Vision"
-    text: "We build systems meant to last in a fast-changing AI landscape."
-  
-  - title: "Depth before<br>Scale"
-    text: "We prioritize technical depth, scientific integrity and precision before pursuing rapid expansion."
-  
-  - title: "Adaptive<br>Innovation"
-    text: "We evolve with the AI landscape, combining diverse expertise to explore new paradigms — from robotics and embodied AI to advanced language and multimodal foundation models, and beyond."
-  
-  - title: "Technology<br>Transfer"
-    text: "We work side by side with industry and research teams, co-designing solutions, sharing knowledge, and building systems together from concept to deployment."
-  
-  - title: "Sustainable<br>Growth"
-    text: "We build responsibly, focusing on long-term value and meaningful technological impact."
+  - title: "Depth before<br>scale"
+    text: "We would rather hold a small number of problems and go all the way down than spread thin across many. Technical depth and scientific integrity come before expansion."
+
+  - title: "Research-grade<br>or nothing"
+    text: "If a result would not survive peer review, it does not ship. Everything we build is benchmarked, documented, and honest about what it does not yet do."
+
+  - title: "Built to last,<br>not to demo"
+    text: "We design systems for the environment they will actually run in — long-term capability rather than a working demonstration."

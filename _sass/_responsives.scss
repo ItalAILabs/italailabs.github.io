@@ -6,10 +6,83 @@ $mobile-extra: 767px;
 $mobile: 575px;
 
 @media (max-width: $tablet-extra) {
-    .insights-grid {
-        display: grid;
+    /* Full-bleed hero responsive */
+    .full-bleed-hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-bleed-hero-content {
+        padding: 60px 40px 40px;
+    }
+
+    .full-bleed-hero-media {
+        min-height: 280px;
+        order: -1;
+    }
+
+    /* Project detail hero responsive */
+    .project-hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .what-we-do-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .what-we-do-intro {
+        position: static;
+    }
+
+    /* Vision rows responsive (What's Next) */
+    .vision-row,
+    .vision-row--reverse {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .vision-row-media {
+        min-height: 240px;
+    }
+
+    .vision-row--intro .vision-row-label {
+        position: static;
+    }
+
+    .partners-bar-section {
+        margin-top: 0;
+        padding-top: 2rem;
+    }
+
+    .partners-bar.partners-bar--split {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .partners-bar-block:first-child {
+        padding-right: 0;
+        padding-bottom: 1.25rem;
+        border-right: none;
+        border-bottom: 1px solid #e6e1d0;
+    }
+
+    .capability-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Proportional shrink for all partner names — driven off the same
+       --partner-size custom property set in _includes/partners-bar.html,
+       so this scales any partner without per-slug rules. */
+    .partner-name {
+        font-size: calc(var(--partner-size, 24px) * 0.82);
+    }
+
+    .in-action-grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(auto, auto);
     }
 }
 
@@ -38,57 +111,23 @@ $mobile: 575px;
     }
 
     .nav-links {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 40%;
-        background: var(--standard-dark);
-        border: 1px solid var(--standard-blue);
-        border-radius: 24px;
-
-        flex-direction: column;
-        align-items: center;
-        gap: 0; // Remove gap
-
-        padding: 2rem 0;
         display: none;
-        margin: 0;
-
-        &.active {
-            display: flex;
-        }
-
-        li {
-            position: relative;
-            width: 100%;
-            text-align: center;
-        }
-
-        li:not(:last-child)::after {
-            content: "";
-            display: block;
-            height: 1px;
-            width: 80%; // or 100% for full width
-            margin: 0.75rem auto; // vertical spacing
-            background: var(--standard-blue);
-        }
     }
 
-
-    .card-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 columns */
-        grid-template-rows: repeat(2, 1fr); /* 2 rows */
+    /* Post hero responsive */
+    .post-hero {
+        padding: 50px 32px 32px;
     }
-    .features-grid {
-        display: grid;
+
+    /* blogs grid responsive */
+    .blogs-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    .tag-grid {
-        display: grid;
-        grid-template-columns: repeat(1, auto);
-        grid-template-rows: repeat(auto, auto);
+
+    .keep-reading-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
+
     .team-grid {
         flex-wrap: wrap;
     }
@@ -101,49 +140,219 @@ $mobile: 575px;
     }
 }
 
-@media (max-width: $mobile-extra) {
-    footer .container > * {
-        grid-template-areas:
-            "info"
-            "form"
-            "logo"
-            "legal";
-        grid-column: 1fr;
-        gap: 2rem 0; // Reduce or remove horizontal gap
-        // padding: 2rem 1rem 3rem; // Reduce side padding
-        box-sizing: border-box; // Ensure padding is included in width
-    }
-    footer .logo {
-        // align to bottom left
-        align-self: end;
-        // center to div
-        margin: auto;
-        margin-top: 4rem;
-        width: 50%
+@media (max-width: $tablet) {
+    .footer-sitemap {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
     }
 
-    .card-grid {
-        display: grid;
-        grid-template-columns: 1fr;      /* 1 column */
-        grid-template-rows: repeat(3, 1fr); /* 3 rows */
+    .footer-logo-col {
+        grid-column: 1 / -1;
     }
-    .insights-grid {
-        display: grid;
-        grid-template-columns: repeat(1, auto);
-        grid-template-rows: repeat(auto, auto);
+
+    .blogs-rail {
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
-    .who-grid,
-    .focus-grid,
-    .ahead-grid {
+}
+
+@media (max-width: $mobile-extra) {
+    /* Hero: image stays beside the heading (2-col grid) all the way down to this
+       breakpoint, then switches straight to a background layer behind text —
+       hides the stacked media panel and composites the image behind a gradient
+       overlay via CSS custom property. */
+    .main-hero {
+        background-image:
+            linear-gradient(180deg, rgba(19, 11, 46, 0.82) 0%, rgba(10, 6, 24, 0.95) 100%),
+            var(--hero-bg, none);
+        background-size: auto, cover;
+        background-position: center, center;
+    }
+
+    .main-hero-grid {
         grid-template-columns: 1fr;
     }
+
+    .main-hero-media {
+        display: none;
+    }
+
+    .main-hero {
+        --hero-pad-block: var(--space-xl);
+        --hero-pad-inline: 0px;
+    }
+
+    /* What We Do: was 72px 3.5rem 80px */
+    .what-we-do-grid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .what-we-do-intro h2 {
+        overflow-wrap: anywhere; // fallback if a word group still exceeds column width at very narrow viewports
+    }
+
+    /* Bridge section: was 76px 3.5rem 84px.
+       padding-inline is set directly on .container (not a nested wrapper),
+       so zeroing it here would remove the base .container gutter entirely
+       instead of just this section's extra inset — restore the base 1.25rem
+       instead of 0, matching every section whose padding lives on a child. */
+    .bridge-section .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    /* Featured projects section: was 76px 3.5rem 84px — see note above */
+    .featured-projects-section .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    /* ICP section: was 60px 3.5rem 76px — see note above */
+    .icp-section .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    /* Project card row (listing): was 0.9fr 1.1fr */
+    .project-card {
+        grid-template-columns: 1fr;
+    }
+
+    /* Project detail hero inner: was 70px 56px 60px */
+    .project-hero-inner {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .project-content-body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* In Action: was 4rem 3.5rem 0 / 0 3.5rem 4.5rem */
+    .in-action-header {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .in-action-grid {
+        grid-template-columns: 1fr;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Home blogs rail: was 0 3.5rem */
+    .blogs-content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* blogs rail inner: overrides $tablet rule that adds 2rem per side */
+    .blogs-rail {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Contact: was 72px 3.5rem 56px */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .footer-sitemap {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem 2rem;
+    }
+
+    .card-grid .card {
+        flex-wrap: wrap;
+        gap: 0.75rem 1.5rem;
+        margin: 0; // neutralise desktop -1.5rem bleed that overflows container gutter
+    }
+
     .breadcrumb-tagline {
         display: none;
     }
-    .work-with-us-card {
-        grid-column: span 1;
+
+    /* Full-bleed hero — inside .container, zero horizontal (container provides gutter) */
+    .full-bleed-hero-content {
+        padding: 48px 0 36px;
+    }
+
+    /* Common hero card — reduce internal horizontal padding; container provides edge gutter */
+    .common-hero-content {
+        padding: var(--space-lg) var(--space-sm);
+    }
+
+    /* Post hero — NOT inside .container (full-bleed section), keeps its own side padding */
+    .post-hero {
+        padding: 40px 24px 28px;
+    }
+
+    /* blogs grid: was padding: 1rem (1rem all sides) — zero horizontal */
+    .blogs-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem 0;
+    }
+
+    .keep-reading-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-bar {
+        padding: 24px 0;
+        gap: 12px;
+    }
+
+    .filter-pill {
+        padding: 7px 14px;
+        font-size: 11px;
+        min-height: 44px;
+    }
+
+    /* Vision rows: was 1rem 1.25rem 1.5rem — zero horizontal */
+    .vision-rows {
+        padding: 1rem 0 1.5rem;
+    }
+
+    .vision-row {
+        padding: 2rem 0;
+    }
+
+    /* Partners bar — not inside .container so manages its own gutters.
+       At desktop it overlaps the hero with margin-top:-66px (removed at
+       tablet-extra already). Here we centre the wordmarks and fix padding. */
+    .partners-bar {
+        padding: var(--space-md);
+        align-items: center;
+        margin: 0 var(--space-sm);
+    }
+
+    .partners-bar-label {
+        max-width: none;
+        text-align: center;
+    }
+
+    .partners-bar-logos {
+        justify-content: center;
+        gap: var(--space-md);
+    }
+
+    /* vCard: shrink the avatar to match the narrower card */
+    .vc-person-image {
+        width: 160px;
+        height: 160px;
     }
 }
 @media (max-width: $mobile) {
+    .footer-sitemap {
+        grid-template-columns: 1fr;
+    }
 
+    .footer-logo-col {
+        grid-column: auto;
+    }
 }

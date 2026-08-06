@@ -25,24 +25,32 @@ body {
     --viewport-widescreen: 1921px;
 
     // Wide Screen Restriction
-    --content-width: 1380px;
+    --content-width: 1180px;
 
     // Standard Color Pallete
-    --standard-green: #32b692;
+    --standard-green: #29b485;
+    --standard-green-bright: #2fcb92;
     --standard-green-alt: #C6FFE0;
-    --standard-light: #F6F4EC;
+    --standard-light: #f4f1e6;
     --standard-light-alt: #D9CBB5;
-    --standard-dark: #0D0221;
-    --standard-dark-alt: #2C2C2C;
-    --standard-red: #e4453a;
-    --standard-blue: #6a7cff;
+    --standard-dark: #0c0717;
+    --standard-dark-alt: #54513f;
+    --standard-red: #E63A1E;
+    --standard-blue: #6b6cf5;
+    --standard-blue-soft: #9b9cf7;
     --standard-disabled: #EAEAEA;
     --standard-viola: #34147D;
+    --standard-cream: #efece1;   // secondary section surface (cards, blockquotes, alt-section bg)
+    --standard-warm: #33301f;    // warm-dark body text on light/cream backgrounds
+
+    // Transitions
+    --transition-base: 0.2s ease;
+    --transition-fast: 0.15s ease;
 
     // Typography
-    --letter-spacing: -6%;
     --header-family: "JetBrains Mono", monospace;
     --body-family: "DM Sans", sans-serif;
+    --accent-family: "Spectral", serif;
 
     /* Designer constants (px) -> max values in rem (base 16px) */
     /* --h1-size: 70px;  -> 4.375rem */
@@ -98,9 +106,9 @@ body {
 
 textarea,
 input {
-    font-size: var(--body-xs-size);
-    font-weight: var(--body-xs-weight);
-    letter-spacing: var(--body-xs-letter-spacing);
+    font-size: 1rem; // iOS auto-zooms on inputs < 16px
+    font-weight: 400;
+    letter-spacing: normal;
 }
 
 h1,
@@ -119,7 +127,7 @@ h4,
 h5,
 h6 {
     margin: 1rem 0;
-    letter-spacing: -6%;
+    letter-spacing: -0.5px;
 }
 
 p,
@@ -149,7 +157,7 @@ p.small {
 //Were Headers in Design, but aren't for accessibility reasons
 .size-base {
     font-family: var(--header-family);
-    letter-spacing: -6%;
+    letter-spacing: -0.5px;
     margin: 1rem 0;
     font-weight: 800;
 }

@@ -2,289 +2,193 @@
 layout: default
 title: About Us
 image: "/assets/images/team.webp"
-description: "ItalAI is Europe leading AI-first accelerator bridging academia and industry. Founded in 2024, we collaborate with leading universities and glocal corporations and startups to advance artificial intelligence and robotics through fundamental research, technology transfer, and system-level design with emphasis on reliability and scalability."
+description: "ItalAI is a Sapienza University of Rome spinout building Physical AI systems for industrial environments, with a research record published at CVPR, ICLR, ECCV, IROS and AAAI."
 ---
 
 {%- capture hero_heading -%}
-ITAL<span class="highlight-blue">AI</span> IS <span class='highlight-green italic weak'>EUROPE's FIRST AI-ACCELERATOR</span>
-BRIDGING ACADEMIA AND INDUSTRY<span class='period'>.</span>
+A SAPIENZA SPINOUT BRIDGING FRONTIER RESEARCH AND INDUSTRY
 {%- endcapture -%}
 {% include hero.html
+  layout="full-bleed"
   heading=hero_heading
   crumb_current="ABOUT"
-  tagline="Building intelligent systems from scratch."
+  tagline="Founded in 2024 as a Sapienza spinout, we now build Physical AI systems for industrial environments, with a research record published at the top tech conferences worldwide.  Rooted in European industry, wired into Silicon Valley."
   title-style="color: var(--standard-light);"
-  hero-style="background: var(--standard-dark);"
-  breadcrumb-style="background: var(--standard-blue); color: var(--standard-light);"
-  bg_image="/assets/images/about-hero.webp"
+  hero-style=""
 %}
 
-<!-- Who We Are Section - 1/3 Image, 2/3 Content -->
+<!-- Who We Are Section -->
 <section class="who-section">
   <div class="container">
     <div class="who-grid">
-      <div class="who-image">
-        <img src="/assets/images/about.webp" alt="Who We Are" loading="lazy">
+      <div class="who-intro">
+        <div class="section-label">ORIGIN &amp; STANDING</div>
+        <h2 class="h2-size">
+          Research first, by construction<span class="period">.</span>
+        </h2>
       </div>
       <div class="who-content">
-        <div class="section-label">WHO WE ARE</div>
-        <h2 class="h2-size">
-          A <span class="highlight-green italic weak">AI-FIRST</span> organization<span class="period">.</span>
-        </h2>
-        <p class="description">
-          Founded in 2024, ItalAI operates at the intersection of academic research and industrial application.
+        <p class="description" style="margin-bottom: 40px;">
+          We collaborate with leading universities, research centers, and industry partners to advance artificial intelligence, and translate that knowledge into deployable systems. Our work spans fundamental research, applied AI, and system-level design, with a strong emphasis on correctness, reliability, and scalability.
         </p>
-        <p class="description">
-          <span class="strong">We collaborate with leading universities, research centers,</span> and <span class="strong">industry partners</span> to advance artificial intelligence, and translate that knowledge into deployable systems. Our work spans fundamental research, applied AI, and system-level design, with a <span class="emphasis">strong emphasis on correctness, reliability, and scalability.</span>
-        </p>
-        <!-- <p class="description">
-          We do not position ourselves as a traditional AI consultancy. Our role is to <span class="emphasis">invent, engineer, and validate AI systems</span> designed to function beyond experimental settings.
-        </p> -->
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- Principles Section - Light Background -->
-<section class="principle-light">
-  <div class="container">
-    <div class="principles-grid"> 
-      <div class="principle-cell principle-depth"> 
-        <span class="principle-label highlight-green">FIRST PRINCIPLES&nbsp;</span>
-      </div>
-      <div class="principle-cell principle-scale">BUILT<span class="period">.</span></div>
-      <div class="principle-cell principle-rigor">
-        <span class="principle-label highlight-blue">ENGINEERED FOR&nbsp;</span>
-      </div>
-      <div class="principle-cell principle-speed"> IMPACT<span class="period">.</span></div>
-    </div>
-    <div class="principle-desc">
-      <span class="highlight-blue">We develop solutions from first principles.</span>
-      <span>Starting from strong scientific foundations, we quickly transfer technology into applications for maximum impact.</span>
-    </div>
-    <span class="cta-label cta-overlap">Want to know more?</span>
-    <a class="cta-button-alt cta-overlap" href="#contact">
-      GET IN TOUCH
-    </a>
-  </div>
-</section>
-
-<!-- Values Section - Dark Background -->
-<section class="principle-dark">
-  <img src="/assets/images/about-principles.webp" alt="" class="values-decorative" aria-hidden="true">
-  <div class="container">
-    <div class="values-content">
-      <div class="values-header">
-        <div class="section-label">VALUES</div>
-        <h2 class="values-title h2-size">Our principles<span class="period">.</span></h2>
-        <div class="values-header-row">
-          <p class="values-intro">These principles guide how we research, design, and collaborate, independent of technologies or market cycles.</p>
-          <div class="values-carousel-nav">
-            <button class="carousel-arrow prev" id="prevBtn" aria-label="Previous principle">←</button>
-            <button class="carousel-arrow next" id="nextBtn" aria-label="Next principle">→</button>
+        <div class="principle-stat-grid">
+          <div class="principle-stat">
+            FIRST PRINCIPLES<br>BUILT<span class="period">.</span>
           </div>
-        </div>
-      </div>
-
-      <div class="carousel-container">
-        <div class="carousel-wrapper">
-          <div class="values-grid" id="valuesGrid">
-          {% for principle in site.data.principles.principles %}
-            <div class="value-card">
-              <div class="value-content">
-                <div class="value-number h2-size">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</div>
-                <h3 class="value-card-title h5-size">{{ principle.title }}<span class="period">.</span></h3>
-                <p class="value-card-text">{{ principle.text }}</p>
-              </div>
-            </div>
-          {% endfor %}
+          <div class="principle-stat principle-stat-blue">
+            ENGINEERED FOR<br>IMPACT<span class="period">.</span>
+          </div>
+          <div class="principle-desc-inline">
+            We develop solutions from first principles. Starting from strong scientific foundations, we quickly transfer technology into applications for maximum impact.
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<script src="/assets/js/values-carousel.js" defer></script>
+
+<!-- Transatlantic Network Section -->
+<section class="network-section">
+  <div class="container">
+    <div class="network-header">
+      <div class="section-label section-label--bright">THE NETWORK</div>
+      <h2 class="network-title h2-size">One team, two research cultures<span class="period">.</span></h2>
+      <p class="network-intro">
+        Our co-founder works from the Bay Area. That is not a satellite office &mdash; it is how we stay inside the conversation that sets the direction of this field months before it reaches a paper.
+      </p>
+      <p class="network-intro">
+        Rome gives us researchers who go deep and stay on a problem. The Bay Area gives us line of sight to what is about to matter. Work moves in both directions: a method read early in California gets stress-tested in Rome, and a result from Rome gets shown to the people best placed to break it.
+      </p>
+    </div>
+    <div class="network-grid">
+      <div class="network-cell">
+        <div class="network-cell-label">Roma</div>
+        <div class="network-cell-wordmark">SAPIENZA</div>
+        <p>Where the lab sits. Shared supervision of PhD researchers, and the origin of the spinout.</p>
+      </div>
+      <div class="network-cell">
+        <div class="network-cell-label">Bay Area</div>
+        <div class="network-cell-wordmark">Berkeley &amp; Stanford</div>
+        <p>Working research relationships, not logos &mdash; WIZARD and T-Rex are both co-authored collaborations.</p>
+      </div>
+      <div class="network-cell">
+        <div class="network-cell-label">Industry</div>
+        <div class="network-cell-wordmark network-cell-wordmark--dm">Panasonic</div>
+        <p>A multi-year relationship with a global industrial technology leader. Project detail stays confidential.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Values Section - Light Background -->
+<section class="values-section">
+  <div class="container">
+    <div class="values-header">
+      <div class="section-label">PRINCIPLES</div>
+      <h2 class="values-title h2-size">Our principles<span class="period">.</span></h2>
+      <p class="values-intro">Independent of technologies or market cycles.</p>
+    </div>
+    <div class="values-grid">
+      {% for principle in site.data.principles.principles %}
+        <div class="value-card">
+          <div class="value-number">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</div>
+          <h3 class="value-card-title">{{ principle.title }}<span class="period">.</span></h3>
+          <p class="value-card-text">{{ principle.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- How We Work Section -->
+<section class="how-we-work-section">
+  <div class="container">
+    <div class="how-we-work-grid">
+      <div class="how-we-work-intro">
+        <div class="section-label">HOW WE WORK</div>
+        <h2 class="h2-size">From open question to working system<span class="period">.</span></h2>
+        <p class="description">
+          Work is organised around milestones with defined outputs, and reported in plain language you can put straight into an internal update.
+        </p>
+        <div class="how-we-work-ctas">
+          <a class="cta-outlined" href="/research">SEE THE RESEARCH RECORD</a>
+          <a class="cta-text-dark" href="/partnership">HOW AN ENGAGEMENT WORKS &rarr;</a>
+        </div>
+      </div>
+      <div class="how-we-work-steps">
+        <div class="how-we-work-step">
+          <div class="how-we-work-step-num">01</div>
+          <div class="how-we-work-step-copy">
+            <h3>FRAME THE PROBLEM</h3>
+            <p>We start by establishing what a successful outcome actually looks like, and whether the problem is research-shaped at all. Sometimes the honest answer is that it is not.</p>
+          </div>
+        </div>
+        <div class="how-we-work-step">
+          <div class="how-we-work-step-num">02</div>
+          <div class="how-we-work-step-copy">
+            <h3>BUILD AGAINST A BENCHMARK</h3>
+            <p>Every milestone produces something measurable and an explanation of what it means for the capability being built &mdash; not a status report.</p>
+          </div>
+        </div>
+        <div class="how-we-work-step">
+          <div class="how-we-work-step-num">03</div>
+          <div class="how-we-work-step-copy">
+            <h3>MOVE IT ONTO HARDWARE</h3>
+            <p>A method that only works in simulation is not finished. We validate on real hardware, in the conditions the system will meet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Partners Section -->
 <section class="partners-section">
   <div class="container">
-    <div class="partners-content">
-      <div class="section-label">PARTNERSHIPS</div>
-      <h2 class="partners-title uppercase h3-size">
-        Advancing AI through<br>
-        <span class="highlight-blue uppercase weak italic">global collaboration</span><span class="period">.</span>
+    <div class="partners-header">
+      <div class="section-label">COLLABORATIONS</div>
+      <h2 class="partners-title h2-size">
+        Who we work with<span class="period">.</span>
       </h2>
-      <div class="partner-container">
-          <!-- Static Grid for Desktop -->
-          <div class="partners-grid">
-            {% assign partners_dir = "/assets/images/partners/" %}
-
-            {% for file in site.static_files %}
-              {% if file.extname == ".webp" %}
-                {% assign file_dir = file.path | remove: file.name %}
-                {% if file_dir == partners_dir %}
-                  {% unless file.name contains "w.webp" %}
-                    <div class="partner-card">
-                      <img 
-                        src="{{ file.path }}" 
-                        alt="{{ file.name | split: '.' | first | replace: '-', ' ' | replace: '_', ' ' | capitalize }}" 
-                        class="partner-logo" 
-                        loading="lazy">
-                    </div>
-                  {% endunless %}
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          </div>
-
-          <!-- Carousel for Mobile/Tablet (same content) -->
-          <div class="partners-carousel owl-carousel owl-theme">
-            {% assign partners_dir = "/assets/images/partners/" %}
-
-            {% for file in site.static_files %}
-              {% if file.extname == ".webp" %}
-                {% assign file_dir = file.path | remove: file.name %}
-                {% if file_dir == partners_dir %}
-                  {% unless file.name contains "w.webp" %}
-                    <div class="partner-card">
-                      <img src="{{ file.path }}" alt="{{ file.name | split: "." | first | replace: "-", " " | replace: "_", " " | capitalize }}" class="partner-logo" loading="lazy">
-                    </div>
-                  {% endunless %}
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          </div>
-      </div>
+    </div>
+    <div class="partners-bar">
+      {% include partners-bar.html %}
     </div>
   </div>
 </section>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-<script>
-$(document).ready(function(){
-    var owl = $('.partners-carousel');
-
-    owl.owlCarousel({
-        loop: true,
-        margin: 20,
-        dots: true,
-        autoplay: false,
-        responsive: {
-            0: {
-                items: 1,
-                nav: true,
-                dots: true
-            },
-            480: {
-                items: 2,
-                nav: true,
-                dots: true
-            },
-            600: {
-                items: 3,
-                nav: true,
-                dots: true
-            }
-        }
-    });
-
-    // Force enable navigation after initialization
-    setTimeout(function() {
-        $('.owl-nav').removeClass('disabled');
-        $('.owl-dots').removeClass('disabled');
-    }, 100);
-});
-</script>
 
 <!-- Team Section -->
 <section class="team-section">
   <div class="container">
-    <div class="team-content">
-      {% assign total_points = site.data.people.team.size | plus: 3 %}
-      {% assign grid_points = 0 %}
+    <div class="team-header">
+      <div>
+        <div class="section-label">TEAM</div>
+        <h2 class="team-title h2-size">
+          Blending AI research and industry expertise<span class="period">.</span>
+        </h2>
+      </div>
+      <a class="cta-outlined" href="/contact">WORK WITH US</a>
+    </div>
 
-      <div class="team-grid">
+    <!-- Leadership Row -->
+    <div class="team-grid">
       {% for person in site.data.people.team %}
-        {% if forloop.index0 == 0 %}
-          <div class="work-with-us-card">
-            <div class="work-with-us-content">
-              <div class="section-label">TEAM</div>
-              <h2 class="h3-size">
-                Blending AI research<br>
-                and Industry<br>
-                Expertise<span class="period">.</span>
-              </h2>
-              <a class="cta-button" href="#contact">
-                WORK WITH US
-              </a>
-            </div>
-          </div>
-          {% assign grid_points = grid_points | plus: 2 %}
-        {% endif %}
-
-        {% if forloop.index0 == 4 %}
-          <div class="research-driven-card">
-            <h3 class="research-label highlight-green h3-size">Research<br>driven</h3>
-            <p class="large research-subtext strong">Team</p>
-          </div>
-          {% assign grid_points = grid_points | plus: 1 %}
-        {% endif %}
-
+        {% assign person_slug = person.name | replace: ' ', '-' | downcase %}
         <div class="person-card">
-          {% if person.links %}
-            <div class="team-item-socials">
-              <div class="socials-trigger">
-                <i class="fa-solid fa-share-nodes"></i>
-              </div>
-              <div class="team-socials-wrapper">
-                <ul class="team-socials wrapper-socials">
-                  {% if person.links.linkedin %}<li><a class="socials" href="{{ person.links.linkedin }}" target="_blank" aria-label="{{ person.name }}'s LinkedIn Profile"><i class="fa-brands fa-linkedin-in"></i></a></li>{% endif %}
-                  {% if person.links.x %}<li><a class="socials" href="{{ person.links.x }}" target="_blank" aria-label="{{ person.name }}'s X Profile"><i class="fa-brands fa-x-twitter"></i></a></li>{% endif %}
-                  {% if person.links.scholar %}<li><a class="socials" href="{{ person.links.scholar }}" target="_blank" aria-label="{{ person.name }}'s Google Scholar Profile"><i class="fa-brands fa-google-scholar"></i></a></li>{% endif %}
-                  {% if person.links.github %}<li><a class="socials" href="{{ person.links.github }}" target="_blank" aria-label="{{ person.name }}'s GitHub Profile"><i class="fa-brands fa-github"></i></a></li>{% endif %}
-                  {% if person.links.website %}<li><a class="socials" href="{{ person.links.website }}" target="_blank" aria-label="{{ person.name }}'s External Site"><i class="fa-solid fa-globe"></i></a></li>{% endif %}
-                </ul>
-              </div>
-            </div>
-          {% endif %}
           <div class="person-image">
-            {% assign person_slug = person.name | replace: ' ', '-' | downcase %}
-            <a
-              tabindex="-1" aria-disabled="true"
-            > <!-- Incase a url is ever added in the future -->
-              <img
-                src="/assets/images/people/{{ person_slug }}.png"
-                alt="Photo of {{ person.name }}{% if person.role %}, {{ person.role }}{% endif %}{% if person.credentials %}, {{ person.credentials }}{% endif %}"
-                class="person-img"
-                loading="lazy"
-              >
-            </a>
+            <img
+              src="/assets/images/people/{{ person_slug }}.webp"
+              alt="{{ person.name }}"
+              loading="lazy"
+              onerror="this.onerror=null;this.src='/assets/images/people/placeholder.svg';"
+            >
           </div>
           <div class="person-info">
-            <h3 class="person-name h5-size">{% if person.professor %}Prof. {% endif %}{{ person.name }}</h3>
-            <p class="person-role">{{ person.role }}{% if person.credentials %}, {{ person.credentials }}{% endif %}</p>
+            <div class="person-name">{% if person.professor %}Prof. {% endif %}{{ person.name }}</div>
+            <div class="person-role">{{ person.role }}{% if person.credentials %}, {{ person.credentials }}{% endif %}</div>
           </div>
         </div>
-        {% assign grid_points = grid_points | plus: 1 %}
-        {% if grid_points == 4 %}
-          </div>
-          {% assign grid_points = 0 %}
-          {% assign last_index = total_points | minus: 1 %}
-          {% if forloop.index0 != last_index %}
-            <div class="team-grid">
-          {% endif %}
-        {% endif %}
       {% endfor %}
-
-      {% assign remaining_points = 4 | minus: grid_points %}
-      {% for i in (1..remaining_points) %}
-        <div class="person-card blank-card">
-          <!-- Empty card to fill the grid -->
-        </div>
-      {% endfor %}
-      </div>
     </div>
   </div>
 </section>

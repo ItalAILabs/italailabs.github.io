@@ -1,17 +1,17 @@
 <nav class="navbar">
   <a class="logo" href="/">
-    <img class="logo" src="/assets/logo.svg" alt="ItalAI" style="max-height: 48px;">
+    <img class="logo" src="/assets/logo.svg" alt="ItalAI">
   </a>
 
   <ul class="nav-links">
     <li><a href="/about" {% if page.url contains "/about" %}class="active"{% endif %}>About</a></li>
-    <li><a href="/work" {% if page.url contains "/work" %}class="active"{% endif %}>What We Do</a></li>
-    <li><a href="/roadmap" {% if page.url contains "/roadmap" %}class="active"{% endif %}>What's Next</a></li>
-    <li><a href="/insights" {% if page.url contains "/insights" %}class="active"{% endif %}>Insights</a></li>
+    <li><a href="/research" {% if page.url contains "/research" %}class="active"{% endif %}>Research</a></li>
+    <li><a href="/projects" {% if page.url contains "/projects" %}class="active"{% endif %}>Projects</a></li>
+    <li><a href="/blog" {% if page.url contains "/blog" %}class="active"{% endif %}>Blog</a></li>
   </ul>
 
   <!-- CTA for desktop -->
-  <a href="#contact" class="cta-button-alt desktop-cta" style="margin-left: auto;">Get in Touch</a>
+  <a href="/contact" class="cta-button-alt desktop-cta" style="margin-left: auto;">Get in Touch</a>
 
   <!-- CSS-only hamburger menu -->
   <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
@@ -25,11 +25,11 @@
     <ul>
       <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>Home</a></li>
       <li><a href="/about" {% if page.url contains "/about" %}class="active"{% endif %}>About</a></li>
-      <li><a href="/work" {% if page.url contains "/work" %}class="active"{% endif %}>What We Do</a></li>
-      <li><a href="/roadmap" {% if page.url contains "/roadmap" %}class="active"{% endif %}>What's Next</a></li>
-      <li><a href="/insights" {% if page.url contains "/insights" %}class="active"{% endif %}>Insights</a></li>
+      <li><a href="/research" {% if page.url contains "/research" %}class="active"{% endif %}>Research</a></li>
+      <li><a href="/projects" {% if page.url contains "/projects" %}class="active"{% endif %}>Projects</a></li>
+      <li><a href="/blog" {% if page.url contains "/blog" %}class="active"{% endif %}>Blog</a></li>
     </ul>
-    <a href="#contact" class="cta-button">Get in Touch</a>
+    <a href="/contact" class="cta-button">Get in Touch</a>
   </div>
 </nav>
 <script>

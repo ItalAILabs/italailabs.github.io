@@ -59,7 +59,7 @@ This project uses several custom Jekyll plugins:
   > [vips-webp] ruby-vips not available: Could not open library 'vips.so.42': vips.so.42: cannot open shared object file: No such file or directory.
   
   This is not currently fixed and is ignored for deployment.
-- **insights_manifest.rb**: Handles manifest generation for insights content.
+- **blogs_manifest.rb**: Handles manifest generation for blogs content.
 - **lazy_load_images.rb**: Ensures images are set to lazy load (adds the `loading="lazy"` attribute to img tags).
 - **remove_empty_lines.rb**: Cleans up empty lines in generated HTML, for client load performance.
 
@@ -85,7 +85,7 @@ This project uses several custom Jekyll plugins:
 - **Image formats:** Only WebP images are published in the final site. Legacy raster assets (JPG, PNG, etc.) are excluded by `_config.yaml`.
 - **SEO:** Meta descriptions are set via front matter or `_config.yaml`.
 - **Plugin configuration:** See `_config.yaml` for plugin and manifest options.
-- **Dynamic insights/blogs:** The insights manifest plugin enables paginated, filterable blog/insight loading on the frontend.
+- **Dynamic blogs/blogs:** The blogs manifest plugin enables paginated, filterable blog/blog loading on the frontend.
 - **Performance:** Plugins like `remove_empty_lines.rb` and `lazy_load_images.rb` are used to optimize client load and rendering.
 - **Development:** Use `--livereload` for a fast feedback loop. Save files to trigger reloads.
 - **Deployment:** Some plugins (notably `vips_webp_generator.rb`) may not work on GitHub Actions due to system library constraints. This does not affect the published site, as only WebP assets are shipped.

@@ -19,15 +19,48 @@
     "Italian AI"
   ],
   "url": "{{ site.url }}",
-  "logo": "{{ site.url }}/assets/logo.svg",
+  "logo": "{{ site.url }}{{ site.logo }}",
   "description": "{{ site.description }}",
-  "vatID": "{{ site.iva }}",
+  "vatID": "IT{{ site.iva }}",
+  "foundingDate": "2024",
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Roma, Italy"
+  },
+  "knowsAbout": ["Physical AI", "Robotics", "Computer Vision", "Sensor Fusion", "Embodied AI", "Real-time Control Systems"],
+  {% if site.email %}
+  "email": "{{ site.email }}",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "{{ site.email }}",
+    "contactType": "research collaboration"
+  },
+  {% endif %}
   {% if site.address %}
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "{{ site.address }}",
     "addressCountry": "{{ site.country_code | default: 'IT' }}"
   },
+  {% endif %}
+  {% assign founders = site.data.people.team | where_exp: "p", "p.role contains 'Co-founder'" %}
+  {% if founders.size > 0 %}
+  "founder": [
+    {% for founder in founders %}
+    {
+      "@type": "Person",
+      "name": "{{ founder.name }}",
+      "jobTitle": "{{ founder.role }}"{% if founder.links.linkedin or founder.links.scholar %},
+      "sameAs": [
+        {% assign founder_links = "" | split: "," %}
+        {% if founder.links.linkedin %}{% assign founder_links = founder_links | push: founder.links.linkedin %}{% endif %}
+        {% if founder.links.scholar %}{% assign founder_links = founder_links | push: founder.links.scholar %}{% endif %}
+        {% for link in founder_links %}"{{ link }}"{% unless forloop.last %},{% endunless %}{% endfor %}
+      ]
+      {% endif %}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
   {% endif %}
   {% if site.social %}
   "sameAs": [
@@ -47,14 +80,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-{% if page.url == "/" %}
-<!-- Preload hero image on homepage -->
-<link rel="preload" as="script" href="/assets/js/flowmap-hero.js">
-<link rel="modulepreload" href="https://esm.sh/ogl@1.0.11/es2022/ogl.mjs">
-{% endif %}
-
-{% if page.url contains '/insights/' and page.url != '/insights/' %}
+{% if page.url contains '/blog/' and page.url != '/blog/' %}
   {% assign stylesheet = 'post' %}
+{% elsif page.url contains '/projects/' and page.url != '/projects/' %}
+  {% assign stylesheet = 'project' %}
 {% elsif page.url contains '/about/' and page.url != '/about/' %}
   {% assign stylesheet = 'vcard' %}
 {% elsif page.url contains '/404.html' %}
@@ -67,8 +96,7 @@
 <link rel="stylesheet" href="/assets/css/{{ stylesheet }}.css">
 
 <!-- Load fonts asynchronously -->
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
 <!-- Load FontAwesome asynchronously -->
 <link rel="preload" href="/assets/fontawesome/css/fontawesome.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -76,14 +104,24 @@
 <link rel="preload" href="/assets/fontawesome/css/solid.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
 <noscript>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
 <link href="/assets/fontawesome/css/fontawesome.css" rel="stylesheet">
 <link href="/assets/fontawesome/css/brands.css" rel="stylesheet">
 <link href="/assets/fontawesome/css/solid.css" rel="stylesheet">
 </noscript>
 </head>
 <body class="no-js">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_measurement_id }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '{{ site.ga_measurement_id }}');
+  </script>
+  <script src="/assets/js/utm.js" defer></script>
+
     <script>
       document.body.classList.remove('no-js'); 
       document.body.classList.add('js');
@@ -92,11 +130,5 @@
     {% include header.html %}
     {{ content }}
     {% include footer.html %}
-
-{% if page.url == "/" %}
-    <script type="module">
-      import('/assets/js/flowmap-hero.js');
-    </script>
-{% endif %}
 </body>
 </html>

@@ -1,244 +1,223 @@
 ---
 layout: default
-title: Home
+title: "Physical AI Research Lab"
 image: "/assets/logo.png"
-description: "ItalAI - Where frontier AI research meets real-world impact. We build next-generation artificial intelligence technologies through deep research partnerships with Berkeley, NVIDIA, Panasonic, and Sapienza University. Advancing AI and robotics from breakthrough science to deployed systems."
+description: "ItalAI - Turning frontier research into deployable Physical AI. A Sapienza University spinout building research-grade computer vision, sensor fusion, embodied AI and real-time control systems, developed alongside Berkeley, Stanford and Panasonic."
 ---
 
 <!-- Hero Section -->
 {% include hero.html
-    title="WHERE FRONTIER AI|RESEARCH,highlight-green|break|meets,italic weak lowercase|break|REAL-WORLD IMPACT,period"
-    subtitle="We build the technologies powering<br/>the next industrial revolution."
-    cta_text="Discover Who We Are"
-    bg_image="/assets/images/hero-bg.webp"
+    eyebrow="Physical AI Research &middot; Roma"
+    title="TURNING FRONTIER|RESEARCH INTO|break|DEPLOYABLE|PHYSICAL AI,highlight-green period"
+    subtitle="Research-grade solutions to problems off-the-shelf tools and consultants aren't built to solve."
+    cta_text="See The Research"
+    cta_url="/research"
+    secondary_text="What We've Built &rarr;"
+    secondary_url="/projects"
+    media_tag="Research &rarr; Reality"
+    bg_image="/assets/images/hero-hands.webp"
 %}
+
+<!-- Proof Strip -->
+<section class="partners-bar-section">
+  <div class="partners-bar partners-bar--split">
+    <div class="partners-bar-block">
+      <div class="partners-bar-label">Publications</div>
+      <div class="partners-bar-venues">CVPR &middot; ICLR &middot; ECCV &middot; IROS &middot; AAAI</div>
+    </div>
+    <div class="partners-bar-block">
+      <div class="partners-bar-label">Collaborations</div>
+      <div class="partners-bar-names">
+        <span class="partners-bar-name">Berkeley</span>
+        <span class="partners-bar-dot">&middot;</span>
+        <span class="partners-bar-name partners-bar-name--medium">Stanford</span>
+        <span class="partners-bar-dot">&middot;</span>
+        <span class="partners-bar-name partners-bar-name--upper">SAPIENZA</span>
+        <span class="partners-bar-dot">&middot;</span>
+        <span class="partners-bar-name partners-bar-name--dm">Panasonic</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Cards Section -->
 <section class="cards-section">
   <div class="container">
-    <div class="card-grid">
-        <div class="card blue card-animated slide-in-top" data-delay="300">
-            <img
-            src="/assets/images/frontier-research.webp"
-            alt=""
-            loading="lazy"
-            />
-            <h2 class="uppercase h5-size">Frontier<br/>Research</h2>
-            <p>
-                Deep AI & robotics<br>research at global scale.
-            </p>
+    <div class="what-we-do-grid">
+      <div class="what-we-do-intro">
+        <div class="section-label">Where We Work</div>
+
+        {% include animated-header.html title="Hard problems in|perception, control|and physical|systems,period" tag="h2" class="h3-size" %}
+      </div>
+
+      <div class="capability-grid">
+        <div class="capability-cell">
+          <h2 class="h6-size uppercase">Computer Vision</h2>
+          <p>Detection, segmentation and understanding in uncontrolled scenes.</p>
         </div>
-        <div class="card dark card-animated slide-in-top" data-delay="600">
-            <img
-            src="/assets/images/applied-intelligence.webp"
-            alt=""
-            loading="lazy"
-            />
-            <h2 class="uppercase h5-size">Applied<br/>Intelligence</h2>
-            <p>
-                From scientific breakthroughs<br>to real-world systems.
-            </p>
+        <div class="capability-cell">
+          <h2 class="h6-size uppercase">Sensor Fusion</h2>
+          <p>Combining vision, tactile and proprioceptive signals into one state.</p>
         </div>
-        <div class="card green card-animated slide-in-top" data-delay="900">
-            <img
-            src="/assets/images/global-ecosystem.webp"
-            alt=""
-            loading="lazy"
-            />
-            <h2 class="uppercase h5-size">Global<br/>Network</h2>
-            <p>
-                Collaborating with UC Berkeley,<br>Stanford, Panasonic,<br>Sapienza.
-            </p>
+        <div class="capability-cell">
+          <h2 class="h6-size uppercase">Embodied AI</h2>
+          <p>Agents that learn tasks and generalise beyond their training set.</p>
         </div>
-    </div>
-
-    <a class="cta-button cta-center" href="#contact">Work With Us</a>
-  </div>
-</section>
-
-<!-- Content Section -->
-<section class="content-section">
-  <div class="container">
-    <div class="content">
-      <div class="section-label">What We Do</div>
-
-      {% include animated-header.html title="Turning frontier|AI and robotics,highlight-blue|break|research,highlight-blue|into|real-world systems,highlight-blue italic weak period" tag="h2" class="h3-size" %}
-
-      <p class="medium content-description weak">
-        We design and deploy AI and robotics systems<br> that move beyond the lab and work in real<br>environments.
-      </p>
-
-      <div class="features-grid">
-        <div class="feature card-animated slide-in-bottom" data-delay="300">
-          <h3 class="feature-label highlight-green h5-size">RESEARCH</h3>
-          <p class="feature-title">
-            Frontier AI & robotics<br>research at global scale.
-          </p>
-        </div>
-
-        <div class="feature card-animated slide-in-bottom" data-delay="600">
-          <h3 class="feature-label highlight-blue h5-size">ROBOTICS</h3>
-          <p class="feature-title">Systems designed for<br>real environments.</p>
-        </div>
-
-        <div class="feature card-animated slide-in-bottom" data-delay="900">
-          <h3 class="feature-label highlight-dark h5-size">TECH TRANSFER</h3>
-          <p class="feature-title">From lab breakthroughs<br>to real products.</p>
-        </div>
-
-        <div class="feature card-animated slide-in-bottom" data-delay="1200">
-          <h3 class="feature-label highlight-green h5-size">INDUSTRIAL IMPACT</h3>
-          <p class="feature-title">
-            Automation, reliability, and<br>intelligent operations.
-          </p>
+        <div class="capability-cell">
+          <h2 class="h6-size uppercase">Real-Time Control</h2>
+          <p>Closing the loop on hardware, at the speed the environment demands.</p>
         </div>
       </div>
     </div>
-    <a class="cta-center cta-button-alt cta-overlap" href="/work">What We Do</a>
   </div>
 </section>
 
-<section class="why-section">
+<section class="bridge-section">
   <div class="container">
-    <div class="why-content">
-      <div class="section-label">Why Now</div>
+    <div class="bridge-content">
+      <div class="section-label section-label--bright">Why Now</div>
       <h2 class="h2-size">
-        A <span class="highlight-blue italic weak">new industrial revolution</span
-        ><br/>
-        has begun<span class="period">.</span>
+        The future of AI will not be defined by smarter models, but by <span class="highlight-blue-soft italic weak">systems that work in the real world</span><span class="period">.</span>
       </h2>
-      <div class="revolution-tabs">
-        {% for card in site.data.revolution-cards %}
-        <input
-          type="radio"
-          name="revolution-card"
-          id="tab-{{ card.id }}"
-          class="tag-radio"
-          {% if forloop.first %}checked{% endif %}
-        />
-        {% endfor %}
-        
-        <nav class="tag-grid">
-          {% for card in site.data.revolution-cards %}
-          <label
-            for="tab-{{ card.id }}"
-            class="tag-button"
-            aria-label="Show {{ card.title_short }}"
-          >
-            {{ card.title_short }}
-          </label>
-          {% endfor %}
-        </nav>
-        
-        <div class="content-cards">
-          {% for card in site.data.revolution-cards %}
-          <div
-            class="content-card"
-            id="card-{{ card.id }}"
-          >
-            {% if card.background_image != "" %}
-            <img
-              src="{{ card.background_image }}"
-              alt=""
-              class="content-card-bg-image"
-              loading="lazy"
-            />
-            {% endif %}
-            <h3 class="h4-size">
-              {{ card.title }}
-              <em class="title-emphasis">{{ card.title_emphasis }}</em>
-            </h3>
-            <div class="content-text">
-              {% for paragraph in card.paragraphs %}
-              <p class="medium">{{ paragraph }}</p>
-              {% endfor %}
-            </div>
-          </div>
-          {% endfor %}
-        </div>
+      <div class="bridge-ctas">
+        <a class="cta-light" href="/about">HOW WE GOT HERE</a>
+        <a class="cta-text" href="/blog">READ THE LATEST &rarr;</a>
       </div>
     </div>
-    <a class="cta-center cta-button-alt" href="/roadmap">SEE WHERE WE ARE GOING</a>
   </div>
 </section>
-<style>
-  /* Selected state via :checked - target labels */
-  {% for card in site.data.revolution-cards %}
-  #tab-{{ card.id }}:checked ~ .tag-grid label[for="tab-{{ card.id }}"]{% if forloop.last %} { {% else %},{% endif %}
-  {% endfor %}
-    background: var(--blue-blue);
-    color: var(--standard-light);
-    box-shadow: 0 4px 19.3px 0 var(--standard-blue);
-  }
-  
-  /* Show cards based on checked radio buttons */
-  {% for card in site.data.revolution-cards %}
-  #tab-{{ card.id }}:checked ~ .content-cards #card-{{ card.id }}{% if forloop.last %} { {% else %},{% endif %}
-  {% endfor %}
-    display: block;
-    opacity: 1;
-  }
-</style>
 
-<!-- Project Section -->
-<section class="project-section">
+<!-- Featured Projects -->
+<section class="featured-projects-section">
   <div class="container">
-    <div class="project-content">
-      <div class="section-label viola-label">Our Projects</div>
-      <div class="project-title insights-title">
-        <h2 class="h2-size">
-          Meet <span class="highlight-green italic weak">WIZARD<span class="period">.</span></span>
-        </h2>
+    <div class="featured-projects-header">
+      <div>
+        <div class="section-label">Featured Projects</div>
+        <h2 class="h2-size">Research that <span class="highlight-green italic weak">ships<span class="period">.</span></span></h2>
       </div>
-      <div class="project-body">
-        <p class="medium content-description weak">
-          We don't stop at the theoretical.<br>
-          WIZARD is that in action: a robot that watches once,<br>
-          adapts instantly, and operates in the real world.<br>
-          <span class="highlight-green italic weak">Frontier science</span> becoming <span class="highlight-blue italic weak">industrial reality</span>.
-        </p>
-        <a class="cta-button cta-center" href="https://fascetta.github.io/WIZARD/">Find Out More</a>
-        <div class="project-stats">
-          <div class="stat-card stat-card--green">
-            <div class="stat-number"><span class="stat-approx">~</span>14×</div>
-            <div class="stat-label">performance on unseen tasks,<br>zero retraining required</div>
+      <a class="cta-outlined" href="/projects">ALL PROJECTS &rarr;</a>
+    </div>
+
+    <div class="featured-projects-grid">
+      <div class="featured-project-card">
+        <div class="featured-project-tag">
+          <span>One-shot imitation learning</span>
+          <span class="featured-project-tag-sub">ItalAI &times; UC Berkeley</span>
+        </div>
+        <h3 class="h4-size uppercase">WIZARD</h3>
+        <dl class="featured-project-facts">
+          <div>
+            <dt>Problem</dt>
+            <dd>Industrial robots need re-teaching for every new task and every change in the environment.</dd>
           </div>
+          <div>
+            <dt>Approach</dt>
+            <dd>One-shot imitation learning, developed in active collaboration with UC Berkeley: the system watches a single demonstration and adapts to new tasks with zero retraining.</dd>
+          </div>
+          <div>
+            <dt>Stage</dt>
+            <dd>Active research project, not yet in production.</dd>
+          </div>
+        </dl>
+        <div class="featured-project-stats">
           <div class="stat-card stat-card--blue">
             <div class="stat-number">1</div>
-            <div class="stat-label">video demonstration.<br>that's all it takes.</div>
+            <div class="stat-label">demonstration, then autonomy on unseen tasks &mdash; no retraining.</div>
+          </div>
+          <div class="stat-card stat-card--green">
+            <div class="stat-number"><span class="stat-approx">~</span>14&times;</div>
+            <div class="stat-label">success rate over the one-shot baseline on our evaluation set &mdash; benchmark on the project page.</div>
           </div>
         </div>
+        <a class="cta-dark" href="/projects/wizard">READ THE PROJECT NOTE</a>
+      </div>
+
+      <div class="featured-project-card">
+        <div class="featured-project-tag">
+          <span>Tactile-reactive manipulation</span>
+          <span class="featured-project-tag-sub">Multi-institutional</span>
+        </div>
+        <h3 class="h4-size uppercase">T-Rex</h3>
+        <dl class="featured-project-facts">
+          <div>
+            <dt>Problem</dt>
+            <dd>Dexterous manipulation degrades when contact is uncertain and vision alone cannot resolve it.</dd>
+          </div>
+          <div>
+            <dt>Approach</dt>
+            <dd>Tactile-reactive control fusing touch with vision. A 36-researcher multi-institutional collaboration &mdash; ItalAI's contribution is documented in the author list, not claimed as sole authorship.</dd>
+          </div>
+          <div>
+            <dt>Stage</dt>
+            <dd>Active collaboration, currently in the research and validation stage.</dd>
+          </div>
+        </dl>
+        <div class="featured-project-stats">
+          <div class="stat-card stat-card--blue">
+            <div class="stat-number">36</div>
+            <div class="stat-label">researchers across the collaboration &mdash; ItalAI among the named affiliations.</div>
+          </div>
+          <div class="stat-card stat-card--green">
+            <div class="stat-number">2</div>
+            <div class="stat-label">sensing modalities fused &mdash; touch and vision, in one control loop.</div>
+          </div>
+        </div>
+        <a class="cta-dark" href="/projects">READ THE PROJECT NOTE</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="insights-section">
+<!-- In Action Section -->
+<section class="in-action-section">
   <div class="container">
-    <div class="insights-content">
-      <div class="section-label">INSIGHTS</div>
-      <div class="insights-title">
+    <div class="in-action-header">
+      <div>
+        <div class="section-label section-label--bright">In action</div>
         <h2 class="h2-size">
-          From <span class="highlight-green italic weak">research</span> to
-          <span class="word highlight-blue italic weak">reality<span class="period">.</span></span>
-          
+          Research, running in the <span class="highlight-blue-soft italic weak">real world</span><span class="period">.</span>
         </h2>
-        <a class="cta-button-alt" href="/insights" aria-label="View all insights articles">READ MORE</a>
       </div>
-      <div class="insights-grid">
+      <p class="in-action-desc">Live footage from WIZARD and T-Rex — models operating on real hardware, outside the lab.</p>
+    </div>
+    <div class="in-action-grid in-action-grid--3col">
+      <div class="in-action-item">
+        <video src="https://fascetta.github.io/WIZARD/static/videos/LIBERO_Goal/task3_put_the_wine_bottle_on_top_of_the_cabinet.mp4" autoplay muted loop playsinline></video>
+        <span class="in-action-tag">WIZARD</span>
+        <span class="in-action-caption">Wine bottle &rarr; cabinet</span>
+      </div>
+      <div class="in-action-item">
+        <video src="https://fascetta.github.io/WIZARD/static/videos/Real_World/Cup.mp4" autoplay muted loop playsinline style="transform: scale(1.35);"></video>
+        <span class="in-action-tag">WIZARD</span>
+        <span class="in-action-caption">Cup pickup &middot; real world</span>
+      </div>
+      <div class="in-action-item">
+        <video src="https://tactile-reactive-dexterous.github.io/figures/hero_short.mp4" autoplay muted loop playsinline></video>
+        <span class="in-action-tag">T-REX</span>
+        <span class="in-action-caption">Tactile dexterity</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blogs-section">
+  <div class="container">
+    <div class="blogs-content">
+      <div class="section-label">BLOG</div>
+      <div class="blogs-title">
+        <h2 class="h2-size">
+          From research to <span class="highlight-green">reality<span class="period">.</span></span>
+        </h2>
+        <a class="cta-outlined" href="/blog" aria-label="View all blog posts">READ MORE</a>
+      </div>
+      <div class="blogs-rail ital-rail">
         {% assign sorted_posts = site.posts | sort: "part" | sort: "date" | reverse %}
         {% assign visible_count = 0 %}
         {% for post in sorted_posts %}
-          {% if post.published_in_blog != false and visible_count < 2 %}
-              {% if visible_count == 0 %}
-                <div class="card-animated slide-in-left" data-delay="0">
-                  {% include insight-card.html post=post %}
-                </div>
-              {% elsif visible_count == 1 %}
-                <div class="card-animated slide-in-right" data-delay="200">
-                  {% include insight-card.html post=post %}
-                </div>
-              {% endif %}
+          {% if post.published_in_blog != false and visible_count < 4 %}
+              <div class="card-animated slide-in-bottom" data-delay="{{ visible_count | times: 150 }}">
+                {% include blog-card.html post=post %}
+              </div>
             {% assign visible_count = visible_count | plus: 1 %}
           {% endif %}
         {% endfor %}
@@ -246,6 +225,24 @@ description: "ItalAI - Where frontier AI research meets real-world impact. We bu
     </div>
   </div>
 </section>
+
+<!-- Audience Fit / ICP -->
+<section class="icp-section">
+  <div class="container">
+    <div class="icp-content">
+      <div class="section-label section-label--bright icp-label">What We Build</div>
+      <div class="icp-copy">
+        <p class="icp-statement">
+          We build Physical AI systems for hard problems with no off-the-shelf solutions &mdash; perception, manipulation and real-time control in environments that break standard tooling.
+        </p>
+        <p class="icp-substatement">
+          Every system starts as research: published, benchmarked, and developed alongside the institutions doing the underlying work. That is what it takes to build something that holds up outside the lab.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <script>
 (() => {
   const t = new Map;

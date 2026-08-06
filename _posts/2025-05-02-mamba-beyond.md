@@ -1,15 +1,19 @@
 ---
 layout: post
-title: "🦛 Beyond Vanilla SSMs"
+title: "Beyond Vanilla SSMs"
 description: "ItalAI explores advanced state space models beyond vanilla SSMs: HiPPO initialization, S4 architecture, and Mamba's selective scan algorithm. Deep dive into next-generation neural architectures for efficient long-sequence modeling and their applications in vision, audio, and language processing."
-image: "/assets/images/blog/cards/ssm.webp"
+image: "/assets/images/blog/cards/mamba-p3-beyond.svg"
 category: "Transformers"
-hero_image: "/assets/images/blog/cards/ssm.webp"
+hero_image: "/assets/images/blog/cards/mamba-p3-beyond.svg"
 excerpt: "Is there an alternative to transformer networks?"
 series: mamba
 part: 3
 published_in_blog: true
 author: "Guido Maria D'Amely di Melendugno"
+author_role: "Post-Doc Research Associate"
+institution: "Sapienza"
+post_type: "Explainer"
+read_time: "8 min read"
 last_modified_at: 2026-02-03
 ---
 
@@ -142,7 +146,7 @@ To enhance its efficiency, Hymba proposes several key innovations. **Meta tokens
 
 ### SeRpEnt: Selective Resampling for Expressive State Space Models
 
-This work, produced by ItalAI, represents a theoretical advancement in the field of state space models SSMs, focusing on enhancing sequence compression and information efficiency. Building on the success of Mamba's learned [selectivity mechanism](https://www.notion.so/Beyond-vanilla-SSMs-16967463eca580d4a9d5d7fbf26a2e5b?pvs=21), which empirically improves SSM performance, SeRpEnt provides a formal analysis of selectivity, demonstrating that the learned time intervals in Mamba serve as linear approximators of the information content contained in the sequence elements. This insight lays the foundation for SeRpEnt's key innovation: a selective resampling mechanism that compresses sequences by aggregating elements based on their informational relevance.
+This work, produced by ItalAI, represents a theoretical advancement in the field of state space models SSMs, focusing on enhancing sequence compression and information efficiency. Building on the success of Mamba's learned [selectivity mechanism](https://www.notion.so/Beyond-vanilla-SSMs-16967463eca580d4a9d5d7fbf26a2e5b?pvs=21), which empirically improves SSM performance, SeRpEnt provides a formal analysis of selectivity, demonstrating that the learned time intervals in Mamba serve as linear approximators of the information content contained in the sequence elements. This blog lays the foundation for SeRpEnt's key innovation: a selective resampling mechanism that compresses sequences by aggregating elements based on their informational relevance.
 
 The **SeRpEnt framework** introduces a novel approach to compress and process sequences by leveraging a selective resampling mechanism that identifies and retains the most informative elements. By dynamically learning the informational relevance of sequence elements through time intervals, SeRpEnt compresses input sequences into shorter representations that are processed at multiple scales to efficiently capture both short- and long-range dependencies. This information-aware compression allows SeRpEnt to enhance the expressiveness of state space models (SSMs) while maintaining computational efficiency.
 

@@ -21,6 +21,12 @@ try {
     form.reset();
     successMessage.style.display = "block";
     errorMessage.style.display = "none";
+    if (typeof gtag === "function") {
+      gtag("event", "generate_lead", {
+        source: formData.get("source") || "",
+        prior_contact: formData.get("prior_contact") || "",
+      });
+    }
     } else {
     throw new Error("Form submission failed");
     }

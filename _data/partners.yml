@@ -1,0 +1,36 @@
+# Shared partner list — single source of truth for the "Partnerships" bar on
+# both index.html and about.html, rendered via _includes/partners-bar.html.
+# Adding a partner is data-only: no CSS changes needed. font/weight/size/tracking
+# drive CSS custom properties consumed by the shared `.partner-name` rule in
+# _components.scss; group/label describe the optional affiliation sub-label.
+- slug: berkeley
+  name: "Berkeley"
+  font: spectral
+  weight: 600
+  size: 30
+  tracking: -0.5
+  group: true
+  label: "University of California"
+  label_position: before
+- slug: stanford
+  name: "Stanford"
+  font: spectral
+  weight: 600
+  size: 30
+  tracking: -0.5
+- slug: panasonic
+  name: "Panasonic"
+  font: dm
+  weight: 700
+  size: 28
+  tracking: -0.5
+- slug: sapienza
+  name: "Sapienza"
+  font: spectral
+  weight: 600
+  size: 25
+  tracking: 3
+  uppercase: true
+  group: true
+  label: "Università di Roma"
+  label_position: after

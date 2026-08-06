@@ -3,23 +3,12 @@
     height: 100%;
     width: 100%;
     margin: 0 auto;
-}
-
-.cta-overlap {
-    position: relative;
-    z-index: 2;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    top: 50%;
-    transform: translateY(50%);
-    margin-bottom: 0;
-    text-transform: uppercase;
+    box-sizing: border-box;
+    padding-inline: 1.25rem;
 }
 
 .cta-label {
-    color: #0D0221;
+    color: var(--standard-dark);
     padding: 8px 20px;
     font-size: calc(var(--font-size) / 1.1);
     font-weight: 100;
@@ -30,6 +19,7 @@
 }
 
 %cta-button-base {
+    align-self: flex-start;
     color: var(--standard-light);
     border: 2px solid transparent;
     font-family: var(--button-font-family);
@@ -71,35 +61,6 @@
 
     &:hover:not(:disabled):not(.disabled) {
         background: var(--blue-green);
-    }
-}
-
-.tag-button {
-    @extend %cta-button-base;
-    // padding: 10px 0;
-    justify-content: center;
-    text-align: center;
-    border-radius: 5px;
-    background: var(--blue-light);
-    color: var(--standard-dark);
-    width: auto;
-    box-shadow: 0 4px 19.3px 0 var(--standard-light-alt);
-    cursor: pointer;
-    border: 2px solid transparent;
-    &:hover,
-    &.selected {
-        box-shadow: 0 4px 19.3px 0 var(--standard-blue);
-    }
-    &:hover {
-        background: var(--blue-blue);
-        color: var(--standard-light);
-    }
-    &:hover:not(:disabled):not(.disabled) {
-        color: var(--standard-light);
-    }
-    &.selected {
-        background: var(--blue-blue);
-        color: var(--standard-light);
     }
 }
 
@@ -161,10 +122,6 @@
     pointer-events: none;
 }
 
-.common-hero-spacer {
-    padding: 1rem;
-}
-
 .common-hero-content {
     padding: var(--space-lg) var(--space-2xl);
     position: relative;
@@ -194,6 +151,9 @@
 }
 
 .common-hero-content h1 {
+    // !important required: default title_class is h3-size (or similar), whose font-size
+    // in _globals.scss is itself !important — consistent across every mockup secondary-page hero (44px).
+    font-size: clamp(1.75rem, 3.6vw, 2.75rem) !important; // mockup: 44px
     font-weight: 800;
     line-height: 1.2;
     margin: auto 0;
@@ -236,9 +196,15 @@
 
 .section-label {
     font-family: var(--header-family);
-    font-size: var(--h7-size);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--standard-green);
+    margin-bottom: 1rem;
+}
+.section-label--bright {
+    color: var(--standard-green-bright);
 }
 .viola-label {
     color: var(--standard-blue);
@@ -264,6 +230,9 @@
 }
 .highlight-blue {
     color: var(--standard-blue);
+}
+.highlight-blue-soft {
+    color: var(--standard-blue-soft);
 }
 .highlight-red {
     color: var(--standard-red);
@@ -296,6 +265,249 @@ weak,
 .emphasis {
   color: var(--standard-blue);
   font-weight: 600;
+}
+
+/* Outlined pill button — dark border, dark text, fills dark on hover.
+   Used for secondary CTAs on light backgrounds (matches mockup spec). */
+.cta-outlined {
+    display: inline-block;
+    font-family: var(--button-font-family);
+    font-size: var(--font-size);
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--standard-dark);
+    background: none;
+    border: 1px solid var(--standard-dark);
+    padding: 15px 30px;
+    border-radius: 100px;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+
+    &:hover {
+        background: var(--standard-dark);
+        color: var(--standard-light);
+    }
+}
+
+/* Light pill button — light bg, dark text, lifts on hover.
+   Used for primary CTAs on dark backgrounds (hero, etc.). */
+.cta-light {
+    display: inline-block;
+    font-family: var(--button-font-family);
+    font-size: var(--font-size);
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--standard-dark);
+    background: var(--standard-light);
+    border: none;
+    padding: 16px 30px;
+    border-radius: 100px;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform var(--transition-base);
+    white-space: nowrap;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* Muted mono text link — small "see more" style link on dark backgrounds. */
+.cta-text {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 1px;
+    color: #8a85a0;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: var(--standard-light);
+    }
+}
+
+/* Muted mono text link — small "see more" style link on light backgrounds. */
+.cta-text-dark {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 1px;
+    color: var(--standard-dark-alt);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: var(--standard-dark);
+    }
+}
+
+/* Dark pill button — solid dark bg, light text, lifts on hover.
+   Used for primary CTAs on light backgrounds (WIZARD, etc.). */
+.cta-dark {
+    display: inline-block;
+    align-self: flex-start;
+    font-family: var(--button-font-family);
+    font-size: var(--font-size);
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--standard-light);
+    background: var(--standard-dark);
+    border: none;
+    padding: 13px 26px;
+    border-radius: 100px;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform var(--transition-base);
+    white-space: nowrap;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* Stat card — boxed metric callout. Used in the home "Our Projects"
+   section and the Projects/WIZARD detail page hero sidebar. */
+.stat-card {
+  flex: 1;
+  padding: 22px 24px;
+  border-left: 1px solid #ece8da;
+}
+
+.stat-number {
+  font-family: var(--header-family);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.stat-card--green .stat-number { color: var(--standard-green); }
+.stat-card--blue  .stat-number { color: var(--standard-blue); }
+
+.stat-approx {
+  font-size: 20px;
+  font-weight: 400;
+  vertical-align: super;
+  opacity: 0.6;
+  margin-right: 2px;
+}
+
+.stat-label {
+  font-size: 14px;
+  margin-top: 8px;
+  color: #54513f;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .stat-card {
+    border-left: none;
+    border-top: 1px solid #ece8da;
+  }
+
+  .stat-card--green {
+    border-left: none;
+    border-top: 3px solid var(--standard-green);
+  }
+
+  .stat-card--blue {
+    box-shadow: inset 0 3px 0 var(--standard-blue);
+  }
+}
+
+/* In Action — video demo grid. Used on the home page (4-col) and the
+   Projects/WIZARD detail page (2-col, via .in-action-grid--2col). */
+.in-action-section {
+    padding: 0;
+    background: var(--standard-dark);
+    border-top: 1px solid #1b1533;
+    color: var(--standard-light);
+}
+
+.in-action-header {
+    padding: 4rem 3.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.125rem;
+
+    h2 {
+        margin: 0;
+    }
+}
+
+.in-action-desc {
+    max-width: 360px;
+    margin: 0;
+    color: #8e88a6;
+    line-height: 1.6;
+}
+
+.in-action-grid {
+    padding: 0 3.5rem 4.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.in-action-grid--3col {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.in-action-item {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #140d2e;
+    border: 1px solid #241a44;
+
+    video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+}
+
+.in-action-tag {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 0.625rem;
+    letter-spacing: 1.5px;
+    color: var(--standard-dark);
+    background: var(--standard-light);
+    padding: 4px 9px;
+    border-radius: 30px;
+    pointer-events: none;
+}
+
+.in-action-caption {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    font-family: var(--header-family);
+    font-size: 0.6875rem;
+    letter-spacing: 0.5px;
+    color: #eae6f5;
+    background: rgba(10, 6, 24, 0.62);
+    padding: 5px 10px;
+    border-radius: 30px;
+    pointer-events: none;
 }
 
 /* Universal Animations */
@@ -374,6 +586,89 @@ weak,
 }
 
 /* ========================================
+   FULL-BLEED HERO (rework layout)
+   ======================================== */
+.full-bleed-hero {
+    background: linear-gradient(180deg, #130b2e 0%, var(--standard-dark) 100%);
+    overflow: hidden;
+}
+
+.full-bleed-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    min-height: 440px;
+}
+
+.full-bleed-hero-grid.has-media {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+
+.full-bleed-hero-content {
+    padding: 78px 56px 84px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 720px;
+}
+
+.full-bleed-breadcrumb {
+    font-family: var(--header-family);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #6f6a9a;
+    margin-bottom: 26px;
+
+    a {
+        color: #6f6a9a;
+        text-decoration: none;
+        &:hover {
+            color: var(--standard-blue-soft);
+        }
+    }
+}
+
+.full-bleed-breadcrumb-active {
+    color: var(--standard-blue-soft);
+}
+
+.full-bleed-hero-title {
+    font-family: var(--header-family);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+    line-height: 1.16;
+    letter-spacing: -0.5px;
+    color: var(--standard-light);
+    margin: 0;
+    text-transform: uppercase;
+    text-wrap: balance;
+}
+
+.full-bleed-hero-tagline {
+    font-family: var(--body-family);
+    font-size: clamp(1rem, 1.2vw, 1.1875rem);
+    line-height: 1.55;
+    color: #b8b2c8;
+    max-width: 520px;
+    margin: 24px 0 0;
+}
+
+.full-bleed-hero-media {
+    position: relative;
+    min-height: 360px;
+    background: radial-gradient(90% 90% at 60% 45%, #241a4a 0%, #150d33 55%, var(--standard-dark) 100%);
+    overflow: hidden;
+
+    img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+/* ========================================
    BASIC SLIDE DIRECTIONS
    ======================================== */
 
@@ -447,4 +742,112 @@ weak,
 
 .slide-in-bottom {
     animation-name: slideInBottom;
+}
+
+/* ============================================
+   Partner name/logo bar — shared list module
+   (see _data/partners.yml + _includes/partners-bar.html;
+   per-partner typography is data-driven via --partner-* custom
+   properties, so adding a partner needs no CSS changes)
+   ============================================ */
+.partner-name-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: var(--standard-warm);
+}
+
+.partner-name-label {
+    font-family: var(--header-family);
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #7a766a;
+    line-height: 1;
+}
+
+.partner-name {
+    font-family: var(--partner-font, var(--body-family));
+    font-weight: var(--partner-weight, 600);
+    font-size: var(--partner-size, 24px);
+    letter-spacing: var(--partner-tracking, 0);
+    line-height: 1;
+    color: var(--standard-warm);
+}
+
+.partner-name--upper {
+    text-transform: uppercase;
+}
+
+.partner-divider {
+    width: 1px;
+    height: 36px;
+    background: #dcd7c6;
+    flex: none;
+}
+
+/* ============================================
+   Sticky two-column intro — shared layout module
+   (label + heading pin in the left column while the paired
+   copy scrolls past in the right column; used on About "Who We
+   Are", What We Do "What We Focus On", What's Next, etc.)
+   ============================================ */
+.sticky-intro-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 56px;
+    align-items: start;
+}
+
+.sticky-intro-label {
+    position: sticky;
+    top: 104px;
+}
+
+.sticky-intro-label h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2.0625rem) !important;
+    font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: -0.5px;
+    margin: 0 0 20px;
+    color: var(--standard-dark);
+}
+
+.sticky-intro-body .description {
+    font-family: var(--body-family);
+    font-size: clamp(1rem, 1.2vw, 1.1875rem);
+    line-height: 1.65;
+    color: var(--standard-warm);
+    margin: 0 0 20px;
+}
+
+.sticky-intro-body .description:last-of-type {
+    color: var(--standard-dark-alt);
+    font-size: clamp(0.9375rem, 1vw, 1.0625rem);
+    margin-bottom: 0;
+}
+
+/* Dark-background variant (e.g. What's Next "Looking ahead") */
+.sticky-intro-grid--dark .sticky-intro-label h2 {
+    color: var(--standard-light);
+}
+
+.sticky-intro-grid--dark .sticky-intro-body .description {
+    color: #c2bcd2;
+}
+
+.sticky-intro-grid--dark .sticky-intro-body .description:not(:first-of-type) {
+    color: #8e88a6;
+    font-size: clamp(1rem, 1.2vw, 1.1875rem);
+}
+
+@media (max-width: 1279px) {
+    .sticky-intro-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .sticky-intro-label {
+        position: static;
+    }
 }

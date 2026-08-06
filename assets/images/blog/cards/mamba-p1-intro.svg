@@ -1,0 +1,27 @@
+<svg viewBox="0 0 330 168" width="330" height="168" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f3a30"/>
+      <stop offset="100%" stop-color="#12271f"/>
+    </linearGradient>
+    <marker id="ah3" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#4fbf8f"/>
+    </marker>
+  </defs>
+  <rect width="330" height="168" fill="url(#bg3)"/>
+  <g transform="translate(165,84) scale(1.163105) translate(-165,-84)">
+    <g fill="#173026" stroke="#5fd3a8" stroke-width="1.4">
+      <rect x="66" y="72" width="11" height="40" rx="2"/>
+      <rect x="82" y="56" width="11" height="56" rx="2"/>
+      <rect x="98" y="66" width="11" height="46" rx="2"/>
+      <rect x="221" y="72" width="11" height="40" rx="2"/>
+      <rect x="237" y="56" width="11" height="56" rx="2"/>
+      <rect x="253" y="66" width="11" height="46" rx="2"/>
+    </g>
+    <circle cx="165" cy="84" r="13" fill="#173026" stroke="#7fe9c4" stroke-width="1.6"/>
+    <g stroke="#4fbf8f" stroke-width="1.6" fill="none">
+      <line x1="116" y1="84" x2="148" y2="84" marker-end="url(#ah3)"/>
+      <line x1="182" y1="84" x2="210" y2="84" marker-end="url(#ah3)"/>
+    </g>
+  </g>
+</svg>

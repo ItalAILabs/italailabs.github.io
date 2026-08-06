@@ -1,16 +1,23 @@
 :root {
-  --standard-green: #32b692;
+  --standard-green: #29b485;
+  --standard-green-bright: #2fcb92;
   --standard-green-alt: #C6FFE0;
-  --standard-light: #F6F4EC;
+  --standard-light: #f4f1e6;
   --standard-light-alt: #D9CBB5;
-  --standard-dark: #0D0221;
-  --standard-dark-alt: #2C2C2C;
-  --standard-red: #e4453a;
-  --standard-blue: #6a7cff;
+  --standard-dark: #0c0717;
+  --standard-dark-alt: #54513f;
+  --standard-red: #E63A1E;
+  --standard-blue: #6b6cf5;
+  --standard-blue-soft: #9b9cf7;
   --standard-disabled: #EAEAEA;
   --standard-viola: #34147D;
+  --standard-cream: #efece1;
+  --standard-warm: #33301f;
+  --transition-base: 0.2s ease;
+  --transition-fast: 0.15s ease;
   --header-family: "JetBrains Mono", monospace;
   --body-family: "DM Sans", sans-serif;
+  --accent-family: "Spectral", serif;
 }
 
 body {
@@ -24,9 +31,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-// *, *::before, *::after {
-//   box-sizing: inherit;
-// }
+/* *, *::before, *::after {
+  box-sizing: inherit;
+} */
 
 /* Loading Screen - Critical */
 #loading-screen {

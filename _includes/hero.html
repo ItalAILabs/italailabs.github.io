@@ -1,33 +1,63 @@
 {% if page.url == "/" %}
-<section class="main-hero">
-    
-    {% if include.bg_image %}
-    <!-- Pre-inserted flowmap wrapper -->
-    <div class="flowmap-deformation-wrapper" 
-         data-bg="{{ include.bg_image }}"
-         data-bg-width="1880" 
-         data-bg-height="789">
-        <canvas width="1880" height="789" style="width: 100%; height: 100%;"></canvas>
-    </div>
-    
-    <!-- Fallback for no-JS users -->
-    <img src="{{ include.bg_image }}" 
-     alt="" 
-     loading="eager" 
-     fetchpriority="high"
-     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; z-index: 0;">
-    {% endif %}
-    
+<section class="main-hero"{% if include.bg_image %} style="--hero-bg: url('{{ include.bg_image }}')"{% endif %}>
     <div class="container">
-        <div class="main-hero-content">
-            {% include animated-header.html title=include.title %}
-            {% if include.subtitle %}
-            <p class="large highlight-green-alt italic">
-                {{ include.subtitle }}
-            </p>
-            {% endif %}
-            <a class="cta-button-alt" href="/about">{{ include.cta_text }}</a>
+        <div class="main-hero-grid">
+            <div class="main-hero-content">
+                {% if include.eyebrow %}
+                <div class="main-hero-eyebrow">{{ include.eyebrow }}</div>
+                {% endif %}
+                {% include animated-header.html title=include.title %}
+                {% if include.subtitle %}
+                <p class="large italic" style="color: #b8b2c8;">
+                    {{ include.subtitle }}
+                </p>
+                {% endif %}
+                <div class="main-hero-ctas">
+                    <a class="cta-light" href="{{ include.cta_url | default: '/about' }}">{{ include.cta_text }}</a>
+                    {% if include.secondary_text %}
+                    <a class="main-hero-secondary" href="{{ include.secondary_url | default: '/work' }}">{{ include.secondary_text }}</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="main-hero-media">
+                {% if include.bg_image %}
+                <img src="{{ include.bg_image }}"
+                 alt=""
+                 loading="eager"
+                 fetchpriority="high"
+                 class="main-hero-media-fallback">
+                {% endif %}
+                {% if include.media_tag %}
+                <div class="main-hero-media-tag">{{ include.media_tag }}</div>
+                {% endif %}
+            </div>
         </div>
+    </div>
+</section>
+{% else %}
+{% if include.layout == "full-bleed" %}
+<section class="full-bleed-hero" {% if include.hero-style %}style="{{ include.hero-style }}"{% endif %}>
+    <div class="container">
+      <div class="full-bleed-hero-grid{% if include.bg_image %} has-media{% endif %}">
+        <div class="full-bleed-hero-content">
+          <div class="full-bleed-breadcrumb">
+            <a href="/">HOME</a> /
+            {% if include.crumb_parent_url %}
+              <a href="{{ include.crumb_parent_url }}">{{ include.crumb_parent_label }}</a> /
+            {% endif %}
+            <span class="full-bleed-breadcrumb-active">{{ include.crumb_current | default: page.title | upcase }}</span>
+          </div>
+          <h1 class="full-bleed-hero-title{% if include.title_class %} {{ include.title_class }}{% endif %}" {% if include.title-style %}style="{{ include.title-style }}"{% endif %}>{{ include.heading }}<span class="period"></span></h1>
+          {% if include.tagline %}
+            <p class="full-bleed-hero-tagline">{{ include.tagline }}</p>
+          {% endif %}
+        </div>
+        {% if include.bg_image %}
+        <div class="full-bleed-hero-media">
+            <img src="{{ include.bg_image }}" alt="" loading="eager" fetchpriority="high">
+        </div>
+        {% endif %}
+      </div>
     </div>
 </section>
 {% else %}
@@ -55,4 +85,5 @@
         </div>
     </div>
 </section>
+{% endif %}
 {% endif %}

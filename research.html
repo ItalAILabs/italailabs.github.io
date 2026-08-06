@@ -1,0 +1,121 @@
+---
+layout: default
+title: Research
+image: "/assets/logo.png"
+description: "ItalAI Research: the publication record spanning perception, embodied AI, computer vision, and multimodal foundation models — all peer-reviewed and public. CVPR, ICLR, ECCV, IROS, AAAI, ICML, COLM."
+---
+
+{% assign domains = site.data.publications | map: "domain" | uniq %}
+{% assign venues = "" | split: "," %}
+{% for pub in site.data.publications %}
+  {% assign short_venue = pub.venue | split: "'" | first %}
+  {% unless venues contains short_venue %}
+    {% assign venues = venues | push: short_venue %}
+  {% endunless %}
+{% endfor %}
+{% assign venues = venues | sort %}
+{% assign total_papers = site.data.publications | size %}
+
+{% include hero.html
+  layout="full-bleed"
+  heading="The publication record"
+  crumb_current="RESEARCH"
+  tagline="Physical AI is not one discipline. A system that works on a factory floor needs perception, representation learning, planning and control to hold together at once — so our record spans all four. Everything below is peer-reviewed and public. Each entry links to the paper."
+  title-style="color: var(--standard-light);"
+  hero-style=""
+%}
+
+<!-- Filter -->
+<section class="research-filter">
+  <div class="container">
+    <div class="research-filter-bar">
+      <span class="research-filter-label">Venue</span>
+      <div class="research-filter-pills" id="researchFilterPills">
+        <button class="research-filter-pill active" data-venue="All">ALL</button>
+        {% for v in venues %}
+        <button class="research-filter-pill" data-venue="{{ v }}">{{ v | upcase }}</button>
+        {% endfor %}
+      </div>
+      <span class="research-filter-count" id="researchCount">{{ total_papers }} of {{ total_papers }} shown</span>
+    </div>
+  </div>
+</section>
+
+<!-- Papers by domain -->
+<section class="research-papers">
+  <div class="container">
+    {% for domain in domains %}
+      {% assign papers = site.data.publications | where: "domain", domain %}
+      <div class="research-domain-group" data-domain-group>
+        <div class="research-domain-header">
+          <h2>{{ domain }}</h2>
+          <span class="research-domain-count" data-domain-count>{{ papers.size }} paper{% unless papers.size == 1 %}s{% endunless %}</span>
+        </div>
+        <div class="research-paper-grid">
+          {% for p in papers %}
+            {% assign short_venue = p.venue | split: "'" | first %}
+            <a class="research-paper-card" href="{{ p.url }}" target="_blank" rel="noopener" data-paper-venue="{{ short_venue }}">
+              <div class="research-paper-card-top">
+                <span class="research-paper-venue">{{ p.venue | upcase }}</span>
+                <span class="research-paper-arrow">&#8599;</span>
+              </div>
+              <div class="research-paper-name">{{ p.name }}</div>
+              <div class="research-paper-title">{{ p.title }}</div>
+              <div class="research-paper-contribution">{{ p.contribution }}</div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Cross-link to Projects -->
+<section class="research-crosslink">
+  <div class="container">
+    <div class="research-crosslink-grid">
+      <div>
+        <div class="section-label">Where It Goes Next</div>
+        <h2 class="research-crosslink-title">Papers prove the method. Projects prove it runs.<span class="period"></span></h2>
+        <p class="research-crosslink-text">WIZARD builds on the one-shot imitation work with UC Berkeley. T-Rex builds on the tactile and manipulation line. Both operate on real hardware.</p>
+      </div>
+      <div class="research-crosslink-ctas">
+        <a class="cta-outlined" href="/projects/wizard">WIZARD</a>
+        <a class="cta-outlined" href="/projects">ALL PROJECTS</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(() => {
+  const pills = document.querySelectorAll('.research-filter-pill');
+  const groups = document.querySelectorAll('[data-domain-group]');
+  const countEl = document.getElementById('researchCount');
+  const total = document.querySelectorAll('.research-paper-card').length;
+
+  function applyFilter(venue) {
+    let shown = 0;
+    groups.forEach((group) => {
+      let groupShown = 0;
+      group.querySelectorAll('.research-paper-card').forEach((card) => {
+        const match = venue === 'All' || card.dataset.paperVenue === venue;
+        card.style.display = match ? '' : 'none';
+        if (match) { groupShown += 1; shown += 1; }
+      });
+      group.style.display = groupShown ? '' : 'none';
+      const countLabel = group.querySelector('[data-domain-count]');
+      if (countLabel) countLabel.textContent = groupShown + (groupShown === 1 ? ' paper' : ' papers');
+    });
+    if (countEl) countEl.textContent = shown + ' of ' + total + ' shown';
+  }
+
+  pills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      pills.forEach((p) => p.classList.remove('active'));
+      pill.classList.add('active');
+      applyFilter(pill.dataset.venue);
+    });
+  });
+})();
+</script>

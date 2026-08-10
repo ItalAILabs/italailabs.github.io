@@ -157,31 +157,40 @@ $mobile: 575px;
 }
 
 @media (max-width: $mobile-extra) {
-    /* Hero: image stays beside the heading (2-col grid) all the way down to this
-       breakpoint, then switches straight to a background layer behind text —
-       hides the stacked media panel and composites the image behind a gradient
-       overlay via CSS custom property. */
-    .main-hero {
-        background-image:
-            linear-gradient(180deg, rgba(19, 11, 46, 0.82) 0%, rgba(10, 6, 24, 0.95) 100%),
-            var(--hero-bg, none);
-        background-size: auto, cover;
-        background-position: center, center;
-    }
-
-    .main-hero-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .main-hero-media {
-        display: none;
-    }
-
+    /* Hero: the media layer is absolutely positioned and sized off the hero's own
+       height at every breakpoint (see _index.scss), so it stays visible and scales
+       fluidly down to mobile — no display:none / background-image swap needed here. */
     .main-hero {
         --hero-pad-block: var(--space-xl);
         --hero-pad-inline: 0px;
     }
+}
 
+// Below 480px the height-locked (square) media box — floored at 440px, see
+// _index.scss — gets wider than the shrunk container, so right-anchoring it
+// would push its left edge further and further into the text column. Past
+// that point, center it instead so the overflow is symmetric — and hide the
+// "Research → Reality" tag, which sits at the media box's own corner and
+// would otherwise collide with the headline. 480px is the exact crossover
+// (not a rounded/eyeballed value): the container is 440px wide there too, so
+// both anchor modes render identically at the boundary and the switch is
+// imperceptible instead of a visible snap.
+@media (max-width: 480px) {
+    // Specificity must match .main-hero .main-hero-media (nested under .main-hero
+    // in _index.scss) — a flat .main-hero-media selector here loses the cascade
+    // even with a matching media query, since specificity is compared first.
+    .main-hero .main-hero-media {
+        right: auto;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .main-hero-media-tag {
+        display: none;
+    }
+}
+
+@media (max-width: $mobile-extra) {
     /* What We Do: was 72px 3.5rem 80px */
     .what-we-do-grid {
         padding-left: 0;

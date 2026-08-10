@@ -8,7 +8,7 @@
                 {% endif %}
                 {% include animated-header.html title=include.title %}
                 {% if include.subtitle %}
-                <p class="large italic" style="color: #b8b2c8;">
+                <p class="large" style="color: #b8b2c8;">
                     {{ include.subtitle }}
                 </p>
                 {% endif %}
@@ -21,18 +21,22 @@
             </div>
             <div class="main-hero-media">
                 {% if include.bg_image %}
+                <div class="main-hero-media-glow"></div>
                 <img src="{{ include.bg_image }}"
                  alt=""
                  loading="eager"
                  fetchpriority="high"
                  class="main-hero-media-fallback">
                 {% endif %}
-                {% if include.media_tag %}
-                <div class="main-hero-media-tag">{{ include.media_tag }}</div>
-                {% endif %}
             </div>
+            {% if include.media_tag and include.bg_image %}
+            <div class="main-hero-media-tag">{{ include.media_tag }}</div>
+            {% endif %}
         </div>
     </div>
+    {% if include.bg_image %}
+    <div class="main-hero-overlay"></div>
+    {% endif %}
 </section>
 {% else %}
 {% if include.layout == "full-bleed" %}

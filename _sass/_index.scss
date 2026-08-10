@@ -4,7 +4,6 @@
     --hero-pad-block: 84px 132px;
     --hero-pad-inline: 56px;
 
-    min-height: 560px;
     color: var(--standard-light);
     background: linear-gradient(180deg, #130b2e 0%, var(--standard-dark) 100%);
     display: flex;
@@ -12,38 +11,88 @@
     position: relative;
     overflow: hidden;
 
+    // Height lives on .main-hero-grid, not here, matching .full-bleed-hero-grid's
+    // pattern (_components.scss): .container (shared component) sets height:100%,
+    // which only resolves against a *definite* ancestor height, and min-height
+    // doesn't count as one — so a min-height set here wouldn't relay down through
+    // .container to size .main-hero-grid's flex children, leaving them pinned to
+    // the top with dead space below. Setting it directly on .main-hero-grid skips
+    // that relay: .main-hero just auto-sizes around whatever height results.
     .main-hero-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        display: flex;
         align-items: stretch;
-        width: 100%;
-    }
-
-    .main-hero-media {
         position: relative;
-        min-height: 420px;
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-        background: transparent;
-
-        .main-hero-media-fallback {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center;
-            z-index: 0;
-        }
+        width: 100%;
+        min-height: 440px; // matches .full-bleed-hero-grid (_components.scss) so every page's hero reads the same height
     }
 
-    .container .main-hero-content {
+    // Sized off the hero's own height rather than the container's width — a
+    // *percentage* height on an absolutely positioned box resolves against its
+    // containing block's actual used height even when that height only comes from
+    // min-height (unlike the normal-flow "auto" fallback .container hits below),
+    // so this tracks .main-hero-grid's real rendered height with no JS/floor needed.
+    // Right-anchored by default; past the point where the (square) box gets wider
+    // than the container it switches to centered instead, see _responsives.scss.
+    .main-hero-media {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        height: 100%;
+        width: auto;
+        aspect-ratio: 1 / 1;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    .main-hero-media-fallback {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        z-index: 1;
+        -webkit-mask-image: radial-gradient(55% 80% at 46% 55%, rgb(0, 0, 0) 26%, rgba(0, 0, 0, 0.7) 55%, transparent 85%);
+        mask-image: radial-gradient(55% 80% at 46% 55%, rgb(0, 0, 0) 26%, rgba(0, 0, 0, 0.7) 55%, transparent 85%);
+    }
+
+    // Bloom behind the contact point. Positioned at (53.5%, 54%) — the source
+    // design's own glow-center value (ItalAI Hero Hands Concepts.dc.html, section
+    // 1a), not the mask's (46%, 55%) focal point — the two are independently
+    // tuned in the mockup and aren't meant to match.
+    .main-hero-media-glow {
+        position: absolute;
+        left: 53.5%;
+        top: 54%;
+        height: 58%;
+        width: auto;
+        aspect-ratio: 1 / 1;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle, rgba(230, 58, 30, 0.32) 0%, rgba(230, 58, 30, 0.1) 34%, transparent 66%);
+        mix-blend-mode: screen;
+        z-index: 0;
+    }
+
+    // Diagonal fade across the whole hero (not just the image) so the text zone
+    // stays dark/legible and blends smoothly into the media bleeding off the
+    // right edge, instead of a hard seam between the two. Matches the same
+    // mockup section as the mask/glow above.
+    .main-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(96deg, #0c0717 8%, rgba(12, 7, 23, 0.86) 32%, rgba(12, 7, 23, 0.18) 54%, transparent 70%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .main-hero-content {
         display: flex;
         flex-direction: column;
         justify-content: center;
         position: relative;
         z-index: 2;
+        width: 100%;
+        max-width: 680px;
         padding-block: var(--hero-pad-block);
         padding-inline: var(--hero-pad-inline);
 
@@ -53,7 +102,6 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--standard-blue);
-            margin-top: 2.5rem;
             margin-bottom: 1.375rem;
         }
 
@@ -62,10 +110,10 @@
             // font-size in _globals.scss is itself !important, so a plain override here is a no-op.
             font-size: clamp(1.5rem, 3.6vw, 2.375rem) !important; // mockup: 38px (previous "46px" comment was measured against a different, shorter headline)
             font-weight: 800;
-            line-height: 1.18;
-            margin-top: 0;
-            margin-bottom: var(--space-md);
+            line-height: 1.22;
+            margin: 0;
             text-transform: uppercase;
+            text-wrap: balance;
 
             .highlight-green {
                 color: var(--standard-green-bright); // dc: #2fcb92
@@ -75,12 +123,8 @@
         p {
             font-size: clamp(1rem, 2vw, 1.25rem); // mockup: 20px
             font-weight: 400;
-            margin-top: 0;
-            margin-bottom: 0;
-
-            &:last-of-type {
-                margin-bottom: 2em;
-            }
+            max-width: 540px;
+            margin: 26px 0 0;
         }
 
         .main-hero-ctas {
@@ -88,6 +132,7 @@
             flex-wrap: wrap;
             align-items: center;
             gap: 1.75rem;
+            margin-top: 38px;
         }
 
         .cta-button-alt {
@@ -110,9 +155,15 @@
         }
     }
 
+    // Anchored to .main-hero-grid (stable bounds), not .main-hero-media — that box is
+    // sized by width via aspect-ratio, so its height (and therefore its own top edge)
+    // frequently overflows past the hero's actual visible height, which made a tag
+    // positioned relative to it unreliable. .main-hero-media's right edge doesn't have
+    // that problem (always pinned to the container's right edge, see above), so anchor
+    // from the right instead of the left to track it.
     .main-hero-media-tag {
         position: absolute;
-        left: 26px;
+        right: 26px;
         top: 24px;
         z-index: 2;
         font-family: var(--header-family);

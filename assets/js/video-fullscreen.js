@@ -44,6 +44,20 @@
         if (document.msExitFullscreen) return document.msExitFullscreen();
     }
 
+    /* iOS Safari can only fullscreen <video> elements, not arbitrary
+       containers. This fallback uses webkitEnterFullscreen() on the
+       video when the container-level API silently fails. */
+    function tryFallbackFullscreen(item) {
+        var video = item.querySelector("video");
+        if (video && video.webkitEnterFullscreen) {
+            try {
+                video.webkitEnterFullscreen();
+            } catch (_) {
+                /* no-op — nothing we can do */
+            }
+        }
+    }
+
     /* ── button icon sync ────────────────────────────────────── */
     function syncAllButtons() {
         var fs = isFullscreen();
@@ -74,7 +88,24 @@
                 exitFullscreen();
             } else {
                 lastContainer = item;
-                requestFullscreen(item);
+                var result = requestFullscreen(item);
+                if (result && typeof result.then === "function") {
+                    result
+                        .then(function () {
+                            if (!isFullscreen()) {
+                                tryFallbackFullscreen(item);
+                            }
+                        })
+                        .catch(function () {
+                            tryFallbackFullscreen(item);
+                        });
+                } else {
+                    setTimeout(function () {
+                        if (!isFullscreen()) {
+                            tryFallbackFullscreen(item);
+                        }
+                    }, 150);
+                }
             }
         },
         false

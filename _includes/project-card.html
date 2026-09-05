@@ -2,6 +2,9 @@
   <div class="project-card-media">
     {% if include.project.video %}
     <video src="{{ include.project.video }}" autoplay muted loop playsinline{% if include.project.video_zoom %} style="transform: scale({{ include.project.video_zoom }});"{% endif %}></video>
+    <button class="video-fullscreen-btn" aria-label="View video fullscreen" type="button">
+      <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+    </button>
     {% elsif include.project.stat_panel %}
     <div class="project-card-stat-panel">
       <span class="project-card-stat-panel-value">{{ include.project.stat_panel.value }}</span>

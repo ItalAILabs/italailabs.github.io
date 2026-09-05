@@ -36,6 +36,72 @@
         object-fit: cover;
         display: block;
     }
+
+    /* Fullscreen toggle button */
+    .video-fullscreen-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 5;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        border: none;
+        background: rgba(10, 6, 24, 0.65);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        color: #eae6f5;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: scale(0.85);
+        transition: opacity var(--transition-fast), transform var(--transition-fast),
+                    background var(--transition-fast);
+        pointer-events: none;
+
+        svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        &:hover {
+            background: rgba(107, 108, 245, 0.75);
+        }
+    }
+
+    &:hover .video-fullscreen-btn,
+    .video-fullscreen-btn:focus-visible {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+    }
+
+    /* Always show on touch devices */
+    @media (hover: none) {
+        .video-fullscreen-btn {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+    }
+
+    /* Show button when this container is the fullscreen element */
+    &:fullscreen {
+        background: #000;
+    }
+
+    &:fullscreen .video-fullscreen-btn {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+    }
 }
 
 .project-card-media:has(.project-card-stat-panel) {

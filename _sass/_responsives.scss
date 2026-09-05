@@ -2,6 +2,7 @@ $widescreen: 1921px;
 $laptop: 1600px;
 $tablet-extra: 1279px;
 $tablet: 991px;
+$project-card: 900px;
 $mobile-extra: 767px;
 $mobile: 575px;
 
@@ -223,11 +224,6 @@ $mobile: 575px;
         padding-right: 1.25rem;
     }
 
-    /* Project card row (listing): was 0.9fr 1.1fr */
-    .project-card {
-        grid-template-columns: 1fr;
-    }
-
     /* Project detail hero inner: was 70px 56px 60px */
     .project-hero-inner {
         padding-left: 0;
@@ -363,5 +359,54 @@ $mobile: 575px;
 
     .footer-logo-col {
         grid-column: auto;
+    }
+}
+
+/* Project card stacking — width-only, no orientation */
+@media (max-width: $project-card) {
+    .project-card {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   iPhone / small-screen landscape fixes
+   When a phone is rotated to landscape the viewport height
+   shrinks dramatically (often ≤420 px). The tall 4:5 aspect
+   ratio on video cards becomes unmanageable. Switch to a
+   shorter ratio and tighten padding.
+
+   Single query at $mobile-extra (767px) covers every phone in
+   landscape — wider devices already have enough height from
+   their taller portrait mode.
+   ============================================================ */
+@media (max-width: $mobile-extra) and (orientation: landscape) {
+    /* In Action grid: shorter cards so they fit the reduced viewport height */
+    .in-action-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .in-action-item {
+        aspect-ratio: 16 / 10;
+    }
+
+    .in-action-header {
+        padding-bottom: 1rem;
+    }
+
+    /* Project card media: cap height in landscape so it doesn't eat the viewport.
+       Stacking (grid-template-columns: 1fr) is already handled by the width-only
+       $mobile-extra breakpoint — no need to duplicate it here. */
+    .project-card-media {
+        min-height: 180px;
+        max-height: 220px;
+    }
+
+    /* In Action on project detail page */
+    .in-action-grid--2col {
+        .in-action-item {
+            aspect-ratio: 16 / 10;
+        }
     }
 }

@@ -1,6 +1,14 @@
 # Publication record for the /research page, filterable by venue in the UI.
 # domain groups render in this file's encounter order (Robotics & Manipulation,
 # Embodied AI, Computer Vision, Multimodal & Foundation Models).
+
+- name: "T-REX"
+  venue: "CORL'26"
+  url: "https://arxiv.org/abs/2606.17055v1"
+  domain: "Robotics & Manipulation"
+  title: "T-Rex: Tactile-Reactive Dexterous Manipulation"
+  contribution: "A new model, paradigm and dataset, enabling precise dexterous robotics hand manipulation for complex and delicate tasks."
+
 - name: "LEGO"
   venue: "ICLR'26"
   url: "https://arxiv.org/abs/2510.12866"

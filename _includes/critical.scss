@@ -18,6 +18,12 @@
   --header-family: "JetBrains Mono", monospace;
   --body-family: "DM Sans", sans-serif;
   --accent-family: "Spectral", serif;
+  /* Component tokens (mirror _sass/_globals.scss) */
+  --font-size: clamp(0.9rem, 0.45vw + 0.9rem, 1rem);
+  --button-font-family: "JetBrains Mono", monospace;
+  --radius-md: 12px;
+  --blue-dark: linear-gradient(var(--standard-dark), var(--standard-dark)) padding-box, linear-gradient(90deg, var(--standard-blue) 0%, var(--standard-light) 38.02%, var(--standard-blue) 75.83%) border-box;
+  --blue-light: linear-gradient(var(--standard-light), var(--standard-light)) padding-box, linear-gradient(90deg, var(--standard-blue) 0%, var(--standard-light) 38.02%, var(--standard-blue) 75.83%) border-box;
 }
 
 body {
@@ -86,3 +92,133 @@ body {
     visibility: hidden;
   }
 }
+
+/* Cookie Consent Banner - Critical
+   Pinned to the viewport bottom edge like the navbar is pinned to the
+   top: a centered card (not full-width) that never moves on scroll and
+   adds no space to the document. Note: the fixed element itself must NOT
+   declare `width` — with left:0/right:0 set, a `width: 100%` here is
+   over-constrained and overflows the viewport (measured +25px in a
+   1440px window), which is what caused the earlier stretch/shift.
+
+   Styling mirrors the site's own components:
+   card   = navbar surface (--standard-dark + #1b1533 border + --radius-md)
+   chip   = .post-hero-category / .in-action-tag (mono 11px, 1px tracking,
+            --standard-blue-soft fill, 30px radius)
+   text   = footer muted-on-dark (#b8b2c8), foot line #9a95ad
+   buttons = %cta-button recipe (pill 100px, --button-font-family,
+             uppercase, 10px 35px, 2px transparent border + --blue-dark
+             gradient token; hover --blue-light) and .cta-outlined
+             inverted for the dark surface */
+#consentBanner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9990;
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+  pointer-events: none;
+}
+#consentBanner[hidden] { display: none; }
+/* Container receives the initial focus (see consent.js) — no visible ring */
+#consentBanner:focus { outline: none; }
+#consentBanner > div {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 620px;
+  background: var(--standard-dark);
+  border: 1px solid #1b1533;
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 24px 64px rgba(12, 7, 23, 0.55);
+  font-family: var(--body-family);
+  color: #b8b2c8;
+  transform: translateY(12px);
+  opacity: 0;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+#consentBanner.is-visible > div { transform: none; opacity: 1; }
+
+/* Chip — same recipe as .post-hero-category / .in-action-tag */
+.consent-chip {
+  display: inline-block;
+  font-family: var(--header-family);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--standard-dark);
+  background: var(--standard-blue-soft);
+  padding: 5px 12px;
+  border-radius: 30px;
+  margin-bottom: 0.875rem;
+}
+#consentBanner p {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.consent-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 575px) {
+  .consent-actions {
+    flex-direction: column;
+  }
+  .consent-btn {
+    width: 100%;
+  }
+}
+/* Pill buttons — same recipe as %cta-button-base + .cta-button */
+.consent-btn {
+  font-family: var(--button-font-family);
+  font-size: var(--font-size);
+  font-weight: bolder;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: fit-content;
+  color: var(--standard-light);
+  border: 2px solid transparent;
+  border-radius: 100px;
+  padding: 10px 35px;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+.consent-btn:focus-visible { outline: 2px solid var(--standard-blue-soft); outline-offset: 2px; }
+/* Mirrors .cta-button — the --blue-light token inverts the fill to
+   cream on hover, so the text must switch to blue (the site's own
+   .cta-button:hover rule does exactly this) */
+.consent-btn--primary {
+  background: var(--blue-dark);
+}
+.consent-btn--primary:hover {
+  background: var(--blue-light);
+  color: var(--standard-blue);
+}
+/* .cta-outlined inverted for the dark surface */
+.consent-btn--outline {
+  background: none;
+  border: 1px solid rgba(244, 241, 230, 0.35);
+  color: var(--standard-light);
+  padding: 10px 35px;
+}
+.consent-btn--outline:hover {
+  background: var(--standard-light);
+  color: var(--standard-dark);
+  border-color: var(--standard-light);
+}
+
+.consent-foot {
+  margin: 0.875rem 0 0 !important;
+  font-size: 0.75rem !important;
+  color: #9a95ad !important;
+}
+.consent-foot a {
+  color: var(--standard-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--transition-base);
+}
+.consent-foot a:hover { color: var(--standard-blue-soft); }

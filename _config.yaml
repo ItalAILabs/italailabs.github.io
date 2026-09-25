@@ -2,6 +2,11 @@ permalink: /blog/:title/
 destination: ./_site
 source: ./
 
+# Jekyll skips dot-directories by default; .well-known must be included
+# explicitly or /.well-known/security.txt will not be published.
+include:
+  - ".well-known"
+
 url: "https://italailabs.com"
 
 title: "ItalAI Labs"
@@ -27,6 +32,10 @@ exclude:
   # - "assets/images/**/*.gif"
   - "scripts"
   - "README.md"
+  # SECURITY.md stays at the repo root for GitHub's repo-level display
+  # (and is referenced by .well-known/security.txt) — but don't let Jekyll
+  # publish it as a stray /SECURITY/ page.
+  - "SECURITY.md"
 
 social:
   twitter: https://x.com/_italai

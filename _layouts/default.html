@@ -111,14 +111,35 @@
 </noscript>
 </head>
 <body class="no-js">
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) — Consent Mode v2, opt-in: all storage denied
+       until the visitor accepts (banner in consent-banner.html). -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_measurement_id }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      wait_for_update: 500
+    });
     gtag('js', new Date());
-
     gtag('config', '{{ site.ga_measurement_id }}');
+    // Restore a previous consent choice (written by /assets/js/consent.js)
+    (function () {
+      try {
+        var c = JSON.parse(localStorage.getItem('italai_consent') || 'null');
+        if (c && c.choice === 'accepted' && c.expiry > Date.now()) {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        }
+      } catch (e) { /* storage unavailable: stay on default (denied) */ }
+    })();
   </script>
   <script src="/assets/js/utm.js" defer></script>
 
@@ -128,8 +149,24 @@
     </script>
     {% include loading-screen.html %}
     {% include header.html %}
+    {% if page.url contains '/policy/' %}
+    <section class="post-content-section">
+      <div class="container">
+        <div class="post-layout">
+          <article class="post-main">
+            <div class="post-body">
+    {% endif %}
     {{ content }}
+    {% if page.url contains '/policy/' %}
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    {% endif %}
     {% include footer.html %}
+    {% include consent-banner.html %}
     <script src="/assets/js/video-fullscreen.js" defer></script>
+    <script src="/assets/js/consent.js" defer></script>
 </body>
 </html>

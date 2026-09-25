@@ -2,9 +2,9 @@
   var katexRoot = document.querySelector('.kdmath, .math-block');
   if (!katexRoot) return;
 
-  var cssHref = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css';
-  var jsHref = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
-  var autoRenderHref = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js';
+  var cssHref = 'https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.css';
+  var jsHref = 'https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js';
+  var autoRenderHref = 'https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/contrib/auto-render.min.js';
 
   function whenIdle(fn) {
     if ('requestIdleCallback' in window) {

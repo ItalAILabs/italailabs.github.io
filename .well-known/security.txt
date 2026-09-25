@@ -1,0 +1,6 @@
+# Security disclosure for italailabs.com
+# Standard: https://securitytxt.org
+Policy: https://italailabs.com/policy/
+Contact: research@italailabs.com
+Expires: 2027-09-24T00:00:00.000Z
+Preferred-Languages: en

@@ -173,3 +173,10 @@ runner before deploy.
   `policy.md` from the 2026 privacy PDF (on the `backup-main-20260520`
   branch); re-run it to re-verify the word-for-word conversion.
 - `compare_webp_sizes.rb` — WebP size comparison utility.
+- `css-usage-audit.rb` — dead-CSS finder for a built site: parses every
+  page's linked CSS + inline styles, matches each rule's selector tokens
+  against the pages that actually link it (JS-toggled classes from
+  `classList.*` calls are treated as present), and reports rules that match
+  nothing site-wide (safe to delete) vs. rules unused only on their file's
+  pages (entry-slimming candidates). Run after a build:
+  `ruby scripts/css-usage-audit.rb [--site-dir _site] [--json] [--fail]`.

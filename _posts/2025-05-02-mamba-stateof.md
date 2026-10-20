@@ -2,9 +2,9 @@
 layout: post
 title: "State Space Models, Explained"
 description: "ItalAI deep dive into State Space Models (SSMs): from 1960s control theory to modern AI. Explore continuous and discrete SSMs, mass-spring-damper systems, recurrent vs convolutional representations, and how Kalman's framework powers today's sequence modeling architectures."
-image: "/assets/images/blog/cards/mamba-p2-stateof.svg"
+image: "/assets/images/posts/mamba-stateof.svg"
 category: "Architectures"
-hero_image: "/assets/images/blog/cards/mamba-p2-stateof.svg"
+hero_image: "/assets/images/posts/mamba-stateof.svg"
 excerpt: "Mapping the post-transformer landscape."
 series: mamba
 part: 2
@@ -69,7 +69,7 @@ The motion of the system is governed by Newton's second law of motion:
 $$ F(t) = x(t) - b y'(t) - k y(t), \quad \text{and} \\
 \quad F(t) = m a(t) $$
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_2_img0.webp" "mass spring diagram" %}
+{% inline_img "assets/images/posts/mamba-stateof/mass-spring-diagram.webp" "mass spring diagram" %}
 
 By substituting the first equation in the second and bearing in mind that the velocity is the first derivative of the position $$(v(t)=\frac{d}{dt}y(t))$$, and the acceleration is, in turn, its derivative $$(a(t)=\frac{dy}{d^2t}(t))$$ we obtain:
 
@@ -186,7 +186,7 @@ $$
 
 By fixing the values for all the constants and forces applied to the system, we can also resolve the problem. For example, choosing $$m=1, b=5, k=40, x(t)=\max(\sin(x), 0.5)$$ provides the following dynamic:
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_2_img1.gif" "Mass-spring-damper animation" %}
+{% inline_img "assets/images/posts/mamba-stateof/mass-spring-animation.gif" "Mass-spring-damper animation" %}
 
 ### 🏎️ The Racing Car example
 
@@ -215,7 +215,7 @@ Imagine having a racing car that you want to keep in a good state to win competi
     When the car's state is good, its maximum speed is high; performance declines as it deteriorates.
     
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_2_img2a.webp" "Car diagram" %}
+{% inline_img "assets/images/posts/mamba-stateof/racing-car-diagram.webp" "Car diagram" %}
 
 We will monitor this process daily, meaning that starting from a certain day, we will find a function that describes the dependencies between the performance of our car, its state, and the maintenance operations we do on it day after day.
 
@@ -235,7 +235,7 @@ For the sake of completeness, we can also think of a mapping between the mainten
 
 $$ y_t = Ch_t+Dx_t $$
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_2_img2b.webp" "Car dynamics equations" %}
+{% inline_img "assets/images/posts/mamba-stateof/car-dynamics-equations.webp" "Car dynamics equations" %}
 
 Leveraging these two equations, you can control the racing car's performance or, knowing the **sequence** of reparations that you perform on the car, even forecast its **sequence** of speeds for the future days.
 
@@ -305,7 +305,7 @@ $$
 
 The following figure describes the whole SSM!
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_2_img3.webp" "" %}
+{% inline_img "assets/images/posts/mamba-stateof/continuous-time-model.webp" "" %}
 
 It is worth noting that all the matrices just introduced do not depend on time, making the SSMs a time-invariant model. Moreover, we only use matrix multiplications to get the results, so we can acknowledge the SSMs as **Linear Time Invariant (LTI)** models.
 
@@ -313,11 +313,11 @@ It is worth noting that all the matrices just introduced do not depend on time, 
 
 Many real-world systems operate in continuous time, but digital computers inherently process data in discrete intervals. For instance, when monitoring a physical process like temperature changes (which is inherently a continuos-time phenomenon), we typically record measurements at fixed time intervals—say, every second or minute. Similarly, in machine learning, sequence models often work with time series or sampled signals, which are inherently discrete.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_2_img4.webp" "" %}
+{% inline_img "assets/images/posts/mamba-stateof/discrete-observations-a.webp" "" %}
 
 In its native form, the SSM equations describe continuous processes, evolving smoothly over time. However, to leverage SSMs in practical applications—whether for simulations, digital control systems, or sequence modeling—we need a way to bridge the gap between these continuous dynamics and the discrete nature of computational systems. This process, known as **discretization**, transforms continuous-time SSMs into a form suitable for handling discrete sequences while preserving the system's dynamic behavior. As for the input, the discrete form of a continuous signal can simply be obtained by sampling at regular time intervals $$\Delta t$$.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_2_img5.webp" "" %}
+{% inline_img "assets/images/posts/mamba-stateof/discrete-observations-b.webp" "" %}
 
 This process, also known as discretization, approximates the continuous evolution of states at specific time intervals. Two common approaches to discretization are the Euler Method and the Zero-Order Hold (ZOH).
 
@@ -355,7 +355,7 @@ The discretization bridges the gap between continuous theoretical models and the
 
 One of the unique strengths of State Space Models is their dual nature: they can be expressed both as **recurrent models** and as **convolutional operations**. This versatility makes SSMs particularly powerful in sequence modeling and signal processing.
 
-![Recurrent representation step 2](/assets/images/blog/pages/ssm/ssm_2_img6.webp)
+![Recurrent representation step 2](/assets/images/posts/mamba-stateof/recurrent-representation.webp)
 {:style="float: right; margin-bottom: 20px; max-width: 200px; width: 100%;"}
 
 *   **Recurrent Representation:**  
@@ -364,14 +364,14 @@ One of the unique strengths of State Space Models is their dual nature: they can
     *   As for the second step, we can use the just-updated state $$ h_0 $$ and the next input $$ x_1 $$ to update the state and get the output: $$ h_1=\bar{A}h_0+\bar{B}x_1=\bar{A}(\bar{B}x_0) +\bar{B}x_1 $$ and $$ y_1=Ch_1+Dx_1 $$. And we can continue obtaining…
 
 {:style="clear: both;"}
-![](/assets/images/blog/pages/ssm/ssm_2_img7.webp)
+![](/assets/images/posts/mamba-stateof/convolutional-representation.webp)
 
 Following this scheme, we can see that there is a pattern! In particular, the matrices $$ \bar{A}, \bar{B} $$ always multiply the inputs, and we can leverage this remark for a second characteristic representation of the SSMs.
 
 *   **Convolution Representation:**  
     The State-Space model can even be represented using the convolutional operation. Indeed, unfolding the SSM's two main equations we found explicitly the multiplications we perform to calculate the output. Putting everything together, we can obtain the same result we got with the recurrent representation by using a fixed convolutional kernel that depends on the _state transition_ and the _input_ _matrices_. The calculations are shown below:
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_2_img8.webp" "" %}
+{% inline_img "assets/images/posts/mamba-stateof/ssm-convolution-unfolding.webp" "" %}
 
   
 Thus, we can represent the SSM as a convolution with a 1-D Kernel with fixed length and some padding:

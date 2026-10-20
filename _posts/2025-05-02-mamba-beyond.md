@@ -2,9 +2,9 @@
 layout: post
 title: "Beyond Vanilla SSMs"
 description: "ItalAI explores advanced state space models beyond vanilla SSMs: HiPPO initialization, S4 architecture, and Mamba's selective scan algorithm. Deep dive into next-generation neural architectures for efficient long-sequence modeling and their applications in vision, audio, and language processing."
-image: "/assets/images/blog/cards/mamba-p3-beyond.svg"
+image: "/assets/images/posts/mamba-beyond.svg"
 category: "Transformers"
-hero_image: "/assets/images/blog/cards/mamba-p3-beyond.svg"
+hero_image: "/assets/images/posts/mamba-beyond.svg"
 excerpt: "Is there an alternative to transformer networks?"
 series: mamba
 part: 3
@@ -54,11 +54,11 @@ $$
 
 This approach is highly flexible; depending on the application, one can tweak the polynomial degree and the basis to tailor the memory decay and retention properties. Further, since after the application of the HiPPO initialization, the system is still Linear and Time-Invariant, it is still possible to take advantage of both the two discrete SSMs' representations, namely the recurrent and the convolutional forms. This novelty, together with a novel and faster method to precompute the kernels in the convolutional representations, is presented in the [Structured State-Space models for Sequences](https://arxiv.org/pdf/2111.00396) ([S4](https://arxiv.org/pdf/2110.13985)) paper, which the authors also complement with several experiments on the **Long-Range Arena** (**LRA**) benchmark.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img1.webp" "Mass-spring-damper animation" %}
+{% inline_img "assets/images/posts/mamba-beyond/hippo-initialization-a.webp" "Mass-spring-damper animation" %}
 
 As can be seen from the table just reported, the S4 model marks a clear step forward in dealing with extremely long inputs, outperforming several (specialized) transformer-based models on every task and surpassing them by more than 30 p.p. on average. It is worth noting that the tasks within the LRA benchmark include different input modalities (e.g., text and images). Moreover, the S4 model succeeded in the **PATH-X** task, a challenging image task that transformer-based architectures cannot handle properly due to the extremely long context they have to deal with to make their own predictions.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img2.webp" "Mass-spring-damper animation" %}
+{% inline_img "assets/images/posts/mamba-beyond/hippo-initialization-b.webp" "Mass-spring-damper animation" %}
 
 The **PATH-X** task is a binary classification task where the models are fed with an image, including two dots and several dashed curves. The label is positive if a line connects the two dots, as in the figure above.
 
@@ -66,7 +66,7 @@ In general, the introduction of HiPPO into SSMs has shown remarkable improvement
 
 ### The Mamba model
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img3.webp" "Mass-spring-damper animation" %}
+{% inline_img "assets/images/posts/mamba-beyond/mamba-selective-mechanism.webp" "Mass-spring-damper animation" %}
 
 While the S4 model showed promising results and beat transformer-based architectures on challenging long-range tasks for the first time, they still report limitations in other tasks currently dominated by transformers. In particular, a free byproduct of the attention mechanism is selectivity. Since the context during the attention operation is not compressed, transformers can _evaluate_ the importance of every token by directly comparing it with the others in the context window and later leverage these selected parts of the input to obtain the result. On the other hand, SSMs do not benefit from a similar property since it is Time-Invariant, as all the input tokens $$x_i$$ are identically transformed by leveraging the same matrix $$B$$, which is constant regardless of the (semantic importance of the) input. For example, a task where S4 does not perform well is the _selective copy_, i.e., the task of copying or retrieving only and all the elements that match a certain condition. For example, we could provide the model with a sentence and require it to selectively copy only the nouns or the verbs.
 
@@ -94,7 +94,7 @@ To adapt Mamba, which was initially designed for one-dimensional sequences, the 
 *   **Learnable Padding Tokens:** Flattening images into patch sequences often disrupts spatial continuity, as adjacent patches in the sequence may not be spatially adjacent. By appending learnable padding tokens at the ends of rows and columns, DiM helps the model recognize the boundaries and maintain awareness of the original image layout.
 *   **Lightweight Local Feature Enhancement:** To preserve the local continuity of image features, DiM incorporates lightweight depth-wise convolutional layers at both the input and output stages of the model. These layers reintroduce local spatial relationships lost during tokenization, ensuring that fine details are not neglected.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img4.webp" "Diffusion Mamba architecture" %}
+{% inline_img "assets/images/posts/mamba-beyond/diffusion-mamba-architecture.webp" "Diffusion Mamba architecture" %}
 
 In addition to these architectural adaptations, DiM employs a _"weak-to-strong"_ training strategy, pretraining on lower-resolution images before fine-tuning on higher resolutions, which reduces the computational burden. DiM also supports training-free upsampling, enabling the generation of ultra-high-resolution images without additional fine-tuning.
 
@@ -108,7 +108,7 @@ The **HTM block** organizes the temporal dimension hierarchically, processing mo
 
 The **BSM block** addresses spatial coherence by rearranging and scanning latent representations bidirectionally, analyzing motion data from both forward and reverse perspectives. By swapping the temporal and channel dimensions during scanning, the BSM block ensures better flow of structural information across frames. This approach maintains a dense exchange of information within latent spaces, enabling the model to accurately capture skeleton-level features critical for generating realistic and temporally consistent motion sequences.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img5.webp" "Motion Mamba model" %}
+{% inline_img "assets/images/posts/mamba-beyond/motion-mamba-model.webp" "Motion Mamba model" %}
 
 These innovations allow Motion Mamba to preserve motion consistency across frames and improve accuracy in temporal alignment. Compared to transformer-based diffusion models, Motion Mamba achieves up to 50% better FID scores and a fourfold increase in inference speed, as demonstrated on benchmarks like HumanML3D and KIT-ML. This pioneering integration of Mamba into motion generation showcases its potential for efficient, high-quality modeling of complex motion sequences.
 
@@ -116,11 +116,11 @@ These innovations allow Motion Mamba to preserve motion consistency across frame
 
 [**Vision Mamba (ViM)**](https://arxiv.org/abs/2401.09417) explores the potential of Mamba as a generic backbone for vision tasks, addressing the computational inefficiencies and inductive biases of traditional architectures like Transformers and CNNs. Unlike hybrid approaches or convolution-based adaptations, ViM adopts a pure sequence modeling framework, processing images as flattened sequences of patches while leveraging bidirectional state space modeling to capture global visual context. To preserve spatial coherence, ViM incorporates positional embeddings and processes data bidirectionally within each block, enabling it to model high-resolution images without resorting to computationally expensive self-attention mechanisms.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img6.webp" "Motion Mamba model" %}
+{% inline_img "assets/images/posts/mamba-beyond/vision-mamba-model.webp" "Motion Mamba model" %}
 
 Resultswise, ViM outperforms well-established vision backbones like Vision Transformers (DeiT) and ResNet on tasks such as ImageNet classification, COCO object detection, and ADE20k semantic segmentation. For instance, Vim-Tiny achieves 2.8× faster inference and uses 86.8% less GPU memory compared to DeiT when processing 1248×1248 resolution images, while also demonstrating superior accuracy. These efficiency gains make ViM particularly suited for high-resolution applications, such as medical imaging and aerial analysis, where long sequence modeling is critical.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img7.webp" "Motion Mamba model" %}
+{% inline_img "assets/images/posts/mamba-beyond/vision-mamba-results.webp" "Motion Mamba model" %}
 
 By maintaining linear scaling with sequence length and removing image-specific inductive biases, ViM establishes itself as a versatile and efficient backbone for next-generation vision models.
 
@@ -128,7 +128,7 @@ By maintaining linear scaling with sequence length and removing image-specific i
 
 [**Audio Mamba (AuM)**](https://arxiv.org/pdf/2406.03344) introduces a novel, self-attention-free architecture for audio classification, leveraging the efficiency of SSMs to address the computational challenges faced by transformer-based models. Traditional Audio Spectrogram Transformers (ASTs) particularly suffer from quadratic scaling, as the audio sequences are commonly very lengthy, making them expensive to encode. AuM replaces self-attention with bidirectional scanning, adapting the Mamba architecture for audio representation tasks. It processes audio spectrograms (which are provided as images to the model) by dividing them into square patches, embedding each patch into a sequence, and passing this sequence through a bidirectional Mamba encoder. This encoder processes data both forward and backward, ensuring spatial and temporal coherence while maintaining global context—similar to self-attention but significantly more efficient.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img8.webp" "Motion Mamba model" %}
+{% inline_img "assets/images/posts/mamba-beyond/audio-mamba-model.webp" "Motion Mamba model" %}
 
 AuM also introduces an innovative use of classification tokens, strategically placed at the sequence midpoint, to optimize bidirectional processing. Experiments show that AuM achieves comparable or superior performance to ASTs across six audio classification benchmarks while being **1.6 times faster** during inference and scaling linearly with sequence length. Its ability to handle long audio inputs with minimal memory consumption makes AuM a promising alternative for tasks requiring efficient audio representation, such as multimodal learning, audio-visual pretraining, and automatic speech recognition. This work demonstrates the potential of SSM-based architectures to redefine efficiency in audio processing.
 
@@ -136,7 +136,7 @@ AuM also introduces an innovative use of classification tokens, strategically pl
 
 [**Hymba**](https://arxiv.org/pdf/2411.13676) introduces a hybrid-head architecture for small language models, combining transformer attention mechanisms with Mamba-based state space models (SSMs) to balance high-resolution recall and efficient context summarization. The parallel fusion of attention and SSM heads allows Hymba to leverage the strengths of both: **attention heads act as “snapshot memories”**, capturing fine-grained details, while **SSM heads function as “fading memories”**, summarizing global context. This design avoids the bottlenecks of sequentially stacked modules and ensures efficient information processing across tasks.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img9.webp" "Motion Mamba model" %}
+{% inline_img "assets/images/posts/mamba-beyond/hymba-architecture.webp" "Motion Mamba model" %}
 
 To enhance its efficiency, Hymba proposes several key innovations. **Meta tokens**, a set of learned embeddings prepended to inputs, act as a "learned cache," guiding attention to focus on relevant information and improving both memory and reasoning efficiency. These tokens redistribute attention, preventing the wasteful focus on initial tokens (e.g., BOS tokens) often seen in transformer models. **KV cache optimization** introduces a blend of local (sliding window) and global attention, reducing the memory and computational demands of traditional full attention. The inclusion of SSM heads further supports global context summarization, enabling more aggressive use of local attention without losing essential context. Together, these innovations reduce KV cache size by up to 4× and boost throughput by 3× while maintaining high task performance. With these advancements, Hymba achieves state-of-the-art results in both accuracy and efficiency, setting a new benchmark for small language models.
 
@@ -152,12 +152,12 @@ The novel **selective resampling mechanism** operates by resampling sequence ele
 2.  **Resampling Process:** The sequence $$\{x_l\}_{l \leq L}$$ is resampled into a compressed version $$\{\tilde{x}_l\}_{l \leq L}$$ using the learned $$\Delta_l$$. The resampling aligns the elements onto a uniform time grid with a fixed interval $$\Delta$$, aggregating elements that fall within the same resampling window. Since the original sequence's continuous function $$x(t)$$ is generally not directly accessible, SeRpEnt uses a nearest-neighbors interpolation approach to infer the values of resampled elements $$\tilde{x}_l$$ based on their neighbors in the input sequence.
 3.  **Compression Control:** The compression rate is controlled by a hyperparameter $$\kappa$$, which determines the minimum and maximum time intervals for the resampled sequence. This ensures that the compressed sequence retains sufficient information while reducing the number of elements. For example, $$\kappa$$ guarantees that the compressed sequence has at least $$\kappa L$$ elements, providing a balance between computational efficiency and informational fidelity.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img10.webp" "Motion Mamba model" %}
+{% inline_img "assets/images/posts/mamba-beyond/serpent-resampling-a.webp" "Motion Mamba model" %}
 
 5.  **Parallel Compression Rates:** SeRpEnt processes sequences at multiple compression rates $$(\kappa)$$ in parallel, enabling it to capture both short- and long-range dependencies. Each compressed sequence is passed through a separate SSM, allowing the model to specialize in different scales of information. The outputs of these SSMs are later decompressed and combined, restoring the original sequence length while preserving the essential information captured during compression.
 6.  **Reverse Resampling:** After processing, the compressed sequences are decompressed back to the original sequence length. This reverse resampling operation ensures that the model can output results consistent with the original sequence's temporal resolution, using interpolation techniques similar to those in the compression step.
 
-{% inline_img "assets/images/blog/pages/ssm/ssm_3_img11.webp" "Motion Mamba model" %}
+{% inline_img "assets/images/posts/mamba-beyond/serpent-resampling-b.webp" "Motion Mamba model" %}
 
 SeRpEnt extends SSMs like Mamba and S4, offering an orthogonal architectural component for tasks involving long-range dependencies. Empirical results on the Long Range Arena benchmark and language modeling tasks show that SeRpEnt consistently improves the performance of baseline models, especially in sequence classification and language modeling. Notably, it effectively compresses sequences without sacrificing essential information, enhancing both computational efficiency and model expressiveness.
 

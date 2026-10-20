@@ -22,9 +22,6 @@ Structured content is edited in YAML, not HTML:
 | `principles.yml` | `/about` principles section |
 | `partners.yml` | partners bar (homepage + `/about`) |
 | `publications.yml` | `/research` — publication cards, filterable by domain |
-> `vision-cards.yml` and `revolution-cards.yml` are unreferenced legacy
-> data — the homepage content they once feed is now hardcoded in
-> `index.html`. Pending removal.
 
 ## Blog posts (`_posts/`)
 
@@ -35,8 +32,8 @@ title: "Your Post Title"
 description: "Short SEO summary shown in meta tags and listings."
 category: "Foundations"
 excerpt: "One-line teaser for the blog listing."
-image: "/assets/images/blog/cards/your-card.svg"
-hero_image: "/assets/images/blog/cards/your-card.svg"
+image: "/assets/images/posts/your-card.svg"
+hero_image: "/assets/images/posts/your-card.svg"
 series: mamba        # optional — series grouping
 part: 2              # optional — position within the series
 published_in_blog: true

@@ -374,7 +374,12 @@
    section is tapped and on Escape.
    ======================================== */
 .toc-drawer-toggle {
-    position: absolute;
+    /* Fixed, not absolute: a fixed element is always inside the viewport, so
+       label activation focusing it has nowhere to scroll. As absolute it sat
+       at the top of .post-wrap and tapping the FAB yanked the page up. */
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 1px;
     height: 1px;
     margin: -1px;

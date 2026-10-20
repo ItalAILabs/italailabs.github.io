@@ -1,7 +1,7 @@
 <div class="blog-card">
   <div class="blog-card-image-wrapper">
     <a href="{{ include.post.url }}">
-      <img src="{{ include.post.hero_image | default: '/assets/images/blog/cards/coming.webp' }}" alt="{{ include.post.title | default: 'Placeholder Title' }}" class="blog-card-image">
+      <img src="{{ include.post.hero_image | default: '/assets/images/posts/coming.svg' }}" alt="{{ include.post.title | default: 'Placeholder Title' }}" class="blog-card-image">
     </a>
     {% if include.post.post_type %}
     <span class="blog-card-type">{{ include.post.post_type }}</span>

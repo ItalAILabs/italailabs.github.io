@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9c25c"/>
+      <stop offset="1" stop-color="#c8901d"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b7c9d6"/>
+      <stop offset="1" stop-color="#8fa5b5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="#14263a"/>
+  <text x="512" y="218" text-anchor="middle"
+        font-family="'DM Sans',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+        font-size="106" font-weight="700" fill="#ffffff">Coming Soon</text>
+
+  <!-- glass body -->
+  <path d="M 420 402
+           L 604 402
+           C 604 482, 554 530, 519 558
+           L 519 566
+           C 554 594, 604 642, 604 706
+           L 420 706
+           C 420 642, 470 594, 505 566
+           L 505 558
+           C 470 530, 420 482, 420 402 Z"
+        fill="url(#glass)" stroke="#d3e0ea" stroke-width="6"/>
+
+  <!-- upper sand (funnel) -->
+  <path d="M 441 478 L 583 478
+           C 561 516, 536 542, 519 558
+           L 505 558
+           C 488 542, 463 516, 441 478 Z" fill="url(#sand)"/>
+
+  <!-- lower sand pile -->
+  <path d="M 434 704
+           C 458 648, 492 608, 512 592
+           C 532 608, 566 648, 590 704 Z" fill="url(#sand)"/>
+
+  <!-- falling stream -->
+  <line x1="512" y1="558" x2="512" y2="592" stroke="#e9c25c" stroke-width="4"/>
+
+  <!-- glass highlight -->
+  <path d="M 448 430 C 448 470, 462 505, 484 532" fill="none"
+        stroke="#ffffff" stroke-width="10" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- wooden caps -->
+  <g>
+    <rect x="398" y="372" width="228" height="36" rx="10" fill="#6b4226"/>
+    <rect x="398" y="398" width="228" height="10" rx="5" fill="#54331d"/>
+    <rect x="398" y="704" width="228" height="36" rx="10" fill="#6b4226"/>
+    <rect x="398" y="704" width="228" height="10" rx="5" fill="#7d4f2e"/>
+  </g>
+</svg>

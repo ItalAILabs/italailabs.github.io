@@ -2,9 +2,9 @@
 layout: post
 title: "Sequence-to-Sequence, Revisited"
 description: "ItalAI introduces sequence-to-sequence modeling fundamentals: understanding RNNs, Transformers, and State Space Models for AI. Learn why long-range dependencies matter and explore alternatives to attention mechanisms in modern neural architectures."
-image: "/assets/images/blog/cards/mamba-p1-intro.svg"
+image: "/assets/images/posts/mamba-intro.svg"
 category: "Foundations"
-hero_image: "/assets/images/blog/cards/mamba-p1-intro.svg"
+hero_image: "/assets/images/posts/mamba-intro.svg"
 excerpt: "Where attention still wins — and where it doesn't."
 series: mamba
 part: 1

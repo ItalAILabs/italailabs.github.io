@@ -6,8 +6,7 @@ tag: WIZARD
 category: "Embodied AI · Manipulation"
 excerpt: "Industrial robots need re-teaching for every new task. WIZARD uses one-shot imitation learning, developed with UC Berkeley, to adapt from a single demonstration with zero retraining."
 description: "A research note on one-shot imitation learning: how a manipulation policy can be taught from a single human demonstration and still generalise to tasks it has never seen, with no retraining step."
-video: "https://fascetta.github.io/WIZARD/static/videos/Real_World/Cup.mp4"
-video_zoom: 1.35 # Cup.mp4 has pillarboxing baked into the source frame; scale past it so object-fit:cover shows only the footage.
+video: "/assets/videos/projects/wizard/franka_cup_pickup.mp4"
 has_writeup: true
 stats:
   - value: "~14×"
@@ -23,11 +22,10 @@ strip:
   - label: "Why it matters"
     text: "Teaching cost, not peak capability, is what keeps robots out of variable environments."
 in_action:
-  - video: "https://fascetta.github.io/WIZARD/static/videos/LIBERO_Goal/task3_put_the_wine_bottle_on_top_of_the_cabinet.mp4"
+  - video: "/assets/videos/projects/wizard/libero_goal_task3.mp4"
     caption: "Wine bottle → cabinet"
-  - video: "https://fascetta.github.io/WIZARD/static/videos/Real_World/Cup.mp4"
+  - video: "/assets/videos/projects/wizard/franka_cup_pickup.mp4"
     caption: "Cup pickup · real world"
-    zoom: 1.35
 external_url: "https://fascetta.github.io/WIZARD/"
 external_cta_label: "PROJECT PAGE"
 cta_label: "READ THE PROJECT NOTE"

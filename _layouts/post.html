@@ -5,6 +5,17 @@ layout: default
 {% assign all_categories = site.posts | map: "category" | uniq | compact %}
 {% assign hero_image = page.hero_image | default: page.image %}
 
+<!-- ToC: computed before the hero so the hero can align to the un-capped
+     ToC layout. Liquid 4.0.4 gotcha: comparisons directly after a filter
+     chain are silently dropped (both in assign and if). Assign first, then
+     compare. -->
+{% assign toc_html = content | toc %}
+{% assign toc_parts = content | split: 'id="markdown-toc"' %}
+{% assign toc_parts_count = toc_parts | size %}
+{% if toc_html != "" and toc_parts_count == 1 %}
+  {% assign use_layout_toc = true %}
+{% endif %}
+
 <style>
   /* Scope post body images to lazy-render and avoid layout shifts */
   .post-body img {
@@ -54,13 +65,40 @@ layout: default
         {% assign last_initial = name_parts.last | slice: 0, 1 %}
         {% assign author_initials = author_initials | append: last_initial %}
       {% endif %}
+      {% comment %} Author avatar: front-matter author_image > people.yml "image" field > /assets/images/people/<slug>.webp (same convention as the about page) > initials {% endcomment %}
+      {% assign author_image = page.author_image %}
+      {% if author_image == nil %}
+        {% assign author_person = site.data.people.team | where: "name", author_name | first %}
+        {% if author_person != nil %}
+          {% if author_person.image != nil %}
+            {% assign author_image = author_person.image %}
+          {% else %}
+            {% assign author_slug = author_name | replace: ' ', '-' | downcase %}
+            {% assign author_image = "/assets/images/people/" | append: author_slug | append: ".webp" %}
+          {% endif %}
+        {% else %}
+          {% comment %} Not in team: only honour an explicit image field (no people/<slug>.webp file is guaranteed) {% endcomment %}
+          {% assign author_person = site.data.people.other | where: "name", author_name | first %}
+          {% if author_person != nil and author_person.image != nil %}
+            {% assign author_image = author_person.image %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
       <div class="post-hero-author">
-        <div class="post-hero-avatar">{{ author_initials }}</div>
+        <div class="post-hero-avatar">{% if author_image %}<img src="{{ author_image }}" alt="{{ author_name }}" width="40" height="40">{% else %}{{ author_initials }}{% endif %}</div>
         <div class="post-hero-author-info">
           <div class="post-hero-author-name">{{ author_name }}</div>
           <div class="post-hero-author-role">{{ page.author_role | default: "Researcher" }}{% if page.read_time %} · {{ page.read_time }}{% endif %}</div>
         </div>
       </div>
+    {% endif %}
+    {% if page.paper_links %}
+    <div class="post-hero-links">
+      {% for l in page.paper_links %}
+      <a href="{{ l.url }}"{% if l.url contains "http" %} target="_blank" rel="noopener"{% endif %}>{{ l.label }}</a>
+      {% unless forloop.last %}<span class="post-hero-links-dot">·</span>{% endunless %}
+      {% endfor %}
+    </div>
     {% endif %}
   </div>
 </section>
@@ -69,6 +107,48 @@ layout: default
 <section class="post-content-section">
   <div class="container">
     <div class="post-layout">
+      <!-- Positioning wrapper: same width as the article (820px). Hosts
+           the ToC — before the article in the DOM, so it sits above the
+           article on small screens with no reordering — and gives the
+           wide-screen rail its positioning context. The article's width
+           and position are untouched. -->
+      <div class="post-wrap">
+      {% if use_layout_toc %}
+      <!-- Single ToC element: collapsible "On this page" card (small
+           screens) / sticky rail in the right margin (>= 96.5rem).
+           Open by default. List generated at build time by the
+           `| toc` filter. Zero JavaScript. -->
+      <aside class="rail">
+        <details class="toc" open>
+          <summary>On this page</summary>
+          <nav aria-label="Table of contents">{{ toc_html }}</nav>
+        </details>
+      </aside>
+      {% endif %}
+
+      {% if use_layout_toc %}
+      <!-- Mobile ToC: hamburger FAB + side drawer (< 92.5rem).
+           Checkbox-driven (pure CSS open/close); the FAB stays in
+           the same spot open/closed (burger morphs to X), and the
+           inline script at the bottom of this layout closes the
+           panel on section tap / Escape and locks scroll. -->
+      <input type="checkbox" id="toc-drawer-toggle" class="toc-drawer-toggle">
+      <label for="toc-drawer-toggle" class="toc-drawer-scrim"></label>
+      <label for="toc-drawer-toggle" class="toc-drawer-fab" aria-label="Open or close table of contents">
+        <span class="fab-burger" aria-hidden="true"></span>
+        <span class="fab-burger" aria-hidden="true"></span>
+        <span class="fab-burger" aria-hidden="true"></span>
+      </label>
+      <div class="toc-drawer" role="dialog" aria-label="Table of contents">
+        <div class="toc-drawer-head">
+          <span>On this page</span>
+          <label for="toc-drawer-toggle" class="toc-drawer-close" aria-label="Close table of contents">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </label>
+        </div>
+        <nav aria-label="Table of contents (mobile)">{{ toc_html }}</nav>
+      </div>
+      {% endif %}
 
       <!-- Main Content -->
       <article class="post-main">
@@ -100,15 +180,16 @@ layout: default
         {% endfor %}
         <div class="post-author">
           <h4 class="h4-size">BY {{ author_name | upcase }}</h4>
-          {% if author_data %}
+          {% comment %} page.author_bio is a per-post override: it wins over people.yml so a post can present the author's role/credentials differently (e.g. "R&D Scientist, ItalAI") without changing the person's site-wide data. {% endcomment %}
+          {% if page.author_bio %}
+            <p>{{ page.author_bio | strip_html }}</p>
+          {% elsif author_data %}
             {% assign author_excerpt = author_data.excerpt | default: author_data.bio %}
             {% if author_excerpt %}
               <p>{{ author_excerpt | strip_html }}</p>
             {% else %}
               <p>{{ author_data.role }}{% if author_data.credentials %} — {{ author_data.credentials }}{% endif %}</p>
             {% endif %}
-          {% elsif page.author_bio %}
-            <p>{{ page.author_bio | strip_html }}</p>
           {% endif %}
         </div>
         {% endif %}
@@ -148,6 +229,7 @@ layout: default
         {% endif %}
 
       </article>
+      </div>
     </div>
   </div>
 </section>
@@ -172,4 +254,29 @@ layout: default
   </div>
 </section>
 {% endif %}
+<div class="reading-progress" aria-hidden="true"></div>
 <script src="/assets/js/katex-loader.js" defer></script>
+<script>(function(){
+// Reading progress: thin Verde Nova bar pinned to the top of the viewport.
+var bar=document.querySelector(".reading-progress");
+if(bar){var tick=function(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.transform="scaleX("+(max>0?Math.min(1,Math.max(0,(h.scrollTop||document.body.scrollTop)/max)):0)+")"};window.addEventListener("scroll",tick,{passive:true});window.addEventListener("resize",tick);tick()}
+// Hero stat count-up: animates each .stat-number once, the first time it
+// enters the viewport. Respects prefers-reduced-motion.
+if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+var nums=document.querySelectorAll(".post-stats .stat-number");
+if(!nums.length||!("IntersectionObserver" in window))return;
+var started={};
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(!e.isIntersecting||started[e.target])return;started[e.target]=1;io.unobserve(e.target);animate(e.target)})},{threshold:0.4});
+function animate(el){var t=el.textContent.trim().match(/^([^0-9]*)(\d+(?:\.\d+)?)([^0-9]*)$/);if(!t)return;var orig=el.innerHTML,pre=t[1],num=parseFloat(t[2]),post=t[3],dec=(t[2].split(".")[1]||"").length,dur=900,t0=null;function step(ts){if(t0===null)t0=ts;var p=Math.min(1,(ts-t0)/dur);p=1-Math.pow(1-p,3);el.textContent=pre+(dec?(num*p).toFixed(dec):Math.round(num*p))+post;if(p<1)requestAnimationFrame(step);else el.innerHTML=orig}requestAnimationFrame(step)}
+nums.forEach(function(n){io.observe(n)});})();</script>
+<script>(function(){
+// Plot draw-in: the WIZARD result plots (svg[data-plot]) animate their
+// curves once when they enter the viewport; CSS lives in _blogs.scss and is
+// gated on html.js, so no-JS readers always get the static figure.
+if(!("IntersectionObserver" in window))return;
+document.documentElement.classList.add("js");
+var plots=document.querySelectorAll(".post-body svg[data-plot]");
+if(!plots.length)return;
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var f=e.target.closest(".post-fig");if(f)f.classList.add("is-inview");io.unobserve(e.target)}})},{threshold:0.35});
+plots.forEach(function(p){io.observe(p)});})();</script>
+<script>(function(){var t=document.getElementById("toc-drawer-toggle");if(!t)return;var sync=function(){document.body.classList.toggle("no-scroll",t.checked)};var close=function(){t.checked=!1;sync()};t.addEventListener("change",sync);document.querySelectorAll(".toc-drawer nav a").forEach(function(a){a.addEventListener("click",close)});window.addEventListener("keydown",function(e){if(e.key==="Escape")close()})})();</script>

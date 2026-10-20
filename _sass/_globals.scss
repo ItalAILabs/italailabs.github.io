@@ -13,8 +13,17 @@ body {
     }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
 :root {
-    scroll-padding-top: 110px; // Navbar height offset
+    scroll-padding-top: calc(var(--nav-h) + 1rem); // anchor jumps clear the sticky nav
+
+    // Sticky navbar height (anchor offset + ToC sticky top)
+    --nav-h: 80px;
 
     // Responsive Breakpoints
     --viewport-mobile: 575px;
@@ -31,6 +40,8 @@ body {
     --standard-green: #29b485;
     --standard-green-bright: #2fcb92;
     --standard-green-alt: #C6FFE0;
+    --verde-nova: #32B692;        // WIZARD brand accent (results tables, highlights)
+    --verde-nova-ink: #1e6e55;    // dark Verde Nova for text on light/cream surfaces
     --standard-light: #f4f1e6;
     --standard-light-alt: #D9CBB5;
     --standard-dark: #0c0717;

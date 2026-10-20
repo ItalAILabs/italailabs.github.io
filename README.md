@@ -5,6 +5,11 @@ Pushes to `main` build and deploy automatically via GitHub Actions to GitHub Pag
 
 Pages: `/` · `/about` · `/blog` · `/contact` · `/partnership` · `/projects` · `/research` · `/policy` · `/404`
 
+Generated at build time: post pages at `/blog/<title>/`, project detail
+pages under `/projects/` (from the `_projects/` collection), and one vCard
+page per team member at `/about/<person>/` (from `people.yml` via
+`_plugins/vcard.rb`).
+
 ---
 
 ## Content data (`_data/`)
@@ -17,8 +22,9 @@ Structured content is edited in YAML, not HTML:
 | `principles.yml` | `/about` principles section |
 | `partners.yml` | partners bar (homepage + `/about`) |
 | `publications.yml` | `/research` — publication cards, filterable by domain |
-| `revolution-cards.yml` | homepage "revolution" cards |
-| `vision-cards.yml` | homepage roadmap/vision cards |
+> `vision-cards.yml` and `revolution-cards.yml` are unreferenced legacy
+> data — the homepage content they once feed is now hardcoded in
+> `index.html`. Pending removal.
 
 ## Blog posts (`_posts/`)
 
@@ -27,7 +33,7 @@ Structured content is edited in YAML, not HTML:
 layout: post
 title: "Your Post Title"
 description: "Short SEO summary shown in meta tags and listings."
-category: "Architectures"
+category: "Foundations"
 excerpt: "One-line teaser for the blog listing."
 image: "/assets/images/blog/cards/your-card.svg"
 hero_image: "/assets/images/blog/cards/your-card.svg"
@@ -35,12 +41,44 @@ series: mamba        # optional — series grouping
 part: 2              # optional — position within the series
 published_in_blog: true
 author: "Full Name"  # must match a person in _data/people.yml
+author_role: "Role, Organisation"   # optional per-post override of the people.yml role
+institution: "Sapienza"             # optional
+author_bio: "One-line credentials"  # optional per-post override (wins over people.yml)
+post_type: "Explainer"              # optional badge
+read_time: "6 min read"
+paper_links:                        # optional — link chips under the title
+  - label: "Paper · arXiv"
+    url: "https://arxiv.org/abs/..."
 ---
 ```
 
-The mamba series (3 posts) is the reference implementation. `/blog` is
-filterable and paginated — the listing data is generated at build time by
-`_plugins/insights-manifest.rb` (see `blogs_manifest` in `_config.yaml`).
+The mamba series (3 posts) is the reference implementation; WIZARD
+(`2026-10-20-wizard.md`) is the reference for inline figures and the ToC.
+`/blog` is filterable and paginated — the listing data is generated at build
+time by `_plugins/insights-manifest.rb` (see `blogs_manifest` in
+`_config.yaml`).
+
+**Authoring tools:** `{% raw %}{% inline_svg "path.svg" ["note"] %}{% endraw %}` and
+`{% raw %}{% inline_img "path.png" "alt" ["note"] %}{% endraw %}` embed an image plus optional
+caption as one width-sharing unit (`_plugins/inline-figures.rb`);
+`{{ content | toc }}` renders a nested ToC from h2–h4 with no client JS
+(`_plugins/toc.rb`).
+
+**Dates and publishing:** the filename date is the post's publish date.
+Jekyll excludes future-dated posts from builds (no `future: true` in
+`_config.yaml`), so a future-dated post goes live at the **next build after
+its date** — i.e. the next push to `main`, not automatically on the date
+itself. `_drafts/` is never built; `jekyll serve` renders files there
+locally at `/drafts/<slug>/` for preview only.
+
+## Stylesheets
+
+Per-page CSS: `_layouts/default.html` loads `/assets/css/<page>.css`, chosen
+from the page URL (`post` / `project` / `vcard` / `404` for generated pages,
+otherwise the filename). Each entry `assets/css/<page>.scss` `@use`s shared
+partials from `_sass/`; critical above-the-fold CSS is inlined via
+`_includes/critical.scss`. Adding a page means adding both the `.html` and
+its `.scss` entry.
 
 ## SEO
 
@@ -63,7 +101,9 @@ filterable and paginated — the listing data is generated at build time by
 | `projects-manifest.rb` | Same for `/projects` |
 | `lazy-load-images.rb` | Adds `loading="lazy"` to img tags |
 | `remove-empty-lines.rb` | Strips blank lines from rendered output |
-| `vcard.rb` | Generates `.vcf` files from `people.yml` into `assets/vcards/` |
+| `vcard.rb` | Generates `.vcf` files from `people.yml` into `assets/vcards/` + `/about/<person>/` pages |
+| `inline-figures.rb` | `{% inline_svg %}` / `{% inline_img %}` — image + caption as one unit |
+| `toc.rb` | `{{ content \| toc }}` filter — nested ToC from h2–h4, no JS |
 
 ## Images
 
@@ -83,8 +123,11 @@ filterable and paginated — the listing data is generated at build time by
 
 1. Ruby 3.3+ (CI uses 3.3) and `bundle install`.
 2. For WebP generation, install libvips (`apt install libvips42` on
-   Debian/Ubuntu). Without it the build logs a warning and continues using
-   the committed WebP.
+   Debian/Ubuntu; CI uses `libvips-dev`). Without it **no WebPs exist on
+disk** — they're gitignored and the committed set lives only on the
+   `generated-assets` branch, which CI overlays. Since
+   `responsive-images.rb` rewrites every `img src` to `.webp`, a local
+   preview without libvips will 404 all images.
 3. Always run through Bundler (plain `jekyll` hits gem activation
    conflicts):
 
@@ -94,6 +137,8 @@ filterable and paginated — the listing data is generated at build time by
 
    `--livereload` recompiles on save — useful for posts and content edits.
 4. Visit <http://localhost:4000>.
+5. Drafts in `_drafts/` are served (never built) at `/drafts/<slug>/`
+   while `jekyll serve` runs — local preview only.
 
 ## Analytics & consent (GDPR)
 
@@ -115,7 +160,8 @@ filterable and paginated — the listing data is generated at build time by
 - `/.well-known/security.txt` (in `.well-known/`, included in the build via
   `_config.yaml`) points to it.
 - CI runs with `contents: read` + Pages deployment permissions only;
-  third-party actions are SHA-pinned.
+  `ruby/setup-ruby` is SHA-pinned, the GitHub-certified actions are pinned
+  to major-version tags.
 
 ## Deployment
 

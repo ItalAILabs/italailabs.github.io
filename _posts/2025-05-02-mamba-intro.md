@@ -16,9 +16,6 @@ post_type: "Explainer"
 read_time: "6 min read"
 ---
 
-* TOC
-{:toc}
-
 ## Intro
 
 Imagine you're having a conversation with a friend. As they speak, you're not just processing each word in isolation - you're continuously maintaining context, anticipating what might come next, and understanding how earlier parts of the conversation influence the meaning of what's being said now. We often take this natural ability to process and understand sequences for granted, yet it represents one of the most fascinating challenges in artificial intelligence.

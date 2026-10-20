@@ -2,6 +2,15 @@ permalink: /blog/:title/
 destination: ./_site
 source: ./
 
+# Timezone for date handling (post dates, "future" cutoff). CI sets the
+# matching TZ env so the runner clock and Jekyll agree on the boundary.
+timezone: Europe/Rome
+
+# Publish posts dated in the future. Launch flow: content is pushed before
+# the post date; without this, Jekyll would drop the post from the build
+# and nothing would trigger a rebuild once the date passed.
+future: true
+
 # Jekyll skips dot-directories by default; .well-known must be included
 # explicitly or /.well-known/security.txt will not be published.
 include:

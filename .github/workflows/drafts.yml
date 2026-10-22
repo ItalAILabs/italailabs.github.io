@@ -93,6 +93,8 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/drafts'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           name: drafts-preview
@@ -109,6 +111,8 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           name: drafts-preview

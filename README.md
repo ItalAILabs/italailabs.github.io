@@ -11,7 +11,7 @@ replaces the old `_drafts/` folder on `main`.
 
 | Link | What it is |
 |---|---|
-| **Preview** (Vercel URL — see the latest deployment in the [Actions tab](https://github.com/ItalAILabs/italailabs.github.io/actions) or ask for it) | The full site with your drafts rendered. Updates a few minutes after every push to this branch. |
+| **Preview** — <https://italai-drafts.vercel.app> | The full site with your drafts rendered. Updates a few minutes after every push to this branch. (Until the first Vercel deployment lands, see the [Actions tab](https://github.com/ItalAILabs/italailabs.github.io/actions).) |
 | **Draft editor** (preview URL + `/editor/`) | WYSIWYG markdown editor: pick a draft, edit what-you-see, push back to the branch. |
 
 ## Start a new post

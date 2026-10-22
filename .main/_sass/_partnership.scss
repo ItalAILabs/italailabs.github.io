@@ -1,0 +1,305 @@
+/* ============================================================
+   Partnership Overview page (/partnership)
+   Hero uses the shared _includes/hero.html "full-bleed" layout
+   (.full-bleed-hero, styled in _components.scss) — no page-specific
+   hero CSS here, matching About/Blog/Projects/WIZARD/Research.
+   ============================================================ */
+
+.partnership-what-section {
+    background: var(--standard-light);
+
+    .container {
+        padding-block: 70px 74px;
+        padding-inline: 3.5rem;
+    }
+}
+
+.partnership-what-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 56px;
+    align-items: start;
+}
+
+.partnership-what-title {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.2vw, 1.9375rem); // mockup: 31px
+    line-height: 1.24;
+    letter-spacing: -0.5px;
+    color: var(--standard-dark);
+    margin: 0;
+}
+
+.partnership-lede {
+    font-family: var(--body-family);
+    font-size: 1.1875rem; // mockup: 19px
+    line-height: 1.65;
+    color: #3f3c2e;
+    margin: 0 0 20px;
+}
+
+.partnership-body {
+    font-family: var(--body-family);
+    font-size: 1.0625rem; // mockup: 17px
+    line-height: 1.65;
+    color: #54513f;
+    margin: 0 0 32px;
+}
+
+.partnership-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid #e4e0d2;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.partnership-stat {
+    padding: 26px 28px;
+    border-right: 1px solid #ece8da;
+
+    &:last-child {
+        border-right: none;
+    }
+}
+
+.partnership-stat-value {
+    font-family: var(--header-family);
+    font-weight: 800;
+    font-size: 1.875rem;
+    line-height: 1;
+    color: var(--standard-blue);
+}
+
+.partnership-stat--green .partnership-stat-value {
+    color: var(--standard-green);
+}
+
+.partnership-stat-label {
+    font-family: var(--body-family);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: #54513f;
+    margin-top: 10px;
+}
+
+.partnership-shape-section {
+    background: var(--standard-dark);
+    color: var(--standard-light);
+
+    .container {
+        padding-block: 76px 80px;
+        padding-inline: 3.5rem;
+    }
+}
+
+.partnership-shape-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-bottom: 38px;
+}
+
+.partnership-shape-title {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.2vw, 1.9375rem); // mockup: 31px
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    color: var(--standard-light);
+    margin: 0;
+}
+
+.partnership-shape-intro {
+    font-family: var(--body-family);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #8e88a6;
+    margin: 0;
+    max-width: 340px;
+}
+
+.partnership-shape-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #1d1736;
+    border: 1px solid #1d1736;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.partnership-shape-cell {
+    background: #120c26;
+    padding: 32px 30px 34px;
+
+    p {
+        font-family: var(--body-family);
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        color: #a49ebb;
+        margin: 0;
+    }
+}
+
+.partnership-shape-num {
+    font-family: var(--header-family);
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--standard-light);
+    margin-bottom: 18px;
+}
+
+.partnership-shape-num--blue {
+    color: var(--standard-blue);
+}
+
+.partnership-shape-num--green {
+    color: var(--standard-green-bright);
+}
+
+.partnership-shape-label {
+    font-family: var(--header-family);
+    font-weight: 800;
+    font-size: 1.125rem;
+    color: var(--standard-light);
+    margin-bottom: 12px;
+}
+
+.partnership-measure-section {
+    background: var(--standard-cream);
+    border-top: 1px solid #e1ddce;
+
+    .container {
+        padding-block: 70px 76px;
+        padding-inline: 3.5rem;
+    }
+}
+
+.partnership-measure-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 56px;
+    align-items: start;
+}
+
+.partnership-measure-title {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.2vw, 1.9375rem); // mockup: 31px
+    line-height: 1.24;
+    letter-spacing: -0.5px;
+    color: var(--standard-dark);
+    margin: 0;
+}
+
+.partnership-quote {
+    font-family: var(--body-family);
+    font-size: 1.1875rem; // mockup: 19px
+    line-height: 1.65;
+    color: var(--standard-dark);
+    margin: 0;
+    padding-left: 22px;
+    border-left: 3px solid var(--standard-green);
+}
+
+.partnership-model-section {
+    background: var(--standard-dark);
+    color: var(--standard-light);
+
+    .container {
+        padding-block: 76px 40px;
+        padding-inline: 3.5rem;
+    }
+}
+
+.partnership-model-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+}
+
+.partnership-model-title {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: clamp(1.375rem, 2vw, 1.75rem); // mockup: 28px
+    line-height: 1.24;
+    letter-spacing: -0.5px;
+    color: var(--standard-light);
+    margin: 0 0 16px;
+}
+
+.partnership-model-grid p {
+    font-family: var(--body-family);
+    font-size: 1.0625rem; // mockup: 17px
+    line-height: 1.65;
+    color: #b8b2c8;
+    margin: 0 0 28px;
+}
+
+.partnership-start-ctas {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.partnership-email {
+    font-family: var(--body-family);
+    font-size: 1.0625rem;
+    color: var(--standard-blue-soft);
+    text-decoration: none;
+    border-bottom: 1px solid #4a4560;
+    padding-bottom: 2px;
+
+    &:hover {
+        color: var(--standard-light);
+    }
+}
+
+@media (max-width: 1279px) {
+    .partnership-what-grid,
+    .partnership-measure-grid,
+    .partnership-model-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        align-items: start;
+    }
+
+    .partnership-shape-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 575px) {
+    .partnership-stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .partnership-stat {
+        border-right: none;
+        border-bottom: 1px solid #ece8da;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    /* padding-inline lives directly on .container for all four sections
+       (not a nested wrapper), so zeroing it removes the base gutter entirely —
+       restore the base 1.25rem instead of 0. */
+    .partnership-what-section .container,
+    .partnership-shape-section .container,
+    .partnership-measure-section .container,
+    .partnership-model-section .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+}

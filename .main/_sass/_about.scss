@@ -1,0 +1,555 @@
+/* ============================================
+   WHO WE ARE SECTION
+   ============================================ */
+.who-section {
+  background: var(--standard-light);
+}
+
+.who-grid {
+  padding: 74px 0 20px;
+  display: grid;
+  gap: 56px;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: start;
+}
+
+.who-intro {
+  position: sticky;
+  top: 104px;
+}
+
+.who-intro .section-label {
+  font-family: var(--header-family);
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--standard-green);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.who-intro h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2.0625rem) !important;
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: -0.5px;
+  margin: 0 0 20px;
+  color: var(--standard-dark);
+}
+
+.who-content .description {
+  font-family: var(--body-family);
+  font-size: clamp(1rem, 1.2vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--standard-warm);
+  margin: 0 0 20px;
+
+  &:last-of-type {
+    color: var(--standard-dark-alt);
+    font-size: clamp(0.9375rem, 1vw, 1.0625rem);
+  }
+}
+
+/* Stat Grid */
+.principle-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #e4e0d2;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.principle-stat {
+  padding: 30px 28px;
+  font-family: var(--header-family);
+  font-weight: 800;
+  font-size: clamp(1rem, 1.2vw, 1.375rem);
+  line-height: 1.1;
+  color: var(--standard-dark);
+  border-right: 1px solid #ece8da;
+
+  &:last-of-type {
+    border-right: none;
+  }
+}
+
+.principle-stat-blue {
+  color: var(--standard-blue);
+}
+
+.principle-desc-inline {
+  grid-column: 1 / -1;
+  padding: 26px 28px;
+  border-top: 1px solid #ece8da;
+  font-family: var(--body-family);
+  font-size: clamp(0.875rem, 1vw, 1rem);
+  line-height: 1.6;
+  color: var(--standard-dark-alt);
+}
+
+/* ============================================
+   TRANSATLANTIC NETWORK SECTION
+   ============================================ */
+.network-section {
+  background: var(--standard-dark);
+  color: var(--standard-light);
+
+  .container {
+    padding-block: 70px 76px;
+    padding-inline: 3.5rem;
+  }
+}
+
+.network-header {
+  max-width: 720px;
+  margin-bottom: 40px;
+}
+
+.network-title {
+  font-size: clamp(1.5rem, 2.5vw, 2.0625rem) !important;
+  margin: 0 0 20px;
+}
+
+.network-intro {
+  font-family: var(--body-family);
+  font-size: clamp(0.9375rem, 1vw, 1.0625rem);
+  line-height: 1.6;
+  color: #b8b2c8;
+  margin: 0 0 16px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.network-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #1d1736;
+  border: 1px solid #1d1736;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.network-cell {
+  background: #120c26;
+  padding: 28px 26px;
+
+  p {
+    font-family: var(--body-family);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: #b8b2c8;
+    margin: 0;
+  }
+}
+
+.network-cell-label {
+  font-family: var(--header-family);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--standard-blue-soft);
+  margin-bottom: 10px;
+}
+
+.network-cell-wordmark {
+  font-family: var(--accent-family);
+  font-weight: 600;
+  font-size: 1.375rem;
+  color: var(--standard-light);
+  margin-bottom: 14px;
+}
+
+.network-cell-wordmark--dm {
+  font-family: var(--body-family);
+  font-weight: 700;
+}
+
+/* ============================================
+   HOW WE WORK SECTION
+   ============================================ */
+.how-we-work-section {
+  background: var(--standard-cream);
+  border-top: 1px solid #e1ddce;
+
+  .container {
+    padding-block: 68px 76px;
+    padding-inline: 3.5rem;
+  }
+}
+
+.how-we-work-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.how-we-work-intro {
+  position: sticky;
+  top: 104px;
+
+  h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2.0625rem) !important;
+    margin: 0 0 20px;
+    color: var(--standard-dark);
+  }
+
+  .description {
+    margin: 0 0 28px;
+  }
+}
+
+.how-we-work-ctas {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.how-we-work-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.how-we-work-step {
+  display: flex;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid #ddd9c9;
+
+  &:last-child {
+    border-bottom: 1px solid #ddd9c9;
+  }
+}
+
+.how-we-work-step-num {
+  font-family: var(--header-family);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--standard-blue);
+  flex: none;
+  width: 2.5rem;
+}
+
+.how-we-work-step-copy {
+  h3 {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    letter-spacing: 0.5px;
+    color: var(--standard-dark);
+    margin: 0 0 10px;
+  }
+
+  p {
+    font-family: var(--body-family);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--standard-dark-alt);
+    margin: 0;
+  }
+}
+
+/* ============================================
+   VALUES / PRINCIPLES SECTION
+   ============================================ */
+.values-section {
+  background: var(--standard-light);
+  padding: 60px 0 74px;
+}
+
+.values-header {
+  margin-bottom: 40px;
+}
+
+.values-header .section-label {
+  font-family: var(--header-family);
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--standard-green);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.values-title {
+  font-size: clamp(1.5rem, 2.5vw, 2.0625rem) !important;
+  color: var(--standard-dark);
+  margin: 0 0 12px;
+}
+
+.values-intro {
+  font-family: var(--body-family);
+  font-size: clamp(0.9375rem, 1vw, 1.0625rem);
+  line-height: 1.6;
+  color: var(--standard-dark-alt);
+  margin: 0;
+  max-width: 560px;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.value-card {
+  background: #fbfaf3;
+  border: 1px solid #e6e1d0;
+  border-radius: 14px;
+  padding: 30px 28px;
+}
+
+.value-number {
+  font-family: var(--header-family);
+  font-weight: 800;
+  font-size: clamp(0.8125rem, 0.9vw, 0.9375rem);
+  color: var(--standard-blue);
+  margin: 0 0 20px;
+}
+
+.value-card-title {
+  font-family: var(--header-family);
+  font-weight: 700;
+  font-size: clamp(1rem, 1.2vw, 1.1875rem);
+  line-height: 1.25;
+  color: var(--standard-dark);
+  margin: 0 0 12px;
+}
+
+.value-card-text {
+  font-family: var(--body-family);
+  font-size: clamp(0.8125rem, 0.9vw, 0.9375rem);
+  line-height: 1.55;
+  color: var(--standard-dark-alt);
+  margin: 0;
+}
+
+/* ============================================
+   PARTNERSHIPS SECTION
+   ============================================ */
+.partners-section {
+  background: var(--standard-cream);
+  border-top: 1px solid #e1ddce;
+  border-bottom: 1px solid #e1ddce;
+  padding: 60px 0;
+}
+
+.partners-header {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.partners-header .section-label {
+  font-family: var(--header-family);
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--standard-green);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.partners-title {
+  font-size: clamp(1.5rem, 2.5vw, 1.9375rem) !important;
+  color: var(--standard-dark);
+  margin: 0;
+}
+
+.partners-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  opacity: 0.92;
+}
+
+/* ============================================
+   TEAM SECTION
+   ============================================ */
+.team-section {
+  background: var(--standard-light);
+  padding: 70px 0 80px;
+}
+
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-bottom: 38px;
+}
+
+.team-header .section-label {
+  font-family: var(--header-family);
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--standard-green);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.team-title {
+  font-size: clamp(1.5rem, 2.5vw, 2.0625rem) !important;
+  color: var(--standard-dark);
+  margin: 0;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Person Card - Rework Style */
+.person-card {
+  background: #fbfaf3;
+  border: 1px solid #e6e1d0;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.person-image {
+  width: 100%;
+  aspect-ratio: 1.43;
+  background: #1a1436;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 22%;
+    display: block;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+  }
+}
+
+.person-card:hover .person-image img {
+  filter: grayscale(0%);
+}
+
+.person-info {
+  padding: 20px 22px 22px;
+}
+
+.person-name {
+  font-family: var(--header-family);
+  font-weight: 700;
+  font-size: clamp(0.875rem, 1vw, 1.0625rem);
+  color: var(--standard-dark);
+  margin: 0 0 5px;
+  text-transform: none;
+}
+
+.person-role {
+  font-family: var(--body-family);
+  font-size: 13px;
+  line-height: 1.4;
+  color: #6f6b58;
+  margin: 0;
+}
+
+/* ============================================
+   RESPONSIVE - ABOUT PAGE
+   ============================================ */
+@media (max-width: 1279px) {
+  .who-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .who-intro {
+    position: static;
+  }
+
+  .how-we-work-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .how-we-work-intro {
+    position: static;
+  }
+
+  .network-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 991px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 767px) {
+  /* padding-inline lives directly on .container for these two sections
+     (not a nested wrapper), so zeroing it removes the base gutter entirely —
+     restore the base 1.25rem instead of 0. */
+  .network-section .container,
+  .how-we-work-section .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .partners-bar {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 575px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .principle-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .principle-stat {
+    border-right: none;
+    border-bottom: 1px solid #ece8da;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  .partners-bar {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .partner-divider {
+    display: none;
+  }
+}

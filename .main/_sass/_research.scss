@@ -1,0 +1,251 @@
+/* ============================================================
+   Research page (/research)
+   Hero uses the shared _includes/hero.html "full-bleed" layout
+   (.full-bleed-hero, styled in _components.scss) — no page-specific
+   hero CSS here, matching About/Blog/Projects/WIZARD.
+   ============================================================ */
+
+.research-filter {
+    background: var(--standard-light);
+    border-bottom: 1px solid #e6e1d0;
+    position: sticky;
+    top: 74px;
+    z-index: 40;
+}
+
+.research-filter-bar {
+    padding: 20px 3.5rem;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.research-filter-label {
+    font-family: var(--header-family);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #a09b8a;
+    text-transform: uppercase;
+}
+
+.research-filter-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.research-filter-pill {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 7px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    border: 1px solid #ddd8c7;
+    background: transparent;
+    color: #43403a;
+
+    &.active {
+        border-color: var(--standard-blue);
+        background: var(--standard-blue);
+        color: #fff;
+    }
+}
+
+.research-filter-count {
+    margin-left: auto;
+    font-family: var(--header-family);
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #8a8676;
+}
+
+.research-papers {
+    background: var(--standard-light);
+
+    .container {
+        padding-block: 52px 70px;
+        padding-inline: 3.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 52px;
+    }
+}
+
+.research-domain-header {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #ddd9c9;
+
+    h2 {
+        font-family: var(--header-family);
+        font-weight: 700;
+        font-size: 1.375rem;
+        letter-spacing: -0.3px;
+        color: var(--standard-dark);
+        margin: 0;
+    }
+}
+
+.research-domain-count {
+    font-family: var(--header-family);
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #a09b8a;
+}
+
+.research-paper-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.research-paper-card {
+    display: flex;
+    flex-direction: column;
+    background: #fbfaf3;
+    border: 1px solid #e6e1d0;
+    border-radius: 12px;
+    padding: 24px 24px 22px;
+    text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(12, 7, 23, 0.08);
+    }
+}
+
+.research-paper-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.research-paper-venue {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--standard-blue);
+}
+
+.research-paper-arrow {
+    font-family: var(--header-family);
+    font-size: 16px;
+    color: #c3bfae;
+}
+
+.research-paper-name {
+    font-family: var(--header-family);
+    font-weight: 800;
+    font-size: 1.125rem;
+    letter-spacing: 0.5px;
+    color: var(--standard-dark);
+    margin-bottom: 8px;
+}
+
+.research-paper-title {
+    font-family: var(--body-family);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: #3f3c2e;
+    margin-bottom: 12px;
+}
+
+.research-paper-contribution {
+    font-family: var(--body-family);
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: #6f6b58;
+}
+
+.research-crosslink {
+    background: var(--standard-cream);
+    border-top: 1px solid #e1ddce;
+
+    .container {
+        padding-block: 56px 60px;
+        padding-inline: 3.5rem;
+    }
+}
+
+.research-crosslink-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items: center;
+}
+
+.research-crosslink-title {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: clamp(1.375rem, 2vw, 1.6875rem); // mockup: 27px
+    line-height: 1.24;
+    letter-spacing: -0.5px;
+    color: var(--standard-dark);
+    margin: 0 0 14px;
+    max-width: 520px;
+}
+
+.research-crosslink-text {
+    font-family: var(--body-family);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #54513f;
+    margin: 0;
+    max-width: 520px;
+}
+
+.research-crosslink-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+@media (max-width: 1279px) {
+    .research-crosslink-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .research-crosslink-ctas {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 991px) {
+    .research-paper-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .research-filter {
+        position: static;
+    }
+}
+
+@media (max-width: 767px) {
+    /* .research-filter-bar carries its own padding on a child of .container,
+       so .container's base 1.25rem survives underneath — safe to zero.
+       .research-papers/.research-crosslink set padding-inline directly on
+       .container itself, so zeroing that would remove the gutter entirely —
+       restore the base 1.25rem instead of 0. */
+    .research-papers .container,
+    .research-crosslink .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .research-filter-bar {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

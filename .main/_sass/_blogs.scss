@@ -1,0 +1,1802 @@
+/* Blog Post Stylesheet */
+
+/* ========================================
+   POST HERO (rework layout)
+   ======================================== */
+.post-hero {
+    background: linear-gradient(180deg, #130b2e 0%, var(--standard-dark) 100%);
+    padding: 70px 56px 40px;
+}
+
+.post-hero-inner {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.post-hero-breadcrumb {
+    font-family: var(--header-family);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #6f6a9a;
+    margin-bottom: 24px;
+
+    a {
+        color: #6f6a9a;
+        text-decoration: none;
+        &:hover {
+            color: var(--standard-blue-soft);
+        }
+    }
+}
+
+.post-hero-breadcrumb-active {
+    color: var(--standard-blue-soft);
+}
+
+.post-hero-badges {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.post-hero-category {
+    font-family: var(--header-family);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--standard-dark);
+    background: var(--standard-blue-soft);
+    padding: 5px 12px;
+    border-radius: 30px;
+}
+
+.post-hero-date {
+    font-family: var(--header-family);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #cfc9d8;
+    border: 1px solid #332e4d;
+    padding: 5px 12px;
+    border-radius: 30px;
+}
+
+.post-hero-title {
+    font-family: var(--header-family);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    line-height: 1.18;
+    letter-spacing: -0.5px;
+    color: var(--standard-light);
+    margin: 0 0 22px;
+}
+
+.post-hero-excerpt {
+    font-family: var(--accent-family);
+    font-style: italic;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.5;
+    color: #c2bcd2;
+    margin: 0 0 30px;
+}
+
+.post-hero-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 24px;
+    border-top: 1px solid #241a44;
+}
+
+.post-hero-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #211a44, var(--standard-dark));
+    color: #cfceff;
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.post-hero-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.post-hero-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.post-hero-author-name {
+    font-family: var(--header-family);
+    font-size: 13px;
+    color: var(--standard-light);
+}
+
+.post-hero-author-role {
+    font-family: var(--body-family);
+    font-size: 13px;
+    color: #8e88a6;
+}
+
+/* ========================================
+   POST CONTENT
+   ======================================== */
+.post-content-section {
+}
+
+.post-layout {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 2rem;
+}
+
+/* ========================================
+   ToC — zero-JS, one element, two behaviors
+   Generated at build time by the `| toc` filter (_plugins/toc.rb)
+   from the post's h2–h4 headings: top level <ol>, h3/h4 nested <ul>.
+   - Base (all sizes): collapsible "On this page" card above the
+     article, open by default.
+   - >= 92.5rem: hangs in the right margin, just outside the
+     article's right edge, sticky while scrolling. The summary is
+     the show/hide toggle (Google-Docs style): collapse the rail to
+     a slim bar, expand on click.
+   Hierarchy (both behaviors): h2 top level is numbered, DM Sans
+   semibold in the site viola; h3 is DM Sans medium; h4 is smaller
+   and muted — so the eye lands on main sections first.
+   Breakpoint math: 820px article + 2 x (1.25rem gap + 18rem rail)
+   + 15px classic scrollbar ≈ 91.5rem; 92.5rem keeps a safety
+   margin — no horizontal overflow at any width.
+   Rules are scoped under .post-wrap so they cannot collide with
+   kramdown's `{:toc}` (#markdown-toc) rendered inside other posts.
+   ======================================== */
+
+/* Positioning wrapper: same width as the article (820px), centred by
+   the existing .post-layout flex. The article inside keeps its exact
+   width and position. */
+.post-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+/* Shared ToC list typography — used by both the collapsible card
+   (all sizes) and the mobile bottom-sheet drawer, so the two always
+   look identical. */
+@mixin toc-list {
+    ol {
+        list-style: none;
+        margin: 0;
+        padding: 0 12px 12px;
+        counter-reset: toc-top;
+    }
+
+    ul {
+        list-style: circle;
+        margin: 0;
+        padding-left: 12px;
+    }
+
+    li { margin: 0 0 0 20px; }
+
+    /* Hierarchy: top level (h2, or promoted h3 — see toc.rb) is
+       numbered, semibold and in the site viola; the next level is
+       medium-weight dark; the last is smaller and muted. Explicit
+       font-family: the global `a` rule otherwise pulls JetBrains
+       Mono into the list. */
+    a {
+        display: block;
+        font-family: var(--body-family);
+        color: var(--standard-dark);
+        text-decoration: none;
+        font-size: 0.875rem;
+        line-height: 1.4;
+        padding: 3px 8px;
+        border-radius: var(--radius-sm);
+        transition: color var(--transition-fast), background var(--transition-fast);
+
+        &:hover {
+            color: var(--standard-blue);
+            background: rgba(107, 108, 245, 0.08);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--standard-blue);
+            outline-offset: 2px;
+        }
+    }
+
+    /* Single leading h2 rendered as a title line (see toc.rb
+       promotion) — non-numbered, set off from the section list. */
+    .toc-title {
+        margin: 0 0 4px;
+
+        > a {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--standard-dark);
+            padding: 3px 8px 7px;
+            border-bottom: 1px solid #e4e0d2;
+        }
+    }
+
+    nav > ol > li {
+        counter-increment: toc-top;
+    }
+
+    nav > ol > li > a {
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+        color: var(--standard-blue);
+        padding-top: 7px;
+
+        &::before {
+            content: counter(toc-top) ". ";
+            color: #8a8676;
+            font-weight: 500;
+        }
+    }
+
+    nav > ol > li > ul > li > a {
+        font-size: 0.875rem;
+        font-weight: 0;
+    }
+
+    nav > ol > li > ul > li > ul > li > a {
+        font-size: 0.8125rem;
+        font-weight: 0;
+        color: #6f6a5e;
+    }
+}
+
+/* ToC card: only rendered on wide screens (>= 92.5rem), where it
+   becomes the sticky side rail (see below). Everywhere else the
+   hamburger + side drawer is the single ToC entry point, so there is
+   no card above the article and reading starts immediately. */
+.post-wrap > .rail > .toc {
+    display: none;
+    width: 100%;
+    margin: 0 0 1.5rem;
+    background: var(--standard-light);
+    border: 1px solid #e4e0d2;
+    border-radius: var(--radius-md);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+
+    summary {
+        font-family: var(--header-family);
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--standard-dark);
+        padding: 14px 18px;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        user-select: none;
+
+        &::-webkit-details-marker { display: none; }
+
+        &::after {
+            content: "+";
+            font-size: 1.125rem;
+            line-height: 1;
+            color: #8a8676;
+        }
+    }
+
+    &[open] > summary::after {
+        content: "\2212"; /* minus */
+    }
+
+    summary:focus-visible {
+        outline: 2px solid var(--standard-blue);
+        outline-offset: 2px;
+    }
+
+    @include toc-list;
+}
+
+/* Wide screens (>= 92.5rem): the rail hangs in the right margin, just
+   outside the article's right edge. .rail is full article height
+   (absolute top:0/bottom:0) to give the sticky .toc room to travel;
+   it releases at the end of the post (no footer overlap). */
+@media (min-width: 92.5rem) {
+    .post-wrap > .rail {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 100%;
+        margin-left: 1.25rem;
+        width: 18rem;
+    }
+
+    .post-wrap > .rail > .toc {
+        display: block;
+        position: sticky;
+        top: calc(var(--nav-h) + 1.5rem);
+        margin: 0;
+
+        summary {
+            padding: 12px 14px;
+        }
+
+        /* The summary is the show/hide toggle (Google-Docs style):
+           open by default via the `open` attribute; click to collapse
+           the rail to the slim "On this page" bar, click again to
+           expand. When open, the nav scrolls internally so the
+           summary stays pinned at the top. */
+        > nav {
+            max-height: calc(100vh - var(--nav-h) - 7rem);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        ol {
+            padding: 0 10px 10px;
+        }
+    }
+
+    /* Optional current-section highlight — Chromium only; other
+       browsers simply show neutral links (no fallback script). */
+    .post-wrap > .rail > .toc > nav > ol {
+        scroll-target-group: auto;
+    }
+
+    .post-wrap > .rail > .toc a:target-current {
+        color: var(--standard-blue);
+        font-weight: 600;
+    }
+}
+
+/* ========================================
+   Mobile ToC — hamburger FAB + side drawer
+   Below the rail breakpoint (< 92.5rem) the sticky rail doesn't
+   exist, so a fixed hamburger button opens the same ToC list as a
+   side panel sliding in from the right (the mobile twin of the
+   desktop rail) — reachable mid-read. The button stays in the same
+   spot open/closed (only the glyph morphs burger→X), so rapid taps
+   can never move the page. Pure CSS open/close (checkbox); a small
+   inline script (see _layouts/post.html) closes the panel when a
+   section is tapped and on Escape.
+   ======================================== */
+.toc-drawer-toggle {
+    /* Fixed, not absolute: a fixed element is always inside the viewport, so
+       label activation focusing it has nowhere to scroll. As absolute it sat
+       at the top of .post-wrap and tapping the FAB yanked the page up. */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Fixed at bottom-right in BOTH states (z-index above the drawer so
+   it stays tappable while the panel is open); only the glyph morphs. */
+.toc-drawer-fab {
+    position: fixed;
+    right: 1rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    z-index: 960;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--standard-dark);
+    color: var(--standard-light);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(12, 7, 23, 0.28);
+    transition: transform var(--transition-fast);
+    -webkit-tap-highlight-color: transparent;
+
+    .fab-burger {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 18px;
+        height: 2px;
+        border-radius: 1px;
+        background: currentColor;
+        transition: transform var(--transition-base), opacity var(--transition-fast);
+    }
+
+    .fab-burger:nth-child(1) { transform: translate(-50%, -7px); }
+    .fab-burger:nth-child(2) { transform: translate(-50%, 0); }
+    .fab-burger:nth-child(3) { transform: translate(-50%, 7px); }
+
+    &:active { transform: scale(0.94); }
+
+    &:focus-visible {
+        outline: 2px solid var(--standard-blue);
+        outline-offset: 2px;
+    }
+}
+
+.toc-drawer-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 940;
+    background: rgba(12, 7, 23, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+}
+
+/* Side panel sliding in from the right — the mobile equivalent of
+   the desktop rail: same width family, same list typography, full
+   height below the navbar. */
+.toc-drawer {
+    position: fixed;
+    top: var(--nav-h);
+    right: 0;
+    bottom: 0;
+    z-index: 950;
+    width: min(85vw, 19rem);
+    overflow-y: auto;
+    background: var(--standard-light);
+    border-left: 1px solid #e4e0d2;
+    border-top-left-radius: var(--radius-lg);
+    border-bottom-left-radius: var(--radius-lg);
+    box-shadow: -12px 0 40px rgba(12, 7, 23, 0.18);
+    transform: translateX(105%);
+    transition: transform 0.28s cubic-bezier(0.32, 0.72, 0.28, 1);
+    padding: 4px 0 calc(4.75rem + env(safe-area-inset-bottom));
+    padding-right: env(safe-area-inset-right);
+    -webkit-overflow-scrolling: touch;
+
+    @include toc-list;
+
+    ol {
+        padding-bottom: 8px;
+    }
+}
+
+.toc-drawer-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--standard-light);
+    padding: 14px 18px 10px;
+    font-family: var(--header-family);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--standard-dark);
+}
+
+.toc-drawer-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #8a8676;
+    transition: color var(--transition-fast), background var(--transition-fast);
+    -webkit-tap-highlight-color: transparent;
+
+    svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+    }
+
+    &:hover {
+        color: var(--standard-dark);
+        background: rgba(107, 108, 245, 0.08);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--standard-blue);
+        outline-offset: 2px;
+    }
+}
+
+/* Open/close states (checkbox drives everything) */
+.toc-drawer-toggle:checked ~ .toc-drawer {
+    transform: none;
+}
+
+.toc-drawer-toggle:checked ~ .toc-drawer-scrim {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Button stays put; burger → X so the same tap target closes. */
+.toc-drawer-toggle:checked ~ .toc-drawer-fab .fab-burger:nth-child(1) {
+    transform: translate(-50%, 0) rotate(45deg);
+}
+
+.toc-drawer-toggle:checked ~ .toc-drawer-fab .fab-burger:nth-child(2) {
+    opacity: 0;
+}
+
+.toc-drawer-toggle:checked ~ .toc-drawer-fab .fab-burger:nth-child(3) {
+    transform: translate(-50%, 0) rotate(-45deg);
+}
+
+/* Only below the rail breakpoint; hidden entirely on wide screens
+   where the sticky rail replaces it. */
+@media (not (min-width: 92.5rem)) {
+    .toc-drawer-fab {
+        display: flex;
+    }
+}
+
+@media (min-width: 92.5rem) {
+    .toc-drawer,
+    .toc-drawer-scrim,
+    .toc-drawer-fab {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .toc-drawer,
+    .toc-drawer-scrim,
+    .toc-drawer-fab {
+        transition: none;
+    }
+}
+
+/* ========================================
+   Post video gallery (WIZARD — "Where's the gap")
+   One wide 16:9 card (real robot) + a row of square sim clips,
+   all click-to-play (preload="metadata" = first frame only).
+   ======================================== */
+.post-video-gallery {
+    margin: var(--space-lg) 0;
+}
+
+.pvcard {
+    margin: 0;
+
+    video {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0;
+        border-radius: var(--radius-md);
+        background: #000;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    figcaption {
+        font-family: var(--header-family);
+        font-size: 0.6875rem;
+        font-weight: 500;
+        letter-spacing: 0.4px;
+        color: #6f6a5e;
+        margin-top: 8px;
+        line-height: 1.5;
+    }
+}
+
+.pvcard--wide video {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.pvcard-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 14px;
+
+    .pvcard video {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+}
+
+.pvcard-note {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--standard-dark-alt);
+    margin: 1.25rem 0 var(--space-md);
+}
+
+@media (max-width: 575px) {
+    .pvcard-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+    }
+}
+
+/* Main Post Content */
+.post-main {
+    background: var(--standard-light);
+    max-width: 820px;
+    width: 100%;
+}
+
+/* Keep Reading — related articles grid, reuses .blog-card */
+.keep-reading-section {
+    background: var(--standard-cream);
+    border-top: 1px solid #e1ddce;
+    padding: 56px 2rem 76px;
+}
+
+.keep-reading-section .section-label {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--standard-dark);
+    margin: 0 0 28px;
+    letter-spacing: -0.5px;
+}
+
+.keep-reading-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.post-featured-image {
+    height: 300px;
+    margin-bottom: var(--space-xl);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+}
+
+.post-featured-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    background: var(--standard-light);
+}
+
+.post-body {
+    color: var(--standard-warm);
+    font-size: 1.125rem; // mockup: 18px
+    line-height: 1.75;
+}
+
+/* Table of Contents Styling */
+.post-body #markdown-toc {
+    background: linear-gradient(135deg, rgba(107, 108, 245, 0.1), rgba(107, 108, 245, 0.05));
+    border: 2px solid rgba(107, 108, 245, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin: 0;
+    list-style: none;
+}
+
+.post-body #markdown-toc::before {
+    content: "Table of Contents";
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--standard-blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid rgba(107, 108, 245, 0.3);
+}
+
+.post-body #markdown-toc li {
+    margin: 0;
+    padding-left: 0;
+}
+
+.post-body #markdown-toc a {
+    color: var(--standard-dark);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    display: block;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+}
+
+.post-body #markdown-toc a:hover {
+    color: var(--standard-blue);
+    background: rgba(107, 108, 245, 0.1);
+}
+
+.post-body #markdown-toc ul {
+    list-style: none;
+    padding-left: var(--space-lg);
+    margin-top: var(--space-xs);
+}
+
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4,
+.post-body h5,
+.post-body h6 {
+    color: var(--standard-dark);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+}
+
+.post-body h2 {
+    font-size: 1.625rem !important; // mockup: 26px
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+    color: var(--standard-viola); // section titles in the site viola (article title stays blue)
+}
+
+/* Fix 5 — H1/H2 keep the monospace brand signature; H3/H4 drop to the body
+   face (DM Sans bold) so deep sections read quieter than main sections.
+   WIZARD feedback round: h3 joins the mono/viola section-title treatment,
+   h4 stays the quiet DM Sans level. */
+.post-body h3 {
+    font-family: var(--header-family);
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--standard-viola);
+}
+
+.post-body h4 {
+    font-family: var(--body-family);
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+.post-body p + p {
+  margin-top: var(--space-md);
+}
+
+.post-body ul,
+.post-body ol {
+    margin: var(--space-md) 0;
+    padding-left: var(--space-xl);
+}
+
+.post-body li {
+    margin-bottom: var(--space-sm);
+    line-height: 1.8;
+}
+
+.post-body a { //Hyperlinks
+    color: var(--standard-blue);
+    text-decoration: underline;
+    transition: color var(--transition-fast);
+    &:hover {
+        color: var(--standard-blue-soft);
+    }
+    &:visited {
+        color: var(--standard-green);
+    }
+}
+
+.post-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--space-lg) 0;
+    display: block;
+    /* no drop shadow: figures sit flat on the page so they read as part
+       of the article, not cards floating above it */
+}
+
+/* Figure embeds ({% inline_svg %} / {% inline_img %}): same box treatment as
+   a plain <img>. Inlined SVGs are real DOM, so they can also be themed with
+   site custom properties — e.g. their canvas fills use var(--standard-light)
+   and follow the page background automatically. */
+.post-body .post-fig {
+    margin: var(--space-lg) 0;
+}
+
+.post-body .post-fig svg,
+.post-body .post-fig img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+}
+
+/* figure note inside the wrapper shares the image's width */
+.post-body .post-fig .table-footnote {
+    margin-bottom: 0;
+}
+
+/* References list — conference tags (ICML'17, CoRL'24, …) in site viola */
+.post-body .ref-conf {
+    color: var(--standard-viola);
+}
+
+/* WIZARD result plots: curves draw in left→right when the figure scrolls
+   into view, then markers + dashed reference lines fade in. JS adds
+   .is-inview to the .post-fig wrapper (see post.html); without JS, when
+   printing, or under prefers-reduced-motion, the figures stay fully static. */
+@media screen and (prefers-reduced-motion: no-preference) {
+    html.js .post-body svg[data-plot] polyline {
+        stroke-dasharray: 1; // pathLength="1" normalises each curve
+        stroke-dashoffset: 1; // hidden until the figure enters the viewport
+    }
+    html.js .post-body .post-fig.is-inview svg[data-plot] polyline {
+        animation: plot-draw 1.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    @keyframes plot-draw { to { stroke-dashoffset: 0; } }
+
+    html.js .post-body svg[data-plot] circle,
+    html.js .post-body svg[data-plot] rect[fill="#2C2C2C"],
+    html.js .post-body svg[data-plot] line[stroke-dasharray="22 12"] {
+        opacity: 0;
+    }
+    html.js .post-body .post-fig.is-inview svg[data-plot] circle,
+    html.js .post-body .post-fig.is-inview svg[data-plot] rect[fill="#2C2C2C"],
+    html.js .post-body .post-fig.is-inview svg[data-plot] line[stroke-dasharray="22 12"] {
+        animation: plot-fadein 0.5s ease-out 1s forwards;
+    }
+    @keyframes plot-fadein { to { opacity: 1; } }
+}
+
+/* Videos fill the content column (unlike img's max-width, width:100% also
+   stretches low-resolution video to the text width so edges align) */
+.post-body video {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--space-lg) 0;
+    display: block;
+    background: #000;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ------------------------------------------------------------------
+   Results tables (inline HTML in posts, e.g. the WIZARD article).
+   WIZARD's own numbers always carry Verde Nova; everything else
+   stays in the warm brand palette on the cream surface.
+------------------------------------------------------------------- */
+.post-tables-duo {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+    align-items: start;
+
+    /* Two columns only where both tables provably fit (t1 ≈ 470px, t2 ≈ 310px
+       natural width + gap) — i.e. the 820px post column at ≥1150px viewports. */
+    @media (min-width: 1150px) {
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+        gap: var(--space-md);
+    }
+
+    /* tighten cells inside the duo so both tables fit their columns */
+    table {
+        font-size: 0.9rem;
+    }
+
+    table.t-franka {
+        font-size: 0.88rem;
+
+        th,
+        td {
+            /* tighter than Table 1: the Franka table sits in the narrower
+               duo column and needs a few px of margin there */
+            padding-left: 0.45rem;
+            padding-right: 0.45rem;
+        }
+    }
+
+    th,
+    td {
+        padding-left: 0.55rem;
+        padding-right: 0.55rem;
+    }
+
+    /* short labels hidden by default; shown in compact phone mode below */
+    .hs { display: none; }
+
+    /* compact phone mode: smaller cells + abbreviated labels so neither
+       table needs a horizontal scrollbar. Breakpoint sits above the width
+       where Table 1's natural size (≈456px) stops fitting the column. */
+    @media (max-width: 559px) {
+        table {
+            font-size: 0.85rem;
+        }
+
+        th,
+        td {
+            padding: 0.5rem 0.4rem;
+        }
+
+        thead th {
+            font-size: 0.65rem;
+            letter-spacing: 0.08em;
+        }
+
+        .hf { display: none; }
+        .hs { display: inline; }
+
+        /* Table 1: drop the two LIBERO-10 part columns on phones (the
+           values remain in the composite chart above and the prose). */
+        table.t-libero thead th:nth-child(n + 5),
+        table.t-libero tbody td:nth-child(n + 5) {
+            display: none;
+        }
+    }
+}
+
+.post-table {
+    margin: 0;
+    min-width: 0;
+}
+
+.table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.post-body table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.post-table figcaption {
+    text-align: left;
+    font-family: var(--header-family);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(51, 48, 31, 0.6);
+    padding: 0 0 0.9rem;
+}
+
+.post-body thead th {
+    font-family: var(--header-family);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(51, 48, 31, 0.55);
+    padding: 0.6rem 0.7rem;
+    border-bottom: 2px solid rgba(12, 7, 23, 0.28);
+    text-align: right;
+    white-space: nowrap;
+}
+
+.post-body thead th:first-child {
+    text-align: left;
+}
+
+.post-body tbody td {
+    padding: 0.6rem 0.7rem;
+    text-align: right;
+    color: var(--standard-warm);
+    border-bottom: 1px solid #e1ddce;
+    white-space: nowrap;
+}
+
+.post-body tbody td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: rgba(51, 48, 31, 0.85);
+}
+
+/* WIZARD row (LIBERO table) — Verde Nova */
+.post-body tbody tr.is-wizard td {
+    background: rgba(50, 182, 146, 0.14);
+    color: var(--verde-nova-ink);
+    font-weight: 700;
+    border-bottom: 2px solid var(--verde-nova);
+}
+
+/* WIZARD column (Franka table) — Verde Nova */
+.post-body table.t-franka thead th:nth-child(3),
+.post-body table.t-franka tbody td:nth-child(3) {
+    color: var(--verde-nova-ink);
+    font-weight: 700;
+}
+
+.post-body table.t-franka thead th:nth-child(3) {
+    border-bottom-color: var(--verde-nova);
+}
+
+/* Δ column — brand green */
+.post-body table.t-franka thead th:nth-child(4),
+.post-body table.t-franka tbody td:nth-child(4) {
+    color: var(--standard-green);
+    font-weight: 600;
+}
+
+/* Average row */
+.post-body tfoot td {
+    padding: 0.65rem 0.7rem;
+    text-align: right;
+    font-weight: 700;
+    color: var(--standard-dark);
+    border-top: 2px solid rgba(12, 7, 23, 0.28);
+    border-bottom: none;
+    white-space: nowrap;
+}
+
+.post-body tfoot td:first-child {
+    text-align: left;
+}
+
+.table-footnote {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: rgba(51, 48, 31, 0.62);
+    margin: 0.8rem 0 0;
+}
+
+/* ========================================
+   Results tables — house-style card treatment.
+   Applies to any standalone `figure.post-table` in post bodies (the
+   WIZARD article splits its results tables into the relevant
+   subsections instead of a side-by-side duo). Cream surface, rounded
+   corners, brand accent on top (blue by default; green via
+   .post-table--green for the real-robot table), zebra rows, tinted
+   Δ column, muted n/a cells, hairline above the footnote.
+   ======================================== */
+.post-table .hs { display: none; } /* short labels: shown only on mobile, below */
+
+figure.post-table {
+    display: flex;
+    flex-direction: column;
+    background: var(--standard-cream);
+    border: 1px solid rgba(12, 7, 23, 0.08);
+    border-top: 3px solid var(--standard-blue);
+    border-radius: 14px;
+    padding: 16px 14px 12px;
+    margin: var(--space-lg) 0;
+}
+
+figure.post-table--green {
+    border-top-color: var(--standard-green);
+}
+
+figure.post-table figcaption {
+    padding-bottom: 0.7rem;
+}
+
+figure.post-table tbody td {
+    border-bottom-color: rgba(12, 7, 23, 0.1);
+}
+
+/* zebra rows — the WIZARD row keeps its own (stronger) tint below */
+figure.post-table tbody tr:nth-child(even) td {
+    background: rgba(12, 7, 23, 0.025);
+}
+
+figure.post-table tbody tr.is-wizard td {
+    background: rgba(50, 182, 146, 0.16);
+}
+
+/* Δ column (Franka) — light green wash behind the gains */
+figure.post-table table.t-franka thead th:nth-child(4) {
+    background: rgba(41, 180, 133, 0.08);
+}
+
+figure.post-table table.t-franka tbody td:nth-child(4),
+figure.post-table table.t-franka tfoot td:nth-child(4) {
+    background: rgba(41, 180, 133, 0.1);
+}
+
+/* not-evaluated cells */
+figure.post-table td.is-na {
+    font-style: italic;
+    color: rgba(51, 48, 31, 0.45);
+}
+
+/* footnote as a card footer */
+figure.post-table .table-footnote {
+    margin: 0;
+    margin-top: auto;
+    padding: 0.9rem 0 0;
+    border-top: 1px solid rgba(12, 7, 23, 0.08);
+}
+
+/* Compact small-screen view — mirrors the staged .post-tables-duo phone
+   rules (which only applied inside the now-unused duo container): smaller
+   font, tighter cells, short labels instead of full ones, the two
+   LIBERO-10 part columns dropped from Table 1, and the redundant
+   Fraction column dropped from the scaling table. Breakpoint extended
+   to 639px: between ~560–640 the article column is only ~460px wide
+   inside the cards, so the full-metric tables would sit at zero slack.
+   Chromium propagates nowrap table min-content through overflow-x:auto
+   wrappers in block layout, so anything over the available width blows
+   out the page instead of scrolling — the drops keep everything under. */
+@media (max-width: 639px) {
+    figure.post-table table {
+        font-size: 0.85rem;
+    }
+
+    figure.post-table th,
+    figure.post-table td {
+        padding: 0.5rem 0.4rem;
+    }
+
+    figure.post-table thead th {
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+    }
+
+    figure.post-table .hf { display: none; }
+    figure.post-table .hs { display: inline; }
+    figure.post-table .col-frac { display: none; }
+
+    /* label columns may wrap: keeps the nowrap number columns from
+       pushing the table past narrow phones (375px viewport → ~280px
+       inside the cards) */
+    figure.post-table th:first-child,
+    figure.post-table td:first-child {
+        white-space: normal;
+    }
+
+    figure.post-table table.t-libero thead th:nth-child(n + 5),
+    figure.post-table table.t-libero tbody td:nth-child(n + 5) {
+        display: none;
+    }
+}
+
+.post-body blockquote {
+    border-left: 3px solid var(--standard-blue);
+    margin: var(--space-lg) 0;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--standard-cream);
+    border-radius: 0 10px 10px 0;
+    font-family: var(--accent-family);
+    font-style: italic;
+    font-size: 1.25rem; // mockup: 20px
+    line-height: 1.55;
+    color: var(--standard-warm);
+}
+
+/* Key-numbers strip — a flex row of .stat-card (defined in _components.scss),
+   divided by hairlines, used to break up the top of long posts. */
+.post-stats {
+    display: flex;
+    margin: var(--space-lg) 0;
+    padding: 4px 0;
+    border-top: 1px solid rgba(12, 7, 23, 0.14);
+    border-bottom: 1px solid rgba(12, 7, 23, 0.14);
+
+    .stat-card {
+        padding: 18px 22px;
+        border-left: 1px solid rgba(12, 7, 23, 0.14);
+
+        &:first-child {
+            border-left: none;
+            padding-left: 0;
+        }
+    }
+
+    .stat-number {
+        font-size: 1.9rem;
+    }
+}
+
+@media (max-width: 720px) {
+    .post-stats {
+        flex-wrap: wrap;
+
+        .stat-card {
+            flex: 1 1 50%;
+            border-left: none;
+            padding: 16px 0;
+
+            &:nth-child(even) {
+                border-left: 1px solid rgba(12, 7, 23, 0.14);
+                padding-left: 22px;
+            }
+        }
+    }
+}
+
+.post-body .highlighter-rouge {
+    background: rgba(107, 108, 245, 0.12);
+    color: var(--standard-light);
+    padding: 3px 8px;
+    margin: 1rem 0;
+    border-radius: 4px;
+    background: #0f0f1e;
+    border: 1px solid rgba(107, 108, 245, 0.3);
+    border-radius: var(--radius-md);
+}
+
+.post-body .language-python {
+    color: var(--standard-green);
+}
+
+.post-body code {
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+/* Author Info */
+.post-author {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 2px solid rgba(107, 108, 245, 0.3);
+}
+
+
+/* Post Navigation */
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 2px solid rgba(107, 108, 245, 0.3);
+}
+
+.post-navigation .next {
+    margin-left: auto;
+}
+
+.post-navigation .nav-btn {
+    flex: 1;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .keep-reading-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .post-hero {
+        padding: var(--space-xl) var(--space-md) var(--space-lg);
+    }
+
+    .post-hero-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    .post-layout {
+        padding: var(--space-lg) var(--space-sm);
+    }
+
+    .keep-reading-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .post-navigation {
+        flex-direction: column;
+    }
+}
+
+/* ========================================
+   WIZARD article — feedback round additions:
+   reading progress bar, hero paper links, key-takeaways
+   collapsible, pull-quote, section time estimates, two-up
+   video row, closing research CTA.
+   ======================================== */
+
+/* Scroll-triggered reading progress: thin Verde Nova bar pinned to the very
+   top of the viewport; _layouts/post.html drives scaleX on scroll. */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 1300;
+    background: var(--verde-nova);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    pointer-events: none;
+}
+
+/* Paper / project link row under the hero byline (front-matter paper_links) */
+.post-hero-links {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--header-family);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+
+    a {
+        color: var(--standard-blue);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(107, 108, 245, 0.35);
+        padding-bottom: 1px;
+        transition: color var(--transition-fast), border-color var(--transition-fast);
+
+        &:hover {
+            color: var(--standard-blue-soft);
+            border-bottom-color: var(--standard-blue-soft);
+        }
+    }
+
+    .post-hero-links-dot { color: rgba(51, 48, 31, 0.4); }
+}
+
+/* "Key takeaways" collapsible — closed by default so it never takes hero
+   real estate; the mono summary mirrors the ToC card treatment. */
+.key-takeaways {
+    margin: var(--space-lg) 0;
+    background: var(--standard-cream);
+    border: 1px solid rgba(12, 7, 23, 0.1);
+    border-radius: var(--radius-md);
+
+    summary {
+        font-family: var(--header-family);
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--standard-dark);
+        padding: 14px 18px;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        user-select: none;
+
+        &::-webkit-details-marker { display: none; }
+
+        &::after {
+            content: "+";
+            font-size: 1.125rem;
+            line-height: 1;
+            color: #8a8676;
+        }
+    }
+
+    &[open] > summary::after { content: "\2212"; /* minus */ }
+
+    ul {
+        margin: 0;
+        padding: 0 18px 14px;
+        list-style: none;
+
+        li {
+            position: relative;
+            margin: 0 0 10px;
+            padding-left: 1.1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--standard-warm);
+
+            &:last-child { margin-bottom: 4px; }
+
+            &::before {
+                content: "—";
+                position: absolute;
+                left: 0;
+                color: var(--verde-nova);
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+/* Pull-quote — one or two per piece, placed where the reader needs a
+   breath. Classic blockquote shape (left rule + italic) so it never reads
+   as a section title; text stays Quantum Blue on the cream page. */
+.post-body blockquote.post-pullquote {
+    border-left: 3px solid #6A7CFF; // Quantum Blue
+    margin: var(--space-xl) 0;
+    padding: 0.15rem 0 0.15rem 1.25rem;
+    background: none;
+    border-radius: 0;
+    font-family: var(--body-family);
+    font-style: italic;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+    color: #6A7CFF; // Quantum Blue
+}
+
+/* Section time estimate — small mono eyebrow ABOVE the section title
+   (kept out of the <h3> so kramdown's auto-ids stay clean) */
+.post-body .section-time {
+    display: block;
+    // Takes over the heading's top spacing (see +h2/+h3 rule below) so the
+    // section keeps its breathing room above the eyebrow, not between
+    // eyebrow and title.
+    margin: var(--space-xl) 0 0.3rem;
+    font-family: var(--header-family);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: rgba(51, 48, 31, 0.5);
+    white-space: nowrap;
+}
+
+/* Eyebrow + title read as one unit: drop the heading's own top margin when a
+   section-time span immediately precedes it (its space moved to the span). */
+.post-body .section-time + h2,
+.post-body .section-time + h3 {
+    margin-top: 0;
+}
+
+/* Two-up video row (Franka cup + banana, side by side) */
+.pvcard-row--2 {
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: 575px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Closing line linking the piece to ItalAI's research programme */
+.post-closing-cta {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid rgba(12, 7, 23, 0.14);
+    font-size: 1rem;
+    color: var(--standard-dark-alt);
+
+    a {
+        color: var(--standard-blue);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(107, 108, 245, 0.35);
+
+        &:hover { color: var(--standard-blue-soft); }
+    }
+}
+
+// blogs Hub Section
+.blogs-hub {
+  background: var(--standard-light);
+  padding: 2rem 0;
+}
+
+// blog Card Container
+.blog-card {
+  pointer-events: auto;
+  border: 1px solid #e4e0d2;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  height: 100%;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(12, 7, 23, 0.10);
+  }
+}
+
+// Card Image Wrapper
+.blog-card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 168px;
+  overflow: hidden;
+  background: #1a1a2e;
+}
+
+.blog-card-image-wrapper img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+// Card Content
+.blog-card-content {
+  padding: 24px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+// Card Excerpt
+.blog-card-title {
+  text-decoration: none;
+  color: var(--standard-dark);
+
+  h3 {
+    font-size: 1.125rem !important; // mockup: 18px
+    font-weight: 700;
+    margin: 0 0 10px;
+    line-height: 1.3;
+  }
+
+  .blog-card-excerpt {
+    font-size: 0.9375rem; // mockup: 15px
+    line-height: 1.5;
+    color: #6f6b58;
+    margin: 0 0 24px;
+  }
+}
+
+// Card Byline (entity · partner)
+.blog-card-byline {
+  font-family: var(--header-family);
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  color: #8a8676;
+  margin: -4px 0 2px;
+}
+
+// Post type tag - overlay on image, opposite corner from the date tag
+.blog-card-type {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  font-family: var(--header-family);
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--standard-dark);
+  background: var(--standard-light);
+  padding: 5px 11px;
+  border-radius: 30px;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+// Card Tags
+.blog-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.blog-card-tag {
+  text-decoration: none;
+  color: var(--standard-blue);
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+
+  &:hover {
+    color: var(--standard-green);
+  }
+  &:first-child::before {
+    content: "/ ";
+  }
+  margin: 0 3px 0 0;
+  &::after {
+    content: " /";
+  }
+}
+
+// Card Series text
+.blog-card-series {
+  color: var(--standard-dark);
+  font-family: var(--header-family);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-top: auto;
+}
+
+/* blog Tag - Date overlay on image */
+.blog-tag {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  background: rgba(12, 7, 23, 0.55);
+  border: none;
+  color: #cfeee4;
+  padding: 6px 12px;
+  font-family: var(--header-family);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  border-radius: 30px;
+  white-space: nowrap;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.blog-card-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.75rem;
+}
+
+/* blogs Page - Section and Design of Page */
+
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 2rem 2rem;
+  &.cards-exit .blog-card {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  &.cards-enter .blog-card {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  &.cards-active .blog-card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blogs-grid .blog-card {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.34s ease,
+    transform 0.34s ease;
+  will-change: opacity, transform;
+}
+
+// Buttons and Summary
+/* Pagination Section */
+.blogs-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 0 0;
+  border-top: 1px solid #e1ddce;
+}
+
+#itemsShown {
+  font-family: var(--header-family);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #8a8676;
+}
+
+
+
+
+
+/* ===== Filter Section (rework redesign) ===== */
+
+.blogs-filter {
+    background: var(--standard-cream);
+    border-bottom: 1px solid #e1ddce;
+}
+
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding: 34px 0;
+}
+
+.filter-label {
+    font-family: var(--header-family);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #8a8676;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.filter-pill {
+    font-family: var(--header-family);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--standard-dark);
+    background: transparent;
+    border: 1px solid #cfcabb;
+    padding: 9px 18px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: var(--standard-blue);
+        color: var(--standard-blue);
+    }
+
+    &.active {
+        background: var(--standard-dark);
+        color: var(--standard-light);
+        border-color: var(--standard-dark);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--standard-blue);
+        outline-offset: 2px;
+    }
+}
+
+.filter-clear {
+    font-family: var(--header-family);
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--standard-blue);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+        opacity: 0.7;
+    }
+
+    i {
+        font-size: 11px;
+    }
+}
+
+.blogs-count {
+    font-family: var(--header-family);
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #8a8676;
+    margin-bottom: 26px;
+}
+
+/* More Coming Soon placeholder */
+.blogs-coming-soon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    border: 1px dashed #cfcabb;
+    border-radius: 14px;
+    color: #a49f8c;
+    font-family: var(--header-family);
+    font-size: 13px;
+    letter-spacing: 1px;
+}

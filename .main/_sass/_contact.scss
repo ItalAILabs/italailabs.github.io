@@ -1,0 +1,210 @@
+/* ============================================================
+   Contact page (/contact)
+   Hero uses the shared _includes/hero.html "full-bleed" layout
+   (.full-bleed-hero, styled in _components.scss) — no page-specific
+   hero CSS here, matching About/Blog/Projects/Partnership/Research.
+   The form/grid itself (.contact-section, .static-field, .cta-submit,
+   .social-pill, etc.) is styled in _footer.scss and reused as-is here;
+   this file only adds what's new for this page.
+   ============================================================ */
+
+.contact-info-row-section {
+    background: var(--standard-light);
+
+    .container {
+        padding: 66px 3.5rem 30px;
+    }
+}
+
+.contact-info-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.contact-info-card {
+    background: var(--standard-cream);
+    border: 1px solid #e6e1d0;
+    border-radius: 14px;
+    padding: 30px 28px;
+}
+
+.contact-info-card-label {
+    font-family: var(--header-family);
+    font-size: 0.6875rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8676;
+    margin-bottom: 14px;
+}
+
+.contact-info-card-value {
+    font-family: var(--body-family);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--standard-warm);
+}
+
+.contact-info-card-value--link {
+    font-family: var(--header-family);
+    font-size: 1.0625rem;
+    color: var(--standard-blue);
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.contact-info-card-socials {
+    display: flex;
+    gap: 12px;
+}
+
+/* Light-background variant of .social-pill (defined in _footer.scss for dark sections) */
+.social-pill--light {
+    color: var(--standard-dark);
+    border-color: #cfcabb;
+
+    &:hover {
+        border-color: var(--standard-dark);
+        color: var(--standard-dark);
+    }
+}
+
+.contact-icp-section {
+    background: var(--standard-dark);
+    border-top: 1px solid #1d1736;
+
+    .container {
+        padding: 44px 3.5rem 0;
+    }
+}
+
+.contact-icp-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 44px;
+    align-items: start;
+    padding-bottom: 44px;
+    border-bottom: 1px solid #1d1736;
+}
+
+.contact-icp-label {
+    font-family: var(--header-family);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--standard-blue);
+    padding-top: 8px;
+    white-space: nowrap;
+}
+
+.contact-icp-statement {
+    font-family: var(--body-family);
+    font-size: 1.4375rem;
+    line-height: 1.5;
+    color: var(--standard-light);
+    margin: 0;
+    max-width: 820px;
+}
+
+.contact-icp-substatement {
+    font-family: var(--body-family);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #8e88a6;
+    margin: 16px 0 0;
+    max-width: 640px;
+}
+
+.contact-secondary-link {
+    display: inline-block;
+    font-family: var(--header-family);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: #8a85a0;
+    text-decoration: none;
+    border-bottom: 1px solid #332e4d;
+    padding-bottom: 2px;
+    margin: 22px 0 30px;
+
+    &:hover {
+        color: var(--standard-light);
+    }
+}
+
+/* Select field — matches .static-field's underline treatment (_footer.scss) */
+.static-field select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #3a3552;
+    color: var(--standard-light);
+    font-family: var(--body-family);
+    font-size: 1rem;
+    padding: 8px 0;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+        outline: none;
+        border-bottom-color: var(--standard-blue);
+    }
+
+    option {
+        color: var(--standard-dark);
+    }
+}
+
+/* Yes/No pill toggle — real radio inputs, hidden checkbox-hack style
+   matching .menu-toggle in _header.scss; label carries the visible pill. */
+.pill-toggle {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    label {
+        font-family: var(--header-family);
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        color: #cfc9d8;
+        border: 1px solid #3a3552;
+        padding: 9px 22px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: border-color 0.18s ease, color 0.18s ease;
+    }
+
+    input[type="radio"]:checked + label {
+        border-color: var(--standard-blue);
+        color: var(--standard-light);
+    }
+}
+
+@media (max-width: 1279px) {
+    .contact-info-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+    .contact-icp-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* padding-inline lives directly on .container for these two sections
+       (not a nested wrapper), so zeroing it removes the base gutter entirely —
+       restore the base 1.25rem instead of 0. */
+    .contact-info-row-section .container,
+    .contact-icp-section .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+}

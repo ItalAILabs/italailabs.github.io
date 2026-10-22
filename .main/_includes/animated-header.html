@@ -1,0 +1,45 @@
+{% assign delay = 0 %}
+{% assign heading_tag = include.tag | default: "h1" %}
+{% assign default_class = heading_tag | append: "-size" %}
+{% assign header_size = include.class | default: default_class %}
+{% assign words = include.title | split: '|' %}
+
+<{{ heading_tag }} class="{{ header_size }}">
+  {% for word_data in words %}
+    {% assign parts = word_data | split: ',' %}
+    {% assign word_text = parts[0] %}
+    {% assign classes = parts[1] | default: "" %}
+    
+    {% if word_text == "break" %}
+      <br>
+    {% else %}
+      {% assign has_period = false %}
+      {% if classes contains "period" %}
+        {% assign has_period = true %}
+        {% assign classes = classes | replace: "period", "" | strip %}
+      {% endif %}
+      
+      {% assign chars = word_text | split: '' %}
+      <span class="word">
+        {%- if classes != "" -%}
+          <span class="{{ classes }}">
+        {%- endif -%}
+        
+        {%- for char in chars -%}
+            {%- if char == ' ' -%}
+              <span class="char space">&nbsp;</span>
+            {%- else -%}
+              <span class="char header-animated" data-delay="{{ delay }}">{{ char }}</span>
+              {%- assign delay = delay | plus: 20 -%}
+            {%- endif -%}
+        {%- endfor -%}
+        
+        {%- if has_period -%}
+          <span class="char period header-animated" data-delay="{{ delay }}">.</span>
+          {%- assign delay = delay | plus: 20 -%}
+        {%- endif -%}
+        </span>
+      </span>
+    {% endif %}
+  {% endfor %}
+</{{ heading_tag }}>

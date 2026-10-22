@@ -1,24 +1,23 @@
-# Drafts checks — validation only. Nothing here is deployed or published.
+# Drafts review — validation runs on pull requests, never on plain commits.
 #
-#  - push to `drafts`    → assemble the site (main + drafts, symlinked) and build
-#                          it, so a broken post is caught before anyone publishes.
-#  - PR targeting main   → must only touch _posts/*.md and assets/images/drafts/**,
-#                          and the merged tree must build. Merging is publishing.
+#  - PR -> drafts : front-matter sanity on the posts it touches + a full build
+#                   of the assembled site (main + branch content, symlinked).
+#  - PR -> main   : publish gate — must only touch _posts/*.md and
+#                   assets/{images,videos,files}/drafts/**, and the merged
+#                   tree must build. Merging is publishing.
 
-name: Drafts
+name: Drafts review
 
 on:
-  push:
-    branches: [drafts]
   pull_request:
-    branches: [main]
+    branches: [drafts, main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: drafts-${{ github.ref }}
+  group: drafts-review-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -27,6 +26,36 @@ env:
   TZ: Europe/Rome
 
 jobs:
+  # Review a post PR against the shared workspace.
+  review-posts:
+    if: github.event_name == 'pull_request' && github.base_ref == 'drafts'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Front-matter sanity on touched posts
+        run: |
+          CHANGED="$(git diff --name-only origin/drafts...HEAD)"
+          echo "Changed files:"; echo "${CHANGED:-<none>}"
+          FAIL=0
+          while IFS= read -r f; do
+            [ -n "$f" ] || continue
+            case "$f" in _posts/*.md) ;; *) continue ;; esac
+            if [ ! -f "$f" ]; then
+              echo "::error::$f is not in the merged tree (deleted or renamed?)"
+              FAIL=1
+              continue
+            fi
+            head -n 1 "$f" | grep -q '^---$'     || { echo "::error::$f: no front matter block (file must start with ---)"; FAIL=1; }
+            grep -qE '^layout:\s*post\s*$' "$f"  || { echo "::error::$f: missing 'layout: post'"; FAIL=1; }
+            grep -qE '^title:\s*\S'      "$f"    || { echo "::error::$f: missing 'title:'"; FAIL=1; }
+          done <<< "$CHANGED"
+          [ "$FAIL" -eq 0 ] && echo "OK: post front matter looks right"
+          exit "$FAIL"
+
+  # Assemble main + the PR's content and prove it builds.
   build:
     runs-on: ubuntu-latest
     steps:
@@ -41,19 +70,19 @@ jobs:
       - name: Install libvips (draft photos → WebP)
         run: sudo apt-get update && sudo apt-get install -y libvips-dev
 
-      - name: Build
+      - name: Build assembled site
         run: |
           if [ -f scripts/build-preview.sh ]; then
-            # drafts branch / feature branches: materialize main + link it in.
+            # PR -> drafts: materialize main + link it in, merge posts.
             bash scripts/build-preview.sh
           else
-            # Publish PR against main: the merge ref already contains the full
-            # main tree plus the new post — build it as-is.
+            # PR -> main (publish): the merge ref is already the full main
+            # tree plus the new post — build it as-is.
             bundle exec jekyll build
           fi
 
   # Publishing is per-post: a PR to main may only add/modify post files and
-  # draft images. Anything else (styling, plumbing, other drafts) is rejected.
+  # draft media. Anything else (styling, plumbing, other drafts) is rejected.
   validate-publish-pr:
     if: github.event_name == 'pull_request' && github.base_ref == 'main'
     runs-on: ubuntu-latest
@@ -62,13 +91,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check PR only touches posts and draft images
+      - name: Check PR only touches posts and draft media
         run: |
           CHANGED="$(git diff --name-only origin/main...HEAD)"
           echo "Changed files:"; echo "${CHANGED:-<none>}"
           [ -n "$CHANGED" ] || { echo "Nothing changed"; exit 0; }
-          if echo "$CHANGED" | grep -qvE '^(_posts/[^/]+\.md|assets/images/drafts/.+)$'; then
-            echo "::error::Publish PRs must only add or modify files under _posts/ and assets/images/drafts/ — this one touches other paths."
+          if echo "$CHANGED" | grep -qvE '^(_posts/[^/]+\.md|assets/(images|videos|files)/drafts/.+)$'; then
+            echo "::error::Publish PRs must only add or modify files under _posts/ and assets/{images,videos,files}/drafts/ — this one touches other paths."
             exit 1
           fi
           echo "OK: publish-shaped PR"

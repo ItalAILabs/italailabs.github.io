@@ -1,0 +1,93 @@
+{% if page.url == "/" %}
+<section class="main-hero"{% if include.bg_image %} style="--hero-bg: url('{{ include.bg_image }}')"{% endif %}>
+    <div class="container">
+        <div class="main-hero-grid">
+            <div class="main-hero-content">
+                {% if include.eyebrow %}
+                <div class="main-hero-eyebrow">{{ include.eyebrow }}</div>
+                {% endif %}
+                {% include animated-header.html title=include.title %}
+                {% if include.subtitle %}
+                <p class="large" style="color: #b8b2c8;">
+                    {{ include.subtitle }}
+                </p>
+                {% endif %}
+                <div class="main-hero-ctas">
+                    <a class="cta-light" href="{{ include.cta_url | default: '/about' }}">{{ include.cta_text }}</a>
+                    {% if include.secondary_text %}
+                    <a class="main-hero-secondary" href="{{ include.secondary_url | default: '/work' }}">{{ include.secondary_text }}</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="main-hero-media">
+                {% if include.bg_image %}
+                <div class="main-hero-media-glow"></div>
+                <img src="{{ include.bg_image }}"
+                 alt=""
+                 loading="eager"
+                 fetchpriority="high"
+                 class="main-hero-media-fallback">
+                {% endif %}
+            </div>
+            {% if include.media_tag and include.bg_image %}
+            <div class="main-hero-media-tag">{{ include.media_tag }}</div>
+            {% endif %}
+        </div>
+    </div>
+    {% if include.bg_image %}
+    <div class="main-hero-overlay"></div>
+    {% endif %}
+</section>
+{% else %}
+{% if include.layout == "full-bleed" %}
+<section class="full-bleed-hero" {% if include.hero-style %}style="{{ include.hero-style }}"{% endif %}>
+    <div class="container">
+      <div class="full-bleed-hero-grid{% if include.bg_image %} has-media{% endif %}">
+        <div class="full-bleed-hero-content">
+          <div class="full-bleed-breadcrumb">
+            <a href="/">HOME</a> /
+            {% if include.crumb_parent_url %}
+              <a href="{{ include.crumb_parent_url }}">{{ include.crumb_parent_label }}</a> /
+            {% endif %}
+            <span class="full-bleed-breadcrumb-active">{{ include.crumb_current | default: page.title | upcase }}</span>
+          </div>
+          <h1 class="full-bleed-hero-title{% if include.title_class %} {{ include.title_class }}{% endif %}" {% if include.title-style %}style="{{ include.title-style }}"{% endif %}>{{ include.heading }}<span class="period"></span></h1>
+          {% if include.tagline %}
+            <p class="full-bleed-hero-tagline">{{ include.tagline }}</p>
+          {% endif %}
+        </div>
+        {% if include.bg_image %}
+        <div class="full-bleed-hero-media">
+            <img src="{{ include.bg_image }}" alt="" loading="eager" fetchpriority="high">
+        </div>
+        {% endif %}
+      </div>
+    </div>
+</section>
+{% else %}
+<section class="common-hero">
+    <div class="container">
+        <div class="spacer">
+            <div class="common-hero-content" {% if include.hero-style %} style="{{ include.hero-style }}"{% endif %}>  
+            {% if include.bg_image %}
+                <img src="{{ include.bg_image }}" alt="" loading="eager" fetchpriority="high">
+            {% endif %}
+                <h1 class="common-hero-title {{ include.title_class | default: "h3-size" }}" {% if include.title-style %}style="{{ include.title-style }}"{% endif %}>{{ include.heading }}</h1>
+                <div class="breadcrumb"{% if include.breadcrumb-style %} style="{{ include.breadcrumb-style }}"{% endif %}>
+                    <span class="breadcrumb-trail">
+                        <a href="/">HOME</a> /
+                        {% if include.crumb_parent_url %}
+                            <a href="{{ include.crumb_parent_url }}">{{ include.crumb_parent_label }}</a> /
+                        {% endif %}
+                        <span class="strong">{{ include.crumb_current | default: page.title | upcase }}</span>
+                    </span>
+                    {% if include.tagline %}
+                        <span class="breadcrumb-tagline">{{ include.tagline }}</span>
+                    {% endif %}
+                </div>
+            </div> 
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endif %}

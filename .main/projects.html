@@ -1,0 +1,54 @@
+---
+layout: default
+title: Projects
+image: "/assets/logo.png"
+description: "ItalAI Projects: frontier AI and robotics research becoming industrial reality. WIZARD, LEGO, T-Rex and more — see our research operating in the real world."
+---
+
+{%- capture hero_heading -%}
+From research to reality
+{%- endcapture -%}
+{% include hero.html
+  layout="full-bleed"
+  heading=hero_heading
+  crumb_current="PROJECTS"
+  tagline="Three active research lines, written as notes for a technical reader: the problem, the approach, and how far it is from a production environment."
+  title-style="color: var(--standard-light);"
+  hero-style=""
+%}
+
+<!-- Projects List Section -->
+<section class="projects-hub">
+  <div class="container">
+    {% assign per_page = site.projects_manifest.per_page | default: 12 %}
+    {% assign sorted_projects = site.projects | sort: "date" | reverse %}
+    {% assign total_items = sorted_projects | size %}
+    {% assign initial_projects = sorted_projects | slice: 0, per_page %}
+    {% if total_items > per_page %}
+      {% assign next_page_path = "/assets/data/projects/projects-page2.json" %}
+    {% else %}
+      {% assign next_page_path = "" %}
+    {% endif %}
+    <div
+      class="projects-list"
+      id="projectsGrid"
+      data-total-items="{{ total_items }}"
+      data-next-page="{{ next_page_path }}"
+      data-per-page="{{ per_page }}"
+    >
+      {% for project in initial_projects %}
+        {% include project-card.html project=project %}
+      {% endfor %}
+    </div>
+
+    <!-- Pagination/Load More Section -->
+    <div class="projects-pagination" id="projectsPagination">
+      <span id="projectsItemsShown" class="cta-label">Showing all projects</span>
+      <button class="cta-button-alt" id="projectsLoadMoreBtn" style="display: none;">
+        LOAD MORE PROJECTS
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="/assets/js/projects.js"></script>

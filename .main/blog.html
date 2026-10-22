@@ -1,0 +1,101 @@
+---
+layout: default
+title: Blog
+image: "/assets/logo.png"
+description: "ItalAI Blog: Research perspectives from AI to reality. Explore our deep dives into state space models, Mamba architecture, transformer alternatives, sequence modeling, and cutting-edge developments in artificial intelligence and machine learning systems."
+---
+
+{%- capture hero_heading -%}
+SHARING IDEAS THAT SHAPE INTELLIGENT SYSTEMS
+{%- endcapture -%}
+{% include hero.html
+  layout="full-bleed"
+  heading=hero_heading
+  crumb_current="BLOG"
+  tagline="Read our blog."
+  title-style="color: var(--standard-light);"
+  hero-style=""
+%}
+
+<!-- Filter Section -->
+<section class="blogs-filter" id="filter">
+  <div class="container">
+    <div class="filter-bar">
+      <span class="filter-label">Filter</span>
+      <div class="filter-buttons" id="filterButtons">
+        <button class="filter-pill active" data-category="all">ALL</button>
+        {% assign published_posts = site.posts | where_exp: "post", "post.published_in_blog != false" %}
+        
+        <!-- Map all categories (flattened) and single categories -->
+        {% assign cat_arrays = published_posts | map: "categories" | compact %}
+        {% assign cats = published_posts | map: "category" | compact | concat: cat_arrays%}
+        
+        {% assign all_categories = "" | split: "," %}
+        
+        <!-- Process single category strings -->
+        {% for cat in cats %}
+          {% assign cat_lower = cat | downcase %}
+          {% unless all_categories contains cat_lower %}
+            {% assign all_categories = all_categories | push: cat_lower %}
+          {% endunless %}
+        {% endfor %}
+        
+        {% assign all_categories = all_categories | sort %}
+        {% for category in all_categories %}
+          {% assign slug = category | slugify %}
+          {% assign display_name = site.data.category_display[slug] | default: category %}
+          <button class="filter-pill" data-category="{{ slug }}">{{ display_name }}</button>
+        {% endfor %}
+      </div>
+      <button class="filter-clear" id="clearFilter" style="display: none;">
+        <i class="fa-solid fa-xmark"></i>
+        Clear
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- blogs Grid Section -->
+<section class="blogs-hub">
+  <div class="container">
+    <div class="blogs-count" id="filterCount">Showing all posts</div>
+    {% assign per_page = site.blogs_manifest.per_page | default: 12 %}
+    {% assign blogs_posts = site.posts | sort: "part" | sort: "date" | reverse %}
+    {% assign total_items = blogs_posts | size %}
+    {% assign initial_posts = blogs_posts | slice: 0, per_page %}
+    {% if total_items > per_page %}
+      {% assign next_page_path = "/assets/data/blog/blog-page2.json" %}
+    {% else %}
+      {% assign next_page_path = "" %}
+    {% endif %}
+    <div
+      class="blogs-grid"
+      id="blogsGrid"
+      data-total-items="{{ total_items }}"
+      data-next-page="{{ next_page_path }}"
+      data-per-page="{{ per_page }}"
+    >
+      {% for post in initial_posts %}
+        {% include blog-card.html post=post on_blogs_page=true %}
+      {% endfor %}
+      <!-- More Coming Soon placeholder -->
+      <div class="blogs-coming-soon">
+        MORE COMING SOON
+      </div>
+    </div>
+
+    <!-- Pagination/Load More Section -->
+    <div class="blogs-pagination" id="blogsPagination">
+      <span id="itemsShown" class="cta-label">Showing all posts</span>
+      <button class="cta-button-alt" id="loadMoreBtn" style="display: none;">
+        LOAD MORE POSTS
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="/assets/js/blogs.js"></script>
+
+<template id="blogCardTemplate">
+  {% include blog-card.html post="" %}
+</template>

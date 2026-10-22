@@ -13,9 +13,9 @@ read_time: "3 min read"
 
 ## This is a draft. It lives on the `drafts` branch, not on the live site.
 
-You are looking at the **preview** of the drafts branch — the same Jekyll build
-as the real site, assembled at build time from `main` plus whatever posts are
-being worked on here. Every style, header, footer and card you see is the live
+You are looking at a **local render** of the drafts branch (`scripts/build-preview.sh serve`) —
+the same Jekyll build as the real site, assembled at build time from `main`
+plus whatever posts are being worked on here. Every style, header, footer and card you see is the live
 site's, pulled in as symlinks at build time: nothing is duplicated or forked.
 
 > **Rule of thumb:** if it looks like italailabs.com, that's because it *is*

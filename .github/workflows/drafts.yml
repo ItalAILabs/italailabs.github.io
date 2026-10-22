@@ -1,13 +1,9 @@
-# Drafts branch: build the preview, deploy it to Vercel, and validate publish PRs.
+# Drafts checks — validation only. Nothing here is deployed or published.
 #
-#  - push to `drafts`        → build (main + drafts, symlinked) → stable Vercel URL
-#  - pull request (any)      → build → per-PR preview URL, commented on the PR
-#  - PR targeting `main`     → additionally must only touch _posts/*.md and
-#                              assets/images/drafts/** (that's how publishing works)
-#
-# One-time setup: add a VERCEL_TOKEN repository secret (any token of a user
-# with deploy rights on the team below). The project is created automatically
-# on the first deployment if it does not exist yet.
+#  - push to `drafts`    → assemble the site (main + drafts, symlinked) and build
+#                          it, so a broken post is caught before anyone publishes.
+#  - PR targeting main   → must only touch _posts/*.md and assets/images/drafts/**,
+#                          and the merged tree must build. Merging is publishing.
 
 name: Drafts
 
@@ -15,12 +11,11 @@ on:
   push:
     branches: [drafts]
   pull_request:
-    branches: [main, drafts]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pull-requests: write
 
 concurrency:
   group: drafts-${{ github.ref }}
@@ -30,8 +25,6 @@ env:
   # Must match `timezone:` in main's _config.yaml so Jekyll's date handling
   # agrees with the production build.
   TZ: Europe/Rome
-  VERCEL_ORG_ID: team_DSpZWl5ntUPjXglnI7Dg7S5u
-  VERCEL_PROJECT_NAME: italai-drafts
 
 jobs:
   build:
@@ -45,10 +38,10 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
 
-      - name: Install libvips (for draft photo → WebP conversion)
+      - name: Install libvips (draft photos → WebP)
         run: sudo apt-get update && sudo apt-get install -y libvips-dev
 
-      - name: Build preview
+      - name: Build
         run: |
           if [ -f scripts/build-preview.sh ]; then
             # drafts branch / feature branches: materialize main + link it in.
@@ -58,13 +51,6 @@ jobs:
             # main tree plus the new post — build it as-is.
             bundle exec jekyll build
           fi
-
-      - name: Upload preview artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: drafts-preview
-          path: _site/
-          retention-days: 3
 
   # Publishing is per-post: a PR to main may only add/modify post files and
   # draft images. Anything else (styling, plumbing, other drafts) is rejected.
@@ -86,52 +72,3 @@ jobs:
             exit 1
           fi
           echo "OK: publish-shaped PR"
-
-  # Stable URL for the drafts branch (production deployment of the project).
-  deploy:
-    needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/drafts'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: drafts-preview
-          path: _site
-
-      - name: Deploy to Vercel (stable URL)
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: bash .github/scripts/vercel-deploy.sh --prod
-
-  # Per-PR preview URLs, commented back onto the PR.
-  deploy-preview:
-    needs: build
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: drafts-preview
-          path: _site
-
-      - name: Deploy preview to Vercel
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: bash .github/scripts/vercel-deploy.sh > deployment.log
-
-      - name: Comment preview URL on the PR
-        if: always()
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          URL="$(grep -oE 'https://[a-z0-9-]+\.vercel\.app' deployment.log | tail -1 || true)"
-          if [ -n "$URL" ]; then
-            gh pr comment "${{ github.event.pull_request.number }}" \
-              --body "👀 Preview for this PR: ${URL}" || echo "::warning::could not comment"
-          else
-            echo "::warning::no preview URL found in deployment log"; cat deployment.log
-          fi

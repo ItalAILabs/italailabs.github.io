@@ -4,15 +4,25 @@ This branch is the team's **writing room** for italailabs.com blog posts. It
 replaces the old `_drafts/` folder on `main`.
 
 - Posts you work on live in [`_posts/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/_posts) — one markdown file per post, multiple drafts at once is fine.
-- **Everything else (styling, layouts, assets) is not in this branch.** At build time the site pulls `main` and symlinks it in, so the preview always uses exactly the styling that is live. You should never see CSS or layout files appear here — if one does, it's a mistake.
+- **Everything else (styling, layouts, assets) is not in this branch.** At build time the site pulls `main` and symlinks it in, so what you render locally always uses exactly the styling that is live. You should never see CSS or layout files appear here — if one does, it's a mistake.
+- Nothing on this branch is ever deployed anywhere. It's a local writing environment; the only thing that leaves the branch is a publish PR to `main`.
 - When a post is ready, it goes to `main` through a small pull request. Merging *is* publishing.
 
-## The two links you need
+## Seeing your post (one command, local)
 
-| Link | What it is |
-|---|---|
-| **Preview** — <https://italai-drafts.vercel.app> | The full site with your drafts rendered. Updates a few minutes after every push to this branch. (Until the first Vercel deployment lands, see the [Actions tab](https://github.com/ItalAILabs/italailabs.github.io/actions).) |
-| **Draft editor** (preview URL + `/editor/`) | WYSIWYG markdown editor: pick a draft, edit what-you-see, push back to the branch. |
+```sh
+scripts/build-preview.sh serve     # → http://localhost:4000 with live reload
+```
+
+Needs only Ruby 3.x + bundler — that's the whole toolchain. The script fetches
+`main`, symlinks it in, and serves the full site with your drafts merged in:
+exactly what will render on italailabs.com when you publish.
+
+The **WYSIWYG editor** lives at `http://localhost:4000/editor/` off that same
+local server: pick a draft, edit what-you-type-is-what-you-see, then *Copy
+markdown* (paste into the GitHub web editor) or *Push to drafts branch*
+(one-time: paste a fine-grained personal access token with write access to this
+repo — stored only in your browser).
 
 ## Start a new post
 
@@ -20,12 +30,12 @@ replaces the old `_drafts/` folder on `main`.
    (Or download a template from the [editor page](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/editor.html).)
 2. Name it `YYYY-MM-DD-slug.md`, e.g. `2026-08-15-our-new-system.md`. The date is the publish date.
 3. Copy the front matter from [the example post](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/_posts/2026-08-01-example-post.md) and write your body in markdown.
-4. Commit to `drafts`. Wait a couple of minutes, open the preview, find your post on the blog index.
+4. Run `scripts/build-preview.sh serve` and open http://localhost:4000 — your post is on the blog index.
 
 ## Edit an existing draft
 
 - **GitHub web editor:** open the file → pencil icon → toggle **Write / Preview** → commit.
-- **WYSIWYG:** open `/editor/` on the preview, pick the post, edit, then *Push to drafts branch* (one-time: paste a fine-grained personal access token with write access to this repo — it's stored only in your browser) or *Copy markdown* and paste into the web editor.
+- **WYSIWYG:** open `http://localhost:4000/editor/`, pick the post, edit, then *Push to drafts branch* (one-time: paste a fine-grained personal access token with write access to this repo — it's stored only in your browser) or *Copy markdown* and paste into the web editor.
 - **LLM:** the file is plain markdown — copy it into any chat model, ask for edits, paste back.
 
 ## Images
@@ -33,7 +43,7 @@ replaces the old `_drafts/` folder on `main`.
 Put them in [`draft-assets/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/draft-assets) on this branch (Add file → upload). Reference them as `/assets/images/drafts/<name>`:
 
 - SVG works as-is (preferred for figures — export from matplotlib etc.).
-- PNG/JPG are converted to WebP automatically when the preview builds.
+- PNG/JPG are converted to WebP automatically when you build locally.
 
 You can also reuse existing site images, e.g. `/assets/images/posts/wizard.svg`.
 
@@ -55,17 +65,7 @@ scripts/publish.sh _posts/2026-08-15-our-new-system.md draft-assets/fig1.svg
 #   pushes it, and prints a one-click "Open pull request" link.
 ```
 
-After the PR merges: delete your file (and images) from this branch so the preview reflects what's still in flight.
-
-## Local preview (optional, for anyone who wants it)
-
-One command, no other setup — same materialize-and-link build as CI:
-
-```sh
-ruby -v   # needs Ruby 3.x + bundler (that's all)
-scripts/build-preview.sh serve
-# → http://localhost:4000 with live reload
-```
+After the PR merges: delete your file (and images) from this branch so it only holds what's still in flight.
 
 ## What is *not* allowed on this branch
 

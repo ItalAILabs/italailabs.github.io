@@ -8,7 +8,7 @@
 
 require "vips"
 
-Dir.glob("draft-assets/**/*.{png,jpg,jpeg}", File::FNM_CASE_INSENSITIVE).each do |src|
+Dir.glob("draft-assets/images/**/*.{png,jpg,jpeg}", File::FNM_CASE_INSENSITIVE).each do |src|
   dest = src.sub(/\.(jpe?g)$/i, ".webp")
   if File.exist?(dest) && File.mtime(dest) >= File.mtime(src)
     next # already up to date

@@ -50,16 +50,13 @@ cp "$tmpdir/post.md" "_posts/$file"
 for extra in "$@"; do
   base="$(basename "$extra")"
   case "$extra" in
-    draft-assets/*)
-      mkdir -p assets/images/drafts
-      cp "$tmpdir/$base" "assets/images/drafts/$base"
-      ;;
-    *)
-      # any other path is mirrored as-is onto main
-      mkdir -p "$(dirname "$extra")"
-      cp "$tmpdir/$base" "$extra"
-      ;;
+    draft-assets/images/*) dest="assets/images/drafts/$base" ;;
+    draft-assets/videos/*) dest="assets/videos/drafts/$base" ;;
+    draft-assets/files/*)  dest="assets/files/drafts/$base" ;;
+    *)                     dest="$extra" ;;   # any other path mirrored as-is
   esac
+  mkdir -p "$(dirname "$dest")"
+  cp "$tmpdir/$base" "$dest"
 done
 
 git add "_posts/$file" "$@" 2>/dev/null || git add .

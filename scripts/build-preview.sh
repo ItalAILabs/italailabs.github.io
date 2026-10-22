@@ -78,14 +78,19 @@ if [ -d "$GEN_DIR/assets/images" ]; then
   done < <(cd "$GEN_DIR/assets/images" && find . -name '*.webp')
 fi
 
-# Draft images: serve from /assets/images/drafts/ and generate .webp versions
-# (the site's responsive-images plugin rewrites every .png/.jpg reference to
-# .webp at build time). SVG needs no conversion.
+# Draft media: each bucket under draft-assets/ is served from a matching
+# "drafts/" subfolder of the site's asset tree (see draft-assets/README.md):
+#   draft-assets/images/* -> /assets/images/drafts/*   (+ auto .webp)
+#   draft-assets/videos/* -> /assets/videos/drafts/*
+#   draft-assets/files/*  -> /assets/files/drafts/*
 if [ -d draft-assets ]; then
   bundle check >/dev/null 2>&1 || bundle install --quiet
   bundle exec ruby scripts/draft-images-webp.rb || echo "!! webp generation unavailable — photos may not render in preview"
-  mkdir -p assets/images/drafts
-  cp -r draft-assets/. assets/images/drafts/
+  for bucket in images videos files; do
+    [ -d "draft-assets/$bucket" ] || continue
+    mkdir -p "assets/$bucket/drafts"
+    cp -r "draft-assets/$bucket/." "assets/$bucket/drafts/"
+  done
 fi
 
 # ------------------------------------------------- merge posts (drafts + main)

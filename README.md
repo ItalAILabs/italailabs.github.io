@@ -24,28 +24,34 @@ markdown* (paste into the GitHub web editor) or *Push to drafts branch*
 (one-time: paste a fine-grained personal access token with write access to this
 repo — stored only in your browser).
 
-## Start a new post
+## Start a new post (one PR per post)
 
-1. In the repo UI switch to the `drafts` branch → `_posts/` → **Add file → Create new file**.
-   (Or download a template from the [editor page](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/editor.html).)
-2. Name it `YYYY-MM-DD-slug.md`, e.g. `2026-08-15-our-new-system.md`. The date is the publish date.
-3. Copy the front matter from [the example post](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/_posts/2026-08-01-example-post.md) and write your body in markdown.
-4. Run `scripts/build-preview.sh serve` and open http://localhost:4000 — your post is on the blog index.
+1. In the repo UI, create a branch off `drafts` (branch dropdown → **Create new branch**, e.g. `my-new-post`).
+2. On that branch add `_posts/YYYY-MM-DD-slug.md` (**Add file → Create new file**). The date is the publish date. Copy the front matter from [the example post](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/_posts/2026-08-01-example-post.md) and write your body in markdown. Add any media under [`draft-assets/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/draft-assets) if you need it.
+3. Open a pull request **to `drafts`**. The **Drafts review** action validates it: front-matter sanity on your post plus a full build of the assembled site (main's live styling + all drafts). Fix anything it flags, then merge.
+4. Once merged, run `scripts/build-preview.sh serve` and open http://localhost:4000 — your post is on the blog index.
 
 ## Edit an existing draft
+
+Quick fix to something already on `drafts`? You can commit straight to the
+branch (no validation runs). New posts should come in through a PR so they get
+reviewed and checked.
 
 - **GitHub web editor:** open the file → pencil icon → toggle **Write / Preview** → commit.
 - **WYSIWYG:** open `http://localhost:4000/editor/`, pick the post, edit, then *Push to drafts branch* (one-time: paste a fine-grained personal access token with write access to this repo — it's stored only in your browser) or *Copy markdown* and paste into the web editor.
 - **LLM:** the file is plain markdown — copy it into any chat model, ask for edits, paste back.
 
-## Images
+## Media (images, videos, files)
 
-Put them in [`draft-assets/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/draft-assets) on this branch (Add file → upload). Reference them as `/assets/images/drafts/<name>`:
+Put media in [`draft-assets/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/draft-assets) on this branch — three folders, one per kind:
 
-- SVG works as-is (preferred for figures — export from matplotlib etc.).
-- PNG/JPG are converted to WebP automatically when you build locally.
+| Folder | Served at | Notes |
+|---|---|---|
+| `images/` | `/assets/images/drafts/<name>` | SVG as-is (preferred for figures); PNG/JPG auto-converted to WebP when you build |
+| `videos/` | `/assets/videos/drafts/<name>` | served as-is — keep small (~100 MB GitHub cap); host big videos externally and just link |
+| `files/` | `/assets/files/drafts/<name>` | PDFs, datasets, anything else you want to link from a post |
 
-You can also reuse existing site images, e.g. `/assets/images/posts/wizard.svg`.
+[The folder's own README](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/draft-assets/README.md) has copy-paste examples. You can also reuse existing site images instead of uploading, e.g. `/assets/images/posts/wizard.svg`.
 
 ## Publish a post
 

@@ -53,13 +53,16 @@ read_time: "8 min read"
 ---
 ```
 
-### Images
+### Media
 
-- **SVG figures** (matplotlib exports, diagrams): drop them in `draft-assets/` on
-  this branch and reference `/assets/images/drafts/your-figure.svg`.
-- **Photos**: put the original `.png`/`.jpg` in `draft-assets/` too; the preview
-  build converts it to WebP automatically.
-- You can also reuse any existing site image, e.g. `/assets/images/posts/wizard.svg`.
+Drop media in `draft-assets/` on this branch — one folder per kind:
+
+- **SVG figures** (matplotlib exports, diagrams): `draft-assets/images/`, referenced as `/assets/images/drafts/your-figure.svg`.
+- **Photos**: `draft-assets/images/` too — the build converts `.png`/`.jpg` to WebP automatically.
+- **Videos**: `draft-assets/videos/`, referenced as `/assets/videos/drafts/demo.mp4` (keep them small).
+- **Other files** (PDFs, datasets): `draft-assets/files/`, referenced as `/assets/files/drafts/paper.pdf`.
+
+You can also reuse any existing site image, e.g. `/assets/images/posts/wizard.svg`.
 
 A raw-HTML block works anywhere in the body — this one is a live example:
 

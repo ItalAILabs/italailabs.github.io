@@ -1,182 +1,73 @@
-# ItalAI
+# Drafts — write blog posts here, no setup required
 
-Jekyll static site for [italailabs.com](https://italailabs.com) (ItalAI S.R.L.).
-Pushes to `main` build and deploy automatically via GitHub Actions to GitHub Pages.
+This branch is the team's **writing room** for italailabs.com blog posts. It
+replaces the old `_drafts/` folder on `main`.
 
-Pages: `/` · `/about` · `/blog` · `/contact` · `/partnership` · `/projects` · `/research` · `/policy` · `/404`
+- Posts you work on live in [`_posts/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/_posts) — one markdown file per post, multiple drafts at once is fine.
+- **Everything else (styling, layouts, assets) is not in this branch.** At build time the site pulls `main` and symlinks it in, so the preview always uses exactly the styling that is live. You should never see CSS or layout files appear here — if one does, it's a mistake.
+- When a post is ready, it goes to `main` through a small pull request. Merging *is* publishing.
 
-Generated at build time: post pages at `/blog/<title>/`, project detail
-pages under `/projects/` (from the `_projects/` collection), and one vCard
-page per team member at `/about/<person>/` (from `people.yml` via
-`_plugins/vcard.rb`).
+## The two links you need
 
----
-
-## Content data (`_data/`)
-
-Structured content is edited in YAML, not HTML:
-
-| File | Used by |
+| Link | What it is |
 |---|---|
-| `people.yml` | `/about` team section, post author lookup, vCard generation |
-| `principles.yml` | `/about` principles section |
-| `partners.yml` | partners bar (homepage + `/about`) |
-| `publications.yml` | `/research` — publication cards, filterable by domain |
+| **Preview** (Vercel URL — see the latest deployment in the [Actions tab](https://github.com/ItalAILabs/italailabs.github.io/actions) or ask for it) | The full site with your drafts rendered. Updates a few minutes after every push to this branch. |
+| **Draft editor** (preview URL + `/editor.html`) | WYSIWYG markdown editor: pick a draft, edit what-you-see, push back to the branch. |
 
-## Blog posts (`_posts/`)
+## Start a new post
 
-```yaml
----
-layout: post
-title: "Your Post Title"
-description: "Short SEO summary shown in meta tags and listings."
-category: "Foundations"
-excerpt: "One-line teaser for the blog listing."
-image: "/assets/images/posts/your-card.svg"
-hero_image: "/assets/images/posts/your-card.svg"
-series: mamba        # optional — series grouping
-part: 2              # optional — position within the series
-published_in_blog: true
-author: "Full Name"  # must match a person in _data/people.yml
-author_role: "Role, Organisation"   # optional per-post override of the people.yml role
-institution: "Sapienza"             # optional
-author_bio: "One-line credentials"  # optional per-post override (wins over people.yml)
-post_type: "Explainer"              # optional badge
-read_time: "6 min read"
-paper_links:                        # optional — link chips under the title
-  - label: "Paper · arXiv"
-    url: "https://arxiv.org/abs/..."
----
-```
+1. In the repo UI switch to the `drafts` branch → `_posts/` → **Add file → Create new file**.
+   (Or download a template from the [editor page](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/editor.html).)
+2. Name it `YYYY-MM-DD-slug.md`, e.g. `2026-08-15-our-new-system.md`. The date is the publish date.
+3. Copy the front matter from [the example post](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/_posts/2026-08-01-example-post.md) and write your body in markdown.
+4. Commit to `drafts`. Wait a couple of minutes, open the preview, find your post on the blog index.
 
-The mamba series (3 posts) is the reference implementation; WIZARD
-(`2026-10-20-wizard.md`) is the reference for inline figures and the ToC.
-`/blog` is filterable and paginated — the listing data is generated at build
-time by `_plugins/insights-manifest.rb` (see `blogs_manifest` in
-`_config.yaml`).
+## Edit an existing draft
 
-**Authoring tools:** `{% raw %}{% inline_svg "path.svg" ["note"] %}{% endraw %}` and
-`{% raw %}{% inline_img "path.png" "alt" ["note"] %}{% endraw %}` embed an image plus optional
-caption as one width-sharing unit (`_plugins/inline-figures.rb`);
-`{{ content | toc }}` renders a nested ToC from h2–h4 with no client JS
-(`_plugins/toc.rb`).
-
-**Dates and publishing:** the filename date is the post's publish date.
-Jekyll excludes future-dated posts from builds (no `future: true` in
-`_config.yaml`), so a future-dated post goes live at the **next build after
-its date** — i.e. the next push to `main`, not automatically on the date
-itself. `_drafts/` is never built; `jekyll serve` renders files there
-locally at `/drafts/<slug>/` for preview only.
-
-## Stylesheets
-
-Per-page CSS: `_layouts/default.html` loads `/assets/css/<page>.css`, chosen
-from the page URL (`post` / `project` / `vcard` / `404` for generated pages,
-otherwise the filename). Each entry `assets/css/<page>.scss` `@use`s shared
-partials from `_sass/`; critical above-the-fold CSS is inlined via
-`_includes/critical.scss`. Adding a page means adding both the `.html` and
-its `.scss` entry.
-
-## SEO
-
-- Each page/post sets its own `description` front matter; the default lives
-  in `_config.yaml`. `jekyll-seo-tag` and `jekyll-sitemap` handle the rest.
-- To find anchor tags with no destination:
-
-  ```regex
-  <a\s+(?![^>]*href)[^>]*>
-  ```
-
-## Plugins (`_plugins/`)
-
-| Plugin | Job |
-|---|---|
-| `responsive-images.rb` | Adds `srcset`/`sizes` to `<img>` tags (WebP + responsive sizes) |
-| `vips-webp-generator.rb` | Generates WebP (400/800/1200/1600, q78) from source JPG/PNG via libvips |
-| `webp-converter.rb` | Rewrites `.jpg`/`.jpeg`/`.png` references to `.webp` in CSS/JSON/NDJSON output |
-| `insights-manifest.rb` | Builds the blog manifest for the filterable `/blog` page |
-| `projects-manifest.rb` | Same for `/projects` |
-| `lazy-load-images.rb` | Adds `loading="lazy"` to img tags |
-| `remove-empty-lines.rb` | Strips blank lines from rendered output |
-| `vcard.rb` | Generates `.vcf` files from `people.yml` into `assets/vcards/` + `/about/<person>/` pages |
-| `inline-figures.rb` | `{% inline_svg %}` / `{% inline_img %}` — image + caption as one unit |
-| `toc.rb` | `{{ content \| toc }}` filter — nested ToC from h2–h4, no JS |
+- **GitHub web editor:** open the file → pencil icon → toggle **Write / Preview** → commit.
+- **WYSIWYG:** open `/editor.html` on the preview, pick the post, edit, then *Push to drafts branch* (one-time: paste a fine-grained personal access token with write access to this repo — it's stored only in your browser) or *Copy markdown* and paste into the web editor.
+- **LLM:** the file is plain markdown — copy it into any chat model, ask for edits, paste back.
 
 ## Images
 
-- Source images (JPG/PNG) live in `assets/images/` and are **published
-  alongside** their WebP — browsers pick via `srcset`. The commented
-  `exclude:` lines in `_config.yaml` would flip this to WebP-only.
-- WebP is generated at build time: locally by the Jekyll plugin, in CI by
-  the same script run in CLI mode. The `generated-assets` branch holds the
-  committed WebP set plus `manifest.sha256`; CI diffs changed images against
-  it and skips generation entirely when no images changed. Re-seed the
-  branch after image changes to restore the fast path (CI still works
-  without it — it just regenerates everything).
-- KaTeX is lazy-loaded from jsDelivr (v0.18.9) only on pages containing
-  `.kdmath` / `.math-block` (`assets/js/katex-loader.js`).
+Put them in [`draft-assets/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/draft-assets) on this branch (Add file → upload). Reference them as `/assets/images/drafts/<name>`:
 
-## Running locally
+- SVG works as-is (preferred for figures — export from matplotlib etc.).
+- PNG/JPG are converted to WebP automatically when the preview builds.
 
-1. Ruby 3.3+ (CI uses 3.3) and `bundle install`.
-2. For WebP generation, install libvips (`apt install libvips42` on
-   Debian/Ubuntu; CI uses `libvips-dev`). Without it **no WebPs exist on
-disk** — they're gitignored and the committed set lives only on the
-   `generated-assets` branch, which CI overlays. Since
-   `responsive-images.rb` rewrites every `img src` to `.webp`, a local
-   preview without libvips will 404 all images.
-3. Always run through Bundler (plain `jekyll` hits gem activation
-   conflicts):
+You can also reuse existing site images, e.g. `/assets/images/posts/wizard.svg`.
 
-   ```sh
-   bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload
-   ```
+## Publish a post
 
-   `--livereload` recompiles on save — useful for posts and content edits.
-4. Visit <http://localhost:4000>.
-5. Drafts in `_drafts/` are served (never built) at `/drafts/<slug>/`
-   while `jekyll serve` runs — local preview only.
+A publish PR must contain **only** your post file (plus its `draft-assets/` images) — the *Validate draft PR* check enforces this, so it's impossible to accidentally ship half-finished drafts or branch plumbing.
 
-## Analytics & consent (GDPR)
+**Easiest (browser only):**
+1. Open your post file on the `drafts` branch → **Raw** (or `</>` button) → copy everything.
+2. Switch to `main` in the repo UI → `_posts/` → **Add file → Create new file** with the *same filename* → paste.
+3. Commit directly to `main` if you have write access, or open a PR from that point (compare `main…your-branch`).
 
-- Google Analytics 4 (`G-70VK7F6E5Q`) is **opt-in** via Consent Mode v2:
-  all consent signals default to denied in `_layouts/default.html` and are
-  granted only after the visitor accepts.
-- The banner (`_includes/consent-banner.html` + `assets/js/consent.js`)
-  stores the choice in `localStorage` (`italai_consent`) for 30 days and
-  re-asks on expiry; Escape declines.
-- First-party UTM capture (`assets/js/utm.js`) runs only with an active
-  accept choice; tags expire after 30 days and feed only the contact form's
-  hidden inputs.
-- That's the full tracking inventory.
+**Or one command** (any machine with git + push access):
 
-## Security
+```sh
+git checkout drafts && git pull
+scripts/publish.sh _posts/2026-08-15-our-new-system.md draft-assets/fig1.svg
+# → creates publish/2026-08-15-our-new-system from main with just those files,
+#   pushes it, and prints a one-click "Open pull request" link.
+```
 
-- Reporting policy: `SECURITY.md` (repo root) — report a vulnerability to
-  `research@italailabs.com`, never a public issue.
-- `/.well-known/security.txt` (in `.well-known/`, included in the build via
-  `_config.yaml`) points to it.
-- CI runs with `contents: read` + Pages deployment permissions only;
-  `ruby/setup-ruby` is SHA-pinned, the GitHub-certified actions are pinned
-  to major-version tags.
+After the PR merges: delete your file (and images) from this branch so the preview reflects what's still in flight.
 
-## Deployment
+## Local preview (optional, for anyone who wants it)
 
-`.github/workflows/jekyll.yml`: build (Jekyll + WebP overlay) → deploy via
-the GitHub Pages actions. Normal runs skip WebP generation when no images
-changed; runs touching `assets/images/` regenerate the changed ones in the
-runner before deploy.
+One command, no other setup — same materialize-and-link build as CI:
 
-## Scripts (`scripts/`)
+```sh
+ruby -v   # needs Ruby 3.x + bundler (that's all)
+scripts/build-preview.sh serve
+# → http://localhost:4000 with live reload
+```
 
-- `policy_pdf_to_md.py` — one-off mechanical converter that produced
-  `policy.md` from the 2026 privacy PDF (on the `backup-main-20260520`
-  branch); re-run it to re-verify the word-for-word conversion.
-- `compare_webp_sizes.rb` — WebP size comparison utility.
-- `css-usage-audit.rb` — dead-CSS finder for a built site: parses every
-  page's linked CSS + inline styles, matches each rule's selector tokens
-  against the pages that actually link it (JS-toggled classes from
-  `classList.*` calls are treated as present), and reports rules that match
-  nothing site-wide (safe to delete) vs. rules unused only on their file's
-  pages (entry-slimming candidates). Run after a build:
-  `ruby scripts/css-usage-audit.rb [--site-dir _site] [--json] [--fail]`.
+## What is *not* allowed on this branch
+
+- Copying styling, layouts, includes or assets from `main` into this branch. They're symlinked at build time; a committed copy would drift and break the "always current" guarantee (the build script refuses to run if it finds one).
+- Merging the whole `drafts` branch into `main`. Publishing is always per-post via a small PR.

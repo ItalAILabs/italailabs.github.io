@@ -1,0 +1,18 @@
+# Preview-only overrides for the drafts branch, merged on top of main's
+# _config.yaml at build time:
+#
+#   jekyll build --config _config.yaml,_config.draft.yaml
+#
+# NOTE: Jekyll merges configs per top-level key — setting a key here REPLACES
+# main's value entirely, so lists like `exclude` are re-listed in full.
+
+# Serve the preview self-contained on whatever host it is deployed to
+# (main's config hardcodes https://italailabs.com).
+url: ""
+
+exclude:
+  - ".main"        # materialized copy of main (build-time only)
+  - ".genassets"   # materialized generated-assets branch (build-time only)
+  - "scripts"      # re-listed from main's exclude (per-key merge!)
+  - "README.md"
+  - "SECURITY.md"

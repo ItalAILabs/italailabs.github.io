@@ -1,0 +1,280 @@
+---
+layout: null
+title: "Draft editor"
+description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Draft editor — ItalAI Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@3.10.8/dist/index.min.css">
+  <style>
+    :root {
+      --ink: #0c0717;
+      --cream: #f4f1e6;
+      --green: #29b485;
+      --line: #d9cbb5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "DM Sans", system-ui, sans-serif;
+    }
+    header {
+      display: flex; flex-wrap: wrap; align-items: center; gap: .75rem;
+      padding: .9rem 1.25rem;
+      border-bottom: 1px solid var(--line);
+      background: #fffdf7;
+      position: sticky; top: 0; z-index: 10;
+    }
+    header h1 { font-size: 1.05rem; margin: 0 1rem 0 0; white-space: nowrap; }
+    header h1 span { color: var(--green); }
+    select, button, input[type="password"] {
+      font: inherit; padding: .45rem .7rem; border-radius: 8px;
+      border: 1px solid var(--line); background: #fff; color: var(--ink);
+    }
+    select { max-width: 340px; }
+    button { cursor: pointer; transition: background .15s, color .15s; }
+    button.primary { background: var(--green); border-color: var(--green); color: #fff; font-weight: 500; }
+    button.primary:hover { background: #239c74; }
+    button:hover:not(.primary) { background: #efe9da; }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    #status {
+      margin: .8rem 1.25rem 0; padding: 0 1rem; border-radius: 8px;
+      font-size: .9rem; display: none;
+    }
+    #status.show { display: block; }
+    #status.ok  { background: #e3f6ec; color: #14532d; border: 1px solid #b7e4c7; }
+    #status.err { background: #fdecec; color: #7f1d1d; border: 1px solid #f5c2c2; }
+    #vditor { margin: .8rem 1.25rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    footer {
+      display: flex; flex-wrap: wrap; align-items: center; gap: .75rem;
+      padding: .9rem 1.25rem 1.4rem; font-size: .85rem; color: #5c5546;
+    }
+    footer .sep { width: 1px; height: 1.2em; background: var(--line); }
+    #token { flex: 1; min-width: 220px; max-width: 380px; }
+    .hint { color: #8a8172; font-size: .8rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><span>●</span> Draft editor</h1>
+    <label class="hint" for="draft-select">Post:</label>
+    <select id="draft-select" aria-label="Choose a draft"></select>
+    <button id="btn-new" type="button">New draft (download template)</button>
+    <a id="open-preview" href="/blog/" target="_blank" rel="noopener">Open rendered preview ↗</a>
+    <span class="hint" style="margin-left:auto">
+      <a href="https://italailabs.com" target="_blank" rel="noopener">Live site ↗</a>
+    </span>
+  </header>
+
+  <div id="status" role="status"></div>
+  <div id="vditor"></div>
+
+  <footer>
+    <button id="btn-copy" type="button" class="primary">Copy markdown</button>
+    <button id="btn-download" type="button">Download .md</button>
+    <button id="btn-push" type="button">Push to drafts branch</button>
+    <span class="sep"></span>
+    <input type="password" id="token" placeholder="GitHub personal access token (optional — stored only in this browser)">
+    <span class="hint">Use a fine-grained token with write access to italailabs.github.io only. No token? Use Copy/Download and paste into the GitHub web editor.</span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/vditor@3.10.8/dist/index.min.js"></script>
+  {% raw %}
+  <script>
+    const REPO = "ItalAILabs/italailabs.github.io";
+    const BRANCH = "drafts";
+    const RAW_BASE = "https://raw.githubusercontent.com/" + REPO + "/" + BRANCH + "/_posts/";
+    const API_CONTENTS = "https://api.github.com/repos/" + REPO + "/contents/_posts/";
+
+    let editor = null;
+    let currentFile = null;
+
+    const $ = (id) => document.getElementById(id);
+    const selectEl = $("draft-select");
+
+    function setStatus(msg, kind) {
+      const el = $("status");
+      if (!msg) { el.className = ""; el.textContent = ""; return; }
+      el.className = "show " + (kind || "ok");
+      el.textContent = msg;
+    }
+
+    // Same slug rules Jekyll uses for /blog/:title/ permalinks.
+    function slugify(title) {
+      return title.toLowerCase()
+        .normalize("NFKD")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function frontMatterTitle(md) {
+      const m = md.match(/\A---\n([\s\S]*?)\n---/);
+      if (!m) return null;
+      const line = m[1].split("\n").find((l) => l.startsWith("title:"));
+      if (!line) return null;
+      return line.replace(/^title:\s*/, "").replace(/^["']|["']$/g, "").trim();
+    }
+
+    function updatePreviewLink() {
+      const title = frontMatterTitle(editor.getValue());
+      $("open-preview").href = title ? "/blog/" + slugify(title) + "/" : "/blog/";
+    }
+
+    async function loadManifest() {
+      let manifest;
+      try {
+        const res = await fetch("drafts-manifest.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        manifest = await res.json();
+      } catch (e) {
+        setStatus("Could not load the drafts list (" + e.message + "). The preview may still be building.", "err");
+        return;
+      }
+      selectEl.innerHTML = "";
+      for (const p of manifest.posts) {
+        const opt = document.createElement("option");
+        opt.value = p.file;
+        opt.textContent = p.title + "  (" + p.file + ")";
+        selectEl.appendChild(opt);
+      }
+      if (!manifest.posts.length) {
+        setStatus("No drafts on this branch yet. Use “New draft” to download a template, save it as _posts/<date>-<slug>.md, then reload this page.", "err");
+        return;
+      }
+      const wanted = new URLSearchParams(location.search).get("post");
+      selectEl.value = (wanted && manifest.posts.some((p) => p.file === wanted)) ? wanted : manifest.posts[0].file;
+      await loadDraft(selectEl.value);
+    }
+
+    async function loadDraft(file) {
+      currentFile = file;
+      try {
+        const res = await fetch(RAW_BASE + encodeURIComponent(file), { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        editor.setValue(await res.text());
+        updatePreviewLink();
+        setStatus("Loaded " + file + " from the drafts branch.");
+      } catch (e) {
+        setStatus("Could not load " + file + " (" + e.message + ").", "err");
+      }
+    }
+
+    function download(name, text) {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([text], { type: "text/markdown" }));
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function newDraftTemplate() {
+      const d = new Date().toISOString().slice(0, 10);
+      return [
+        "---",
+        'layout: post',
+        'title: "Untitled draft"',
+        'description: "One-line summary shown in search and social cards."',
+        'category: "Research"',
+        'excerpt: "A short teaser for the blog index (one or two sentences)."',
+        "published_in_blog: true",
+        'author: "Your Name"',
+        'read_time: "5 min read"',
+        "---",
+        "",
+        "## Start writing here",
+        "",
+        "Everything below the front matter is standard markdown — headings, lists,",
+        "quotes, code blocks, links. You can also paste raw HTML for special blocks.",
+        "",
+        "When it looks right, save this file as `_posts/" + d + "-untitled-draft.md`",
+        "on the drafts branch (GitHub web editor or “Push to drafts branch” above).",
+        ""
+      ].join("\n");
+    }
+
+    function authHeaders(token) {
+      return {
+        "Authorization": "Bearer " + token,
+        "Accept": "application/vnd.github+json"
+      };
+    }
+
+    async function pushDraft() {
+      const md = editor.getValue();
+      const token = $("token").value.trim() || localStorage.getItem("drafts-gh-token") || "";
+      if (!token) {
+        setStatus("No token: paste one below (fine-grained, write access to this repo), or use Copy/Download and paste into the GitHub web editor.", "err");
+        return;
+      }
+      localStorage.setItem("drafts-gh-token", token);
+
+      const url = API_CONTENTS + encodeURIComponent(currentFile) + "?ref=" + BRANCH;
+      try {
+        const getRes = await fetch(url, { headers: authHeaders(token) });
+        if (!getRes.ok) throw new Error("GET " + getRes.status + " — check the token has write access to " + REPO);
+        const meta = await getRes.json();
+
+        const putRes = await fetch(url, {
+          method: "PUT",
+          headers: Object.assign(authHeaders(token), { "Content-Type": "application/json" }),
+          body: JSON.stringify({
+            message: "Update " + currentFile,
+            content: btoa(unescape(encodeURIComponent(md))),
+            branch: BRANCH,
+            sha: meta.sha
+          })
+        });
+        if (!putRes.ok) throw new Error("PUT " + putRes.status + ": " + (await putRes.text()).slice(0, 200));
+        setStatus("Pushed " + currentFile + " to the drafts branch — the preview updates in about a minute.");
+      } catch (e) {
+        setStatus("Push failed: " + e.message, "err");
+      }
+    }
+
+    function initEditor() {
+      editor = Vditor.create("vditor", {
+        height: "60vh",
+        width: "100%",
+        mode: "ir", // instant rendering — what you type is what you see
+        placeholder: "Pick a draft above, or create one.",
+        toolbarConfig: { pin: true },
+        toolbar: [
+          "headings", "bold", "italic", "strikeThrough", "|",
+          "link", "insertImage", "quote", "code", "inlineCode", "|",
+          "list", "orderedList", "checklist", "table", "|",
+          "undo", "redo", "|",
+          "preview", "fullscreen"
+        ],
+        preview: { delay: 200 },
+        cache: { enable: false },
+        after: () => { loadManifest(); }
+      });
+
+      selectEl.addEventListener("change", () => loadDraft(selectEl.value));
+      $("btn-new").addEventListener("click", () => download(
+        new Date().toISOString().slice(0, 10) + "-untitled-draft.md", newDraftTemplate()));
+      $("btn-copy").addEventListener("click", async () => {
+        await navigator.clipboard.writeText(editor.getValue());
+        setStatus("Markdown copied — paste it into the GitHub web editor for " + (currentFile || "your file") + ".");
+      });
+      $("btn-download").addEventListener("click", () => {
+        download(currentFile || "draft.md", editor.getValue());
+        setStatus("Downloaded. On GitHub: open the drafts branch → _posts/ → “Add file” → upload it (same filename).");
+      });
+      $("btn-push").addEventListener("click", pushDraft);
+    }
+
+    initEditor();
+  </script>
+  {% endraw %}
+</body>
+</html>

@@ -1,5 +1,7 @@
 /.bundle
 /.env
+/.main
+/.genassets
 /.jekyll-cache
 /styles
 /vendor

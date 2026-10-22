@@ -57,8 +57,12 @@ for item in "$MAIN_DIR"/* "$MAIN_DIR"/.[!.]*; do
   [ -e "$item" ] || continue
   name="$(basename "$item")"
   case "$OWNED" in *" $name "*) continue ;; esac
-  if [ -e "$ROOT/$name" ] || [ -L "$ROOT/$name" ]; then
-    echo "!! '$name' already exists in the branch tree — refusing to link over it" >&2
+  if [ -L "$ROOT/$name" ]; then
+    # Idempotent re-runs: keep our own link, replace stale ones.
+    [ "$(readlink "$ROOT/$name")" = ".main/$name" ] && continue
+    rm "$ROOT/$name"
+  elif [ -e "$ROOT/$name" ]; then
+    echo "!! '$name' already exists in the branch tree — refusing to link over it (styling files must not be committed here)" >&2
     exit 1
   fi
   ln -s ".main/$name" "$ROOT/$name"

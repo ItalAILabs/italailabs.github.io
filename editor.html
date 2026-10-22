@@ -132,7 +132,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
     async function loadManifest() {
       let manifest;
       try {
-        const res = await fetch("drafts-manifest.json", { cache: "no-store" });
+        const res = await fetch("/drafts-manifest.json", { cache: "no-store" });
         if (!res.ok) throw new Error("HTTP " + res.status);
         manifest = await res.json();
       } catch (e) {

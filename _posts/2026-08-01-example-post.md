@@ -28,7 +28,7 @@ You have three options, all from a browser:
 1. **GitHub web editor** — open your file under [`_posts/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/_posts)
    on the `drafts` branch and click *Edit*. There is a **Write / Preview** toggle
    at the top of the box; the preview pane renders markdown.
-2. **The WYSIWYG editor** — open [the draft editor](/editor.html) from the preview.
+2. **The WYSIWYG editor** — open [the draft editor](/editor/) from the preview.
    It lists every draft on this branch, lets you edit in what-you-type-is-what-you-see
    mode, and can push your changes back to the branch (with a personal access token).
 3. **An LLM** — this file is plain markdown. Copy it into any chat model, ask for

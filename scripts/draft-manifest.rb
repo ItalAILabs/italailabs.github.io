@@ -10,7 +10,7 @@ files = Dir.glob("_posts/*.md").reject { |f| File.symlink?(f) }.sort
 
 posts = files.map do |f|
   raw  = File.read(f)
-  fm   = (raw[/\A---\n(.*?)\n---/, 1]) || ""
+  fm   = (raw[/\A---\n(.*?)\n---/m, 1]) || ""
   line = fm.each_line.find { |l| l =~ /\Atitle:\s*/ }
   title = line.to_s.sub(/\Atitle:\s*/, "").strip.gsub(/\A["']|["']\z/, "")
   {

@@ -12,7 +12,7 @@ replaces the old `_drafts/` folder on `main`.
 | Link | What it is |
 |---|---|
 | **Preview** (Vercel URL — see the latest deployment in the [Actions tab](https://github.com/ItalAILabs/italailabs.github.io/actions) or ask for it) | The full site with your drafts rendered. Updates a few minutes after every push to this branch. |
-| **Draft editor** (preview URL + `/editor.html`) | WYSIWYG markdown editor: pick a draft, edit what-you-see, push back to the branch. |
+| **Draft editor** (preview URL + `/editor/`) | WYSIWYG markdown editor: pick a draft, edit what-you-see, push back to the branch. |
 
 ## Start a new post
 
@@ -25,7 +25,7 @@ replaces the old `_drafts/` folder on `main`.
 ## Edit an existing draft
 
 - **GitHub web editor:** open the file → pencil icon → toggle **Write / Preview** → commit.
-- **WYSIWYG:** open `/editor.html` on the preview, pick the post, edit, then *Push to drafts branch* (one-time: paste a fine-grained personal access token with write access to this repo — it's stored only in your browser) or *Copy markdown* and paste into the web editor.
+- **WYSIWYG:** open `/editor/` on the preview, pick the post, edit, then *Push to drafts branch* (one-time: paste a fine-grained personal access token with write access to this repo — it's stored only in your browser) or *Copy markdown* and paste into the web editor.
 - **LLM:** the file is plain markdown — copy it into any chat model, ask for edits, paste back.
 
 ## Images

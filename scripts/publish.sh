@@ -10,10 +10,11 @@
 #
 # Usage:
 #   scripts/publish.sh <post file> [extra files...]
-#   e.g. scripts/publish.sh _posts/2026-08-01-my-post.md draft-assets/fig1.svg
+#   e.g. scripts/publish.sh _posts/2026-08-01-my-post.md assets/images/drafts/fig1.svg
 #
-# Extra files under draft-assets/ are placed on main at assets/images/drafts/
-# (main's CI turns them into .webp automatically).
+# Extra files land on main at exactly the path they have on this branch
+# (assets/{images,videos,files}/drafts/ is 1:1); main's CI turns photos into
+# .webp automatically.
 #
 set -euo pipefail
 
@@ -37,7 +38,8 @@ trap 'rm -rf "$tmpdir"' EXIT
 cp "_posts/$file" "$tmpdir/post.md"
 for extra in "$@"; do
   [ -f "$extra" ] || { echo "no such file: $extra" >&2; exit 1; }
-  cp "$extra" "$tmpdir/$(basename "$extra")"
+  mkdir -p "$tmpdir/$(dirname "$extra")"
+  cp "$extra" "$tmpdir/$extra"
 done
 
 # Drop any build-time symlinks from a local preview so the switch is clean.
@@ -48,15 +50,9 @@ git switch -C "$branch" origin/main
 
 cp "$tmpdir/post.md" "_posts/$file"
 for extra in "$@"; do
-  base="$(basename "$extra")"
-  case "$extra" in
-    draft-assets/images/*) dest="assets/images/drafts/$base" ;;
-    draft-assets/videos/*) dest="assets/videos/drafts/$base" ;;
-    draft-assets/files/*)  dest="assets/files/drafts/$base" ;;
-    *)                     dest="$extra" ;;   # any other path mirrored as-is
-  esac
-  mkdir -p "$(dirname "$dest")"
-  cp "$tmpdir/$base" "$dest"
+  # 1:1 — the file lands on main exactly where it sits on this branch.
+  mkdir -p "$(dirname "$extra")"
+  cp "$tmpdir/$extra" "$extra"
 done
 
 git add "_posts/$file" "$@" 2>/dev/null || git add .

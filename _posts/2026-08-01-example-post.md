@@ -55,12 +55,11 @@ read_time: "8 min read"
 
 ### Media
 
-Drop media in `draft-assets/` on this branch — one folder per kind:
+Drop media on this branch under `assets/` — the folder you upload to is exactly the path you reference (1:1):
 
-- **SVG figures** (matplotlib exports, diagrams): `draft-assets/images/`, referenced as `/assets/images/drafts/your-figure.svg`.
-- **Photos**: `draft-assets/images/` too — the build converts `.png`/`.jpg` to WebP automatically.
-- **Videos**: `draft-assets/videos/`, referenced as `/assets/videos/drafts/demo.mp4` (keep them small).
-- **Other files** (PDFs, datasets): `draft-assets/files/`, referenced as `/assets/files/drafts/paper.pdf`.
+- **SVG figures** (matplotlib exports, diagrams) and **photos**: `assets/images/drafts/your-figure.svg` / `.png` / `.jpg` — the build converts photos to WebP automatically.
+- **Videos**: `assets/videos/drafts/demo.mp4` (keep them small).
+- **Other files** (PDFs, datasets): `assets/files/drafts/paper.pdf`.
 
 You can also reuse any existing site image, e.g. `/assets/images/posts/wizard.svg`.
 

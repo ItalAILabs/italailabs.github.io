@@ -2,14 +2,14 @@
 #
 # build-preview.sh — build the drafts-branch preview site.
 #
-# This branch deliberately contains only content (draft posts in _posts/,
-# draft images in draft-assets/) plus this glue. Everything else — layouts,
-# includes, sass, assets, data, config, plugins — is fetched from main at
-# build time into .main/ and linked into the repo root with relative
-# symlinks, so the preview always renders with exactly the styling that is
-# live on italailabs.com. Nothing is duplicated in this branch; .main/ and
-# .genassets/ are throwaway materializations (gitignored) rebuilt from
-# scratch on every run.
+# This branch deliberately contains only content (draft posts in _posts/, draft
+# media under assets/{images,videos,files}/drafts/) plus this glue. Everything
+# else — layouts, includes, sass, the rest of the asset tree, data, config,
+# plugins — is fetched from main at build time into .main/ and linked in with
+# relative symlinks 1:1 by path, so what you render always uses exactly the
+# styling that is live on italailabs.com. Nothing is duplicated in this branch;
+# .main/ and .genassets/ are throwaway materializations (gitignored) rebuilt
+# from scratch on every run.
 #
 # Usage:
 #   scripts/build-preview.sh          # build once into _site/ (+ draft manifest)
@@ -51,12 +51,37 @@ fetch_ref generated-assets "$GEN_DIR" \
 # Files/dirs this branch owns are left untouched; everything else from main
 # becomes a relative symlink so Jekyll sees one complete site. (Jekyll runs
 # with safe: false, which it needs for these symlinks — see _config.yaml.)
-OWNED=" .github .gitignore _posts scripts README.md editor.html _config.draft.yaml draft-assets "
+#
+# OWNED = fully branch-owned (never merged with main).
+# PARTIAL = branch-owned dirs that merge 1:1 with main's tree: whatever main
+# has under them that this branch doesn't gets symlinked in, so a file at
+# assets/images/drafts/fig.svg on this branch is the same path on main.
+OWNED=" .github .gitignore _posts scripts README.md editor.html _config.draft.yaml assets "
+PARTIAL=" assets "
+
+link_into() { # $1 = relative dir under the root ("assets", "assets/images", ...)
+  local rel="$1" item name slashes prefix="" i
+  slashes="${rel//[^\/]/}"; for ((i = 0; i <= ${#slashes}; i++)); do prefix="../$prefix"; done
+  for item in "$MAIN_DIR/$rel"/* "$MAIN_DIR/$rel"/.[!.]*; do
+    [ -e "$item" ] || continue
+    name="$(basename "$item")"
+    if [ -d "$item" ] && [ -d "$ROOT/$rel/$name" ]; then
+      link_into "$rel/$name"            # both sides have this dir → recurse
+    elif [ ! -e "$ROOT/$rel/$name" ] && [ ! -L "$ROOT/$rel/$name" ]; then
+      ln -s "${prefix}.main/$rel/$name" "$ROOT/$rel/$name"
+    fi                                   # branch file wins (re-runs included)
+  done
+}
 
 for item in "$MAIN_DIR"/* "$MAIN_DIR"/.[!.]*; do
   [ -e "$item" ] || continue
   name="$(basename "$item")"
-  case "$OWNED" in *" $name "*) continue ;; esac
+  case "$OWNED" in *" $name "*)
+    case "$PARTIAL" in *" $name ")
+      [ -d "$item" ] && [ -d "$ROOT/$name" ] && link_into "$name"
+    ;; esac
+    continue ;;
+  esac
   if [ -L "$ROOT/$name" ]; then
     # Idempotent re-runs: keep our own link, replace stale ones.
     [ "$(readlink "$ROOT/$name")" = ".main/$name" ] && continue
@@ -78,19 +103,15 @@ if [ -d "$GEN_DIR/assets/images" ]; then
   done < <(cd "$GEN_DIR/assets/images" && find . -name '*.webp')
 fi
 
-# Draft media: each bucket under draft-assets/ is served from a matching
-# "drafts/" subfolder of the site's asset tree (see draft-assets/README.md):
-#   draft-assets/images/* -> /assets/images/drafts/*   (+ auto .webp)
-#   draft-assets/videos/* -> /assets/videos/drafts/*
-#   draft-assets/files/*  -> /assets/files/drafts/*
-if [ -d draft-assets ]; then
+# Draft media already sits at its final, 1:1 path on this branch:
+#   assets/images/drafts/*  -> /assets/images/drafts/*   (+ auto .webp)
+#   assets/videos/drafts/*  -> /assets/videos/drafts/*
+#   assets/files/drafts/*   -> /assets/files/drafts/*
+# Generate .webp next to each photo (the site's responsive-images plugin
+# rewrites every .png/.jpg reference to .webp at build time).
+if [ -d assets/images/drafts ]; then
   bundle check >/dev/null 2>&1 || bundle install --quiet
   bundle exec ruby scripts/draft-images-webp.rb || echo "!! webp generation unavailable — photos may not render in preview"
-  for bucket in images videos files; do
-    [ -d "draft-assets/$bucket" ] || continue
-    mkdir -p "assets/$bucket/drafts"
-    cp -r "draft-assets/$bucket/." "assets/$bucket/drafts/"
-  done
 fi
 
 # ------------------------------------------------- merge posts (drafts + main)

@@ -27,7 +27,7 @@ repo — stored only in your browser).
 ## Start a new post (one PR per post)
 
 1. In the repo UI, create a branch off `drafts` (branch dropdown → **Create new branch**, e.g. `my-new-post`).
-2. On that branch add `_posts/YYYY-MM-DD-slug.md` (**Add file → Create new file**). The date is the publish date. Copy the front matter from [the example post](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/_posts/2026-08-01-example-post.md) and write your body in markdown. Add any media under [`draft-assets/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/draft-assets) if you need it.
+2. On that branch add `_posts/YYYY-MM-DD-slug.md` (**Add file → Create new file**). The date is the publish date. Copy the front matter from [the example post](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/_posts/2026-08-01-example-post.md) and write your body in markdown. Add any media under `assets/{images,videos,files}/drafts/` if you need it — that folder is exactly the path you'll reference in the post.
 3. Open a pull request **to `drafts`**. The **Drafts review** action validates it: front-matter sanity on your post plus a full build of the assembled site (main's live styling + all drafts). Fix anything it flags, then merge.
 4. Once merged, run `scripts/build-preview.sh serve` and open http://localhost:4000 — your post is on the blog index.
 
@@ -43,15 +43,15 @@ reviewed and checked.
 
 ## Media (images, videos, files)
 
-Put media in [`draft-assets/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/draft-assets) on this branch — three folders, one per kind:
+Put media on this branch under [`assets/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/assets) — the folder you upload to **is** the path the post references and the path it lives at on `main` (1:1, no translation):
 
-| Folder | Served at | Notes |
+| Upload to | Reference in your post as | Notes |
 |---|---|---|
-| `images/` | `/assets/images/drafts/<name>` | SVG as-is (preferred for figures); PNG/JPG auto-converted to WebP when you build |
-| `videos/` | `/assets/videos/drafts/<name>` | served as-is — keep small (~100 MB GitHub cap); host big videos externally and just link |
-| `files/` | `/assets/files/drafts/<name>` | PDFs, datasets, anything else you want to link from a post |
+| `assets/images/drafts/<name>` | `/assets/images/drafts/<name>` | SVG as-is (preferred for figures); PNG/JPG auto-converted to WebP when you build |
+| `assets/videos/drafts/<name>` | `/assets/videos/drafts/<name>` | served as-is — keep small (~100 MB GitHub cap); host big videos externally and just link |
+| `assets/files/drafts/<name>` | `/assets/files/drafts/<name>` | PDFs, datasets, anything else you want to link from a post |
 
-[The folder's own README](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/draft-assets/README.md) has copy-paste examples. You can also reuse existing site images instead of uploading, e.g. `/assets/images/posts/wizard.svg`.
+Examples: `![Figure 1](/assets/images/drafts/fig1.svg)` · `<video src="/assets/videos/drafts/demo.mp4" controls></video>` · `[Paper (PDF)](/assets/files/drafts/paper.pdf)`. You can also reuse existing site images instead of uploading, e.g. `/assets/images/posts/wizard.svg`.
 
 ## Publish a post
 
@@ -75,5 +75,5 @@ After the PR merges: delete your file (and images) from this branch so it only h
 
 ## What is *not* allowed on this branch
 
-- Copying styling, layouts, includes or assets from `main` into this branch. They're symlinked at build time; a committed copy would drift and break the "always current" guarantee (the build script refuses to run if it finds one).
+- Copying styling, layouts, includes or assets from `main` into this branch (the only asset paths that live here are `assets/{images,videos,files}/drafts/`). Everything else is symlinked at build time; a committed copy would drift and break the "always current" guarantee (the build script refuses to run if it finds one).
 - Merging the whole `drafts` branch into `main`. Publishing is always per-post via a small PR.

@@ -136,6 +136,9 @@ fi
 bundle exec ruby scripts/draft-manifest.rb
 
 if [ "$MODE" = "serve" ]; then
+  echo ""
+  echo "==> editor:  http://localhost:${PORT:-4000}/blog/editor/   (WYSIWYG)"
+  echo "==> blog:    http://localhost:${PORT:-4000}/blog/"
   exec bundle exec jekyll serve --config _config.yaml,_config.draft.yaml --livereload --port "${PORT:-4000}"
 fi
 

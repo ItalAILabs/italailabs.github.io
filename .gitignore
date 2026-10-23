@@ -2,6 +2,7 @@
 /.env
 /.main
 /.genassets
+/drafts-manifest.json   # build leftover from older revisions; hook writes it into _site now
 /.jekyll-cache
 /styles
 /vendor

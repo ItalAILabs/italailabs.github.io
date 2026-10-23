@@ -1,20 +1,17 @@
 #!/usr/bin/env bash
 #
-# publish.sh — prepare a publish PR for one draft post (power-user path).
+# publish.sh — prepare a publish PR for one draft post by cherry-picking the
+# commits that built it onto a fresh branch off main.
 #
-# Creates a branch `publish/<slug>` from the tip of main containing ONLY the
-# given post file (plus any extra files you pass, e.g. its images), pushes
-# it, and prints a link that opens the pull request against main in one
-# click. The "Validate draft PR" check on the PR makes sure only post files
-# and draft images are included.
+# A commit is included if it (on this branch, not on main) touched either
+#   - the given post file, or
+#   - an asset the post references under assets/{images,videos,files}/drafts/
+# so the PR contains exactly that post's history — nothing else from the
+# branch rides along.
 #
 # Usage:
-#   scripts/publish.sh <post file> [extra files...]
-#   e.g. scripts/publish.sh _posts/2026-08-01-my-post.md assets/images/drafts/fig1.svg
-#
-# Extra files land on main at exactly the path they have on this branch
-# (assets/{images,videos,files}/drafts/ is 1:1); main's CI turns photos into
-# .webp automatically.
+#   scripts/publish.sh <post file>            # create + push publish/<slug>, print PR link
+#   scripts/publish.sh --dry-run <post file>  # just list what would be cherry-picked
 #
 set -euo pipefail
 
@@ -22,41 +19,64 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 REPO="ItalAILabs/italailabs.github.io"
-file="${1:?usage: scripts/publish.sh <post file in _posts/> [extra files...]}"
-shift || true
+DRY_RUN=0
+[ "${1:-}" = "--dry-run" ] && { DRY_RUN=1; shift; }
 
+file="${1:?usage: scripts/publish.sh [--dry-run] <post file in _posts/>}"
 file="${file#_posts/}"; file="${file#/}"
 [ -f "_posts/$file" ] || { echo "no such draft: _posts/$file" >&2; exit 1; }
 
 slug="$(basename "$file" .md)"
 branch="publish/$slug"
 
-tmpdir="$(mktemp -d)"
-trap 'rm -rf "$tmpdir"' EXIT
+# Refresh main first so the commit range below is accurate.
+if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
+  git fetch --quiet --unshallow origin
+else
+  git fetch --quiet origin main
+fi
 
-# Stash everything the PR should contain, then switch to a clean main.
-cp "_posts/$file" "$tmpdir/post.md"
-for extra in "$@"; do
-  [ -f "$extra" ] || { echo "no such file: $extra" >&2; exit 1; }
-  mkdir -p "$tmpdir/$(dirname "$extra")"
-  cp "$extra" "$tmpdir/$extra"
-done
+# The post's assets = everything it references at its 1:1 paths.
+assets="$(grep -oE '/assets/(images|videos|files)/drafts/[A-Za-z0-9._/-]+' "_posts/$file" | sort -u || true)"
+paths=("_posts/$file")
+while IFS= read -r a; do [ -n "$a" ] && paths+=("${a#/}"); done <<< "$assets"
 
-# Drop any build-time symlinks from a local preview so the switch is clean.
-find . -maxdepth 1 -type l -exec rm -f {} +
+commits="$(git log --reverse --format=%H origin/main..HEAD -- "${paths[@]}")"
+if [ -z "$commits" ]; then
+  echo "no commits on this branch (not on main) touch _posts/$file or its assets" >&2
+  exit 1
+fi
 
-git fetch --quiet --depth=1 origin main
+echo "Commits that would be cherry-picked onto main:"
+git log --oneline origin/main..HEAD -- "${paths[@]}" | sed 's/^/  /'
+
+# Pre-flight: warn if any of those commits also touch other files — they would
+# ride along in the PR and the publish check on main will reject it.
+touched="$(for c in $commits; do git show --name-only --format= "$c"; done | sort -u)"
+stray="$(echo "$touched" | grep -vE '^(_posts/[^/]+\.md|assets/(images|videos|files)/drafts/.+)$' || true)"
+if [ -n "$stray" ]; then
+  echo ""
+  echo "!! warning: these commits also touch files outside the post + its assets:"
+  echo "$stray" | sed 's/^/   /'
+  echo "   They would be included in the PR and the publish check will reject it."
+  echo "   Re-scope those commits on this branch before publishing."
+fi
+
+[ "$DRY_RUN" = 1 ] && { echo ""; echo "(dry run — nothing created)"; exit 0; }
+
+# Drop local build symlinks so the branch switch is clean.
+links="$(find . -path ./.git -prune -o -type l -print)"
+[ -n "$links" ] && printf '%s\n' "$links" | xargs rm -f
+
 git switch -C "$branch" origin/main
 
-cp "$tmpdir/post.md" "_posts/$file"
-for extra in "$@"; do
-  # 1:1 — the file lands on main exactly where it sits on this branch.
-  mkdir -p "$(dirname "$extra")"
-  cp "$tmpdir/$extra" "$extra"
-done
-
-git add "_posts/$file" "$@" 2>/dev/null || git add .
-git commit -m "Publish: $slug"
+# shellcheck disable=SC2086
+if ! git cherry-pick $commits; then
+  echo ""
+  echo "Cherry-pick conflict. Resolve the files, then:" >&2
+  echo "  git cherry-pick --continue && git push -u origin $branch" >&2
+  exit 1
+fi
 
 git push -u origin "$branch"
 
@@ -64,4 +84,4 @@ echo ""
 echo "Branch pushed. Open the pull request here (one click):"
 echo "  https://github.com/${REPO}/compare/main...${branch}?expand=1"
 echo ""
-echo "After it merges, delete _posts/$file from the drafts branch."
+echo "After it merges, delete _posts/$file and its assets from this branch."

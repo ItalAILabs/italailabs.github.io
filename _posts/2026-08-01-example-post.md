@@ -78,15 +78,16 @@ A raw-HTML block works anywhere in the body — this one is a live example:
 
 ## Publishing
 
-When a post is ready:
+When a post is ready, publish it with one command on this branch:
 
-1. Open a **publish pull request** that adds *only* your `_posts/…` file (and any
-   `draft-assets/` images) to `main`. The easiest way is the compare link:
-   [`github.com/ItalAILabs/italailabs.github.io/compare/main…your-branch`](https://github.com/ItalAILabs/italailabs.github.io/compare/main...drafts).
-2. The **Validate draft PR** check builds the site with your post and confirms
-   nothing else changed.
-3. Merge → the post goes live at `italailabs.com/blog/<your-title>/`.
-4. Delete your file from the `drafts` branch so it doesn't linger here.
+    scripts/publish.sh _posts/2026-08-15-our-new-system.md
+
+It cherry-picks every commit that touched your post file (or an asset it
+references) onto a fresh branch off `main`, pushes it, and prints a one-click
+link to open the pull request. The **Drafts review** check verifies the PR
+contains only your post + media and that the merged site builds. Merge → live
+at `italailabs.com/blog/<your-title>/`. Afterwards delete your file (and assets)
+from this branch so it doesn't linger here.
 
 *This example post is safe to delete — it exists so you can see exactly what a
 draft looks like once rendered.*

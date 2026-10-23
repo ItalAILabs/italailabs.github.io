@@ -6,7 +6,7 @@ replaces the old `_drafts/` folder on `main`.
 - Posts you work on live in [`_posts/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/_posts) — one markdown file per post, multiple drafts at once is fine.
 - **Everything else (styling, layouts, assets) is not in this branch.** At build time the site pulls `main` and symlinks it in, so what you render locally always uses exactly the styling that is live. You should never see CSS or layout files appear here — if one does, it's a mistake.
 - Nothing on this branch is ever deployed anywhere. It's a local writing environment; the only thing that leaves the branch is a publish PR to `main`.
-- When a post is ready, it goes to `main` through a small pull request. Merging *is* publishing.
+- When a post is ready, it goes to `main` as a pull request of **the commits that built it** (cherry-picked). Merging *is* publishing.
 
 ## Seeing your post (one command, local)
 
@@ -24,18 +24,16 @@ markdown* (paste into the GitHub web editor) or *Push to drafts branch*
 (one-time: paste a fine-grained personal access token with write access to this
 repo — stored only in your browser).
 
-## Start a new post (one PR per post)
+## Start a new post
 
-1. In the repo UI, create a branch off `drafts` (branch dropdown → **Create new branch**, e.g. `my-new-post`).
-2. On that branch add `_posts/YYYY-MM-DD-slug.md` (**Add file → Create new file**). The date is the publish date. Copy the front matter from [the example post](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/_posts/2026-08-01-example-post.md) and write your body in markdown. Add any media under `assets/{images,videos,files}/drafts/` if you need it — that folder is exactly the path you'll reference in the post.
-3. Open a pull request **to `drafts`**. The **Drafts review** action validates it: front-matter sanity on your post plus a full build of the assembled site (main's live styling + all drafts). Fix anything it flags, then merge.
-4. Once merged, run `scripts/build-preview.sh serve` and open http://localhost:4000 — your post is on the blog index.
+1. On the `drafts` branch add `_posts/YYYY-MM-DD-slug.md` — in the repo UI: switch to `drafts` → `_posts/` → **Add file → Create new file** (or locally). The date is the publish date. Copy the front matter from [the example post](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/_posts/2026-08-01-example-post.md) and write your body in markdown.
+2. Add any media under `assets/{images,videos,files}/drafts/` — that folder is exactly the path you'll reference in the post.
+3. Commit to `drafts`. Keep commits scoped to your own post and its assets (e.g. “my-post: add figure 1”) — publishing cherry-picks commits, so scope is what keeps your PR clean.
+4. See it: `scripts/build-preview.sh serve` → http://localhost:4000 — the full site with your post in it, exactly as it will render live.
 
 ## Edit an existing draft
 
-Quick fix to something already on `drafts`? You can commit straight to the
-branch (no validation runs). New posts should come in through a PR so they get
-reviewed and checked.
+Just commit to `drafts` (web editor or locally) and re-run the local preview.
 
 - **GitHub web editor:** open the file → pencil icon → toggle **Write / Preview** → commit.
 - **WYSIWYG:** open `http://localhost:4000/editor/`, pick the post, edit, then *Push to drafts branch* (one-time: paste a fine-grained personal access token with write access to this repo — it's stored only in your browser) or *Copy markdown* and paste into the web editor.
@@ -55,23 +53,26 @@ Examples: `![Figure 1](/assets/images/drafts/fig1.svg)` · `<video src="/assets/
 
 ## Publish a post
 
-A publish PR must contain **only** your post file (plus its `draft-assets/` images) — the *Validate draft PR* check enforces this, so it's impossible to accidentally ship half-finished drafts or branch plumbing.
+Publishing cherry-picks **the commits that built your post** onto a branch off `main` and opens a PR with exactly those — nothing else from the shared branch rides along. A commit is in scope if it touched your post file or an asset it references under `assets/{images,videos,files}/drafts/`.
 
-**Easiest (browser only):**
-1. Open your post file on the `drafts` branch → **Raw** (or `</>` button) → copy everything.
-2. Switch to `main` in the repo UI → `_posts/` → **Add file → Create new file** with the *same filename* → paste.
-3. Commit directly to `main` if you have write access, or open a PR from that point (compare `main…your-branch`).
-
-**Or one command** (any machine with git + push access):
+**One command** (on this branch, any machine with git + push access):
 
 ```sh
-git checkout drafts && git pull
-scripts/publish.sh _posts/2026-08-15-our-new-system.md draft-assets/fig1.svg
-# → creates publish/2026-08-15-our-new-system from main with just those files,
-#   pushes it, and prints a one-click "Open pull request" link.
+scripts/publish.sh _posts/2026-08-15-our-new-system.md
+# → lists the commits, cherry-picks them onto publish/2026-08-15-our-new-system
+#   (off main), pushes, and prints a one-click "Open pull request" link.
+# Add --dry-run to preview the commit list without creating anything.
 ```
 
-After the PR merges: delete your file (and images) from this branch so it only holds what's still in flight.
+**By hand:** the same thing manually —
+
+```sh
+git checkout -b publish/our-new-system origin/main
+git cherry-pick <the commits that touched your post + its assets>
+git push -u origin publish/our-new-system
+```
+
+The **Drafts review** check on the PR verifies it only touches `_posts/*.md` and draft media, and that the merged site builds. Merge → live at `italailabs.com/blog/<title>/`. Afterwards delete your post file (and assets) from this branch so it only holds what's still in flight.
 
 ## What is *not* allowed on this branch
 

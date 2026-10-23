@@ -12,3 +12,6 @@
 *.webp
 *.webp.meta
 *.vcf
+# local build materializations (drafts branch build script)
+/.main
+/.genassets

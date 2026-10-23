@@ -1,9 +1,0 @@
-principles:
-  - title: "Depth before<br>scale"
-    text: "We would rather hold a small number of problems and go all the way down than spread thin across many. Technical depth and scientific integrity come before expansion."
-
-  - title: "Research-grade<br>or nothing"
-    text: "If a result would not survive peer review, it does not ship. Everything we build is benchmarked, documented, and honest about what it does not yet do."
-
-  - title: "Built to last,<br>not to demo"
-    text: "We design systems for the environment they will actually run in — long-term capability rather than a working demonstration."

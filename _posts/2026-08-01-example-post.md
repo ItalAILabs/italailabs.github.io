@@ -2,7 +2,8 @@
 layout: post
 title: "Example post — how this drafts branch works"
 description: "A working example of a blog post on the drafts branch, with a short guide for researchers writing here."
-image: "/assets/images/posts/wizard.svg"
+image: "/assets/images/drafts/example-figure.svg"
+hero_image: "/assets/images/drafts/example-figure.svg"
 category: "Guides"
 excerpt: "What this branch is, how to edit and preview posts without installing anything, and how a post gets published to italailabs.com."
 published_in_blog: true
@@ -14,9 +15,10 @@ read_time: "3 min read"
 ## This is a draft. It lives on the `drafts` branch, not on the live site.
 
 You are looking at a **local render** of the drafts branch (`scripts/build-preview.sh serve`) —
-the same Jekyll build as the real site, assembled at build time from `main`
-plus whatever posts are being worked on here. Every style, header, footer and card you see is the live
-site's, pulled in as symlinks at build time: nothing is duplicated or forked.
+a minimal blog-only Jekyll build assembled at build time from `main`: only the
+files the blog needs (layouts, styles, plugins) are symlinked in, and only the
+blog pages are built. Every style, header, footer and card you see is the live
+site's: nothing is duplicated or forked.
 
 > **Rule of thumb:** if it looks like italailabs.com, that's because it *is*
 > italailabs.com's styling — only the posts in `_posts/` on this branch are new.
@@ -28,7 +30,7 @@ You have three options, all from a browser:
 1. **GitHub web editor** — open your file under [`_posts/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/_posts)
    on the `drafts` branch and click *Edit*. There is a **Write / Preview** toggle
    at the top of the box; the preview pane renders markdown.
-2. **The WYSIWYG editor** — open [the draft editor](/editor/) from the preview.
+2. **The WYSIWYG editor** — open [the draft editor](/blog/editor/) from the preview.
    It lists every draft on this branch, lets you edit in what-you-type-is-what-you-see
    mode, and can push your changes back to the branch (with a personal access token).
 3. **An LLM** — this file is plain markdown. Copy it into any chat model, ask for
@@ -44,7 +46,8 @@ is displayed. Only `title` is strictly required; everything else is optional:
 layout: post                      # always this
 title: "Post title"               # used for the URL and <h1>
 description: "One line for search + social cards."
-image: "/assets/images/posts/foo.svg"   # hero image (see below)
+image: "/assets/images/drafts/example-figure.svg"   # og:image for search/social
+hero_image: "/assets/images/drafts/example-figure.svg"  # large card + header image
 category: "Physical AI"           # shows as a tag on the blog index
 excerpt: "Teaser shown in the blog listing."
 published_in_blog: true           # false = hidden from the index, still has a URL
@@ -61,7 +64,7 @@ Drop media on this branch under `assets/` — the folder you upload to is exactl
 - **Videos**: `assets/videos/drafts/demo.mp4` (keep them small).
 - **Other files** (PDFs, datasets): `assets/files/drafts/paper.pdf`.
 
-You can also reuse any existing site image, e.g. `/assets/images/posts/wizard.svg`.
+You can also reference an existing live-site image (e.g. `/assets/images/posts/wizard.svg`) — it works on the published post; the local preview only ships this branch's own media.
 
 A raw-HTML block works anywhere in the body — this one is a live example:
 

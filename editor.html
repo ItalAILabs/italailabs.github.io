@@ -1,5 +1,6 @@
 ---
 layout: null
+permalink: /blog/editor/
 title: "Draft editor"
 description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
 ---
@@ -68,7 +69,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
     <h1><span>●</span> Draft editor</h1>
     <label class="hint" for="draft-select">Post:</label>
     <select id="draft-select" aria-label="Choose a draft"></select>
-    <button id="btn-new" type="button">New draft (download template)</button>
+    <button id="btn-new" type="button">New draft</button>
     <a id="open-preview" href="/blog/" target="_blank" rel="noopener">Open rendered preview ↗</a>
     <span class="hint" style="margin-left:auto">
       <a href="https://italailabs.com" target="_blank" rel="noopener">Live site ↗</a>
@@ -81,6 +82,8 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
   <footer>
     <button id="btn-copy" type="button" class="primary">Copy markdown</button>
     <button id="btn-download" type="button">Download .md</button>
+    <label class="hint" for="filename">Push to:</label>
+    <input type="text" id="filename" placeholder="_posts/2026-08-15-my-draft.md" style="width: 300px;">
     <button id="btn-push" type="button">Push to drafts branch</button>
     <span class="sep"></span>
     <input type="password" id="token" placeholder="GitHub personal access token (optional — stored only in this browser)">
@@ -96,7 +99,9 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
     const API_CONTENTS = "https://api.github.com/repos/" + REPO + "/contents/_posts/";
 
     let editor = null;
-    let currentFile = null;
+    let manifestPosts = [];
+    let currentFile = null;   // target file on the drafts branch ("Push to" field)
+    let currentUrl  = "/blog/"; // rendered preview URL of the selected draft (from the manifest)
 
     const $ = (id) => document.getElementById(id);
     const selectEl = $("draft-select");
@@ -108,25 +113,8 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       el.textContent = msg;
     }
 
-    // Same slug rules Jekyll uses for /blog/:title/ permalinks.
-    function slugify(title) {
-      return title.toLowerCase()
-        .normalize("NFKD")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
-    }
-
-    function frontMatterTitle(md) {
-      const m = md.match(/\A---\n([\s\S]*?)\n---/);
-      if (!m) return null;
-      const line = m[1].split("\n").find((l) => l.startsWith("title:"));
-      if (!line) return null;
-      return line.replace(/^title:\s*/, "").replace(/^["']|["']$/g, "").trim();
-    }
-
     function updatePreviewLink() {
-      const title = frontMatterTitle(editor.getValue());
-      $("open-preview").href = title ? "/blog/" + slugify(title) + "/" : "/blog/";
+      $("open-preview").href = currentUrl;
     }
 
     async function loadManifest() {
@@ -139,6 +127,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
         setStatus("Could not load the drafts list (" + e.message + "). The preview may still be building.", "err");
         return;
       }
+      manifestPosts = manifest.posts;
       selectEl.innerHTML = "";
       for (const p of manifest.posts) {
         const opt = document.createElement("option");
@@ -157,6 +146,9 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
 
     async function loadDraft(file) {
       currentFile = file;
+      $("filename").value = "_posts/" + file;
+      const p = manifestPosts.find((x) => x.file === file);
+      currentUrl = (p && p.url) ? p.url : "/blog/";
       try {
         const res = await fetch(RAW_BASE + encodeURIComponent(file), { cache: "no-store" });
         if (!res.ok) throw new Error("HTTP " + res.status);
@@ -217,24 +209,37 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       }
       localStorage.setItem("drafts-gh-token", token);
 
-      const url = API_CONTENTS + encodeURIComponent(currentFile) + "?ref=" + BRANCH;
+      const file = $("filename").value.trim().replace(/^\/?_posts\//, "");
+      if (!/^\d{4}-\d{2}-\d{2}-.+\.md$/.test(file)) {
+        setStatus("The “Push to” field must look like _posts/YYYY-MM-DD-slug.md — fix it first.", "err");
+        return;
+      }
+
+      const url = API_CONTENTS + encodeURIComponent(file) + "?ref=" + BRANCH;
       try {
+        let sha = null; // null → the file does not exist yet, PUT will create it
         const getRes = await fetch(url, { headers: authHeaders(token) });
-        if (!getRes.ok) throw new Error("GET " + getRes.status + " — check the token has write access to " + REPO);
-        const meta = await getRes.json();
+        if (getRes.ok) {
+          sha = (await getRes.json()).sha;
+        } else if (getRes.status !== 404) {
+          throw new Error("GET " + getRes.status + " — check the token has write access to " + REPO);
+        }
+
+        const body = {
+          message: (sha ? "Update " : "Add ") + file,
+          content: btoa(unescape(encodeURIComponent(md))),
+          branch: BRANCH
+        };
+        if (sha) body.sha = sha;
 
         const putRes = await fetch(url, {
           method: "PUT",
           headers: Object.assign(authHeaders(token), { "Content-Type": "application/json" }),
-          body: JSON.stringify({
-            message: "Update " + currentFile,
-            content: btoa(unescape(encodeURIComponent(md))),
-            branch: BRANCH,
-            sha: meta.sha
-          })
+          body: JSON.stringify(body)
         });
         if (!putRes.ok) throw new Error("PUT " + putRes.status + ": " + (await putRes.text()).slice(0, 200));
-        setStatus("Pushed " + currentFile + " to the drafts branch — the preview updates in about a minute.");
+        currentFile = file;
+        setStatus((sha ? "Pushed " : "Created ") + file + " on the drafts branch — reload this page to see it in the picker.");
       } catch (e) {
         setStatus("Push failed: " + e.message, "err");
       }
@@ -260,14 +265,22 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       });
 
       selectEl.addEventListener("change", () => loadDraft(selectEl.value));
-      $("btn-new").addEventListener("click", () => download(
-        new Date().toISOString().slice(0, 10) + "-untitled-draft.md", newDraftTemplate()));
+      $("btn-new").addEventListener("click", () => {
+        const name = new Date().toISOString().slice(0, 10) + "-untitled-draft.md";
+        editor.setValue(newDraftTemplate());
+        currentFile = null;
+        $("filename").value = "_posts/" + name;
+        selectEl.value = "";
+        updatePreviewLink();
+        setStatus("New draft in the editor. “Push to drafts branch” will create _posts/" + name + " — it does not exist yet, so nothing can be overwritten.");
+      });
       $("btn-copy").addEventListener("click", async () => {
         await navigator.clipboard.writeText(editor.getValue());
         setStatus("Markdown copied — paste it into the GitHub web editor for " + (currentFile || "your file") + ".");
       });
       $("btn-download").addEventListener("click", () => {
-        download(currentFile || "draft.md", editor.getValue());
+        const name = $("filename").value.trim().replace(/^.*\//, "") || "draft.md";
+        download(name, editor.getValue());
         setStatus("Downloaded. On GitHub: open the drafts branch → _posts/ → “Add file” → upload it (same filename).");
       });
       $("btn-push").addEventListener("click", pushDraft);

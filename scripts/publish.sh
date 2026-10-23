@@ -41,6 +41,12 @@ assets="$(grep -oE '/assets/(images|videos|files)/drafts/[A-Za-z0-9._/-]+' "_pos
 paths=("_posts/$file")
 while IFS= read -r a; do [ -n "$a" ] && paths+=("${a#/}"); done <<< "$assets"
 
+# Warn about referenced assets that do not exist on this branch (usually a
+# filename with spaces or special characters the reference regex truncated).
+for a in "${paths[@]:1}"; do
+  [ -e "$a" ] || echo "!! referenced asset not found on this branch: $a — check the post's reference (spaces and special characters in media filenames are unsupported)"
+done
+
 commits="$(git log --reverse --format=%H origin/main..HEAD -- "${paths[@]}")"
 if [ -z "$commits" ]; then
   echo "no commits on this branch (not on main) touch _posts/$file or its assets" >&2
@@ -53,7 +59,7 @@ git log --oneline origin/main..HEAD -- "${paths[@]}" | sed 's/^/  /'
 # Pre-flight: warn if any of those commits also touch other files — they would
 # ride along in the PR and the publish check on main will reject it.
 touched="$(for c in $commits; do git show --name-only --format= "$c"; done | sort -u)"
-stray="$(echo "$touched" | grep -vE '^(_posts/[^/]+\.md|assets/(images|videos|files)/drafts/.+)$' || true)"
+stray="$(echo "$touched" | sed '/^[[:space:]]*$/d' | grep -vxF -f <(printf '%s\n' "${paths[@]}") || true)"
 if [ -n "$stray" ]; then
   echo ""
   echo "!! warning: these commits also touch files outside the post + its assets:"
@@ -64,9 +70,9 @@ fi
 
 [ "$DRY_RUN" = 1 ] && { echo ""; echo "(dry run — nothing created)"; exit 0; }
 
-# Drop local build symlinks so the branch switch is clean.
-links="$(find . -path ./.git -prune -o -type l -print)"
-[ -n "$links" ] && printf '%s\n' "$links" | xargs rm -f
+# Drop local build symlinks so the branch switch is clean (NUL-delimited:
+# paths may contain spaces).
+find . -path ./.git -prune -o -type l -print0 2>/dev/null | xargs -0 -r rm -f --
 
 git switch -C "$branch" origin/main
 

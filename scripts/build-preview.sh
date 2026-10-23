@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 #
-# build-preview.sh — build the drafts-branch preview site.
+# build-preview.sh — build a MINIMAL, blog-only preview of the drafts branch.
 #
-# This branch deliberately contains only content (draft posts in _posts/, draft
-# media under assets/{images,videos,files}/drafts/) plus this glue. Everything
-# else — layouts, includes, sass, the rest of the asset tree, data, config,
-# plugins — is fetched from main at build time into .main/ and linked in with
-# relative symlinks 1:1 by path, so what you render always uses exactly the
-# styling that is live on italailabs.com. Nothing is duplicated in this branch;
-# .main/ and .genassets/ are throwaway materializations (gitignored) rebuilt
-# from scratch on every run.
+# Instead of assembling and building the whole site, this links in from main
+# only the files needed to render:
+#   /blog/          (the blog index)
+#   /blog/<slug>/   (the draft posts on this branch)
+#   /blog/editor/   (the WYSIWYG editor, branch-owned)
+# Everything is a relative symlink into .main/ — a throwaway materialization of
+# origin/main fetched at build time (gitignored) — so the preview always uses
+# exactly the styling that is live on italailabs.com. Nothing is duplicated in
+# this branch; only _posts/, assets/{images,videos,files}/drafts/ and this glue
+# are committed here.
 #
 # Usage:
 #   scripts/build-preview.sh          # build once into _site/ (+ draft manifest)
@@ -19,7 +21,6 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MAIN_DIR="$ROOT/.main"
-GEN_DIR="$ROOT/.genassets"
 REPO="ItalAILabs/italailabs.github.io"   # only used for the tarball fallback
 MODE="${1:-build}"
 
@@ -42,92 +43,95 @@ fetch_ref() { # $1 = branch name, $2 = destination dir
 }
 
 fetch_ref main "$MAIN_DIR"
-# generated-assets holds the .webp images that main's CI overlays before
-# building; without them, published post/author images would 404 in preview.
-fetch_ref generated-assets "$GEN_DIR" \
-  || { rm -rf "$GEN_DIR"; echo "!! generated-assets unavailable — some images will be missing"; }
 
-# ------------------------------------------- link main's tree into the build root
-# Files/dirs this branch owns are left untouched; everything else from main
-# becomes a relative symlink so Jekyll sees one complete site. (Jekyll runs
-# with safe: false, which it needs for these symlinks — see _config.yaml.)
-#
-# OWNED = fully branch-owned (never merged with main).
-# PARTIAL = branch-owned dirs that merge 1:1 with main's tree: whatever main
-# has under them that this branch doesn't gets symlinked in, so a file at
-# assets/images/drafts/fig.svg on this branch is the same path on main.
-OWNED=" .github .gitignore _posts scripts README.md editor.html _config.draft.yaml assets "
-PARTIAL=" assets "
-
-link_into() { # $1 = relative dir under the root ("assets", "assets/images", ...)
-  local rel="$1" item name slashes prefix="" i
-  slashes="${rel//[^\/]/}"; for ((i = 0; i <= ${#slashes}; i++)); do prefix="../$prefix"; done
-  for item in "$MAIN_DIR/$rel"/* "$MAIN_DIR/$rel"/.[!.]*; do
-    [ -e "$item" ] || continue
-    name="$(basename "$item")"
-    if [ -d "$item" ] && [ -d "$ROOT/$rel/$name" ]; then
-      link_into "$rel/$name"            # both sides have this dir → recurse
-    elif [ ! -e "$ROOT/$rel/$name" ] && [ ! -L "$ROOT/$rel/$name" ]; then
-      ln -s "${prefix}.main/$rel/$name" "$ROOT/$rel/$name"
-    fi                                   # branch file wins (re-runs included)
-  done
-}
-
-for item in "$MAIN_DIR"/* "$MAIN_DIR"/.[!.]*; do
-  [ -e "$item" ] || continue
-  name="$(basename "$item")"
-  case "$OWNED" in *" $name "*)
-    case "$PARTIAL" in *" $name ")
-      [ -d "$item" ] && [ -d "$ROOT/$name" ] && link_into "$name"
-    ;; esac
-    continue ;;
-  esac
-  if [ -L "$ROOT/$name" ]; then
-    # Idempotent re-runs: keep our own link, replace stale ones.
-    [ "$(readlink "$ROOT/$name")" = ".main/$name" ] && continue
-    rm "$ROOT/$name"
-  elif [ -e "$ROOT/$name" ]; then
-    echo "!! '$name' already exists in the branch tree — refusing to link over it (styling files must not be committed here)" >&2
+# ------------------------------------------------- link the blog chain only
+# linkfile <dest> <main-src>: symlink .main/<main-src> at <dest> with a relative
+# target. Refuses if a real branch file would shadow it; fails clearly if main
+# no longer has the file (allowlist drift).
+linkfile() {
+  local dest="$1" src=".main/$2" dir depth prefix i
+  if [ -e "$dest" ] && [ ! -L "$dest" ]; then
+    echo "!! '$dest' exists on this branch but must be linked from main — remove the committed copy (styling files must not live here)" >&2
     exit 1
   fi
-  ln -s ".main/$name" "$ROOT/$name"
+  dir="$(dirname "$dest")"
+  if [ "$dir" = "." ]; then depth=0; else depth=$(awk -F/ '{print NF}' <<<"$dir"); fi
+  prefix=""
+  for ((i = 1; i <= depth; i++)); do prefix="../$prefix"; done
+  ln -sfn "${prefix}${src}" "$dest"
+}
+
+# Whole directories (small, text-only): linking them whole keeps the preview
+# working when main adds an include/partial/data file to the blog chain.
+for p in _config.yaml Gemfile Gemfile.lock blog.html \
+         _layouts _includes _sass _data; do
+  linkfile "$p" "$p"
 done
 
-# main's CI overlays generated .webp images on top of assets before building;
-# do the same (writes through the symlink into our throwaway .main copy).
-if [ -d "$GEN_DIR/assets/images" ]; then
-  while IFS= read -r f; do
-    rel="${f#./}"
-    mkdir -p "assets/images/$(dirname "$rel")"
-    cp "$GEN_DIR/assets/images/$f" "assets/images/$rel"
-  done < <(cd "$GEN_DIR/assets/images" && find . -name '*.webp')
+# Plugins: only what the blog chain runs. (projects-manifest and vcard are for
+# the projects/ and /about/<person>/ pages, which this preview does not build.)
+mkdir -p _plugins
+for p in insights-manifest toc inline-figures responsive-images \
+         webp-converter vips-webp-generator lazy-load-images remove-empty-lines; do
+  linkfile "_plugins/$p.rb" "_plugins/$p.rb"
+done
+
+# Assets: only what the blog index, post pages and header/footer reference.
+mkdir -p assets/css assets/images/posts
+linkfile assets/css/blog.scss   assets/css/blog.scss
+linkfile assets/css/post.scss   assets/css/post.scss
+linkfile assets/js              assets/js
+linkfile assets/fontawesome     assets/fontawesome
+linkfile assets/favicon.svg     assets/favicon.svg
+linkfile assets/logo.svg        assets/logo.svg
+linkfile assets/logo.png        assets/logo.png
+# blog-card fallback for posts without a hero image (main's only "shared" image)
+linkfile assets/images/posts/coming.svg  assets/images/posts/coming.svg
+# author avatars referenced by the post layout via _data/people.yml
+linkfile assets/images/people    assets/images/people
+
+# Sanity: every link we just created must resolve (allowlist drift → fail loud).
+dangling=""
+while IFS= read -r l; do
+  [ -e "$l" ] || dangling="$dangling $l"
+done < <(find . -path ./.git -prune -o -type l -print)
+if [ -n "$dangling" ]; then
+  echo "!! these links point at files main no longer has — update the allowlist in scripts/build-preview.sh:" >&2
+  echo "$dangling" >&2
+  exit 1
 fi
 
-# Draft media already sits at its final, 1:1 path on this branch:
-#   assets/images/drafts/*  -> /assets/images/drafts/*   (+ auto .webp)
+# Refuse if this branch has committed any asset outside its own drafts
+# folders — such a file would silently shadow a live site asset in preview.
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  stray_assets="$(git ls-files assets | grep -vE '^assets/(images|videos|files)/drafts/' || true)"
+  if [ -n "$stray_assets" ]; then
+    echo "!! branch-committed files under assets/ outside the drafts folders (they would shadow live site assets):" >&2
+    echo "$stray_assets" >&2
+    exit 1
+  fi
+fi
+
+# Draft media sits at its final, 1:1 path on this branch:
+#   assets/images/drafts/*  -> /assets/images/drafts/*
 #   assets/videos/drafts/*  -> /assets/videos/drafts/*
 #   assets/files/drafts/*   -> /assets/files/drafts/*
-# Generate .webp next to each photo (the site's responsive-images plugin
-# rewrites every .png/.jpg reference to .webp at build time).
-if [ -d assets/images/drafts ]; then
-  bundle check >/dev/null 2>&1 || bundle install --quiet
-  bundle exec ruby scripts/draft-images-webp.rb || echo "!! webp generation unavailable — photos may not render in preview"
-fi
-
-# ------------------------------------------------- merge posts (drafts + main)
-# _posts/ on this branch holds only drafts; link in main's published posts so
-# the preview shows every draft in the context of the live blog. A file that
-# exists on both sides (a post being reworked) resolves to THIS branch's copy.
-mkdir -p _posts
-for post in "$MAIN_DIR"/_posts/*.md; do
-  [ -e "$post" ] || continue
-  name="$(basename "$post")"
-  [ -e "_posts/$name" ] && continue
-  ln -s "../.main/_posts/$name" "_posts/$name"
-done
+# Photos are converted to .webp automatically by main's vips-webp-generator
+# plugin during the Jekyll build (it scans assets/images, which here contains
+# only draft media) — libvips must be installed locally for that (see README).
 
 # ----------------------------------------------------------------------- build
-bundle check >/dev/null 2>&1 || bundle install --quiet
+if ! bundle check >/dev/null 2>&1; then
+  # Fresh clones have no writable system gem dir by default — install into a
+  # project-local (gitignored) path instead.
+  export BUNDLE_PATH="${BUNDLE_PATH:-$ROOT/vendor/bundle}"
+  bundle install --quiet
+fi
+
+# Draft manifest consumed by editor.html (this branch's drafts only). Written
+# to the source root so Jekyll copies it into _site as a static file on every
+# build — including each rebuild of `jekyll serve`.
+bundle exec ruby scripts/draft-manifest.rb
 
 if [ "$MODE" = "serve" ]; then
   exec bundle exec jekyll serve --config _config.yaml,_config.draft.yaml --livereload --port "${PORT:-4000}"
@@ -135,7 +139,4 @@ fi
 
 bundle exec jekyll build --config _config.yaml,_config.draft.yaml
 
-# Draft manifest consumed by editor.html (this branch's drafts only).
-bundle exec ruby scripts/draft-manifest.rb
-
-echo "==> preview built into _site/"
+echo "==> preview built into _site/ (blog only)"

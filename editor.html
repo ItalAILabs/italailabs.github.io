@@ -13,328 +13,849 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor@3.10.8/dist/index.min.css">
+  {% raw %}
   <style>
     :root {
-      --ink: #0c0717;
-      --cream: #f4f1e6;
-      --green: #29b485;
-      --line: #d9cbb5;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--cream);
-      color: var(--ink);
+      color-scheme: light;
+      --ink: #17152a;
+      --muted: #6b6878;
+      --paper: #fffdf8;
+      --canvas: #f3f1eb;
+      --line: #dedbd2;
+      --green: #208b69;
+      --green-dark: #17694f;
+      --danger: #a42e2e;
       font-family: "DM Sans", system-ui, sans-serif;
     }
-    header {
-      display: flex; flex-wrap: wrap; align-items: center; gap: .75rem;
-      padding: .9rem 1.25rem;
-      border-bottom: 1px solid var(--line);
-      background: #fffdf7;
-      position: sticky; top: 0; z-index: 10;
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--canvas); color: var(--ink); min-height: 100vh; }
+    button, input, select, textarea { font: inherit; }
+    button, select, input[type="text"], input[type="password"] {
+      min-height: 2.55rem; padding: .5rem .72rem; border: 1px solid var(--line);
+      border-radius: 8px; color: var(--ink); background: white;
     }
-    header h1 { font-size: 1.05rem; margin: 0 1rem 0 0; white-space: nowrap; }
-    header h1 span { color: var(--green); }
-    select, button, input[type="password"] {
-      font: inherit; padding: .45rem .7rem; border-radius: 8px;
-      border: 1px solid var(--line); background: #fff; color: var(--ink);
+    button { cursor: pointer; transition: background .15s, border-color .15s; }
+    button:hover { background: #f0eee7; }
+    button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible, summary:focus-visible {
+      outline: 3px solid #72c8aa; outline-offset: 2px;
     }
-    select { max-width: 340px; }
-    button { cursor: pointer; transition: background .15s, color .15s; }
-    button.primary { background: var(--green); border-color: var(--green); color: #fff; font-weight: 500; }
-    button.primary:hover { background: #239c74; }
-    button:hover:not(.primary) { background: #efe9da; }
-    a { color: var(--green); text-decoration: none; }
+    button.primary { background: var(--green); border-color: var(--green); color: white; font-weight: 700; }
+    button.primary:hover { background: var(--green-dark); }
+    button.secondary { border-color: transparent; background: transparent; }
+    a { color: var(--green-dark); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    #status {
-      margin: .8rem 1.25rem 0; padding: 0 1rem; border-radius: 8px;
-      font-size: .9rem; display: none;
+    .topbar {
+      position: sticky; top: 0; z-index: 5; display: flex; align-items: center; flex-wrap: wrap; gap: .6rem;
+      padding: .7rem 1rem; background: var(--paper); border-bottom: 1px solid var(--line);
     }
-    #status.show { display: block; }
-    #status.ok  { background: #e3f6ec; color: #14532d; border: 1px solid #b7e4c7; }
-    #status.err { background: #fdecec; color: #7f1d1d; border: 1px solid #f5c2c2; }
-    #vditor { margin: .8rem 1.25rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .brand { margin: 0 .55rem 0 0; font-size: 1.08rem; white-space: nowrap; }
+    .brand span { color: var(--green); }
+    .topbar label, .small-label { color: var(--muted); font-size: .83rem; }
+    #draft-select { max-width: min(440px, 45vw); }
+    .topbar .site-link { margin-left: auto; white-space: nowrap; }
+    .statusbar {
+      display: flex; align-items: center; gap: .55rem; min-height: 2.65rem; padding: .35rem 1rem;
+      background: #faf9f5; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .88rem;
+    }
+    #save-indicator { flex: 0 0 auto; padding: .2rem .55rem; border-radius: 999px; font-weight: 700; }
+    #save-indicator.saved { background: #e2f4eb; color: #145b3e; }
+    #save-indicator.dirty, #save-indicator.saving { background: #fff0cb; color: #76530a; }
+    #save-indicator.offline, #save-indicator.error { background: #fde7e7; color: #842323; }
+    #status-message { overflow-wrap: anywhere; }
+    main { padding: .8rem 1rem 0; }
+    details#front-matter { border: 1px solid var(--line); border-radius: 11px; background: var(--paper); margin-bottom: .75rem; }
+    details#front-matter > summary { cursor: pointer; padding: .8rem 1rem; font-weight: 700; }
+    .form-help { margin: -.35rem 1rem .7rem; color: var(--muted); font-size: .84rem; }
+    .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; padding: 0 1rem 1rem; }
+    .field { display: flex; flex-direction: column; gap: .28rem; min-width: 0; }
+    .field.wide { grid-column: span 2; }
+    .field.full { grid-column: 1 / -1; }
+    .field input { width: 100%; }
+    .check-field { display: flex; align-items: center; gap: .55rem; padding-top: 1.55rem; }
+    .check-field input { width: 1.1rem; height: 1.1rem; }
+    .split-toolbar { display: flex; align-items: center; gap: .45rem; min-height: 2.8rem; }
+    .split-toolbar strong { margin-right: auto; font-size: .95rem; }
+    .split-toolbar button { min-height: 2.2rem; padding: .35rem .6rem; }
+    #workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .75rem; min-height: 55vh; }
+    .pane { min-width: 0; border: 1px solid var(--line); border-radius: 11px; overflow: hidden; background: white; }
+    .pane-head { display: flex; align-items: center; gap: .4rem; padding: .25rem .55rem; border-bottom: 1px solid var(--line); background: #faf9f5; }
+    .pane-head h2 { margin: 0 auto 0 .25rem; font-size: .9rem; }
+    .pane-head button { min-height: 2rem; padding: .3rem .55rem; font-size: .82rem; }
+    #vditor { min-height: 55vh; }
+    #vditor .vditor { border: 0; }
+    #preview-frame { display: block; width: 100%; height: 55vh; min-height: 420px; border: 0; background: white; }
+    #workspace.editor-collapsed { grid-template-columns: minmax(0, 1fr); }
+    #workspace.preview-collapsed { grid-template-columns: minmax(0, 1fr); }
+    #workspace.editor-collapsed #editor-pane, #workspace.preview-collapsed #preview-pane { display: none; }
     footer {
-      display: flex; flex-wrap: wrap; align-items: center; gap: .75rem;
-      padding: .9rem 1.25rem 1.4rem; font-size: .85rem; color: #5c5546;
+      display: flex; align-items: center; flex-wrap: wrap; gap: .55rem; padding: .8rem 1rem 1.4rem;
+      color: var(--muted); font-size: .84rem;
     }
-    footer .sep { width: 1px; height: 1.2em; background: var(--line); }
-    #token { flex: 1; min-width: 220px; max-width: 380px; }
-    .hint { color: #8a8172; font-size: .8rem; }
+    #filename { width: min(350px, 100%); }
+    footer .spacer { flex: 1; }
+    details#more-actions { position: relative; }
+    details#more-actions > summary { cursor: pointer; list-style: none; padding: .65rem .8rem; border: 1px solid var(--line); border-radius: 8px; background: white; color: var(--ink); }
+    details#more-actions > summary::-webkit-details-marker { display: none; }
+    .more-content { position: absolute; right: 0; bottom: calc(100% + .35rem); z-index: 6; width: min(410px, 90vw); padding: .85rem; border: 1px solid var(--line); border-radius: 10px; background: white; box-shadow: 0 8px 28px #17152a1c; }
+    .more-content button { margin: .2rem .2rem .45rem 0; }
+    #token { display: block; width: 100%; margin: .4rem 0; }
+    .hint { color: var(--muted); font-size: .8rem; line-height: 1.4; }
+    dialog { width: min(680px, calc(100vw - 2rem)); max-height: 85vh; padding: 0; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); box-shadow: 0 16px 50px #17152a35; }
+    dialog::backdrop { background: #17152a88; }
+    .dialog-head { display: flex; align-items: center; gap: .7rem; padding: .9rem 1rem; border-bottom: 1px solid var(--line); }
+    .dialog-head h2 { margin: 0 auto 0 0; font-size: 1.05rem; }
+    .dialog-body { padding: 1rem; }
+    #media-list { display: grid; gap: .45rem; max-height: 34vh; overflow: auto; margin: .75rem 0 1rem; }
+    .media-item { display: flex; align-items: center; gap: .65rem; text-align: left; }
+    .media-item .media-name { overflow-wrap: anywhere; }
+    #drop-zone { padding: 1rem; border: 2px dashed #b7b2a7; border-radius: 9px; text-align: center; background: #faf9f5; }
+    #drop-zone.dragging { border-color: var(--green); background: #e9f7f0; }
+    #drop-zone p { margin: 0 0 .55rem; }
+    .dialog-actions { display: flex; justify-content: flex-end; padding: .75rem 1rem; border-top: 1px solid var(--line); }
+    @media (max-width: 800px) {
+      .topbar .site-link { margin-left: 0; }
+      .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #workspace { grid-template-columns: minmax(0, 1fr); }
+      #preview-frame { height: 60vh; }
+    }
+    @media (max-width: 560px) {
+      .topbar { position: static; }
+      #draft-select { max-width: 100%; flex: 1 1 100%; }
+      .fields { grid-template-columns: 1fr; }
+      .field.wide { grid-column: auto; }
+      .check-field { padding-top: .35rem; }
+      main { padding: .55rem .55rem 0; }
+      footer { padding-left: .55rem; padding-right: .55rem; }
+      #preview-frame { min-height: 340px; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1><span>●</span> Draft editor</h1>
-    <label class="hint" for="draft-select">Post:</label>
-    <select id="draft-select" aria-label="Choose a draft"></select>
+  <header class="topbar">
+    <h1 class="brand"><span aria-hidden="true">●</span> Draft editor</h1>
+    <label for="draft-select">Choose a post</label>
+    <select id="draft-select" aria-label="Choose a draft"><option value="">Choose a draft…</option></select>
     <button id="btn-new" type="button">New draft</button>
     <a id="open-preview" href="/blog/" target="_blank" rel="noopener">Open rendered preview ↗</a>
-    <span class="hint" style="margin-left:auto">
-      <a href="https://italailabs.com" target="_blank" rel="noopener">Live site ↗</a>
-    </span>
+    <a class="site-link" href="https://italailabs.com" target="_blank" rel="noopener">Live site ↗</a>
   </header>
 
-  <div id="status" role="status"></div>
-  <div id="vditor"></div>
+  <div class="statusbar" role="status" aria-live="polite">
+    <span id="save-indicator" class="saved">Ready</span>
+    <span id="status-message">Loading your drafts…</span>
+  </div>
+
+  <main>
+    <details id="front-matter" open>
+      <summary>Post details <span class="hint">— fill these in instead of editing YAML</span></summary>
+      <p class="form-help">These details are saved at the top of your markdown. You can still edit the YAML directly in the editor below.</p>
+      <div class="fields">
+        <label class="field wide"><span>Title</span><input id="fm-title" type="text" autocomplete="off" placeholder="A clear title for your post"></label>
+        <label class="field"><span>Category</span><input id="fm-category" type="text" placeholder="Research, Guides…"></label>
+        <label class="field"><span>Author</span><input id="fm-author" type="text" placeholder="Your name or team"></label>
+        <label class="field"><span>Short teaser (excerpt)</span><input id="fm-excerpt" type="text" placeholder="A short note for the blog listing"></label>
+        <label class="field wide"><span>Description</span><input id="fm-description" type="text" placeholder="One-line summary for search and sharing"></label>
+        <label class="field"><span>Reading time</span><input id="fm-read_time" type="text" placeholder="5 min read"></label>
+        <label class="field wide"><span>Image path</span><input id="fm-image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
+        <label class="field wide"><span>Large header image path</span><input id="fm-hero_image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
+        <label class="check-field"><input id="fm-published_in_blog" type="checkbox"><span>Show in the blog listing</span></label>
+      </div>
+    </details>
+
+    <div class="split-toolbar" aria-label="Editor and preview controls">
+      <strong>Write and preview</strong>
+      <button id="btn-media" type="button" aria-haspopup="dialog">Add media</button>
+      <button id="btn-show-editor" type="button" hidden>Show editor</button>
+      <button id="btn-show-preview" type="button" hidden>Show preview</button>
+    </div>
+    <div id="workspace">
+      <section class="pane" id="editor-pane" aria-label="Markdown editor">
+        <div class="pane-head"><h2>Write your post</h2><button id="btn-hide-editor" type="button" aria-label="Collapse editor">Hide editor</button></div>
+        <div id="vditor"></div>
+      </section>
+      <section class="pane" id="preview-pane" aria-label="Rendered post preview">
+        <div class="pane-head"><h2>Live page preview</h2><button id="btn-reload-preview" type="button">Refresh preview</button><button id="btn-hide-preview" type="button" aria-label="Collapse preview">Hide preview</button></div>
+        <iframe id="preview-frame" title="Rendered blog post preview" src="/blog/"></iframe>
+      </section>
+    </div>
+  </main>
 
   <footer>
-    <button id="btn-save-local" type="button" class="primary">Save locally</button>
-    <label class="hint" for="filename">Save to:</label>
-    <input type="text" id="filename" placeholder="_posts/2026-08-15-my-draft.md" style="width: 300px;">
-    <button id="btn-push" type="button">Push to GitHub</button>
+    <button id="btn-save-local" type="button" class="primary">Save now</button>
+    <label class="small-label" for="filename">Save to</label>
+    <input type="text" id="filename" aria-label="File path to save the post" placeholder="_posts/YYYY-MM-DD-your-title.md">
+    <span class="spacer"></span>
     <button id="btn-copy" type="button">Copy markdown</button>
     <button id="btn-download" type="button">Download .md</button>
-    <span class="sep"></span>
-    <input type="password" id="token" placeholder="GitHub personal access token (only for “Push to GitHub” — stored only in this browser)">
-    <span class="hint">“Save locally” writes straight into your _posts/ folder — no token needed. The token is only for pushing to the GitHub branch from here.</span>
+    <details id="more-actions">
+      <summary>More actions</summary>
+      <div class="more-content">
+        <button id="btn-push" type="button">Push to GitHub</button>
+        <label class="hint" for="token">Optional GitHub token, saved only in this browser</label>
+        <input type="password" id="token" autocomplete="off" placeholder="Token for the drafts branch">
+        <p class="hint">Saving locally is the normal way to work. Push is optional and sends this post directly to the drafts branch.</p>
+      </div>
+    </details>
   </footer>
 
+  <dialog id="media-dialog" aria-labelledby="media-title">
+    <div class="dialog-head"><h2 id="media-title">Add a picture, video, or file</h2><button id="btn-close-media" type="button" aria-label="Close media window">Close</button></div>
+    <div class="dialog-body">
+      <p id="media-help" class="hint">Choose an existing file to add it to your post, or upload a new one. Files go in this post’s media folder.</p>
+      <div id="media-list" aria-live="polite"><p class="hint">Loading files…</p></div>
+      <div id="drop-zone" tabindex="0" role="button" aria-label="Choose a file or drop a file to upload">
+        <p><strong>Drop a file here</strong> or choose one from your computer.</p>
+        <button id="btn-choose-file" type="button">Choose a file</button>
+        <input id="media-file" type="file" hidden>
+      </div>
+      <p id="upload-note" class="hint">Images, videos, and other files are sorted into the right folder automatically. Avoid uploading private information.</p>
+    </div>
+    <div class="dialog-actions"><button id="btn-close-media-bottom" type="button">Done</button></div>
+  </dialog>
+
   <script src="https://cdn.jsdelivr.net/npm/vditor@3.10.8/dist/index.min.js"></script>
-  {% raw %}
   <script>
     const REPO = "ItalAILabs/italailabs.github.io";
     const BRANCH = "drafts";
     const RAW_BASE = "https://raw.githubusercontent.com/" + REPO + "/" + BRANCH + "/_posts/";
     const API_CONTENTS = "https://api.github.com/repos/" + REPO + "/contents/_posts/";
-
+    const FORM_FIELDS = ["title", "category", "author", "excerpt", "description", "read_time", "image", "hero_image"];
+    const FORM_KEYS = new Set(FORM_FIELDS.concat(["published_in_blog"]));
     let editor = null;
     let manifestPosts = [];
-    let currentFile = null;   // target file on the drafts branch ("Push to" field)
-    let currentUrl  = "/blog/"; // rendered preview URL of the selected draft (from the manifest)
-    let SAVE_BASE   = null;   // local save server (scripts/draft-save-server.py), when running
-
-    // The preview's companion server reads/writes _posts/ on THIS checkout,
-    // so editing works locally with no GitHub round-trip.
-    async function detectSaveServer() {
-      const port = parseInt(location.port, 10) || 80;
-      for (const base of ["http://localhost:" + (port + 1), "http://localhost:4001"]) {
-        try {
-          const res = await fetch(base + "/ping", { cache: "no-store" });
-          if (res.ok) { SAVE_BASE = base; return; }
-        } catch (e) { /* try next candidate */ }
-      }
-    }
+    let currentFile = null;
+    let currentUrl = "/blog/";
+    let SAVE_BASE = null;
+    let dirty = false;
+    let loadingDocument = false;
+    let syncingDocument = false;
+    let filenameAuto = false;
+    let saveTimer = null;
+    let saveBusy = false;
+    let previewTimer = null;
+    let editRevision = 0;
 
     const $ = (id) => document.getElementById(id);
     const selectEl = $("draft-select");
+    const fields = Object.fromEntries(FORM_FIELDS.map((key) => [key, $("fm-" + key)]));
 
-    function setStatus(msg, kind) {
-      const el = $("status");
-      if (!msg) { el.className = ""; el.textContent = ""; return; }
-      el.className = "show " + (kind || "ok");
-      el.textContent = msg;
+    function setStatus(message, state) {
+      const indicator = $("save-indicator");
+      indicator.className = state || "saved";
+      const labels = { saved: "Saved", dirty: "Unsaved", saving: "Saving…", offline: "Server offline", error: "Needs attention" };
+      indicator.textContent = labels[state] || "Ready";
+      $("status-message").textContent = message || "";
+    }
+
+    function localDate() {
+      const now = new Date();
+      return [now.getFullYear(), String(now.getMonth() + 1).padStart(2, "0"), String(now.getDate()).padStart(2, "0")].join("-");
+    }
+
+    function slugFromTitle(title) {
+      return (title || "")
+        .normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "untitled-draft";
+    }
+
+    function filenameFromInput() {
+      return $("filename").value.trim().replace(/^\/?_posts\//, "");
+    }
+
+    function postSlug(file) {
+      return String(file || "").replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.md$/i, "");
     }
 
     function updatePreviewLink() {
-      $("open-preview").href = currentUrl;
+      $("open-preview").href = currentUrl || "/blog/";
+    }
+
+    function reloadPreview() {
+      const frame = $("preview-frame");
+      const url = new URL(currentUrl || "/blog/", location.origin);
+      url.searchParams.set("draft-preview", String(Date.now()));
+      frame.src = url.pathname + url.search;
+    }
+
+    function schedulePreviewReload() {
+      clearTimeout(previewTimer);
+      previewTimer = setTimeout(reloadPreview, 1600);
+      setTimeout(reloadPreview, 4200);
+    }
+
+    async function detectSaveServer() {
+      const port = parseInt(location.port, 10) || 80;
+      const candidates = Array.from(new Set(["http://localhost:" + (port + 1), "http://localhost:4001"]));
+      for (const base of candidates) {
+        try {
+          const response = await fetch(base + "/ping", { cache: "no-store" });
+          if (response.ok) {
+            const recovered = !SAVE_BASE;
+            SAVE_BASE = base;
+            if (recovered && dirty) {
+              setStatus("Local save is available again. Saving your changes…", "dirty");
+              scheduleSave(0);
+            } else if (recovered) {
+              setStatus("Local saving is ready on this computer.", "saved");
+            }
+            return true;
+          }
+        } catch (error) { /* Try the standard local save-server port. */ }
+      }
+      SAVE_BASE = null;
+      return false;
     }
 
     async function loadManifest() {
-      let manifest;
       try {
-        const res = await fetch("/drafts-manifest.json", { cache: "no-store" });
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        manifest = await res.json();
-      } catch (e) {
-        setStatus("Could not load the drafts list (" + e.message + "). The preview may still be building.", "err");
-        return;
+        const response = await fetch("/drafts-manifest.json", { cache: "no-store" });
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        const manifest = await response.json();
+        manifestPosts = Array.isArray(manifest.posts) ? manifest.posts : [];
+        selectEl.innerHTML = "";
+        const placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = manifestPosts.length ? "Choose a draft…" : "No saved drafts yet";
+        selectEl.appendChild(placeholder);
+        for (const post of manifestPosts) {
+          const option = document.createElement("option");
+          option.value = post.file;
+          option.textContent = post.title + "  (" + post.file + ")";
+          selectEl.appendChild(option);
+        }
+        if (!manifestPosts.length) {
+          setStatus(SAVE_BASE
+            ? "There are no saved drafts yet. Choose New draft to start one; your work will save to this computer."
+            : "There are no saved drafts yet. Choose New draft to start, then run scripts/build-preview.sh serve to save on this computer.", SAVE_BASE ? "saved" : "offline");
+          return;
+        }
+        const wanted = new URLSearchParams(location.search).get("post");
+        const initial = wanted && manifestPosts.some((post) => post.file === wanted) ? wanted : manifestPosts[0].file;
+        selectEl.value = initial;
+        await loadDraft(initial, true);
+      } catch (error) {
+        setStatus("Could not load the drafts list. The preview may still be building; you can still start a new draft.", "error");
       }
-      manifestPosts = manifest.posts;
-      selectEl.innerHTML = "";
-      for (const p of manifest.posts) {
-        const opt = document.createElement("option");
-        opt.value = p.file;
-        opt.textContent = p.title + "  (" + p.file + ")";
-        selectEl.appendChild(opt);
-      }
-      if (!manifest.posts.length) {
-        setStatus("No drafts on this branch yet. Use “New draft” to download a template, save it as _posts/<date>-<slug>.md, then reload this page.", "err");
-        return;
-      }
-      const wanted = new URLSearchParams(location.search).get("post");
-      selectEl.value = (wanted && manifest.posts.some((p) => p.file === wanted)) ? wanted : manifest.posts[0].file;
-      await loadDraft(selectEl.value);
     }
 
-    async function loadDraft(file) {
+    function parseYamlValue(value) {
+      const raw = (value || "").trim();
+      if (!raw) return "";
+      if (raw[0] === '"') {
+        try { return JSON.parse(raw); } catch (error) { return raw.slice(1, raw.endsWith('"') ? -1 : undefined); }
+      }
+      if (raw[0] === "'") return raw.slice(1, raw.endsWith("'") ? -1 : undefined).replace(/''/g, "'");
+      return raw.replace(/\s+#.*$/, "").trim();
+    }
+
+    function parseFrontMatter(markdown) {
+      const match = markdown.match(/^---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)/);
+      if (!match) return null;
+      const lines = match[1].split(/\r?\n/);
+      const chunks = [];
+      let current = null;
+      for (const line of lines) {
+        const topLevel = line.match(/^([A-Za-z_][A-Za-z0-9_-]*):(?:[ \t]*(.*))?$/);
+        if (topLevel) {
+          if (current) chunks.push(current);
+          current = { key: topLevel[1], value: topLevel[2] || "", lines: [line] };
+        } else if (current) {
+          current.lines.push(line);
+        } else {
+          chunks.push({ key: null, value: "", lines: [line] });
+        }
+      }
+      if (current) chunks.push(current);
+      const values = {};
+      for (const chunk of chunks) {
+        if (!FORM_KEYS.has(chunk.key)) continue;
+        let value = parseYamlValue(chunk.value);
+        if (chunk.key === "published_in_blog") value = String(value).toLowerCase() !== "false" && String(value).toLowerCase() !== "no";
+        values[chunk.key] = value;
+      }
+      return { chunks, values, body: markdown.slice(match[0].length) };
+    }
+
+    function hasUnclosedFrontMatter(markdown) {
+      return /^---[ \t]*\r?\n/.test(markdown) && !parseFrontMatter(markdown);
+    }
+
+    function setFormValue(key, value) {
+      if (key === "published_in_blog") {
+        $("fm-published_in_blog").checked = value !== false;
+      } else if (fields[key]) {
+        fields[key].value = value == null ? "" : String(value);
+      }
+    }
+
+    function syncFormFromDocument(markdown) {
+      const parsed = parseFrontMatter(markdown);
+      if (!parsed) return false;
+      loadingDocument = true;
+      for (const key of FORM_FIELDS) setFormValue(key, parsed.values[key] || "");
+      setFormValue("published_in_blog", Object.prototype.hasOwnProperty.call(parsed.values, "published_in_blog") ? parsed.values.published_in_blog : true);
+      loadingDocument = false;
+      updateAutomaticFilename();
+      return true;
+    }
+
+    function yamlString(value) { return JSON.stringify(String(value)); }
+
+    function frontMatterValues() {
+      const result = {};
+      for (const key of FORM_FIELDS) {
+        const value = fields[key].value.trim();
+        if (value) result[key] = value;
+      }
+      result.published_in_blog = $("fm-published_in_blog").checked;
+      return result;
+    }
+
+    function serializeFrontMatter(markdown) {
+      if (hasUnclosedFrontMatter(markdown)) return null;
+      const parsed = parseFrontMatter(markdown);
+      const values = frontMatterValues();
+      const lines = [];
+      const written = new Set();
+      const serializeKey = (key) => {
+        if (!Object.prototype.hasOwnProperty.call(values, key)) return;
+        const value = values[key];
+        lines.push(key + ": " + (key === "published_in_blog" ? (value ? "true" : "false") : yamlString(value)));
+        written.add(key);
+      };
+      if (parsed) {
+        for (const chunk of parsed.chunks) {
+          if (FORM_KEYS.has(chunk.key)) serializeKey(chunk.key);
+          else lines.push(...chunk.lines);
+        }
+      }
+      for (const key of FORM_FIELDS.concat(["published_in_blog"])) {
+        if (!written.has(key)) serializeKey(key);
+      }
+      if (!parsed) lines.unshift("layout: post");
+      const body = parsed ? parsed.body : (markdown ? "\n" + markdown : "");
+      return "---\n" + lines.join("\n") + "\n---\n" + body;
+    }
+
+    function updateAutomaticFilename() {
+      if (!filenameAuto || currentFile) return;
+      const title = fields.title.value.trim() || "Untitled draft";
+      $("filename").value = "_posts/" + localDate() + "-" + slugFromTitle(title) + ".md";
+    }
+
+    function applyFormToDocument() {
+      if (!editor || loadingDocument || syncingDocument) return true;
+      const markdown = editor.getValue();
+      if (hasUnclosedFrontMatter(markdown)) {
+        setStatus("The front matter needs its closing --- line before post details can be saved.", "error");
+        return false;
+      }
+      const updated = serializeFrontMatter(markdown);
+      if (updated !== markdown) {
+        syncingDocument = true;
+        editor.setValue(updated);
+        syncingDocument = false;
+      }
+      return true;
+    }
+
+    function markChanged() {
+      if (loadingDocument || syncingDocument) return;
+      dirty = true;
+      editRevision += 1;
+      if (SAVE_BASE) {
+        setStatus("Unsaved changes. They will save automatically after you pause typing.", "dirty");
+        scheduleSave(2000);
+      } else {
+        setStatus("Unsaved changes — local saving is offline. Start or restore the local preview server to save on this computer.", "offline");
+      }
+    }
+
+    function onEditorInput(value) {
+      if (loadingDocument || syncingDocument) return;
+      syncFormFromDocument(value);
+      markChanged();
+    }
+
+    function scheduleSave(delay) {
+      clearTimeout(saveTimer);
+      if (!SAVE_BASE || !dirty) return;
+      saveTimer = setTimeout(() => saveLocally(true), delay);
+    }
+
+    async function loadDraft(file, initial) {
+      if (!file) return;
+      if (saveBusy) {
+        selectEl.value = currentFile || "";
+        setStatus("Please wait for the current save to finish before opening another draft.", "saving");
+        return;
+      }
+      if (dirty && !initial && !window.confirm("You have unsaved changes. Leave this draft and discard them?")) {
+        selectEl.value = currentFile || "";
+        return;
+      }
+      clearTimeout(saveTimer);
       currentFile = file;
+      filenameAuto = false;
       $("filename").value = "_posts/" + file;
-      const p = manifestPosts.find((x) => x.file === file);
-      currentUrl = (p && p.url) ? p.url : "/blog/";
-      // Local checkout first, GitHub as fallback (e.g. preview served elsewhere).
-      let res = null, fromLocal = false;
+      const post = manifestPosts.find((item) => item.file === file);
+      currentUrl = post && post.url ? post.url : "/blog/" + postSlug(file) + "/";
+      updatePreviewLink();
+      let response = null;
+      let fromLocal = false;
       if (SAVE_BASE) {
         try {
-          const r = await fetch(SAVE_BASE + "/src/" + encodeURIComponent(file), { cache: "no-store" });
-          if (r.ok) { res = r; fromLocal = true; }
-        } catch (e) { /* fall through to GitHub */ }
+          const local = await fetch(SAVE_BASE + "/src/" + encodeURIComponent(file), { cache: "no-store" });
+          if (local.ok) { response = local; fromLocal = true; }
+        } catch (error) { SAVE_BASE = null; }
       }
-      if (!res) {
-        try { res = await fetch(RAW_BASE + encodeURIComponent(file), { cache: "no-store" }); } catch (e) {}
+      if (!response) {
+        try { response = await fetch(RAW_BASE + encodeURIComponent(file), { cache: "no-store" }); } catch (error) { /* Show the shared error below. */ }
       }
-      if (!res || !res.ok) {
-        setStatus("Could not load " + file + (res ? " (HTTP " + res.status + ")." : "."), "err");
+      if (!response || !response.ok) {
+        setStatus("Could not load " + file + ". Check your connection or choose another draft.", "error");
         return;
       }
-      editor.setValue(await res.text());
-      updatePreviewLink();
-      setStatus(fromLocal
-        ? "Loaded " + file + " from your local checkout."
-        : "Loaded " + file + " from GitHub (local save server not running — start the preview with scripts/build-preview.sh serve).");
+      loadingDocument = true;
+      editor.setValue(await response.text());
+      syncFormFromDocument(editor.getValue());
+      loadingDocument = false;
+      dirty = false;
+      if (fromLocal) setStatus("Loaded " + file + " from your local checkout.", "saved");
+      else setStatus("Loaded " + file + " from GitHub. Local saving is offline; start scripts/build-preview.sh serve to save here.", "offline");
+      reloadPreview();
     }
 
-    async function saveLocally() {
-      if (!SAVE_BASE) {
-        setStatus("Local save server not running — start the preview with scripts/build-preview.sh serve.", "err");
-        return;
-      }
-      const file = $("filename").value.trim().replace(/^\/?_posts\//, "");
-      if (!/^\d{4}-\d{2}-\d{2}-.+\.md$/.test(file)) {
-        setStatus("The “Save to” field must look like _posts/YYYY-MM-DD-slug.md — fix it first.", "err");
-        return;
-      }
+    async function refreshManifestForFile(file) {
       try {
-        const res = await fetch(SAVE_BASE + "/save", {
+        const response = await fetch("/drafts-manifest.json", { cache: "no-store" });
+        if (!response.ok) return;
+        const manifest = await response.json();
+        manifestPosts = Array.isArray(manifest.posts) ? manifest.posts : manifestPosts;
+        const post = manifestPosts.find((item) => item.file === file);
+        if (post && post.url) currentUrl = post.url;
+        else currentUrl = "/blog/" + postSlug(file) + "/";
+        updatePreviewLink();
+      } catch (error) { /* The filename-derived preview URL remains available. */ }
+    }
+
+    async function saveLocally(automatic) {
+      if (saveBusy) return;
+      if (!SAVE_BASE) {
+        setStatus("Local save server is offline. Start scripts/build-preview.sh serve; your changes are still in this browser.", "offline");
+        return;
+      }
+      if (!applyFormToDocument()) return;
+      const file = filenameFromInput();
+      if (!/^\d{4}-\d{2}-\d{2}-[^/\\]+\.md$/.test(file)) {
+        setStatus("Save to needs a filename like _posts/2026-08-15-my-post.md.", "error");
+        return;
+      }
+      const content = editor.getValue();
+      const savedRevision = editRevision;
+      saveBusy = true;
+      setStatus("Saving your post to this computer…", "saving");
+      try {
+        const response = await fetch(SAVE_BASE + "/save", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ file, content: editor.getValue() })
+          body: JSON.stringify({ file, content })
         });
-        if (!res.ok) throw new Error("HTTP " + res.status);
+        if (!response.ok) throw new Error("HTTP " + response.status);
         currentFile = file;
-        setStatus("Saved _posts/" + file + " in your local checkout — the preview updates automatically. Commit it when you're happy (or use “Push to GitHub”).");
-      } catch (e) {
-        setStatus("Local save failed: " + e.message, "err");
+        filenameAuto = false;
+        currentUrl = "/blog/" + postSlug(file) + "/";
+        updatePreviewLink();
+        dirty = editRevision !== savedRevision;
+        setStatus(dirty
+          ? "Your latest changes are still unsaved. They will save automatically in a moment."
+          : "Saved _posts/" + file + " on this computer. The rendered preview will refresh shortly.", dirty ? "dirty" : "saved");
+        schedulePreviewReload();
+        setTimeout(() => refreshManifestForFile(file), 2300);
+      } catch (error) {
+        SAVE_BASE = null;
+        if (dirty) setStatus("Could not save locally. Your changes are still in the editor; restart the preview server before closing this page.", "offline");
+        else setStatus("The local save server could not be reached. Your post is still in the editor.", "offline");
+      } finally {
+        saveBusy = false;
+        if (dirty && SAVE_BASE) scheduleSave(automatic ? 500 : 0);
       }
-    }
-
-    function download(name, text) {
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([text], { type: "text/markdown" }));
-      a.download = name;
-      a.click();
-      URL.revokeObjectURL(a.href);
     }
 
     function newDraftTemplate() {
-      const d = new Date().toISOString().slice(0, 10);
       return [
         "---",
-        'layout: post',
+        "layout: post",
         'title: "Untitled draft"',
-        'description: "One-line summary shown in search and social cards."',
-        'category: "Research"',
-        'excerpt: "A short teaser for the blog index (one or two sentences)."',
         "published_in_blog: true",
-        'author: "Your Name"',
-        'read_time: "5 min read"',
         "---",
         "",
         "## Start writing here",
         "",
-        "Everything below the front matter is standard markdown — headings, lists,",
-        "quotes, code blocks, links. You can also paste raw HTML for special blocks.",
-        "",
-        "When it looks right, hit “Save locally” below (or push straight to GitHub).",
+        "Write your post below. The details form above fills in the post information for you.",
         ""
       ].join("\n");
     }
 
     function authHeaders(token) {
-      return {
-        "Authorization": "Bearer " + token,
-        "Accept": "application/vnd.github+json"
-      };
+      return { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" };
     }
 
     async function pushDraft() {
-      const md = editor.getValue();
+      if (!applyFormToDocument()) return;
+      const markdown = editor.getValue();
       const token = $("token").value.trim() || localStorage.getItem("drafts-gh-token") || "";
       if (!token) {
-        setStatus("No token: paste one below (fine-grained, write access to this repo), or use Copy/Download and paste into the GitHub web editor.", "err");
+        setStatus("To push directly, add a GitHub token with permission to update this repository. Or use Save now, Copy, or Download.", "error");
         return;
       }
       localStorage.setItem("drafts-gh-token", token);
-
-      const file = $("filename").value.trim().replace(/^\/?_posts\//, "");
-      if (!/^\d{4}-\d{2}-\d{2}-.+\.md$/.test(file)) {
-        setStatus("The “Push to” field must look like _posts/YYYY-MM-DD-slug.md — fix it first.", "err");
+      const file = filenameFromInput();
+      if (!/^\d{4}-\d{2}-\d{2}-[^/\\]+\.md$/.test(file)) {
+        setStatus("Save to needs a filename like _posts/2026-08-15-my-post.md.", "error");
         return;
       }
-
       const url = API_CONTENTS + encodeURIComponent(file) + "?ref=" + BRANCH;
       try {
-        let sha = null; // null → the file does not exist yet, PUT will create it
-        const getRes = await fetch(url, { headers: authHeaders(token) });
-        if (getRes.ok) {
-          sha = (await getRes.json()).sha;
-        } else if (getRes.status !== 404) {
-          throw new Error("GET " + getRes.status + " — check the token has write access to " + REPO);
-        }
-
-        const body = {
-          message: (sha ? "Update " : "Add ") + file,
-          content: btoa(unescape(encodeURIComponent(md))),
-          branch: BRANCH
-        };
+        let sha = null;
+        const existing = await fetch(url, { headers: authHeaders(token) });
+        if (existing.ok) sha = (await existing.json()).sha;
+        else if (existing.status !== 404) throw new Error("Could not check the file. Confirm your token has access to the drafts branch.");
+        const body = { message: (sha ? "Update " : "Add ") + file, content: btoa(unescape(encodeURIComponent(markdown))), branch: BRANCH };
         if (sha) body.sha = sha;
-
-        const putRes = await fetch(url, {
+        const response = await fetch(url, {
           method: "PUT",
           headers: Object.assign(authHeaders(token), { "Content-Type": "application/json" }),
           body: JSON.stringify(body)
         });
-        if (!putRes.ok) throw new Error("PUT " + putRes.status + ": " + (await putRes.text()).slice(0, 200));
+        if (!response.ok) throw new Error("GitHub returned HTTP " + response.status + ". Check the token permissions.");
         currentFile = file;
-        setStatus((sha ? "Pushed " : "Created ") + file + " on the drafts branch — reload this page to see it in the picker.");
-      } catch (e) {
-        setStatus("Push failed: " + e.message, "err");
+        dirty = false;
+        setStatus("Pushed " + file + " to the drafts branch. Reload the draft list to see it there.", "saved");
+      } catch (error) {
+        setStatus("Could not push to GitHub: " + error.message, "error");
       }
     }
 
+    function mediaSlug() {
+      const file = filenameFromInput();
+      return /^\d{4}-\d{2}-\d{2}-[^/\\]+\.md$/.test(file) ? postSlug(file) : "";
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
+    }
+
+    function insertMediaReference(file) {
+      const url = "/" + file.path;
+      let markdown;
+      if (file.type === "images") markdown = "![" + file.name.replace(/\.[^.]+$/, "") + "](" + url + ")";
+      else if (file.type === "videos") markdown = '<video controls src="' + escapeHtml(url) + '"></video>';
+      else markdown = "[Download " + file.name.replace(/[\[\]]/g, "") + "](" + url + ")";
+      editor.insertValue(markdown);
+      markChanged();
+      $("media-dialog").close();
+    }
+
+    async function loadMediaList() {
+      const list = $("media-list");
+      const slug = mediaSlug();
+      if (!SAVE_BASE) {
+        list.innerHTML = '<p class="hint">The local save server is offline. Start scripts/build-preview.sh serve to browse and upload files.</p>';
+        return;
+      }
+      if (!slug || !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(slug)) {
+        list.innerHTML = '<p class="hint">Save the post with a filename first so files can go in its media folder.</p>';
+        return;
+      }
+      list.innerHTML = '<p class="hint">Looking for files…</p>';
+      try {
+        const response = await fetch(SAVE_BASE + "/files/" + encodeURIComponent(slug), { cache: "no-store" });
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        const data = await response.json();
+        list.innerHTML = "";
+        if (!data.files.length) {
+          const empty = document.createElement("p");
+          empty.className = "hint";
+          empty.textContent = "No files for this post yet. Upload a picture, video, or other file below.";
+          list.appendChild(empty);
+          return;
+        }
+        for (const file of data.files) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "media-item";
+          button.innerHTML = '<span aria-hidden="true">' + (file.type === "images" ? "▧" : file.type === "videos" ? "▶" : "↗") + '</span><span class="media-name">' + escapeHtml(file.name) + '</span><span class="hint">Add to post</span>';
+          button.addEventListener("click", () => insertMediaReference(file));
+          list.appendChild(button);
+        }
+      } catch (error) {
+        list.innerHTML = '<p class="hint">Could not list files. Check that the local preview server is running.</p>';
+      }
+    }
+
+    async function uploadMedia(file) {
+      if (!file) return;
+      const slug = mediaSlug();
+      if (!SAVE_BASE || !slug || !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(slug)) {
+        setStatus("Save the post with a valid filename and make sure the local preview server is running before uploading.", "error");
+        return;
+      }
+      const form = new FormData();
+      form.append("slug", slug);
+      form.append("file", file, file.name);
+      $("upload-note").textContent = "Uploading " + file.name + "…";
+      try {
+        const response = await fetch(SAVE_BASE + "/upload", { method: "POST", body: form });
+        if (!response.ok) throw new Error(response.status === 409 ? "A file with that name already exists. Rename this file and try again." : "Upload failed (HTTP " + response.status + ").");
+        const uploaded = await response.json();
+        $("upload-note").textContent = "Uploaded " + uploaded.saved + ". Choose it from the list to add it to the post.";
+        await loadMediaList();
+        const item = { type: uploaded.type, name: uploaded.saved, path: uploaded.path };
+        insertMediaReference(item);
+        setStatus("Uploaded and added " + uploaded.saved + ". Save the post to keep your changes.", "dirty");
+      } catch (error) {
+        $("upload-note").textContent = error.message;
+      }
+      $("media-file").value = "";
+    }
+
+    function initPaneControls() {
+      const workspace = $("workspace");
+      $("btn-hide-editor").addEventListener("click", () => {
+        workspace.classList.add("editor-collapsed");
+        $("btn-show-editor").hidden = false;
+      });
+      $("btn-hide-preview").addEventListener("click", () => {
+        workspace.classList.add("preview-collapsed");
+        $("btn-show-preview").hidden = false;
+      });
+      $("btn-show-editor").addEventListener("click", () => {
+        workspace.classList.remove("editor-collapsed");
+        $("btn-show-editor").hidden = true;
+      });
+      $("btn-show-preview").addEventListener("click", () => {
+        workspace.classList.remove("preview-collapsed");
+        $("btn-show-preview").hidden = true;
+      });
+    }
+
     function initEditor() {
-      editor = Vditor.create("vditor", {
-        height: "60vh",
+      editor = new Vditor("vditor", {
+        height: "55vh",
         width: "100%",
-        mode: "ir", // instant rendering — what you type is what you see
-        placeholder: "Pick a draft above, or create one.",
+        mode: "ir",
+        placeholder: "Choose a post or start a new draft.",
         toolbarConfig: { pin: true },
         toolbar: [
           "headings", "bold", "italic", "strikeThrough", "|",
           "link", "insertImage", "quote", "code", "inlineCode", "|",
           "list", "orderedList", "checklist", "table", "|",
-          "undo", "redo", "|",
-          "preview", "fullscreen"
+          "undo", "redo", "|", "preview", "fullscreen"
         ],
         preview: { delay: 200 },
         cache: { enable: false },
-        after: async () => { await detectSaveServer(); loadManifest(); }
+        input: (value) => onEditorInput(value),
+        after: () => { setTimeout(startEditor, 0); }
       });
-
-      selectEl.addEventListener("change", () => loadDraft(selectEl.value));
-      $("btn-new").addEventListener("click", () => {
-        const name = new Date().toISOString().slice(0, 10) + "-untitled-draft.md";
-        editor.setValue(newDraftTemplate());
-        currentFile = null;
-        $("filename").value = "_posts/" + name;
-        selectEl.value = "";
-        updatePreviewLink();
-        setStatus("New draft in the editor. “Push to drafts branch” will create _posts/" + name + " — it does not exist yet, so nothing can be overwritten.");
-      });
-      $("btn-copy").addEventListener("click", async () => {
-        await navigator.clipboard.writeText(editor.getValue());
-        setStatus("Markdown copied — paste it into the GitHub web editor for " + (currentFile || "your file") + ".");
-      });
-      $("btn-download").addEventListener("click", () => {
-        const name = $("filename").value.trim().replace(/^.*\//, "") || "draft.md";
-        download(name, editor.getValue());
-        setStatus("Downloaded. On GitHub: open the drafts branch → _posts/ → “Add file” → upload it (same filename).");
-      });
-      $("btn-save-local").addEventListener("click", saveLocally);
-      $("btn-push").addEventListener("click", pushDraft);
     }
 
+    async function startEditor() {
+      await detectSaveServer();
+      await loadManifest();
+      setInterval(async () => {
+        const available = await detectSaveServer();
+        if (!available && !dirty) {
+          setStatus("Local save server is offline. Start scripts/build-preview.sh serve to save on this computer.", "offline");
+        } else if (available && dirty) {
+          scheduleSave(0);
+        }
+      }, 5000);
+    }
+
+    function bindEvents() {
+      selectEl.addEventListener("change", () => loadDraft(selectEl.value));
+      $("btn-new").addEventListener("click", () => {
+        if (dirty && !window.confirm("Start a new draft and discard the unsaved changes in this one?")) return;
+        if (saveBusy) {
+          setStatus("Please wait for the current save to finish before starting another draft.", "saving");
+          return;
+        }
+        currentFile = null;
+        currentUrl = "/blog/";
+        filenameAuto = true;
+        selectEl.value = "";
+        loadingDocument = true;
+        editor.setValue(newDraftTemplate());
+        syncFormFromDocument(editor.getValue());
+        fields.title.value = "Untitled draft";
+        loadingDocument = false;
+        updateAutomaticFilename();
+        updatePreviewLink();
+        dirty = false;
+        reloadPreview();
+        setStatus(SAVE_BASE ? "A new draft is ready. Changes save automatically on this computer." : "A new draft is ready in this browser. Start scripts/build-preview.sh serve to save it on this computer.", SAVE_BASE ? "saved" : "offline");
+      });
+      $("filename").addEventListener("input", () => { filenameAuto = false; });
+      for (const key of FORM_FIELDS) {
+        fields[key].addEventListener("input", () => {
+          if (loadingDocument) return;
+          if (key === "title") updateAutomaticFilename();
+          if (applyFormToDocument()) markChanged();
+        });
+      }
+      $("fm-published_in_blog").addEventListener("change", () => {
+        if (!loadingDocument && applyFormToDocument()) markChanged();
+      });
+      $("btn-save-local").addEventListener("click", () => saveLocally(false));
+      document.addEventListener("keydown", (event) => {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+          event.preventDefault();
+          saveLocally(false);
+        }
+      });
+      $("btn-copy").addEventListener("click", async () => {
+        if (!applyFormToDocument()) return;
+        try {
+          await navigator.clipboard.writeText(editor.getValue());
+          setStatus("Markdown copied. You can paste it into another editor or the GitHub web editor.", "saved");
+        } catch (error) { setStatus("Could not copy automatically. Select the markdown in the editor and copy it.", "error"); }
+      });
+      $("btn-download").addEventListener("click", () => {
+        if (!applyFormToDocument()) return;
+        const name = filenameFromInput().split("/").pop() || "draft.md";
+        const url = URL.createObjectURL(new Blob([editor.getValue()], { type: "text/markdown" }));
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = name;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        setStatus("Downloaded " + name + ".", "saved");
+      });
+      $("btn-push").addEventListener("click", pushDraft);
+      $("token").value = localStorage.getItem("drafts-gh-token") || "";
+      $("btn-reload-preview").addEventListener("click", reloadPreview);
+      initPaneControls();
+      const dialog = $("media-dialog");
+      $("btn-media").addEventListener("click", () => { dialog.showModal(); loadMediaList(); });
+      $("btn-close-media").addEventListener("click", () => dialog.close());
+      $("btn-close-media-bottom").addEventListener("click", () => dialog.close());
+      $("btn-choose-file").addEventListener("click", () => $("media-file").click());
+      $("media-file").addEventListener("change", (event) => uploadMedia(event.target.files[0]));
+      const dropZone = $("drop-zone");
+      dropZone.addEventListener("dragover", (event) => { event.preventDefault(); dropZone.classList.add("dragging"); });
+      dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragging"));
+      dropZone.addEventListener("drop", (event) => {
+        event.preventDefault();
+        dropZone.classList.remove("dragging");
+        uploadMedia(event.dataTransfer.files[0]);
+      });
+      dropZone.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); $("media-file").click(); }
+      });
+    }
+
+    bindEvents();
     initEditor();
   </script>
   {% endraw %}

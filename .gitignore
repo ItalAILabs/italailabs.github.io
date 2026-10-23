@@ -3,6 +3,7 @@
 /.main
 /.genassets
 /drafts-manifest.json   # build leftover from older revisions; hook writes it into _site now
+__pycache__/
 /.jekyll-cache
 /styles
 /vendor

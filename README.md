@@ -30,7 +30,15 @@ One-time setup: install [Ruby](https://www.ruby-lang.org/en/install/) (plus `lib
 scripts/build-preview.sh serve
 ```
 
-Open **http://localhost:4000/blog/editor/** — pick a draft or hit *New draft*, edit what-you-type-is-what-you-see, then *Save locally*: your file is written straight into the `_posts/` folder of this copy and the preview updates by itself. No token, no GitHub round-trip. (A *Push to GitHub* button is there too, if you ever want to commit from the browser — that one does need a personal access token.) The same server shows the blog itself at **http://localhost:4000/blog/**.
+Open **http://localhost:4000/blog/editor/**. It's built for writing, not for fiddling:
+
+- Pick a draft (or hit *New draft*) — on the left you write what-you-type-is-what-you-see; on the right the post renders **live in the real site template** and refreshes as you work.
+- The *Post details* form fills in the title, author, teaser and friends for you — no hand-editing YAML.
+- Everything **saves automatically** into the `_posts/` folder of this copy (*Save now* or Ctrl-S if you prefer). No token, no GitHub round-trip.
+- *Add media* lists this post's files and uploads new ones straight into its media folder — click one and it's inserted at the right path.
+- A *Push to GitHub* action exists too, if you ever want to commit from the browser (that one does need a personal access token).
+
+The same server shows the blog itself at **http://localhost:4000/blog/**.
 
 The preview builds only the blog and pulls the live site's styling automatically, so what you see is exactly what will render on italailabs.com — it starts in seconds and nothing is uploaded anywhere.
 

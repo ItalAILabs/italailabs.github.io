@@ -17,7 +17,7 @@ A minimalist writing room. It contains **only**:
 | `editor.html` | WYSIWYG editor, served at `/blog/editor/` by the local preview; reads/writes your local checkout |
 | `_plugins/draft-local.rb` | Branch-owned Jekyll hook: publishes raw drafts (`/drafts-src/`) + `drafts-manifest.json` into `_site/` on every build/rebuild |
 | `scripts/build-preview.sh` | Minimal blog-only local build (fetches `main`, symlinks the blog chain); in serve mode also starts the save server |
-| `scripts/draft-save-server.py` | 127.0.0.1-only helper the editor uses to read/save `_posts/` locally (port 4001) |
+| `scripts/draft-save-server.py` | 127.0.0.1-only helper (port 4001): reads/saves `_posts/` locally, lists per-post media (`GET /files/<slug>`), uploads media into the right per-post folder (`POST /upload`, 500 MB cap) |
 | `scripts/new-post.sh` | Scaffolds a new post with correct front matter |
 | `scripts/publish.sh` | Cherry-picks one post's commits onto a branch off `main`, prints a PR link |
 | `_config.draft.yaml`, `README.md`, `.github/workflows/drafts.yml` | Config, human docs, CI |
@@ -58,7 +58,10 @@ scripts/build-preview.sh serve     # → http://localhost:4000/blog/editor/ and 
 Needs Ruby 3.x + bundler (+ libvips for photos) and python3. The script fetches `origin/main`
 into `.main/` and symlinks **only the blog chain** — it builds just `/blog/`, `/blog/<slug>/`,
 `/blog/editor/`. In serve mode it also starts `scripts/draft-save-server.py` (127.0.0.1:4001),
-which is how the editor reads and saves `_posts/` locally — no GitHub round-trip. Never edit
+which is how the editor reads/saves `_posts/` locally and lists/uploads per-post media
+— no GitHub round-trip. The editor itself is a two-pane page (Vditor + live iframe of
+the rendered post) with a front-matter form and autosave; it is self-contained in
+`editor.html`. Never edit
 anything under `.main/`; it is regenerated every run. If the build fails with a "refusing to
 link over it" or "dangling link" error, report it — that means main changed and the allowlist
 in `scripts/build-preview.sh` needs updating (a deliberate tripwire).

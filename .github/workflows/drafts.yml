@@ -1,16 +1,16 @@
-# Drafts review — validation runs on pull requests, never on plain commits.
+# Drafts review — validation for publish PRs only. Nothing runs on plain
+# commits to the drafts branch, and nothing is deployed anywhere.
 #
-#  - PR -> drafts : front-matter sanity on the posts it touches + a full build
-#                   of the assembled site (main + branch content, symlinked).
-#  - PR -> main   : publish gate — must only touch _posts/*.md and
-#                   assets/{images,videos,files}/drafts/**, and the merged
-#                   tree must build. Merging is publishing.
+#  - PR -> main : a cherry-picked post's commits must only touch _posts/*.md
+#                 and assets/{images,videos,files}/drafts/**, and the merged
+#                 tree must build. Merging is publishing.
+#  - workflow_dispatch : on-demand "does this branch build" check (manual).
 
 name: Drafts review
 
 on:
   pull_request:
-    branches: [drafts, main]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -26,36 +26,6 @@ env:
   TZ: Europe/Rome
 
 jobs:
-  # Review a post PR against the shared workspace.
-  review-posts:
-    if: github.event_name == 'pull_request' && github.base_ref == 'drafts'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Front-matter sanity on touched posts
-        run: |
-          CHANGED="$(git diff --name-only origin/drafts...HEAD)"
-          echo "Changed files:"; echo "${CHANGED:-<none>}"
-          FAIL=0
-          while IFS= read -r f; do
-            [ -n "$f" ] || continue
-            case "$f" in _posts/*.md) ;; *) continue ;; esac
-            if [ ! -f "$f" ]; then
-              echo "::error::$f is not in the merged tree (deleted or renamed?)"
-              FAIL=1
-              continue
-            fi
-            head -n 1 "$f" | grep -q '^---$'     || { echo "::error::$f: no front matter block (file must start with ---)"; FAIL=1; }
-            grep -qE '^layout:\s*post\s*$' "$f"  || { echo "::error::$f: missing 'layout: post'"; FAIL=1; }
-            grep -qE '^title:\s*\S'      "$f"    || { echo "::error::$f: missing 'title:'"; FAIL=1; }
-          done <<< "$CHANGED"
-          [ "$FAIL" -eq 0 ] && echo "OK: post front matter looks right"
-          exit "$FAIL"
-
-  # Assemble main + the PR's content and prove it builds.
   build:
     runs-on: ubuntu-latest
     steps:
@@ -73,16 +43,14 @@ jobs:
       - name: Build assembled site
         run: |
           if [ -f scripts/build-preview.sh ]; then
-            # PR -> drafts: materialize main + link it in, merge posts.
+            # Dispatched on the drafts branch: materialize main + link it in.
             bash scripts/build-preview.sh
           else
-            # PR -> main (publish): the merge ref is already the full main
-            # tree plus the new post — build it as-is.
+            # Publish PR against main: the merge ref is already the full main
+            # tree plus the cherry-picked post — build it as-is.
             bundle exec jekyll build
           fi
 
-  # Publishing is per-post: a PR to main may only add/modify post files and
-  # draft media. Anything else (styling, plumbing, other drafts) is rejected.
   validate-publish-pr:
     if: github.event_name == 'pull_request' && github.base_ref == 'main'
     runs-on: ubuntu-latest

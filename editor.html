@@ -70,8 +70,8 @@ description: "Markdown editor for blog drafts on the drafts branch."
     #save-indicator.dirty, #save-indicator.saving { background: #fff0cb; color: #76530a; }
     #save-indicator.offline, #save-indicator.error { background: #fde7e7; color: #842323; }
     #status-message { overflow-wrap: anywhere; }
-    main { padding: .8rem 1rem 0; }
-    details#front-matter { border: 1px solid var(--line); border-radius: 11px; background: var(--paper); margin: 0 0 .75rem; }
+    main { padding: 0; }
+    details#front-matter { border: 1px solid var(--line); border-radius: 11px; background: var(--paper); margin: .8rem 1rem .75rem; }
     details#front-matter > summary { cursor: pointer; padding: .8rem 1rem; color: var(--ink); font-weight: 700; }
     .form-help { margin: -.35rem 1rem .7rem; color: var(--muted); font-size: .84rem; }
     .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; padding: 0 1rem 1rem; }
@@ -81,12 +81,15 @@ description: "Markdown editor for blog drafts on the drafts branch."
     .field input { width: 100%; color: var(--ink) !important; }
     .check-field { display: flex; align-items: center; gap: .55rem; padding-top: 1.55rem; color: var(--muted); font-size: .83rem; }
     .check-field input { width: 1.1rem; height: 1.1rem; }
-    .split-toolbar { display: flex; align-items: center; gap: .45rem; min-height: 2.8rem; }
+    .split-toolbar { display: flex; align-items: center; gap: .45rem; min-height: 2.8rem; padding: .35rem 1rem; }
     .split-toolbar strong { margin-right: auto; color: var(--ink); font-size: .95rem; }
     .split-toolbar button { min-height: 2.2rem !important; padding: .35rem .6rem !important; }
-    #workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .75rem; min-height: 55vh; }
-    .pane { min-width: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--paper); box-shadow: 0 2px 12px #17152a08; }
-    .pane-head { display: flex; align-items: center; gap: .4rem; min-height: 3rem; padding: .25rem .7rem; border-bottom: 1px solid var(--line); background: #faf9f5; }
+    /* The page below the hero uses the live site's own post layout row
+       (.post-layout: flex, centered, 2rem padding) with two children:
+       our editor column and the site's real .post-wrap (820px). */
+    .editor-post-layout { display: flex; justify-content: center; align-items: flex-start; gap: 2rem; padding: 2rem; flex-wrap: wrap; }
+    .editor-column { flex: 1 1 30rem; max-width: 46rem; min-width: 0; display: flex; flex-direction: column; background: var(--standard-light); border: 1px solid #e4e0d2; border-radius: var(--radius-md); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06); overflow: hidden; min-height: 70vh; }
+    .pane-head { display: flex; align-items: center; gap: .4rem; min-height: 3rem; padding: .25rem .7rem; border-bottom: 1px solid #e4e0d2; background: transparent; }
     .pane-head h2 { margin: 0 auto 0 .25rem !important; color: var(--ink); font-size: .9rem !important; line-height: 1.35; }
     .pane-head button { min-height: 2rem !important; padding: .3rem .55rem !important; font-size: .82rem; }
     .hint { color: var(--muted); font-size: .8rem; line-height: 1.4; }
@@ -94,42 +97,20 @@ description: "Markdown editor for blog drafts on the drafts branch."
     .editor-toolbar button { min-height: 2rem !important; min-width: 2rem; padding: .27rem .48rem !important; color: #454253 !important; font-size: .8rem; }
     .editor-toolbar button[aria-label="Heading"] { font-weight: 700; }
     #md-source {
-      display: block; width: 100%; min-height: 55vh; height: 60vh; resize: vertical; padding: 1.15rem 1.2rem;
+      display: block; flex: 1; width: 100%; min-height: 45vh; resize: none; padding: 1.15rem 1.2rem;
       border: 0; border-radius: 0; outline-offset: -3px; background: #fffefa; color: #292638;
       font: 14px/1.7 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
       tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere;
     }
-    #live-view { height: 60vh; min-height: 420px; overflow: auto; background: white; overscroll-behavior: contain; }
-    #live-view .post-hero { padding-top: clamp(2.25rem, 5vw, 4.5rem); padding-bottom: clamp(2rem, 4vw, 3.5rem); }
-    #live-view .post-hero-inner { max-width: 820px; margin: 0 auto; padding: 0 1.4rem; }
-    #live-view .post-hero-breadcrumb { margin-bottom: 1.25rem; }
-    #live-view .post-hero-badges { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; }
-    #live-view .post-hero-title { margin: .8rem 0 .65rem !important; }
-    #live-view .post-hero-title .period { display: inline-block; }
-    #live-view .post-hero-excerpt { margin: 0 0 1.2rem; }
-    #live-view .post-hero-author { display: flex; align-items: center; gap: .75rem; }
-    #live-view .post-hero-avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #e9f4ef; color: var(--green-dark); font-weight: 700; }
-    #live-view .post-hero-author-name { color: var(--ink); font-weight: 700; }
-    #live-view .post-hero-author-role { color: var(--muted); font-size: .86rem; }
-    #live-view .container { width: auto; max-width: 100%; margin: 0; padding: 0 1.4rem; }
-    #live-view .post-layout { display: block; }
-    #live-view .post-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 1.5rem; max-width: 980px; margin: 0 auto; }
-    #live-view .rail { min-width: 0; }
-    #live-view .post-wrap > .rail > .toc { display: block; }
-    #live-view .toc { position: sticky; top: 1rem; padding: .8rem; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); }
-    #live-view .toc summary { cursor: pointer; color: var(--ink); font-weight: 700; }
-    #live-view .toc ul { padding-left: 1.1rem; margin: .6rem 0 0; }
-    #live-view .toc li { margin: .35rem 0; font-size: .83rem; line-height: 1.35; }
-    #live-view .toc li.toc-h3 { margin-left: .65rem; }
-    #live-view .post-main { min-width: 0; max-width: 820px; margin: 0; }
-    #live-view .post-body { min-height: 10rem; }
-    #live-view .post-featured-image { margin-bottom: 1.5rem; }
-    #live-view .post-featured-image img { display: block; max-width: 100%; height: auto; }
-    #live-view .post-author { margin-top: 2.5rem; }
-    #live-view .post-body h2, #live-view .post-body h3 { scroll-margin-top: 1rem; }
-    #workspace.editor-collapsed, #workspace.preview-collapsed { grid-template-columns: minmax(0, 1fr); }
-    #workspace.editor-collapsed #editor-pane, #workspace.preview-collapsed #preview-pane { display: none; }
-    footer { display: flex; align-items: center; flex-wrap: wrap; gap: .55rem; padding: .8rem 1rem 1.4rem; color: var(--muted); font-size: .84rem; }
+    /* The live view IS the site's real .post-wrap column (820px, centred by
+       the flex row). No internal scroll box: the page scrolls, like the site.
+       The ToC keeps the documented base behavior — a card above the article —
+       at every width, instead of the wide-screen margin rail. */
+    #live-view { flex: 0 1 820px; width: 100%; max-width: 820px; margin: 0; }
+    .post-wrap > .rail { position: static; top: auto; bottom: auto; left: auto; width: auto; margin: 0 0 1.5rem; }
+    .post-wrap > .rail > .toc { display: block; position: static; width: 100%; margin: 0 0 1.5rem; }
+    #editor-pane.hidden-pane, #live-view.hidden-pane { display: none; }
+    footer { position: sticky; bottom: 0; z-index: 4; display: flex; align-items: center; flex-wrap: wrap; gap: .55rem; padding: .65rem 1rem; background: var(--paper); border-top: 1px solid var(--line); color: var(--muted); font-size: .84rem; }
     #filename { width: min(350px, 100%); }
     footer .spacer { flex: 1; }
     details#more-actions { position: relative; }
@@ -153,8 +134,6 @@ description: "Markdown editor for blog drafts on the drafts branch."
     @media (max-width: 900px) {
       .topbar .site-link { margin-left: 0; }
       .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      #workspace { grid-template-columns: minmax(0, 1fr); }
-      #live-view { height: 65vh; }
     }
     @media (max-width: 560px) {
       .topbar { position: static; }
@@ -162,12 +141,8 @@ description: "Markdown editor for blog drafts on the drafts branch."
       .fields { grid-template-columns: 1fr; }
       .field.wide { grid-column: auto; }
       .check-field { padding-top: .35rem; }
-      main { padding: .55rem .55rem 0; }
       footer { padding-left: .55rem; padding-right: .55rem; }
-      #live-view { min-height: 360px; }
-      #live-view .post-wrap { grid-template-columns: 1fr; gap: .8rem; }
-      #live-view .container, #live-view .post-hero-inner { padding-left: 1rem; padding-right: 1rem; }
-      #live-view .rail { order: -1; }
+      .editor-post-layout { padding: 1.25rem 1rem; gap: 1.25rem; }
       .statusbar { padding-left: .65rem; padding-right: .65rem; }
     }
   </style>
@@ -208,33 +183,36 @@ description: "Markdown editor for blog drafts on the drafts branch."
     <div class="split-toolbar" aria-label="Editor and preview controls">
       <strong>Write and preview</strong>
       <button id="btn-media" type="button" aria-haspopup="dialog">Add media</button>
+      <button id="btn-hide-preview" type="button">Hide preview</button>
       <button id="btn-show-editor" type="button" hidden>Show editor</button>
       <button id="btn-show-preview" type="button" hidden>Show preview</button>
     </div>
-    <div id="workspace">
-      <section class="pane" id="editor-pane" aria-label="Markdown editor">
-        <div class="pane-head"><h2>Write your post</h2><button id="btn-hide-editor" type="button" aria-label="Collapse editor">Hide editor</button></div>
-        <div class="editor-toolbar" role="toolbar" aria-label="Markdown formatting">
-          <button type="button" data-action="heading" aria-label="Heading" title="Heading">H2</button>
-          <button type="button" data-action="bold" aria-label="Bold" title="Bold"><strong>B</strong></button>
-          <button type="button" data-action="italic" aria-label="Italic" title="Italic"><em>I</em></button>
-          <button type="button" data-action="inline-code" aria-label="Inline code" title="Inline code">&lt;/&gt;</button>
-          <button type="button" data-action="link" aria-label="Link" title="Link">Link</button>
-          <button type="button" data-action="image" aria-label="Image" title="Image">Image</button>
-          <button type="button" data-action="quote" aria-label="Quote" title="Quote">❝</button>
-          <button type="button" data-action="list" aria-label="List" title="List">List</button>
-          <button type="button" data-action="code-block" aria-label="Code block" title="Code block">Code</button>
+    <section class="post-hero" id="live-hero">
+      <div class="post-hero-inner"><div class="post-hero-breadcrumb"><a href="/">HOME</a> / <a href="/blog/">BLOG</a> / <span class="post-hero-breadcrumb-active">UNTITLED DRAFT</span></div><h1 class="post-hero-title">Untitled draft<span class="period"></span></h1></div>
+    </section>
+    <section class="post-content-section">
+      <div class="editor-post-layout">
+        <section class="editor-column" id="editor-pane" aria-label="Markdown editor">
+          <div class="pane-head"><h2>Write your post</h2><button id="btn-hide-editor" type="button" aria-label="Collapse editor">Hide editor</button></div>
+          <div class="editor-toolbar" role="toolbar" aria-label="Markdown formatting">
+            <button type="button" data-action="heading" aria-label="Heading" title="Heading">H2</button>
+            <button type="button" data-action="bold" aria-label="Bold" title="Bold"><strong>B</strong></button>
+            <button type="button" data-action="italic" aria-label="Italic" title="Italic"><em>I</em></button>
+            <button type="button" data-action="inline-code" aria-label="Inline code" title="Inline code">&lt;/&gt;</button>
+            <button type="button" data-action="link" aria-label="Link" title="Link">Link</button>
+            <button type="button" data-action="image" aria-label="Image" title="Image">Image</button>
+            <button type="button" data-action="quote" aria-label="Quote" title="Quote">❝</button>
+            <button type="button" data-action="list" aria-label="List" title="List">List</button>
+            <button type="button" data-action="code-block" aria-label="Code block" title="Code block">Code</button>
+          </div>
+          <textarea id="md-source" aria-label="Markdown source" spellcheck="false" placeholder="Choose a post or start a new draft."></textarea>
+        </section>
+        <div class="post-wrap" id="live-view" aria-label="Live blog post preview">
+          <aside class="rail"></aside>
+          <article class="post-main"><div class="post-body"></div></article>
         </div>
-        <textarea id="md-source" aria-label="Markdown source" spellcheck="false" placeholder="Choose a post or start a new draft."></textarea>
-      </section>
-      <section class="pane" id="preview-pane" aria-label="Rendered post preview">
-        <div class="pane-head"><h2>Live post view <span class="hint">· updates as you type</span></h2><button id="btn-hide-preview" type="button" aria-label="Collapse preview">Hide preview</button></div>
-        <div id="live-view" aria-label="Live blog post preview">
-          <section class="post-hero"><div class="post-hero-inner"><div class="post-hero-breadcrumb"><a href="/">HOME</a> / <a href="/blog/">BLOG</a> / <span class="post-hero-breadcrumb-active">UNTITLED DRAFT</span></div><h1 class="post-hero-title">Untitled draft<span class="period"></span></h1></div></section>
-          <section class="post-content-section"><div class="container"><div class="post-layout"><div class="post-wrap"><aside class="rail"></aside><article class="post-main"><div class="post-body"></div></article></div></div></div></section>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -476,20 +454,33 @@ description: "Markdown editor for blog drafts on the drafts branch."
       .replace(/[\u0300-\u036f]/g, "").replace(/[^\p{L}\p{N}]+/gu, "-").replace(/^-|-$/g, "") || "section";
   }
 
-  function renderLiveView() {
+  function heroFields() {
+    return {
+      title: fields.title.value.trim() || "Untitled draft",
+      category: fields.category.value.trim(),
+      author: fields.author.value.trim(),
+      excerpt: fields.excerpt.value.trim(),
+      readTime: fields.read_time.value.trim(),
+      image: fields.hero_image.value.trim() || fields.image.value.trim(),
+      date: dateFromFilename(filenameFromInput().split("/").pop())
+    };
+  }
+
+  function renderHero() {
+    const f = heroFields();
+    const authorInitials = f.author.split(/\s+/).filter(Boolean).map((part) => part[0]).slice(0, 2).join("").toUpperCase();
+    const badge = f.category ? '<span class="post-hero-category">' + escapeHtml(f.category.toUpperCase()) + "</span>" : "";
+    const dateBadge = f.date ? '<span class="post-hero-date">' + escapeHtml(f.date) + "</span>" : "";
+    const excerptHtml = f.excerpt ? '<p class="post-hero-excerpt">' + escapeHtml(f.excerpt) + "</p>" : "";
+    const authorHtml = f.author ? '<div class="post-hero-author"><div class="post-hero-avatar">' + escapeHtml(authorInitials) + '</div><div class="post-hero-author-info"><div class="post-hero-author-name">' + escapeHtml(f.author) + '</div><div class="post-hero-author-role">Researcher' + (f.readTime ? ' · ' + escapeHtml(f.readTime) : "") + "</div></div></div>" : "";
+    $("live-hero").innerHTML = '<div class="post-hero-inner"><div class="post-hero-breadcrumb"><a href="/">HOME</a> / <a href="/blog/">BLOG</a> / <span class="post-hero-breadcrumb-active">' + escapeHtml(f.title.toUpperCase()) + '</span></div><div class="post-hero-badges">' + badge + dateBadge + '</div><h1 class="post-hero-title">' + escapeHtml(f.title) + '<span class="period"></span></h1>' + excerptHtml + authorHtml + '</div>';
+  }
+
+  function renderBody() {
     if (!window.marked) return;
     const parsed = parseFrontMatter(source.value);
     const body = parsed ? parsed.body : source.value;
-    const title = fields.title.value.trim() || "Untitled draft";
-    const category = fields.category.value.trim();
-    const author = fields.author.value.trim();
-    const excerpt = fields.excerpt.value.trim();
-    const readTime = fields.read_time.value.trim();
-    const image = fields.hero_image.value.trim() || fields.image.value.trim();
-    const filename = filenameFromInput().split("/").pop();
-    const date = dateFromFilename(filename);
-    const renderTo = $("live-view");
-    const scrollTop = renderTo.scrollTop;
+    const f = heroFields();
     let contentHtml = marked.parse(body);
     const content = document.createElement("div");
     content.innerHTML = contentHtml;
@@ -508,22 +499,18 @@ description: "Markdown editor for blog drafts on the drafts branch."
     const tocHtml = headings.length
       ? '<details class="toc" open><summary>On this page</summary><nav aria-label="Table of contents"><ul>' + headings.map((heading) => '<li class="toc-h' + heading.level + '"><a href="#' + escapeHtml(heading.id) + '" data-toc-target="' + escapeHtml(heading.id) + '">' + escapeHtml(heading.text) + '</a></li>').join("") + "</ul></nav></details>"
       : "";
-    const authorInitials = author.split(/\s+/).filter(Boolean).map((part) => part[0]).slice(0, 2).join("").toUpperCase();
-    const badge = category ? '<span class="post-hero-category">' + escapeHtml(category.toUpperCase()) + "</span>" : "";
-    const dateBadge = date ? '<span class="post-hero-date">' + escapeHtml(date) + "</span>" : "";
-    const excerptHtml = excerpt ? '<p class="post-hero-excerpt">' + escapeHtml(excerpt) + "</p>" : "";
-    const authorHtml = author ? '<div class="post-hero-author"><div class="post-hero-avatar">' + escapeHtml(authorInitials) + '</div><div class="post-hero-author-info"><div class="post-hero-author-name">' + escapeHtml(author) + '</div><div class="post-hero-author-role">Researcher' + (readTime ? ' · ' + escapeHtml(readTime) : "") + "</div></div></div>" : "";
-    const imageHtml = image ? '<div class="post-featured-image"><img src="' + escapeHtml(image) + '" alt="' + escapeHtml(title) + '" fetchpriority="high"></div>' : "";
-    renderTo.innerHTML = '<section class="post-hero"><div class="post-hero-inner"><div class="post-hero-breadcrumb"><a href="/">HOME</a> / <a href="/blog/">BLOG</a> / <span class="post-hero-breadcrumb-active">' + escapeHtml((title || "UNTITLED DRAFT").toUpperCase()) + '</span></div><div class="post-hero-badges">' + badge + dateBadge + '</div><h1 class="post-hero-title">' + escapeHtml(title) + '<span class="period"></span></h1>' + excerptHtml + authorHtml + '</div></section><section class="post-content-section"><div class="container"><div class="post-layout"><div class="post-wrap"><aside class="rail">' + tocHtml + '</aside><article class="post-main">' + imageHtml + '<div class="post-body">' + contentHtml + '</div></article></div></div></div></section>';
-    renderTo.scrollTop = scrollTop;
-    renderTo.querySelectorAll("[data-toc-target]").forEach((link) => link.addEventListener("click", (event) => {
+    const imageHtml = f.image ? '<div class="post-featured-image"><img src="' + escapeHtml(f.image) + '" alt="' + escapeHtml(f.title) + '" fetchpriority="high"></div>' : "";
+    $("live-view").innerHTML = '<aside class="rail">' + tocHtml + '</aside><article class="post-main">' + imageHtml + '<div class="post-body">' + contentHtml + '</div></article>';
+    $("live-view").querySelectorAll("[data-toc-target]").forEach((link) => link.addEventListener("click", (event) => {
       event.preventDefault();
-      const target = renderTo.querySelector("#" + CSS.escape(link.dataset.tocTarget));
-      if (!target) return;
-      const viewRect = renderTo.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
-      renderTo.scrollTo({ top: renderTo.scrollTop + targetRect.top - viewRect.top - 12, behavior: "smooth" });
+      const target = $("live-view").querySelector("#" + CSS.escape(link.dataset.tocTarget));
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
     }));
+  }
+
+  function renderLiveView() {
+    renderHero();
+    renderBody();
   }
 
   async function detectSaveServer() {
@@ -890,11 +877,10 @@ description: "Markdown editor for blog drafts on the drafts branch."
   }
 
   function initPaneControls() {
-    const workspace = $("workspace");
-    $("btn-hide-editor").addEventListener("click", () => { workspace.classList.add("editor-collapsed"); $("btn-show-editor").hidden = false; });
-    $("btn-hide-preview").addEventListener("click", () => { workspace.classList.add("preview-collapsed"); $("btn-show-preview").hidden = false; });
-    $("btn-show-editor").addEventListener("click", () => { workspace.classList.remove("editor-collapsed"); $("btn-show-editor").hidden = true; });
-    $("btn-show-preview").addEventListener("click", () => { workspace.classList.remove("preview-collapsed"); $("btn-show-preview").hidden = true; });
+    $("btn-hide-editor").addEventListener("click", () => { $("editor-pane").classList.add("hidden-pane"); $("btn-show-editor").hidden = false; });
+    $("btn-hide-preview").addEventListener("click", () => { $("live-view").classList.add("hidden-pane"); $("btn-show-preview").hidden = false; });
+    $("btn-show-editor").addEventListener("click", () => { $("editor-pane").classList.remove("hidden-pane"); $("btn-show-editor").hidden = true; });
+    $("btn-show-preview").addEventListener("click", () => { $("live-view").classList.remove("hidden-pane"); $("btn-show-preview").hidden = true; });
   }
 
   function bindEvents() {

@@ -58,6 +58,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       background: #faf9f5; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .88rem;
     }
     #save-indicator { flex: 0 0 auto; padding: .2rem .55rem; border-radius: 999px; font-weight: 700; }
+    #save-indicator.loading { background: #eceae4; color: var(--muted); }
     #save-indicator.saved { background: #e2f4eb; color: #145b3e; }
     #save-indicator.dirty, #save-indicator.saving { background: #fff0cb; color: #76530a; }
     #save-indicator.offline, #save-indicator.error { background: #fde7e7; color: #842323; }
@@ -141,7 +142,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
   </header>
 
   <div class="statusbar" role="status" aria-live="polite">
-    <span id="save-indicator" class="saved">Ready</span>
+    <span id="save-indicator" class="loading">Loading…</span>
     <span id="status-message">Loading your drafts…</span>
   </div>
 
@@ -230,6 +231,10 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
     let dirty = false;
     let loadingDocument = false;
     let syncingDocument = false;
+    let nativeInputPending = false;
+    let nativeInputTimer = null;
+    let pendingLocalLoad = null;
+    let pendingLocalLoadBusy = false;
     let filenameAuto = false;
     let saveTimer = null;
     let saveBusy = false;
@@ -522,11 +527,28 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       }
     }
 
+    function onNativeEditorInput(event) {
+      if (loadingDocument || syncingDocument) return;
+      const target = event.target;
+      if (!(target instanceof Element) || !target.closest(
+        ".vditor-ir pre.vditor-reset, .vditor-wysiwyg pre.vditor-reset, .vditor-sv .vditor-reset"
+      )) return;
+      nativeInputPending = true;
+      clearTimeout(nativeInputTimer);
+      nativeInputTimer = setTimeout(() => { nativeInputPending = false; }, 2000);
+      markChanged();
+    }
+
     function onEditorInput(value) {
       if (loadingDocument || syncingDocument) return;
       syncFormFromDocument(value);
       scheduleLivePreview();
-      markChanged();
+      if (nativeInputPending) {
+        nativeInputPending = false;
+        clearTimeout(nativeInputTimer);
+      } else {
+        markChanged();
+      }
     }
 
     function scheduleSave(delay) {
@@ -535,7 +557,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       saveTimer = setTimeout(() => saveLocally(true), delay);
     }
 
-    async function loadDraft(file, initial) {
+    async function loadDraft(file, initial, localOnly) {
       if (!file) return;
       if (saveBusy) {
         selectEl.value = currentFile || "";
@@ -546,6 +568,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
         selectEl.value = currentFile || "";
         return;
       }
+      if (pendingLocalLoad && pendingLocalLoad !== file) pendingLocalLoad = null;
       clearTimeout(saveTimer);
       currentFile = file;
       filenameAuto = false;
@@ -561,10 +584,12 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
           if (local.ok) { response = local; fromLocal = true; }
         } catch (error) { SAVE_BASE = null; }
       }
-      if (!response) {
+      if (!response && !localOnly) {
         try { response = await fetch(RAW_BASE + encodeURIComponent(file), { cache: "no-store" }); } catch (error) { /* Show the shared error below. */ }
       }
+      if (selectEl.value !== file) return;
       if (!response || !response.ok) {
+        pendingLocalLoad = file;
         setStatus("Could not load " + file + ". Check your connection or choose another draft.", "error");
         return;
       }
@@ -573,9 +598,19 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       syncFormFromDocument(editor.getValue());
       loadingDocument = false;
       dirty = false;
+      if (pendingLocalLoad === file) pendingLocalLoad = null;
       if (fromLocal) setStatus("Loaded " + file + " from your local checkout.", "saved");
+      else if (SAVE_BASE) setStatus("Loaded " + file + " from GitHub. It will be saved to this computer on your first save.", "saved");
       else setStatus("Loaded " + file + " from GitHub. Local saving is offline; start scripts/build-preview.sh serve to save here.", "offline");
       reloadPreview();
+    }
+
+    async function retryPendingLocalLoad() {
+      const file = pendingLocalLoad;
+      if (!SAVE_BASE || !file || selectEl.value !== file || pendingLocalLoadBusy) return;
+      pendingLocalLoadBusy = true;
+      try { await loadDraft(file, true, true); }
+      finally { pendingLocalLoadBusy = false; }
     }
 
     async function refreshManifestForFile(file) {
@@ -793,6 +828,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
     }
 
     function initEditor() {
+      $("vditor").addEventListener("input", onNativeEditorInput, true);
       editor = new Vditor("vditor", {
         height: "55vh",
         width: "100%",
@@ -817,7 +853,8 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       await loadManifest();
       setInterval(async () => {
         const available = await detectSaveServer();
-        if (!available && !dirty) {
+        if (pendingLocalLoad) await retryPendingLocalLoad();
+        if (!available && !dirty && !pendingLocalLoad) {
           setStatus("Local save server is offline. Start scripts/build-preview.sh serve to save on this computer.", "offline");
         } else if (available && dirty) {
           scheduleSave(0);
@@ -826,13 +863,17 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
     }
 
     function bindEvents() {
-      selectEl.addEventListener("change", () => loadDraft(selectEl.value));
+      selectEl.addEventListener("change", () => {
+        if (!selectEl.value) pendingLocalLoad = null;
+        loadDraft(selectEl.value);
+      });
       $("btn-new").addEventListener("click", () => {
         if (dirty && !window.confirm("Start a new draft and discard the unsaved changes in this one?")) return;
         if (saveBusy) {
           setStatus("Please wait for the current save to finish before starting another draft.", "saving");
           return;
         }
+        pendingLocalLoad = null;
         currentFile = null;
         currentUrl = "/blog/";
         filenameAuto = true;
@@ -853,6 +894,11 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
         fields[key].addEventListener("input", () => {
           if (loadingDocument) return;
           if (key === "title") updateAutomaticFilename();
+          markChanged();
+          scheduleLivePreview();
+        });
+        fields[key].addEventListener("change", () => {
+          if (loadingDocument) return;
           if (applyFormToDocument()) { markChanged(); scheduleLivePreview(); }
         });
       }

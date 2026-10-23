@@ -37,14 +37,21 @@ else
 fi
 
 # The post's assets = everything it references at its 1:1 paths.
-assets="$(grep -oE '/assets/(images|videos|files)/drafts/[A-Za-z0-9._/-]+' "_posts/$file" | sort -u || true)"
+assets="$(grep -oE '/assets/(images|videos|files)/posts/[A-Za-z0-9._/-]+' "_posts/$file" | sort -u || true)"
 paths=("_posts/$file")
 while IFS= read -r a; do [ -n "$a" ] && paths+=("${a#/}"); done <<< "$assets"
 
-# Warn about referenced assets that do not exist on this branch (usually a
-# filename with spaces or special characters the reference regex truncated).
+# Warn about referenced assets that should exist on this branch (inside the
+# post's own media folder) but do not — usually a filename with spaces or
+# special characters the reference regex truncated. References outside the
+# post's folder are assumed to be intentional reuse of live-site assets.
+post_slug="$(basename "$file" .md)"
+post_slug="${post_slug#[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-}"
 for a in "${paths[@]:1}"; do
-  [ -e "$a" ] || echo "!! referenced asset not found on this branch: $a — check the post's reference (spaces and special characters in media filenames are unsupported)"
+  case "$a" in
+    assets/*/posts/"$post_slug"/*)
+      [ -e "$a" ] || echo "!! referenced asset not found on this branch: $a — check the post's reference (spaces and special characters in media filenames are unsupported)" ;;
+  esac
 done
 
 commits="$(git log --reverse --format=%H origin/main..HEAD -- "${paths[@]}")"

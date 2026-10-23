@@ -101,24 +101,26 @@ if [ -n "$dangling" ]; then
   exit 1
 fi
 
-# Refuse if this branch has committed any asset outside its own drafts
+# Refuse if this branch has committed any asset outside per-post media
 # folders — such a file would silently shadow a live site asset in preview.
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  stray_assets="$(git ls-files assets | grep -vE '^assets/(images|videos|files)/drafts/' || true)"
+  stray_assets="$(git ls-files assets | grep -vE '^assets/(images|videos|files)/posts/' || true)"
   if [ -n "$stray_assets" ]; then
-    echo "!! branch-committed files under assets/ outside the drafts folders (they would shadow live site assets):" >&2
+    echo "!! branch-committed files under assets/ outside assets/{images,videos,files}/posts/<slug>/ (they would shadow live site assets):" >&2
     echo "$stray_assets" >&2
     exit 1
   fi
 fi
 
-# Draft media sits at its final, 1:1 path on this branch:
-#   assets/images/drafts/*  -> /assets/images/drafts/*
-#   assets/videos/drafts/*  -> /assets/videos/drafts/*
-#   assets/files/drafts/*   -> /assets/files/drafts/*
-# Photos are converted to .webp automatically by main's vips-webp-generator
-# plugin during the Jekyll build (it scans assets/images, which here contains
-# only draft media) — libvips must be installed locally for that (see README).
+# Draft media sits at its FINAL production path on this branch:
+#   assets/images/posts/<slug>/*  -> /assets/images/posts/<slug>/*
+#   assets/videos/posts/<slug>/*  -> /assets/videos/posts/<slug>/*
+#   assets/files/posts/<slug>/*   -> /assets/files/posts/<slug>/*
+# (<slug> = the post filename without its date prefix.) The build derives
+# everything else from these sources exactly like main's CI does: photos are
+# converted to .webp and responsive sizes by main's vips-webp-generator plugin
+# during the Jekyll build (it scans assets/images, which here contains only
+# draft media) — libvips must be installed locally for that (see README).
 
 # ----------------------------------------------------------------------- build
 if ! bundle check >/dev/null 2>&1; then

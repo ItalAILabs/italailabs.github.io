@@ -2,8 +2,8 @@
 layout: post
 title: "Example post — how this drafts branch works"
 description: "A working example of a blog post on the drafts branch, with a short guide for researchers writing here."
-image: "/assets/images/drafts/example-figure.svg"
-hero_image: "/assets/images/drafts/example-figure.svg"
+image: "/assets/images/posts/example-post/example-figure.svg"
+hero_image: "/assets/images/posts/example-post/example-figure.svg"
 category: "Guides"
 excerpt: "What this branch is, how to edit and preview posts without installing anything, and how a post gets published to italailabs.com."
 published_in_blog: true
@@ -46,8 +46,8 @@ is displayed. Only `title` is strictly required; everything else is optional:
 layout: post                      # always this
 title: "Post title"               # used for the URL and <h1>
 description: "One line for search + social cards."
-image: "/assets/images/drafts/example-figure.svg"   # og:image for search/social
-hero_image: "/assets/images/drafts/example-figure.svg"  # large card + header image
+image: "/assets/images/posts/my-post/figure.svg"   # og:image for search/social
+hero_image: "/assets/images/posts/my-post/figure.svg"  # large card + header image
 category: "Physical AI"           # shows as a tag on the blog index
 excerpt: "Teaser shown in the blog listing."
 published_in_blog: true           # false = hidden from the index, still has a URL
@@ -58,11 +58,11 @@ read_time: "8 min read"
 
 ### Media
 
-Drop media on this branch under `assets/` — the folder you upload to is exactly the path you reference (1:1):
+Drop media on this branch under `assets/`, in a folder per post (`<slug>` = your filename without the date) — the folder you upload to is exactly the path you reference, and where it will live on the live site (1:1):
 
-- **SVG figures** (matplotlib exports, diagrams) and **photos**: `assets/images/drafts/your-figure.svg` / `.png` / `.jpg` — the build converts photos to WebP automatically.
-- **Videos**: `assets/videos/drafts/demo.mp4` (keep them small).
-- **Other files** (PDFs, datasets): `assets/files/drafts/paper.pdf`.
+- **SVG figures** (matplotlib exports, diagrams) and **photos**: `assets/images/posts/<slug>/your-figure.svg` / `.png` / `.jpg` — the build converts photos to WebP automatically, exactly like main's CI.
+- **Videos**: `assets/videos/posts/<slug>/demo.mp4` (keep them small).
+- **Other files** (PDFs, datasets): `assets/files/posts/<slug>/paper.pdf`.
 
 You can also reference an existing live-site image (e.g. `/assets/images/posts/wizard.svg`) — it works on the published post; the local preview only ships this branch's own media.
 

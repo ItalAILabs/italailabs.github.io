@@ -31,7 +31,7 @@ repo — stored only in your browser).
 ## Start a new post
 
 1. On the `drafts` branch add `_posts/YYYY-MM-DD-slug.md` — in the repo UI: switch to `drafts` → `_posts/` → **Add file → Create new file** (or locally). The date is the publish date. Copy the front matter from [the example post](https://github.com/ItalAILabs/italailabs.github.io/blob/drafts/_posts/2026-08-01-example-post.md) and write your body in markdown.
-2. Add any media under `assets/{images,videos,files}/drafts/` — that folder is exactly the path you'll reference in the post.
+2. Add any media under `assets/{images,videos,files}/posts/<slug>/` (`<slug>` = your filename without the date) — that folder is exactly the path you'll reference in the post, and where it will live on the live site.
 3. Commit to `drafts`. Keep commits scoped to your own post and its assets (e.g. “my-post: add figure 1”) — publishing cherry-picks commits, so scope is what keeps your PR clean.
 4. See it: `scripts/build-preview.sh serve` → http://localhost:4000/blog/ — the blog with your post on it, styled exactly like the live site.
 
@@ -45,15 +45,15 @@ Just commit to `drafts` (web editor or locally) and re-run the local preview.
 
 ## Media (images, videos, files)
 
-Put media on this branch under [`assets/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/assets) — the folder you upload to **is** the path the post references and the path it lives at on `main` (1:1, no translation):
+Put media on this branch under [`assets/`](https://github.com/ItalAILabs/italailabs.github.io/tree/drafts/assets), in a folder per post — `<slug>` is your filename without the date prefix. The folder you upload to **is** the path the post references and the path it lives at on `main` (1:1, no translation):
 
 | Upload to | Reference in your post as | Notes |
 |---|---|---|
-| `assets/images/drafts/<name>` | `/assets/images/drafts/<name>` | SVG as-is (preferred for figures); PNG/JPG auto-converted to WebP when you build |
-| `assets/videos/drafts/<name>` | `/assets/videos/drafts/<name>` | served as-is — keep small (~100 MB GitHub cap); host big videos externally and just link |
-| `assets/files/drafts/<name>` | `/assets/files/drafts/<name>` | PDFs, datasets, anything else you want to link from a post |
+| `assets/images/posts/<slug>/<name>` | `/assets/images/posts/<slug>/<name>` | SVG as-is (preferred for figures); PNG/JPG auto-converted to WebP when you build, exactly like main's CI |
+| `assets/videos/posts/<slug>/<name>` | `/assets/videos/posts/<slug>/<name>` | served as-is — keep small (~100 MB GitHub cap); host big videos externally and just link |
+| `assets/files/posts/<slug>/<name>` | `/assets/files/posts/<slug>/<name>` | PDFs, datasets, anything else you want to link from a post |
 
-Examples: `![Figure 1](/assets/images/drafts/fig1.svg)` · `<video src="/assets/videos/drafts/demo.mp4" controls></video>` · `[Paper (PDF)](/assets/files/drafts/paper.pdf)`. You can also reference an existing live-site image (e.g. `/assets/images/posts/wizard.svg`) — it works on the published post; the local preview only ships this branch's own media.
+Examples: `![Figure 1](/assets/images/posts/my-post/fig1.svg)` · `<video src="/assets/videos/posts/my-post/demo.mp4" controls></video>` · `[Paper (PDF)](/assets/files/posts/my-post/paper.pdf)`. You can also reference an existing live-site image (e.g. `/assets/images/posts/wizard.svg`) — it works on the published post; the local preview only ships this branch's own media.
 
 ## Publish a post
 
@@ -80,5 +80,5 @@ The **Drafts review** check on the PR verifies it only touches `_posts/*.md` and
 
 ## What is *not* allowed on this branch
 
-- Copying styling, layouts, includes or assets from `main` into this branch (the only asset paths that live here are `assets/{images,videos,files}/drafts/`). Everything else is symlinked at build time; a committed copy would drift and break the "always current" guarantee (the build script refuses to run if it finds one).
+- Copying styling, layouts, includes or assets from `main` into this branch (the only asset paths that live here are per-post media folders, `assets/{images,videos,files}/posts/<slug>/`). Everything else is symlinked at build time; a committed copy would drift and break the "always current" guarantee (the build script refuses to run if it finds one).
 - Merging the whole `drafts` branch into `main`. Publishing is always per-post via a small PR.

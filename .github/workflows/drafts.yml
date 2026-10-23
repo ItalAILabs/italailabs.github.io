@@ -64,8 +64,8 @@ jobs:
           CHANGED="$(git diff --name-only origin/main...HEAD)"
           echo "Changed files:"; echo "${CHANGED:-<none>}"
           [ -n "$CHANGED" ] || { echo "Nothing changed"; exit 0; }
-          if echo "$CHANGED" | grep -qvE '^(_posts/[^/]+\.md|assets/(images|videos|files)/drafts/.+)$'; then
-            echo "::error::Publish PRs must only add or modify files under _posts/ and assets/{images,videos,files}/drafts/ — this one touches other paths."
+          if echo "$CHANGED" | grep -qvE '^(_posts/[^/]+\.md|assets/(images|videos|files)/posts/.+)$'; then
+            echo "::error::Publish PRs must only add or modify files under _posts/ and assets/{images,videos,files}/posts/<slug>/ — this one touches other paths."
             exit 1
           fi
           echo "OK: publish-shaped PR"

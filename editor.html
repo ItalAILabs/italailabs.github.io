@@ -174,7 +174,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
         <div id="vditor"></div>
       </section>
       <section class="pane" id="preview-pane" aria-label="Rendered post preview">
-        <div class="pane-head"><h2>Live page preview</h2><button id="btn-reload-preview" type="button">Refresh preview</button><button id="btn-hide-preview" type="button" aria-label="Collapse preview">Hide preview</button></div>
+        <div class="pane-head"><h2>Live page preview <span class="hint">· updates as you type; full rebuild after each save</span></h2><button id="btn-reload-preview" type="button">Refresh preview</button><button id="btn-hide-preview" type="button" aria-label="Collapse preview">Hide preview</button></div>
         <iframe id="preview-frame" title="Rendered blog post preview" src="/blog/"></iframe>
       </section>
     </div>
@@ -214,6 +214,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
   </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/vditor@3.10.8/dist/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script>
     const REPO = "ItalAILabs/italailabs.github.io";
     const BRANCH = "drafts";
@@ -277,10 +278,60 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       frame.src = url.pathname + url.search;
     }
 
+    // After a save, wait for the local build to (re)produce the page, then
+    // load it. Existing pages appear immediately; brand-new ones as soon as
+    // Jekyll finishes rebuilding.
     function schedulePreviewReload() {
       clearTimeout(previewTimer);
-      previewTimer = setTimeout(reloadPreview, 1600);
-      setTimeout(reloadPreview, 4200);
+      previewTimer = setTimeout(() => ensurePreviewPage(currentUrl), 1200);
+    }
+
+    // Live-as-you-type preview: render the current markdown client-side and
+    // inject it into the real post page's article container (same-origin
+    // iframe). The Jekyll rebuild after each save remains the ground truth.
+    let liveTimer = null;
+    let livePending = false;
+
+    function injectLivePreview() {
+      const frame = $("preview-frame");
+      let docEl = null;
+      try { docEl = frame.contentDocument; } catch (error) { /* cross-origin or not ready */ }
+      if (!docEl || !docEl.querySelector) return false;
+      const body = docEl.querySelector(".post-body");
+      if (!body) return false;
+      const parsed = parseFrontMatter(editor.getValue());
+      body.innerHTML = marked.parse(parsed ? parsed.body : editor.getValue());
+      const title = fields.title.value.trim();
+      if (title) {
+        const h1 = docEl.querySelector("h1.post-hero-title");
+        if (h1) h1.innerHTML = escapeHtml(title) + '<span class="period"></span>';
+      }
+      const excerpt = fields.excerpt.value.trim();
+      const ex = docEl.querySelector(".post-hero-excerpt");
+      if (ex) { ex.textContent = excerpt; ex.style.display = excerpt ? "" : "none"; }
+      const category = fields.category.value.trim();
+      const badge = docEl.querySelector(".post-hero-category");
+      if (badge) badge.textContent = category.toUpperCase();
+      return true;
+    }
+
+    function scheduleLivePreview() {
+      clearTimeout(liveTimer);
+      liveTimer = setTimeout(() => { if (!injectLivePreview()) livePending = true; }, 350);
+    }
+
+    // New drafts have no built page yet: save the template immediately, then
+    // poll until the local build has produced /blog/<slug>/ and load it.
+    async function ensurePreviewPage(url) {
+      for (let i = 0; i < 20; i++) {
+        try {
+          const response = await fetch(url, { method: "HEAD", cache: "no-store" });
+          if (response.ok) break;
+        } catch (error) { /* server still starting */ }
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+      const sep = url.includes("?") ? "&" : "?";
+      $("preview-frame").src = url + sep + "draft-preview=" + Date.now();
     }
 
     async function detectSaveServer() {
@@ -474,6 +525,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
     function onEditorInput(value) {
       if (loadingDocument || syncingDocument) return;
       syncFormFromDocument(value);
+      scheduleLivePreview();
       markChanged();
     }
 
@@ -801,7 +853,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
         fields[key].addEventListener("input", () => {
           if (loadingDocument) return;
           if (key === "title") updateAutomaticFilename();
-          if (applyFormToDocument()) markChanged();
+          if (applyFormToDocument()) { markChanged(); scheduleLivePreview(); }
         });
       }
       $("fm-published_in_blog").addEventListener("change", () => {
@@ -835,6 +887,9 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       $("btn-push").addEventListener("click", pushDraft);
       $("token").value = localStorage.getItem("drafts-gh-token") || "";
       $("btn-reload-preview").addEventListener("click", reloadPreview);
+      $("preview-frame").addEventListener("load", () => {
+        if (livePending || dirty) injectLivePreview();
+      });
       initPaneControls();
       const dialog = $("media-dialog");
       $("btn-media").addEventListener("click", () => { dialog.showModal(); loadMediaList(); });

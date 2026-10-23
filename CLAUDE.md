@@ -14,9 +14,10 @@ A minimalist writing room. It contains **only**:
 |---|---|
 | `_posts/*.md` | Draft posts (one file per post; filename = publish date + slug) |
 | `assets/{images,videos,files}/posts/<slug>/` | Per-post media, at their **final production paths** |
-| `editor.html` | WYSIWYG editor, served at `/blog/editor/` by the local preview |
-| `scripts/build-preview.sh` | Minimal blog-only local build (fetches `main`, symlinks the blog chain) |
-| `scripts/draft-manifest.rb` | Writes `drafts-manifest.json` for the editor's post picker |
+| `editor.html` | WYSIWYG editor, served at `/blog/editor/` by the local preview; reads/writes your local checkout |
+| `_plugins/draft-local.rb` | Branch-owned Jekyll hook: publishes raw drafts (`/drafts-src/`) + `drafts-manifest.json` into `_site/` on every build/rebuild |
+| `scripts/build-preview.sh` | Minimal blog-only local build (fetches `main`, symlinks the blog chain); in serve mode also starts the save server |
+| `scripts/draft-save-server.py` | 127.0.0.1-only helper the editor uses to read/save `_posts/` locally (port 4001) |
 | `scripts/new-post.sh` | Scaffolds a new post with correct front matter |
 | `scripts/publish.sh` | Cherry-picks one post's commits onto a branch off `main`, prints a PR link |
 | `_config.draft.yaml`, `README.md`, `.github/workflows/drafts.yml` | Config, human docs, CI |
@@ -54,11 +55,13 @@ Reference them in the post exactly as `/assets/<the-rest-of-the-path>`.
 ```sh
 scripts/build-preview.sh serve     # → http://localhost:4000/blog/editor/ and /blog/
 ```
-Needs Ruby 3.x + bundler (+ libvips for photos). The script fetches `origin/main` into `.main/`
-and symlinks **only the blog chain** — it builds just `/blog/`, `/blog/<slug>/`, `/blog/editor/`.
-Never edit anything under `.main/`; it is regenerated every run. If the build fails with a
-"refusing to link over it" or "dangling link" error, report it — that means main changed and
-the allowlist in `scripts/build-preview.sh` needs updating (a deliberate tripwire).
+Needs Ruby 3.x + bundler (+ libvips for photos) and python3. The script fetches `origin/main`
+into `.main/` and symlinks **only the blog chain** — it builds just `/blog/`, `/blog/<slug>/`,
+`/blog/editor/`. In serve mode it also starts `scripts/draft-save-server.py` (127.0.0.1:4001),
+which is how the editor reads and saves `_posts/` locally — no GitHub round-trip. Never edit
+anything under `.main/`; it is regenerated every run. If the build fails with a "refusing to
+link over it" or "dangling link" error, report it — that means main changed and the allowlist
+in `scripts/build-preview.sh` needs updating (a deliberate tripwire).
 
 ### Check a post before publishing
 ```sh
@@ -84,6 +87,6 @@ media folder from this branch so it only holds what's still in flight.
 - Don't "fix" files that belong to `main` (layouts, plugins, styles). If you find a real bug
   there, report it to the writer; the fix goes in its own PR to `main`.
 - Don't add new scripts, dependencies or tooling to this branch without asking — minimalism is
-  the point. The four scripts above are the entire glue surface.
+  the point. The scripts above plus `_plugins/draft-local.rb` are the entire glue surface.
 - Don't reformat or rewrite existing posts' front matter unless asked; treat their content as
   the writer's property and change only what they request.

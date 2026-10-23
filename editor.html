@@ -80,14 +80,15 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
   <div id="vditor"></div>
 
   <footer>
-    <button id="btn-copy" type="button" class="primary">Copy markdown</button>
-    <button id="btn-download" type="button">Download .md</button>
-    <label class="hint" for="filename">Push to:</label>
+    <button id="btn-save-local" type="button" class="primary">Save locally</button>
+    <label class="hint" for="filename">Save to:</label>
     <input type="text" id="filename" placeholder="_posts/2026-08-15-my-draft.md" style="width: 300px;">
-    <button id="btn-push" type="button">Push to drafts branch</button>
+    <button id="btn-push" type="button">Push to GitHub</button>
+    <button id="btn-copy" type="button">Copy markdown</button>
+    <button id="btn-download" type="button">Download .md</button>
     <span class="sep"></span>
-    <input type="password" id="token" placeholder="GitHub personal access token (optional — stored only in this browser)">
-    <span class="hint">Use a fine-grained token with write access to italailabs.github.io only. No token? Use Copy/Download and paste into the GitHub web editor.</span>
+    <input type="password" id="token" placeholder="GitHub personal access token (only for “Push to GitHub” — stored only in this browser)">
+    <span class="hint">“Save locally” writes straight into your _posts/ folder — no token needed. The token is only for pushing to the GitHub branch from here.</span>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/vditor@3.10.8/dist/index.min.js"></script>
@@ -102,6 +103,19 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
     let manifestPosts = [];
     let currentFile = null;   // target file on the drafts branch ("Push to" field)
     let currentUrl  = "/blog/"; // rendered preview URL of the selected draft (from the manifest)
+    let SAVE_BASE   = null;   // local save server (scripts/draft-save-server.py), when running
+
+    // The preview's companion server reads/writes _posts/ on THIS checkout,
+    // so editing works locally with no GitHub round-trip.
+    async function detectSaveServer() {
+      const port = parseInt(location.port, 10) || 80;
+      for (const base of ["http://localhost:" + (port + 1), "http://localhost:4001"]) {
+        try {
+          const res = await fetch(base + "/ping", { cache: "no-store" });
+          if (res.ok) { SAVE_BASE = base; return; }
+        } catch (e) { /* try next candidate */ }
+      }
+    }
 
     const $ = (id) => document.getElementById(id);
     const selectEl = $("draft-select");
@@ -149,14 +163,49 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
       $("filename").value = "_posts/" + file;
       const p = manifestPosts.find((x) => x.file === file);
       currentUrl = (p && p.url) ? p.url : "/blog/";
+      // Local checkout first, GitHub as fallback (e.g. preview served elsewhere).
+      let res = null, fromLocal = false;
+      if (SAVE_BASE) {
+        try {
+          const r = await fetch(SAVE_BASE + "/src/" + encodeURIComponent(file), { cache: "no-store" });
+          if (r.ok) { res = r; fromLocal = true; }
+        } catch (e) { /* fall through to GitHub */ }
+      }
+      if (!res) {
+        try { res = await fetch(RAW_BASE + encodeURIComponent(file), { cache: "no-store" }); } catch (e) {}
+      }
+      if (!res || !res.ok) {
+        setStatus("Could not load " + file + (res ? " (HTTP " + res.status + ")." : "."), "err");
+        return;
+      }
+      editor.setValue(await res.text());
+      updatePreviewLink();
+      setStatus(fromLocal
+        ? "Loaded " + file + " from your local checkout."
+        : "Loaded " + file + " from GitHub (local save server not running — start the preview with scripts/build-preview.sh serve).");
+    }
+
+    async function saveLocally() {
+      if (!SAVE_BASE) {
+        setStatus("Local save server not running — start the preview with scripts/build-preview.sh serve.", "err");
+        return;
+      }
+      const file = $("filename").value.trim().replace(/^\/?_posts\//, "");
+      if (!/^\d{4}-\d{2}-\d{2}-.+\.md$/.test(file)) {
+        setStatus("The “Save to” field must look like _posts/YYYY-MM-DD-slug.md — fix it first.", "err");
+        return;
+      }
       try {
-        const res = await fetch(RAW_BASE + encodeURIComponent(file), { cache: "no-store" });
+        const res = await fetch(SAVE_BASE + "/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ file, content: editor.getValue() })
+        });
         if (!res.ok) throw new Error("HTTP " + res.status);
-        editor.setValue(await res.text());
-        updatePreviewLink();
-        setStatus("Loaded " + file + " from the drafts branch.");
+        currentFile = file;
+        setStatus("Saved _posts/" + file + " in your local checkout — the preview updates automatically. Commit it when you're happy (or use “Push to GitHub”).");
       } catch (e) {
-        setStatus("Could not load " + file + " (" + e.message + ").", "err");
+        setStatus("Local save failed: " + e.message, "err");
       }
     }
 
@@ -187,8 +236,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
         "Everything below the front matter is standard markdown — headings, lists,",
         "quotes, code blocks, links. You can also paste raw HTML for special blocks.",
         "",
-        "When it looks right, save this file as `_posts/" + d + "-untitled-draft.md`",
-        "on the drafts branch (GitHub web editor or “Push to drafts branch” above).",
+        "When it looks right, hit “Save locally” below (or push straight to GitHub).",
         ""
       ].join("\n");
     }
@@ -261,7 +309,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
         ],
         preview: { delay: 200 },
         cache: { enable: false },
-        after: () => { loadManifest(); }
+        after: async () => { await detectSaveServer(); loadManifest(); }
       });
 
       selectEl.addEventListener("change", () => loadDraft(selectEl.value));
@@ -283,6 +331,7 @@ description: "WYSIWYG markdown editor for blog drafts on the drafts branch."
         download(name, editor.getValue());
         setStatus("Downloaded. On GitHub: open the drafts branch → _posts/ → “Add file” → upload it (same filename).");
       });
+      $("btn-save-local").addEventListener("click", saveLocally);
       $("btn-push").addEventListener("click", pushDraft);
     }
 

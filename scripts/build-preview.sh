@@ -130,16 +130,21 @@ if ! bundle check >/dev/null 2>&1; then
   bundle install --quiet
 fi
 
-# Draft manifest consumed by editor.html (this branch's drafts only). Written
-# to the source root so Jekyll copies it into _site as a static file on every
-# build — including each rebuild of `jekyll serve`.
-bundle exec ruby scripts/draft-manifest.rb
+# The branch-owned _plugins/draft-local.rb hook publishes the editor's data
+# (raw drafts at /drafts-src/ + drafts-manifest.json) into _site on every
+# build and every `jekyll serve` rebuild.
 
 if [ "$MODE" = "serve" ]; then
+  # Local save server for the WYSIWYG editor: reads/writes _posts/ on this
+  # checkout (127.0.0.1 only), so editing works without any GitHub round-trip.
+  export DRAFT_SAVE_PORT="${DRAFT_SAVE_PORT:-$(( ${PORT:-4000} + 1 ))}"
+  python3 scripts/draft-save-server.py &
+  SAVE_PID=$!
   echo ""
-  echo "==> editor:  http://localhost:${PORT:-4000}/blog/editor/   (WYSIWYG)"
+  echo "==> editor:  http://localhost:${PORT:-4000}/blog/editor/   (WYSIWYG — saves to your local checkout)"
   echo "==> blog:    http://localhost:${PORT:-4000}/blog/"
-  exec bundle exec jekyll serve --config _config.yaml,_config.draft.yaml --livereload --port "${PORT:-4000}"
+  bundle exec jekyll serve --config _config.yaml,_config.draft.yaml --livereload --port "${PORT:-4000}"
+  kill "$SAVE_PID" 2>/dev/null || true
 fi
 
 bundle exec jekyll build --config _config.yaml,_config.draft.yaml

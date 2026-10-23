@@ -2,7 +2,6 @@
 /.env
 /.main
 /.genassets
-/drafts-manifest.json
 /.jekyll-cache
 /styles
 /vendor

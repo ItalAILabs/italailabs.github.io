@@ -30,7 +30,7 @@ One-time setup: install [Ruby](https://www.ruby-lang.org/en/install/) (plus `lib
 scripts/build-preview.sh serve
 ```
 
-Open **http://localhost:4000/blog/editor/** — pick a draft or hit *New draft*, edit what-you-type-is-what-you-see, then *Push to drafts branch* (one time: paste a personal access token with write access to this repo; it's stored only in your browser). The same server shows the blog itself at **http://localhost:4000/blog/**.
+Open **http://localhost:4000/blog/editor/** — pick a draft or hit *New draft*, edit what-you-type-is-what-you-see, then *Save locally*: your file is written straight into the `_posts/` folder of this copy and the preview updates by itself. No token, no GitHub round-trip. (A *Push to GitHub* button is there too, if you ever want to commit from the browser — that one does need a personal access token.) The same server shows the blog itself at **http://localhost:4000/blog/**.
 
 The preview builds only the blog and pulls the live site's styling automatically, so what you see is exactly what will render on italailabs.com — it starts in seconds and nothing is uploaded anywhere.
 

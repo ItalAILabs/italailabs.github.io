@@ -15,4 +15,5 @@ exclude:
   - "scripts"             # re-listed from main's exclude (per-key merge!)
   - "README.md"
   - "SECURITY.md"
+  - "CLAUDE.md"           # agent guide, not site content
   - "_config.draft.yaml"  # build glue, not site content

@@ -80,6 +80,40 @@ permalink: /blog/editor/
   /* On narrow screens the ToC card sits above the content in flow; cap its
      list height so adding/removing headings while typing doesn't resize it. */
   .rail > .toc > nav { max-height: 240px; overflow-y: auto; }
+  /* The site only sets border-box on <body> (it's not inherited), so our
+     width:100% elements with padding/border must opt in or they spill past
+     the column's right edge. */
+  #editor-panel, #editor-bar, #editor-section, #media-dialog, #image-dialog,
+  #editor-panel *, #editor-bar *, #editor-section *, #media-dialog *, #image-dialog * { box-sizing: border-box; }
+  /* Stacked layout (default): the panel wrapper is transparent to layout —
+     bar and editor section flow directly inside the post body. */
+  #editor-panel { display: contents; }
+  /* Wide screens (>= 102rem, where the left margin next to the 820px column
+     is wide enough): the whole writing surface — controls AND editor —
+     floats in the left margin, mirroring how the site's ToC rail hangs in
+     the right margin at >= 92.5rem (same anchor: .post-wrap, same gap).
+     Below that width it simply sits at the end of the page. */
+  @media (min-width: 102rem) {
+    #editor-panel {
+      display: block;
+      position: absolute;
+      top: calc(var(--nav-h) + 1rem);
+      right: 100%;
+      margin-right: 1.25rem;
+      width: 24rem;
+      max-height: calc(100vh - var(--nav-h) - 2rem);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: #fffdf8;
+      border: 1px solid #dedbd2;
+      border-radius: 9px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      padding: .9rem 1rem 1.1rem;
+    }
+    #editor-panel #editor-bar { border-bottom: 1px solid #dedbd2; margin-bottom: .8rem; padding-top: 0; }
+    #editor-panel .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #editor-panel #md-source { min-height: 30vh; }
+  }
   dialog#media-dialog { width: min(680px, calc(100vw - 2rem)); max-height: 85vh; padding: 0; border: 1px solid #dedbd2; border-radius: 12px; color: #17152a; box-shadow: 0 16px 50px #17152a35; }
   dialog#media-dialog::backdrop { background: #17152a88; }
   .dialog-head { display: flex; align-items: center; gap: .7rem; padding: .9rem 1rem; border-bottom: 1px solid #dedbd2; }
@@ -102,6 +136,10 @@ permalink: /blog/editor/
   }
 </style>
 
+<!-- Render area: the draft's body, rendered live as a real post body -->
+<div id="live-area"></div>
+
+<div id="editor-panel">
 <div id="editor-bar">
   <span id="save-indicator" class="loading">Loading…</span>
   <span id="status-message" role="status" aria-live="polite">Loading your drafts…</span>
@@ -126,9 +164,6 @@ permalink: /blog/editor/
     </div>
   </details>
 </div>
-
-<!-- Render area: the draft's body, rendered live as a real post body -->
-<div id="live-area"></div>
 
 <!-- Writing surface. The h2 is a real heading so the layout's ToC rail
      renders; JS replaces its list with the draft's headings. -->
@@ -162,6 +197,7 @@ permalink: /blog/editor/
   </div>
   <textarea id="md-source" aria-label="Markdown source" spellcheck="false" placeholder="Choose a post or start a new draft."></textarea>
 </section>
+</div>
 
 <dialog id="media-dialog" aria-labelledby="media-title">
   <div class="dialog-head"><h2 id="media-title">Add a picture, video, or file</h2><button id="btn-close-media" type="button" aria-label="Close media window" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;color:#17152a;">Close</button></div>

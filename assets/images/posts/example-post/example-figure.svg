@@ -2,5 +2,5 @@
   <rect width="800" height="450" fill="#0c0717"/>
   <rect x="1" y="1" width="798" height="448" fill="none" stroke="#29b485" stroke-width="2"/>
   <text x="400" y="205" text-anchor="middle" font-family="system-ui, sans-serif" font-size="30" fill="#f4f1e6">Example figure</text>
-  <text x="400" y="250" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#8a8172">Replace this with your own SVG or photo under assets/images/drafts/</text>
+  <text x="400" y="250" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#8a8172">Replace this with your own SVG or photo under assets/images/posts/example-post/</text>
 </svg>

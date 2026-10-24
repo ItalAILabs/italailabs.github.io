@@ -69,7 +69,18 @@ permalink: /blog/editor/
   .more-content label { display: block; color: #6b6878; font-size: .83rem; }
   #token { display: block; width: 100%; margin: .4rem 0; }
   details#front-matter { border: 1px solid #dedbd2; border-radius: 11px; background: #fffdf8; margin: 1.1rem 0 .9rem; }
-  details#front-matter > summary { cursor: pointer; padding: .8rem 1rem; color: #17152a; font-weight: 700; }
+  details#front-matter > summary { cursor: pointer; list-style: none; padding: .8rem 1rem; color: #17152a; font-weight: 700; }
+  details#front-matter > summary::-webkit-details-marker { display: none; }
+  details#front-matter > summary::before { content: "▸"; font-size: .8rem; color: #6b6878; margin-right: .35rem; transition: transform .15s; }
+  details[open]#front-matter > summary::before { transform: rotate(90deg); }
+  .hint { color: #6b6878; font-weight: 400; font-size: .85rem; }
+  .muted { color: #6b6878; font-size: .85rem; }
+  .dialog-btn { min-height: 2.55rem; padding: .5rem .72rem; border: 1px solid #dedbd2; border-radius: 8px; background: white; cursor: pointer; font: inherit; color: #17152a; }
+  .dialog-btn:hover { background: #f0eee7; }
+  .dialog-btn.primary { border-color: #208b69; background: #208b69; color: white; font-weight: 700; }
+  .dialog-btn.primary:hover { background: #17694f; }
+  .dialog-body > p:first-child { margin-top: 0; }
+  .dialog-body .field:not(:last-of-type) { margin-bottom: .7rem; }
   .form-help { margin: -.35rem 1rem .7rem; color: #6b6878; font-size: .84rem; }
   .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; padding: 0 1rem 1rem; }
   .field { display: flex; flex-direction: column; gap: .28rem; min-width: 0; color: #6b6878; font-size: .83rem; }
@@ -193,7 +204,7 @@ permalink: /blog/editor/
   <details id="writer" open>
   <summary><h2>Write your post</h2></summary>
   <details id="front-matter">
-    <summary>Post details <span class="hint" style="color:#6b6878;font-weight:400;">— fill these in instead of editing YAML</span></summary>
+    <summary>Post details <span class="hint">— fill these in instead of editing YAML</span></summary>
     <p class="form-help">These details are saved at the top of your markdown. You can still edit the YAML directly in the editor below.</p>
     <div class="fields">
       <label class="field wide"><span>Title</span><input id="fm-title" type="text" autocomplete="off" placeholder="A clear title for your post"></label>
@@ -224,30 +235,30 @@ permalink: /blog/editor/
 </div>
 
 <dialog id="media-dialog" aria-labelledby="media-title">
-  <div class="dialog-head"><h2 id="media-title">Add a picture, video, or file</h2><button id="btn-close-media" type="button" aria-label="Close media window" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;color:#17152a;">Close</button></div>
+  <div class="dialog-head"><h2 id="media-title">Add a picture, video, or file</h2><button id="btn-close-media" type="button" class="dialog-btn" aria-label="Close media window">Close</button></div>
   <div class="dialog-body">
-    <p id="media-help" style="color:#6b6878;font-size:.9rem;">Choose an existing file to add it to your post, or upload a new one. Files go in this post’s media folder.</p>
-    <div id="media-list" aria-live="polite"><p style="color:#6b6878;">Loading files…</p></div>
+    <p id="media-help" class="muted">Choose an existing file to add it to your post, or upload a new one. Files go in this post’s media folder.</p>
+    <div id="media-list" aria-live="polite"><p class="muted">Loading files…</p></div>
     <div id="drop-zone" tabindex="0" role="button" aria-label="Choose a file or drop a file to upload">
       <p><strong>Drop a file here</strong> or choose one from your computer.</p>
-      <button id="btn-choose-file" type="button" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;">Choose a file</button>
+      <button id="btn-choose-file" type="button" class="dialog-btn">Choose a file</button>
       <input id="media-file" type="file" hidden>
     </div>
-    <p id="upload-note" style="color:#6b6878;font-size:.9rem;">Images, videos, and other files are sorted into the right folder automatically. Avoid uploading private information.</p>
+    <p id="upload-note" class="muted">Images, videos, and other files are sorted into the right folder automatically. Avoid uploading private information.</p>
   </div>
-  <div class="dialog-actions"><button id="btn-close-media-bottom" type="button" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;">Done</button></div>
+  <div class="dialog-actions"><button id="btn-close-media-bottom" type="button" class="dialog-btn">Done</button></div>
 </dialog>
 
 <dialog id="image-dialog" aria-labelledby="image-title">
-  <div class="dialog-head"><h2 id="image-title">Insert an image</h2><button id="btn-close-image" type="button" aria-label="Close image window" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;color:#17152a;">Close</button></div>
+  <div class="dialog-head"><h2 id="image-title">Insert an image</h2><button id="btn-close-image" type="button" class="dialog-btn" aria-label="Close image window">Close</button></div>
   <div class="dialog-body">
-    <p style="color:#6b6878;font-size:.9rem;margin-top:0;">Figures use the same structure as published posts: the image and its caption are one unit.</p>
-    <label class="field full" style="margin-bottom:.7rem;"><span>Image path or URL</span><input id="img-path" type="text" autocomplete="off" placeholder="/assets/images/posts/your-post/figure.svg"></label>
-    <label class="field full" style="margin-bottom:.7rem;"><span>Alt text (SEO)</span><input id="img-alt" type="text" autocomplete="off" placeholder="What the image shows — used for search and screen readers"></label>
-    <label class="field full"><span>Caption (optional)</span><input id="img-caption" type="text" autocomplete="off" placeholder="A short note shown under the image"></label>
-    <p style="color:#6b6878;font-size:.83rem;margin-bottom:0;">SVG files are inlined into the page; other images use the alt text. The figure is placed on its own line, out of any paragraph you're writing in.</p>
+    <p class="muted">Figures use the same structure as published posts: the image and its caption are one unit.</p>
+    <label class="field"><span>Image path or URL</span><input id="img-path" type="text" autocomplete="off" placeholder="/assets/images/posts/your-post/figure.svg"></label>
+    <label class="field"><span>Alt text (SEO)</span><input id="img-alt" type="text" autocomplete="off" placeholder="What the image shows — used for search and screen readers"></label>
+    <label class="field"><span>Caption (optional)</span><input id="img-caption" type="text" autocomplete="off" placeholder="A short note shown under the image"></label>
+    <p class="muted">SVG files are inlined into the page; other images use the alt text. The figure is placed on its own line, out of any paragraph you're writing in.</p>
   </div>
-  <div class="dialog-actions"><button id="btn-cancel-image" type="button" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;">Cancel</button><button id="btn-insert-image" type="button" style="min-height:2.55rem;padding:.5rem .9rem;border:1px solid #208b69;border-radius:8px;background:#208b69;color:white;font-weight:700;cursor:pointer;font:inherit;">Insert image</button></div>
+  <div class="dialog-actions"><button id="btn-cancel-image" type="button" class="dialog-btn">Cancel</button><button id="btn-insert-image" type="button" class="dialog-btn primary">Insert image</button></div>
 </dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
@@ -258,13 +269,16 @@ permalink: /blog/editor/
   const API_CONTENTS = "https://api.github.com/repos/" + REPO + "/contents/_posts/";
   const FORM_FIELDS = ["title", "category", "author", "excerpt", "description", "read_time", "image", "hero_image"];
   const FORM_KEYS = new Set(FORM_FIELDS.concat(["published_in_blog"]));
+  const POST_FILE_RE = /^\d{4}-\d{2}-\d{2}-[^/\\]+\.md$/;
+  const SLUG_RE = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
+  // Suffix of the tab title ("ItalAI Labs"), so live titles read like real posts.
+  const TITLE_SUFFIX = document.title.includes(" | ") ? document.title.split(" | ").slice(1).join(" | ") : "";
   const $ = (id) => document.getElementById(id);
   const selectEl = $("draft-select");
   const fields = Object.fromEntries(FORM_FIELDS.map((key) => [key, $("fm-" + key)]));
   const source = $("md-source");
   let manifestPosts = [];
   let currentFile = null;
-  let currentUrl = "/blog/";
   let SAVE_BASE = null;
   let dirty = false;
   let loadingDocument = false;
@@ -300,8 +314,7 @@ permalink: /blog/editor/
 
   function updatePreviewLink() {
     const file = filenameFromInput();
-    currentUrl = /^\d{4}-\d{2}-\d{2}-[^/\\]+\.md$/.test(file) ? "/blog/" + postSlug(file) + "/" : (currentFile ? "/blog/" + postSlug(currentFile) + "/" : "/blog/");
-    $("open-preview").href = currentUrl;
+    $("open-preview").href = POST_FILE_RE.test(file) ? "/blog/" + postSlug(file) + "/" : (currentFile ? "/blog/" + postSlug(currentFile) + "/" : "/blog/");
   }
 
   function parseYamlValue(value) {
@@ -467,9 +480,17 @@ permalink: /blog/editor/
     };
   }
 
+  function setMetaContent(selector, value) {
+    const el = document.querySelector(selector);
+    if (el && value) el.setAttribute("content", value);
+  }
+
   // The hero below is the layout's REAL hero (rendered by _layouts/post.html
-  // from this page's front matter). We only update its text nodes live.
-  function renderHero() {
+  // from this page's front matter). We update its text nodes live, plus the
+  // tab title and the SEO meta tags, so every form field is reflected in the
+  // page details while typing.
+  let avatarAuthor = null; // only re-probe the author avatar when it changes
+  function renderPageDetails() {
     const f = heroFields();
     const h1 = document.querySelector("h1.post-hero-title");
     if (h1) {
@@ -485,10 +506,51 @@ permalink: /blog/editor/
     if (dateEl) { dateEl.textContent = f.date || ""; dateEl.style.display = f.date ? "" : "none"; }
     const ex = document.querySelector(".post-hero-excerpt");
     if (ex) { ex.textContent = f.excerpt; ex.style.display = f.excerpt ? "" : "none"; }
-    const an = document.querySelector(".post-hero-author-name");
-    if (an) an.textContent = f.author || "—";
-    const ar = document.querySelector(".post-hero-author-role");
-    if (ar) ar.textContent = "Researcher" + (f.readTime ? " · " + f.readTime : "");
+    // Author: hero block + avatar (initials, or the site's people/<slug>.webp
+    // convention when that file exists) + the "BY …" line under the article.
+    const heroAuthor = document.querySelector(".post-hero-author");
+    if (heroAuthor) {
+      heroAuthor.style.display = f.author ? "" : "none";
+      const an = heroAuthor.querySelector(".post-hero-author-name");
+      if (an) an.textContent = f.author || "—";
+      const ar = heroAuthor.querySelector(".post-hero-author-role");
+      if (ar) ar.textContent = "Researcher" + (f.readTime ? " · " + f.readTime : "");
+      const avatar = heroAuthor.querySelector(".post-hero-avatar");
+      if (avatar && f.author !== avatarAuthor) {
+        avatarAuthor = f.author;
+        const parts = f.author.trim().split(/\s+/).filter(Boolean);
+        avatar.textContent = parts.length
+          ? (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : "")).toUpperCase()
+          : "—";
+        if (f.author) {
+          const personSlug = f.author.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+          const probe = new Image();
+          probe.onload = () => {
+            if (avatarAuthor !== f.author) return;
+            avatar.innerHTML = "";
+            const img = document.createElement("img");
+            img.src = "/assets/images/people/" + personSlug + ".webp";
+            img.alt = f.author; img.width = 40; img.height = 40;
+            avatar.appendChild(img);
+          };
+          probe.src = "/assets/images/people/" + personSlug + ".webp";
+        }
+      }
+    }
+    const postAuthor = document.querySelector(".post-author");
+    if (postAuthor) {
+      postAuthor.style.display = f.author ? "" : "none";
+      const byLine = postAuthor.querySelector("h4");
+      if (byLine && f.author) byLine.textContent = "BY " + f.author.toUpperCase();
+    }
+    // Tab title + the SEO meta tags (what the site's seo tag emits).
+    if (TITLE_SUFFIX) document.title = f.title + " | " + TITLE_SUFFIX;
+    const metaDescription = fields.description.value.trim() || f.excerpt;
+    setMetaContent('meta[name="description"]', metaDescription);
+    setMetaContent('meta[property="og:description"]', metaDescription);
+    setMetaContent('meta[name="twitter:description"]', metaDescription);
+    setMetaContent('meta[property="og:title"]', f.title);
+    setMetaContent('meta[name="twitter:title"]', f.title);
   }
 
   // The site's figure embeds (the inline_svg / inline_img Liquid tags, as
@@ -589,7 +651,7 @@ permalink: /blog/editor/
       tocNav.innerHTML = headings.length ? "<ol>" + list + "</ol>" : "";
       if (tocDetails) tocDetails.style.display = headings.length ? "" : "none";
     }
-    $("live-area").querySelectorAll("a[href^=\"#\"][data-toc-target], a[href^=\"#\"]").forEach((link) => {
+    $("live-area").querySelectorAll('a[href^="#"]').forEach((link) => {
       // Only wire links whose target is one of our generated heading ids.
       const id = (link.getAttribute("href") || "").slice(1);
       if (!usedIds.has(id)) return;
@@ -603,7 +665,7 @@ permalink: /blog/editor/
   }
 
   function renderLiveView() {
-    renderHero();
+    renderPageDetails();
     renderBody();
   }
 
@@ -678,8 +740,7 @@ permalink: /blog/editor/
     filenameAuto = false;
     $("filename").value = "_posts/" + file;
     const post = manifestPosts.find((item) => item.file === file);
-    currentUrl = post && post.url ? post.url : "/blog/" + postSlug(file) + "/";
-    $("open-preview").href = currentUrl;
+    $("open-preview").href = post && post.url ? post.url : "/blog/" + postSlug(file) + "/";
     let response = null;
     let fromLocal = false;
     if (SAVE_BASE) {
@@ -723,10 +784,9 @@ permalink: /blog/editor/
       if (!response.ok) return;
       const manifest = await response.json();
       manifestPosts = Array.isArray(manifest.posts) ? manifest.posts : manifestPosts;
+      if (filenameFromInput() !== file) return;
       const post = manifestPosts.find((item) => item.file === file);
-      if (post && post.url) currentUrl = post.url;
-      else currentUrl = "/blog/" + postSlug(file) + "/";
-      if (filenameFromInput() === file) $("open-preview").href = currentUrl;
+      $("open-preview").href = post && post.url ? post.url : "/blog/" + postSlug(file) + "/";
     } catch (error) { /* The filename-derived preview URL remains available. */ }
   }
 
@@ -738,7 +798,7 @@ permalink: /blog/editor/
     }
     if (!applyFormToDocument()) return;
     const file = filenameFromInput();
-    if (!/^\d{4}-\d{2}-\d{2}-[^/\\]+\.md$/.test(file)) {
+    if (!POST_FILE_RE.test(file)) {
       setStatus("Save to needs a filename like _posts/2026-08-15-my-post.md.", "error");
       return;
     }
@@ -754,8 +814,7 @@ permalink: /blog/editor/
       if (!response.ok) throw new Error("HTTP " + response.status);
       currentFile = file;
       filenameAuto = false;
-      currentUrl = "/blog/" + postSlug(file) + "/";
-      $("open-preview").href = currentUrl;
+      $("open-preview").href = "/blog/" + postSlug(file) + "/";
       dirty = editRevision !== savedRevision;
       setStatus(dirty
         ? "Your latest changes are still unsaved. They will save automatically in a moment."
@@ -787,7 +846,7 @@ permalink: /blog/editor/
     }
     localStorage.setItem("drafts-gh-token", token);
     const file = filenameFromInput();
-    if (!/^\d{4}-\d{2}-\d{2}-[^/\\]+\.md$/.test(file)) {
+    if (!POST_FILE_RE.test(file)) {
       setStatus("Save to needs a filename like _posts/2026-08-15-my-post.md.", "error");
       return;
     }
@@ -809,7 +868,7 @@ permalink: /blog/editor/
 
   function mediaSlug() {
     const file = filenameFromInput();
-    return /^\d{4}-\d{2}-\d{2}-[^/\\]+\.md$/.test(file) ? postSlug(file) : "";
+    return POST_FILE_RE.test(file) ? postSlug(file) : "";
   }
 
   // Insert a site-style figure (the inline_svg / inline_img tags) at the
@@ -960,14 +1019,14 @@ permalink: /blog/editor/
     const list = $("media-list");
     const slug = mediaSlug();
     if (!SAVE_BASE) {
-      list.innerHTML = '<p style="color:#6b6878;">The local save server is offline. Start scripts/build-preview.sh serve to browse and upload files.</p>';
+      list.innerHTML = '<p class="muted">The local save server is offline. Start scripts/build-preview.sh serve to browse and upload files.</p>';
       return;
     }
-    if (!slug || !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(slug)) {
-      list.innerHTML = '<p style="color:#6b6878;">Save the post with a filename first so files can go in its media folder.</p>';
+    if (!slug || !SLUG_RE.test(slug)) {
+      list.innerHTML = '<p class="muted">Save the post with a filename first so files can go in its media folder.</p>';
       return;
     }
-    list.innerHTML = '<p style="color:#6b6878;">Looking for files…</p>';
+    list.innerHTML = '<p class="muted">Looking for files…</p>';
     try {
       const response = await fetch(SAVE_BASE + "/files/" + encodeURIComponent(slug), { cache: "no-store" });
       if (!response.ok) throw new Error("HTTP " + response.status);
@@ -975,7 +1034,7 @@ permalink: /blog/editor/
       list.innerHTML = "";
       if (!data.files.length) {
         const empty = document.createElement("p");
-        empty.style.color = "#6b6878";
+        empty.className = "muted";
         empty.textContent = "No files for this post yet. Upload a picture, video, or other file below.";
         list.appendChild(empty);
         return;
@@ -984,17 +1043,17 @@ permalink: /blog/editor/
         const button = document.createElement("button");
         button.type = "button";
         button.className = "media-item";
-        button.innerHTML = '<span aria-hidden="true">' + (file.type === "images" ? "▧" : file.type === "videos" ? "▶" : "↗") + '</span><span class="media-name">' + escapeHtml(file.name) + '</span><span style="color:#6b6878;font-size:.83rem;">Add to post</span>';
+        button.innerHTML = '<span aria-hidden="true">' + (file.type === "images" ? "▧" : file.type === "videos" ? "▶" : "↗") + '</span><span class="media-name">' + escapeHtml(file.name) + '</span><span class="muted">Add to post</span>';
         button.addEventListener("click", () => insertMediaReference(file));
         list.appendChild(button);
       }
-    } catch (error) { list.innerHTML = '<p style="color:#6b6878;">Could not list files. Check that the local preview server is running.</p>'; }
+    } catch (error) { list.innerHTML = '<p class="muted">Could not list files. Check that the local preview server is running.</p>'; }
   }
 
   async function uploadMedia(file) {
     if (!file) return;
     const slug = mediaSlug();
-    if (!SAVE_BASE || !slug || !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(slug)) {
+    if (!SAVE_BASE || !slug || !SLUG_RE.test(slug)) {
       setStatus("Save the post with a valid filename and make sure the local preview server is running before uploading.", "error");
       return;
     }
@@ -1027,7 +1086,6 @@ permalink: /blog/editor/
       }
       pendingLocalLoad = null;
       currentFile = null;
-      currentUrl = "/blog/";
       filenameAuto = true;
       selectEl.value = "";
       loadingDocument = true;

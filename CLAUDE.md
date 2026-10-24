@@ -59,9 +59,17 @@ Needs Ruby 3.x + bundler (+ libvips for photos) and python3. The script fetches 
 into `.main/` and symlinks **only the blog chain** — it builds just `/blog/`, `/blog/<slug>/`,
 `/blog/editor/`. In serve mode it also starts `scripts/draft-save-server.py` (127.0.0.1:4001),
 which is how the editor reads/saves `_posts/` locally and lists/uploads per-post media
-— no GitHub round-trip. The editor itself is a two-pane page (Vditor + live iframe of
-the rendered post) with a front-matter form and autosave; it is self-contained in
-`editor.html`. Never edit
+— no GitHub round-trip. The editor (`editor.html`) is a real Jekyll page using the site's
+own `post` layout: hero, ToC rail, 820px column and footer come from `_layouts/post.html`,
+and the page only adds `#live-area` (the draft rendered in place of the post body) and
+`#editor-panel` (control bar + collapsible writing surface: front-matter form, toolbar,
+textarea). On viewports ≥ 102rem the panel floats in the left margin beside the article;
+below that it stacks at the end of the page. JS updates the real hero, tab title and SEO
+meta tags live as you type. **Liquid gotcha:** `editor.html` keeps its body inside
+`{% raw %}…{% endraw %}`, and Liquid 4.0.4's RawTag corrupts raw blocks that contain literal
+brace-percent sequences — so never write `{% … %}`-style text in the file (tag delimiters are
+built at runtime, regexes use `[…]%`). Verify after edits: extract the inline script and run
+`node --check`, then build and re-check the built page's script. Never edit
 anything under `.main/`; it is regenerated every run. If the build fails with a "refusing to
 link over it" or "dangling link" error, report it — that means main changed and the allowlist
 in `scripts/build-preview.sh` needs updating (a deliberate tripwire).

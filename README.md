@@ -32,8 +32,9 @@ scripts/build-preview.sh serve
 
 Open **http://localhost:4000/blog/editor/**. It's built for writing, not for fiddling:
 
-- Pick a draft (or hit *New draft*) — on the left you write what-you-type-is-what-you-see; on the right the post renders **live in the real site template** and refreshes as you work.
-- The *Post details* form fills in the title, author, teaser and friends for you — no hand-editing YAML.
+- Pick a draft (or hit *New draft*) — the post renders **live in the real site template** and refreshes as you work; on wide screens the writing area sits beside it in the left margin, like the table of contents.
+- The *Post details* form fills in the title, author, teaser and friends for you — no hand-editing YAML. What you type there updates the page's title, header and summary live.
+- Each section of the writing area (the controls row, *Write your post*, *Post details*) can be folded away by clicking its heading.
 - Everything **saves automatically** into the `_posts/` folder of this copy (*Save now* or Ctrl-S if you prefer). No token, no GitHub round-trip.
 - *Add media* lists this post's files and uploads new ones straight into its media folder — click one and it's inserted at the right path.
 - A *Push to GitHub* action exists too, if you ever want to commit from the browser (that one does need a personal access token).

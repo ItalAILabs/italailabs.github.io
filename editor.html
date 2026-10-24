@@ -20,7 +20,25 @@ permalink: /blog/editor/
      its list from the draft's headings. -->
 
 <style>
-  #editor-bar { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; padding: .9rem 0 1.1rem; margin-bottom: 1.4rem; border-bottom: 1px solid #d8d4c6; }
+  /* Collapsible panel sections: the status row and the "Write your post"
+     heading are <summary> toggles, so each part of the writing surface can
+     be folded away to make room. */
+  details#editor-bar, details#writer { border: 1px solid #dedbd2; border-radius: 9px; background: #fffdf8; margin-bottom: .9rem; }
+  details#editor-bar > summary, details#writer > summary {
+    cursor: pointer; list-style: none; padding: .55rem .8rem;
+    display: flex; align-items: center; gap: .5rem; color: #17152a;
+  }
+  details#editor-bar > summary::-webkit-details-marker, details#writer > summary::-webkit-details-marker { display: none; }
+  details#editor-bar > summary::before, details#writer > summary::before {
+    content: "▸"; font-size: .8rem; color: #6b6878; transition: transform .15s;
+  }
+  details[open]#editor-bar > summary::before, details[open]#writer > summary::before { transform: rotate(90deg); }
+  details#writer > summary h2 {
+    margin: 0 !important; font-family: var(--header-family);
+    font-size: .85rem !important; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #17152a; line-height: 1.4;
+  }
+  .bar-controls { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; padding: .35rem .8rem .7rem; }
   #editor-bar label { color: #6b6878; font-size: .83rem; white-space: nowrap; }
   #editor-bar button, #editor-bar select, #editor-bar input[type="text"], #editor-bar input[type="password"] {
     min-height: 2.55rem; padding: .5rem .72rem; border: 1px solid #dedbd2; border-radius: 8px;
@@ -70,10 +88,9 @@ permalink: /blog/editor/
     font: 14px/1.7 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
     tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere;
   }
-  /* The render area is a fixed-height scroll window: its height never
-     changes while you type, so the page (and the editor below it) never
-     moves. Scroll position inside is preserved across re-renders. */
-  #live-area { height: 70vh; min-height: 380px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid #dedbd2; border-radius: 9px; padding: .4rem 1.6rem 1.6rem; background: #fffdf8; }
+  /* The render area is the post body itself: it flows with the page at full
+     content height, like a normal blog post — no internal scroll box. */
+  #live-area { margin-bottom: 1.6rem; }
   /* The hero keeps a stable minimum height so short titles don't shrink it
      and shift everything below when the form fields change. */
   .post-hero { min-height: 380px; }
@@ -110,7 +127,7 @@ permalink: /blog/editor/
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
       padding: .9rem 1rem 1.1rem;
     }
-    #editor-panel #editor-bar { border-bottom: 1px solid #dedbd2; margin-bottom: .8rem; padding-top: 0; }
+    #editor-panel details#writer { margin-bottom: 0; }
     #editor-panel .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     #editor-panel #md-source { min-height: 30vh; }
   }
@@ -140,9 +157,12 @@ permalink: /blog/editor/
 <div id="live-area"></div>
 
 <div id="editor-panel">
-<div id="editor-bar">
-  <span id="save-indicator" class="loading">Loading…</span>
-  <span id="status-message" role="status" aria-live="polite">Loading your drafts…</span>
+<details id="editor-bar" open>
+  <summary>
+    <span id="save-indicator" class="loading">Loading…</span>
+    <span id="status-message" role="status" aria-live="polite">Loading your drafts…</span>
+  </summary>
+  <div class="bar-controls">
   <label for="draft-select">Post</label>
   <select id="draft-select" aria-label="Choose a draft"><option value="">Choose a draft…</option></select>
   <button id="btn-new" type="button">New draft</button>
@@ -163,12 +183,15 @@ permalink: /blog/editor/
       <p class="hint">Saving locally is the normal way to work. Push is optional and sends this post directly to the drafts branch.</p>
     </div>
   </details>
-</div>
+  </div>
+</details>
 
-<!-- Writing surface. The h2 is a real heading so the layout's ToC rail
-     renders; JS replaces its list with the draft's headings. -->
+<!-- Writing surface. The h2 (inside the writer's summary) is a real heading
+     so the layout's ToC rail renders; JS replaces its list with the draft's
+     headings. -->
 <section id="editor-section">
-  <h2>Write your post</h2>
+  <details id="writer" open>
+  <summary><h2>Write your post</h2></summary>
   <details id="front-matter">
     <summary>Post details <span class="hint" style="color:#6b6878;font-weight:400;">— fill these in instead of editing YAML</span></summary>
     <p class="form-help">These details are saved at the top of your markdown. You can still edit the YAML directly in the editor below.</p>
@@ -196,6 +219,7 @@ permalink: /blog/editor/
     <button type="button" data-action="code-block" aria-label="Code block" title="Code block">Code</button>
   </div>
   <textarea id="md-source" aria-label="Markdown source" spellcheck="false" placeholder="Choose a post or start a new draft."></textarea>
+  </details>
 </section>
 </div>
 
@@ -515,7 +539,6 @@ permalink: /blog/editor/
     if (!window.marked) return;
     const parsed = parseFrontMatter(source.value);
     const area = $("live-area");
-    const scrollTop = area.scrollTop; // preserved across re-renders: no jumps
     let body = figureTagsToHtml(parsed ? parsed.body : source.value);
     const f = heroFields();
     let contentHtml = marked.parse(body);
@@ -535,7 +558,6 @@ permalink: /blog/editor/
     contentHtml = content.innerHTML;
     const imageHtml = f.image ? '<div class="post-featured-image"><img src="' + escapeHtml(f.image) + '" alt="' + escapeHtml(f.title) + '" fetchpriority="high"></div>' : "";
     area.innerHTML = imageHtml + contentHtml;
-    area.scrollTop = scrollTop;
     inlineSvgFigures();
 
     // Fill the layout's real ToC rail with the draft's headings (same <ol>/<ul>

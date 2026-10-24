@@ -1,248 +1,171 @@
 ---
-layout: null
-permalink: /blog/editor/
+layout: post
 title: "Draft editor"
-description: "Markdown editor for blog drafts on the drafts branch."
+date: 2026-01-01
+category: Guides
+excerpt: "Pick a draft, write, and watch it render as a real blog post."
+author: "ItalAI Research"
+permalink: /blog/editor/
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Draft editor — ItalAI Labs</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/post.css">
-  <link rel="stylesheet" href="/assets/fontawesome/css/fontawesome.css">
-  <link rel="stylesheet" href="/assets/fontawesome/css/brands.css">
-  <link rel="stylesheet" href="/assets/fontawesome/css/solid.css">
-  {% raw %}
-  <style>
-    :root {
-      color-scheme: light;
-      --ink: #17152a;
-      --muted: #6b6878;
-      --paper: #fffdf8;
-      --canvas: #f3f1eb;
-      --line: #dedbd2;
-      --green: #208b69;
-      --green-dark: #17694f;
-      --danger: #a42e2e;
-      font-family: "DM Sans", system-ui, sans-serif;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: auto; }
-    body { margin: 0 !important; min-height: 100vh; background: var(--canvas) !important; color: var(--ink) !important; font: 16px/1.5 "DM Sans", system-ui, sans-serif !important; }
-    #editor-shell { min-height: 100vh; color: var(--ink); font-family: "DM Sans", system-ui, sans-serif; }
-    #editor-shell button, #editor-shell input, #editor-shell select, #editor-shell textarea { font: inherit; }
-    #editor-shell button, #editor-shell select, #editor-shell input[type="text"], #editor-shell input[type="password"] {
-      min-height: 2.55rem; padding: .5rem .72rem; border: 1px solid var(--line); border-radius: 8px;
-      color: var(--ink); background: white; box-shadow: none; text-transform: none; letter-spacing: normal;
-    }
-    #editor-shell button { cursor: pointer; transition: background .15s, border-color .15s; }
-    #editor-shell button:hover { background: #f0eee7; }
-    #editor-shell button:focus-visible, #editor-shell input:focus-visible, #editor-shell select:focus-visible,
-    #editor-shell textarea:focus-visible, #editor-shell a:focus-visible, #editor-shell summary:focus-visible {
-      outline: 3px solid #72c8aa; outline-offset: 2px;
-    }
-    #editor-shell button.primary { background: var(--green); border-color: var(--green); color: white; font-weight: 700; }
-    #editor-shell button.primary:hover { background: var(--green-dark); }
-    #editor-shell button.secondary { border-color: transparent; background: transparent; }
-    #editor-shell a { color: var(--green-dark); text-decoration: none; }
-    #editor-shell a:hover { text-decoration: underline; }
-    .topbar {
-      position: sticky; top: 0; z-index: 5; display: flex; align-items: center; flex-wrap: wrap; gap: .6rem;
-      padding: .7rem 1rem; background: var(--paper); border-bottom: 1px solid var(--line);
-    }
-    .brand { margin: 0 .55rem 0 0 !important; color: var(--ink); font-size: 1.08rem !important; line-height: 1.3; white-space: nowrap; }
-    .brand span { color: var(--green); }
-    .topbar label, .small-label { color: var(--muted); font-size: .83rem; }
-    #draft-select { max-width: min(440px, 45vw); }
-    .topbar .site-link { margin-left: auto; white-space: nowrap; }
-    .statusbar {
-      display: flex; align-items: center; gap: .55rem; min-height: 2.65rem; padding: .35rem 1rem;
-      background: #faf9f5; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .88rem;
-    }
-    #save-indicator { flex: 0 0 auto; padding: .2rem .55rem; border-radius: 999px; font-weight: 700; }
-    #save-indicator.loading { background: #eceae4; color: var(--muted); }
-    #save-indicator.saved { background: #e2f4eb; color: #145b3e; }
-    #save-indicator.dirty, #save-indicator.saving { background: #fff0cb; color: #76530a; }
-    #save-indicator.offline, #save-indicator.error { background: #fde7e7; color: #842323; }
-    #status-message { overflow-wrap: anywhere; }
-    main { padding: 0; }
-    details#front-matter { border: 1px solid var(--line); border-radius: 11px; background: var(--paper); margin: .8rem 1rem .75rem; }
-    details#front-matter > summary { cursor: pointer; padding: .8rem 1rem; color: var(--ink); font-weight: 700; }
-    .form-help { margin: -.35rem 1rem .7rem; color: var(--muted); font-size: .84rem; }
-    .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; padding: 0 1rem 1rem; }
-    .field { display: flex; flex-direction: column; gap: .28rem; min-width: 0; color: var(--muted); font-size: .83rem; }
-    .field.wide { grid-column: span 2; }
-    .field.full { grid-column: 1 / -1; }
-    .field input { width: 100%; color: var(--ink) !important; }
-    .check-field { display: flex; align-items: center; gap: .55rem; padding-top: 1.55rem; color: var(--muted); font-size: .83rem; }
-    .check-field input { width: 1.1rem; height: 1.1rem; }
-    .split-toolbar { display: flex; align-items: center; gap: .45rem; min-height: 2.8rem; padding: .35rem 1rem; }
-    .split-toolbar strong { margin-right: auto; color: var(--ink); font-size: .95rem; }
-    .split-toolbar button { min-height: 2.2rem !important; padding: .35rem .6rem !important; }
-    /* The page below the hero uses the live site's own post layout row
-       (.post-layout: flex, centered, 2rem padding) with two children:
-       our editor column and the site's real .post-wrap (820px). */
-    .editor-post-layout { display: flex; justify-content: center; align-items: flex-start; gap: 2rem; padding: 2rem; flex-wrap: wrap; }
-    .editor-column { flex: 1 1 30rem; max-width: 46rem; min-width: 0; display: flex; flex-direction: column; background: var(--standard-light); border: 1px solid #e4e0d2; border-radius: var(--radius-md); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06); overflow: hidden; min-height: 70vh; }
-    .pane-head { display: flex; align-items: center; gap: .4rem; min-height: 3rem; padding: .25rem .7rem; border-bottom: 1px solid #e4e0d2; background: transparent; }
-    .pane-head h2 { margin: 0 auto 0 .25rem !important; color: var(--ink); font-size: .9rem !important; line-height: 1.35; }
-    .pane-head button { min-height: 2rem !important; padding: .3rem .55rem !important; font-size: .82rem; }
-    .hint { color: var(--muted); font-size: .8rem; line-height: 1.4; }
-    .editor-toolbar { display: flex; flex-wrap: wrap; gap: .28rem; padding: .55rem .65rem; border-bottom: 1px solid var(--line); background: white; }
-    .editor-toolbar button { min-height: 2rem !important; min-width: 2rem; padding: .27rem .48rem !important; color: #454253 !important; font-size: .8rem; }
-    .editor-toolbar button[aria-label="Heading"] { font-weight: 700; }
-    #md-source {
-      display: block; flex: 1; width: 100%; min-height: 45vh; resize: none; padding: 1.15rem 1.2rem;
-      border: 0; border-radius: 0; outline-offset: -3px; background: #fffefa; color: #292638;
-      font: 14px/1.7 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
-      tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere;
-    }
-    /* The live view is an iframe holding the site's real post layout
-       (.post-layout > .post-wrap, 820px). Same-origin srcdoc: its CSS comes
-       from /assets/css/post.css and its DOM is updated in place as you type.
-       Anything wide (code blocks) scrolls inside the frame, never the page. */
-    #live-frame { flex: 0 1 820px; width: 100%; max-width: 820px; height: 72vh; min-height: 480px; border: 0; background: white; }
-    #editor-pane.hidden-pane, #live-frame.hidden-pane { display: none; }
-    footer { position: sticky; bottom: 0; z-index: 4; display: flex; align-items: center; flex-wrap: wrap; gap: .55rem; padding: .65rem 1rem; background: var(--paper); border-top: 1px solid var(--line); color: var(--muted); font-size: .84rem; }
-    #filename { width: min(350px, 100%); }
-    footer .spacer { flex: 1; }
-    details#more-actions { position: relative; }
-    details#more-actions > summary { cursor: pointer; list-style: none; padding: .65rem .8rem; border: 1px solid var(--line); border-radius: 8px; background: white; color: var(--ink); }
-    details#more-actions > summary::-webkit-details-marker { display: none; }
-    .more-content { position: absolute; right: 0; bottom: calc(100% + .35rem); z-index: 6; width: min(410px, 90vw); padding: .85rem; border: 1px solid var(--line); border-radius: 10px; background: white; box-shadow: 0 8px 28px #17152a1c; }
-    .more-content button { margin: .2rem .2rem .45rem 0; }
-    #token { display: block; width: 100%; margin: .4rem 0; }
-    dialog { width: min(680px, calc(100vw - 2rem)); max-height: 85vh; padding: 0; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); box-shadow: 0 16px 50px #17152a35; }
-    dialog::backdrop { background: #17152a88; }
-    .dialog-head { display: flex; align-items: center; gap: .7rem; padding: .9rem 1rem; border-bottom: 1px solid var(--line); }
-    .dialog-head h2 { margin: 0 auto 0 0 !important; font-size: 1.05rem !important; }
-    .dialog-body { padding: 1rem; }
-    #media-list { display: grid; gap: .45rem; max-height: 34vh; overflow: auto; margin: .75rem 0 1rem; }
-    .media-item { display: flex; align-items: center; gap: .65rem; text-align: left; }
-    .media-item .media-name { overflow-wrap: anywhere; }
-    #drop-zone { padding: 1rem; border: 2px dashed #b7b2a7; border-radius: 9px; text-align: center; background: #faf9f5; }
-    #drop-zone.dragging { border-color: var(--green); background: #e9f7f0; }
-    #drop-zone p { margin: 0 0 .55rem; }
-    .dialog-actions { display: flex; justify-content: flex-end; padding: .75rem 1rem; border-top: 1px solid var(--line); }
-    @media (max-width: 900px) {
-      .topbar .site-link { margin-left: 0; }
-      .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 560px) {
-      .topbar { position: static; }
-      #draft-select { max-width: 100%; flex: 1 1 100%; }
-      .fields { grid-template-columns: 1fr; }
-      .field.wide { grid-column: auto; }
-      .check-field { padding-top: .35rem; }
-      footer { padding-left: .55rem; padding-right: .55rem; }
-      .editor-post-layout { padding: 1.25rem 1rem; gap: 1.25rem; }
-      .statusbar { padding-left: .65rem; padding-right: .65rem; }
-    }
-  </style>
-</head>
-<body>
-<div id="editor-shell">
-  <header class="topbar">
-    <h1 class="brand"><span aria-hidden="true">●</span> Draft editor</h1>
-    <label for="draft-select">Choose a post</label>
-    <select id="draft-select" aria-label="Choose a draft"><option value="">Choose a draft…</option></select>
-    <button id="btn-new" type="button">New draft</button>
-    <a id="open-preview" class="site-link" href="/blog/" target="_blank" rel="noopener">Open rendered preview ↗</a>
-    <a class="site-link" href="https://italailabs.com" target="_blank" rel="noopener">Live site ↗</a>
-  </header>
+{% raw %}
 
-  <div class="statusbar" role="status" aria-live="polite">
-    <span id="save-indicator" class="loading">Loading…</span>
-    <span id="status-message">Loading your drafts…</span>
-  </div>
+<!-- Everything below lives inside the layout's .post-body. The page uses the
+     site's REAL post layout (layout: post): the hero, the "On this page" rail,
+     the container/column, and the footer all come from _layouts/post.html —
+     nothing of that is duplicated here. This file only adds the editor
+     tooling: a control bar, the live render area (#live-area), and the
+     writing surface (textarea + toolbar). JS updates the real hero elements'
+     text in place and fills #live-area as you type. The <h2> below is what
+     makes the layout's ToC rail render at build time; JS then regenerates
+     its list from the draft's headings. -->
 
-  <main>
-    <details id="front-matter">
-      <summary>Post details <span class="hint">— fill these in instead of editing YAML</span></summary>
-      <p class="form-help">These details are saved at the top of your markdown. You can still edit the YAML directly in the editor below.</p>
-      <div class="fields">
-        <label class="field wide"><span>Title</span><input id="fm-title" type="text" autocomplete="off" placeholder="A clear title for your post"></label>
-        <label class="field"><span>Category</span><input id="fm-category" type="text" placeholder="Research, Guides…"></label>
-        <label class="field"><span>Author</span><input id="fm-author" type="text" placeholder="Your name or team"></label>
-        <label class="field"><span>Short teaser (excerpt)</span><input id="fm-excerpt" type="text" placeholder="A short note for the blog listing"></label>
-        <label class="field wide"><span>Description</span><input id="fm-description" type="text" placeholder="One-line summary for search and sharing"></label>
-        <label class="field"><span>Reading time</span><input id="fm-read_time" type="text" placeholder="5 min read"></label>
-        <label class="field wide"><span>Image path</span><input id="fm-image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
-        <label class="field wide"><span>Large header image path</span><input id="fm-hero_image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
-        <label class="check-field"><input id="fm-published_in_blog" type="checkbox"><span>Show in the blog listing</span></label>
-      </div>
-    </details>
+<style>
+  #editor-bar { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; padding: .9rem 0 1.1rem; margin-bottom: 1.4rem; border-bottom: 1px solid #d8d4c6; }
+  #editor-bar label { color: #6b6878; font-size: .83rem; white-space: nowrap; }
+  #editor-bar button, #editor-bar select, #editor-bar input[type="text"], #editor-bar input[type="password"] {
+    min-height: 2.55rem; padding: .5rem .72rem; border: 1px solid #dedbd2; border-radius: 8px;
+    color: #17152a; background: white; font: inherit; text-transform: none; letter-spacing: normal;
+  }
+  #editor-bar button { cursor: pointer; transition: background .15s, border-color .15s; }
+  #editor-bar button:hover { background: #f0eee7; }
+  #editor-bar button.primary { background: #208b69; border-color: #208b69; color: white; font-weight: 700; }
+  #editor-bar button.primary:hover { background: #17694f; }
+  #editor-bar a { color: #17694f; text-decoration: none; white-space: nowrap; }
+  #editor-bar a:hover { text-decoration: underline; }
+  #draft-select { max-width: min(380px, 60vw); }
+  #filename { width: min(320px, 100%); }
+  .bar-sep { flex: 1; }
+  #save-indicator { flex: 0 0 auto; padding: .2rem .55rem; border-radius: 999px; font-weight: 700; font-size: .85rem; }
+  #save-indicator.loading { background: #eceae4; color: #6b6878; }
+  #save-indicator.saved { background: #e2f4eb; color: #145b3e; }
+  #save-indicator.dirty, #save-indicator.saving { background: #fff0cb; color: #76530a; }
+  #save-indicator.offline, #save-indicator.error { background: #fde7e7; color: #842323; }
+  #status-message { overflow-wrap: anywhere; color: #6b6878; font-size: .88rem; }
+  details#more-actions { position: relative; display: inline-block; }
+  details#more-actions > summary { cursor: pointer; list-style: none; padding: .55rem .8rem; border: 1px solid #dedbd2; border-radius: 8px; background: white; color: #17152a; font: inherit; }
+  details#more-actions > summary::-webkit-details-marker { display: none; }
+  .more-content { position: absolute; right: 0; top: calc(100% + .35rem); z-index: 6; width: min(410px, 85vw); padding: .85rem; border: 1px solid #dedbd2; border-radius: 10px; background: white; box-shadow: 0 8px 28px #17152a1c; }
+  .more-content button { margin: .2rem .2rem .45rem 0; }
+  .more-content label { display: block; color: #6b6878; font-size: .83rem; }
+  #token { display: block; width: 100%; margin: .4rem 0; }
+  details#front-matter { border: 1px solid #dedbd2; border-radius: 11px; background: #fffdf8; margin: 1.1rem 0 .9rem; }
+  details#front-matter > summary { cursor: pointer; padding: .8rem 1rem; color: #17152a; font-weight: 700; }
+  .form-help { margin: -.35rem 1rem .7rem; color: #6b6878; font-size: .84rem; }
+  .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; padding: 0 1rem 1rem; }
+  .field { display: flex; flex-direction: column; gap: .28rem; min-width: 0; color: #6b6878; font-size: .83rem; }
+  .field.wide { grid-column: span 2; }
+  .field input { width: 100%; min-height: 2.55rem; padding: .5rem .72rem; border: 1px solid #dedbd2; border-radius: 8px; color: #17152a !important; background: white; font: inherit; }
+  .check-field { display: flex; align-items: center; gap: .55rem; padding-top: 1.55rem; color: #6b6878; font-size: .83rem; }
+  .check-field input { width: 1.1rem; height: 1.1rem; }
+  #editor-section h2 { scroll-margin-top: 4rem; }
+  .editor-toolbar { display: flex; flex-wrap: wrap; gap: .28rem; padding: .55rem .65rem; border: 1px solid #dedbd2; border-bottom: 0; border-radius: 9px 9px 0 0; background: white; }
+  .editor-toolbar button { min-height: 2rem; min-width: 2rem; padding: .27rem .48rem; color: #454253 !important; font-size: .8rem; border: 1px solid #dedbd2; border-radius: 7px; background: white; cursor: pointer; font: inherit; }
+  .editor-toolbar button:hover { background: #f0eee7; }
+  .editor-toolbar button[aria-label="Heading"] { font-weight: 700; }
+  #md-source {
+    display: block; width: 100%; min-height: 45vh; resize: vertical; padding: 1.15rem 1.2rem;
+    border: 1px solid #dedbd2; border-radius: 0 0 9px 9px; background: #fffefa; color: #292638;
+    font: 14px/1.7 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
+    tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+  #live-area:empty { min-height: 3rem; }
+  dialog#media-dialog { width: min(680px, calc(100vw - 2rem)); max-height: 85vh; padding: 0; border: 1px solid #dedbd2; border-radius: 12px; color: #17152a; box-shadow: 0 16px 50px #17152a35; }
+  dialog#media-dialog::backdrop { background: #17152a88; }
+  .dialog-head { display: flex; align-items: center; gap: .7rem; padding: .9rem 1rem; border-bottom: 1px solid #dedbd2; }
+  .dialog-head h2 { margin: 0 auto 0 0 !important; font-size: 1.05rem !important; }
+  .dialog-body { padding: 1rem; }
+  #media-list { display: grid; gap: .45rem; max-height: 34vh; overflow: auto; margin: .75rem 0 1rem; }
+  .media-item { display: flex; align-items: center; gap: .65rem; text-align: left; width: 100%; padding: .5rem .7rem; border: 1px solid #dedbd2; border-radius: 8px; background: white; cursor: pointer; font: inherit; color: #17152a; }
+  .media-item:hover { background: #f0eee7; }
+  .media-item .media-name { overflow-wrap: anywhere; }
+  #drop-zone { padding: 1rem; border: 2px dashed #b7b2a7; border-radius: 9px; text-align: center; background: #faf9f5; }
+  #drop-zone.dragging { border-color: #208b69; background: #e9f7f0; }
+  #drop-zone p { margin: 0 0 .55rem; }
+  .dialog-actions { display: flex; justify-content: flex-end; padding: .75rem 1rem; border-top: 1px solid #dedbd2; }
+  @media (max-width: 900px) { .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) {
+    .fields { grid-template-columns: 1fr; }
+    .field.wide { grid-column: auto; }
+    .check-field { padding-top: .35rem; }
+    #draft-select, #filename { max-width: 100%; flex: 1 1 100%; }
+  }
+</style>
 
-    <div class="split-toolbar" aria-label="Editor and preview controls">
-      <strong>Write and preview</strong>
-      <button id="btn-media" type="button" aria-haspopup="dialog">Add media</button>
-      <button id="btn-hide-preview" type="button">Hide preview</button>
-      <button id="btn-show-editor" type="button" hidden>Show editor</button>
-      <button id="btn-show-preview" type="button" hidden>Show preview</button>
+<div id="editor-bar">
+  <span id="save-indicator" class="loading">Loading…</span>
+  <span id="status-message" role="status" aria-live="polite">Loading your drafts…</span>
+  <label for="draft-select">Post</label>
+  <select id="draft-select" aria-label="Choose a draft"><option value="">Choose a draft…</option></select>
+  <button id="btn-new" type="button">New draft</button>
+  <button id="btn-media" type="button" aria-haspopup="dialog">Add media</button>
+  <a id="open-preview" href="/blog/">Open rendered preview ↗</a>
+  <span class="bar-sep"></span>
+  <button id="btn-save-local" type="button" class="primary">Save now</button>
+  <label for="filename">Save to</label>
+  <input type="text" id="filename" aria-label="File path to save the post" placeholder="_posts/YYYY-MM-DD-your-title.md" spellcheck="false">
+  <button id="btn-copy" type="button">Copy markdown</button>
+  <button id="btn-download" type="button">Download .md</button>
+  <details id="more-actions">
+    <summary>More actions</summary>
+    <div class="more-content">
+      <button id="btn-push" type="button">Push to GitHub</button>
+      <label for="token">Optional GitHub token, saved only in this browser</label>
+      <input type="password" id="token" autocomplete="off" placeholder="Token for the drafts branch">
+      <p class="hint">Saving locally is the normal way to work. Push is optional and sends this post directly to the drafts branch.</p>
     </div>
-    <section class="post-hero" id="live-hero">
-      <div class="post-hero-inner"><div class="post-hero-breadcrumb"><a href="/">HOME</a> / <a href="/blog/">BLOG</a> / <span class="post-hero-breadcrumb-active">UNTITLED DRAFT</span></div><h1 class="post-hero-title">Untitled draft<span class="period"></span></h1></div>
-    </section>
-    <section class="post-content-section">
-      <div class="editor-post-layout">
-        <section class="editor-column" id="editor-pane" aria-label="Markdown editor">
-          <div class="pane-head"><h2>Write your post</h2><button id="btn-hide-editor" type="button" aria-label="Collapse editor">Hide editor</button></div>
-          <div class="editor-toolbar" role="toolbar" aria-label="Markdown formatting">
-            <button type="button" data-action="heading" aria-label="Heading" title="Heading">H2</button>
-            <button type="button" data-action="bold" aria-label="Bold" title="Bold"><strong>B</strong></button>
-            <button type="button" data-action="italic" aria-label="Italic" title="Italic"><em>I</em></button>
-            <button type="button" data-action="inline-code" aria-label="Inline code" title="Inline code">&lt;/&gt;</button>
-            <button type="button" data-action="link" aria-label="Link" title="Link">Link</button>
-            <button type="button" data-action="image" aria-label="Image" title="Image">Image</button>
-            <button type="button" data-action="quote" aria-label="Quote" title="Quote">❝</button>
-            <button type="button" data-action="list" aria-label="List" title="List">List</button>
-            <button type="button" data-action="code-block" aria-label="Code block" title="Code block">Code</button>
-          </div>
-          <textarea id="md-source" aria-label="Markdown source" spellcheck="false" placeholder="Choose a post or start a new draft."></textarea>
-        </section>
-        <iframe id="live-frame" title="Live post preview — the post body in the site's post layout"></iframe>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <button id="btn-save-local" type="button" class="primary">Save now</button>
-    <label class="small-label" for="filename">Save to</label>
-    <input type="text" id="filename" aria-label="File path to save the post" placeholder="_posts/YYYY-MM-DD-your-title.md">
-    <span class="spacer"></span>
-    <button id="btn-copy" type="button">Copy markdown</button>
-    <button id="btn-download" type="button">Download .md</button>
-    <details id="more-actions">
-      <summary>More actions</summary>
-      <div class="more-content">
-        <button id="btn-push" type="button">Push to GitHub</button>
-        <label class="hint" for="token">Optional GitHub token, saved only in this browser</label>
-        <input type="password" id="token" autocomplete="off" placeholder="Token for the drafts branch">
-        <p class="hint">Saving locally is the normal way to work. Push is optional and sends this post directly to the drafts branch.</p>
-      </div>
-    </details>
-  </footer>
-
-  <dialog id="media-dialog" aria-labelledby="media-title">
-    <div class="dialog-head"><h2 id="media-title">Add a picture, video, or file</h2><button id="btn-close-media" type="button" aria-label="Close media window">Close</button></div>
-    <div class="dialog-body">
-      <p id="media-help" class="hint">Choose an existing file to add it to your post, or upload a new one. Files go in this post’s media folder.</p>
-      <div id="media-list" aria-live="polite"><p class="hint">Loading files…</p></div>
-      <div id="drop-zone" tabindex="0" role="button" aria-label="Choose a file or drop a file to upload">
-        <p><strong>Drop a file here</strong> or choose one from your computer.</p>
-        <button id="btn-choose-file" type="button">Choose a file</button>
-        <input id="media-file" type="file" hidden>
-      </div>
-      <p id="upload-note" class="hint">Images, videos, and other files are sorted into the right folder automatically. Avoid uploading private information.</p>
-    </div>
-    <div class="dialog-actions"><button id="btn-close-media-bottom" type="button">Done</button></div>
-  </dialog>
+  </details>
 </div>
+
+<!-- Render area: the draft's body, rendered live as a real post body -->
+<div id="live-area"></div>
+
+<!-- Writing surface. The h2 is a real heading so the layout's ToC rail
+     renders; JS replaces its list with the draft's headings. -->
+<section id="editor-section">
+  <h2>Write your post</h2>
+  <details id="front-matter">
+    <summary>Post details <span class="hint" style="color:#6b6878;font-weight:400;">— fill these in instead of editing YAML</span></summary>
+    <p class="form-help">These details are saved at the top of your markdown. You can still edit the YAML directly in the editor below.</p>
+    <div class="fields">
+      <label class="field wide"><span>Title</span><input id="fm-title" type="text" autocomplete="off" placeholder="A clear title for your post"></label>
+      <label class="field"><span>Category</span><input id="fm-category" type="text" placeholder="Research, Guides…"></label>
+      <label class="field"><span>Author</span><input id="fm-author" type="text" placeholder="Your name or team"></label>
+      <label class="field"><span>Short teaser (excerpt)</span><input id="fm-excerpt" type="text" placeholder="A short note for the blog listing"></label>
+      <label class="field wide"><span>Description</span><input id="fm-description" type="text" placeholder="One-line summary for search and sharing"></label>
+      <label class="field"><span>Reading time</span><input id="fm-read_time" type="text" placeholder="5 min read"></label>
+      <label class="field wide"><span>Image path</span><input id="fm-image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
+      <label class="field wide"><span>Large header image path</span><input id="fm-hero_image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
+      <label class="check-field"><input id="fm-published_in_blog" type="checkbox"><span>Show in the blog listing</span></label>
+    </div>
+  </details>
+  <div class="editor-toolbar" role="toolbar" aria-label="Markdown formatting">
+    <button type="button" data-action="heading" aria-label="Heading" title="Heading">H2</button>
+    <button type="button" data-action="bold" aria-label="Bold" title="Bold"><strong>B</strong></button>
+    <button type="button" data-action="italic" aria-label="Italic" title="Italic"><em>I</em></button>
+    <button type="button" data-action="inline-code" aria-label="Inline code" title="Inline code">&lt;/&gt;</button>
+    <button type="button" data-action="link" aria-label="Link" title="Link">Link</button>
+    <button type="button" data-action="image" aria-label="Image" title="Image">Image</button>
+    <button type="button" data-action="quote" aria-label="Quote" title="Quote">❝</button>
+    <button type="button" data-action="list" aria-label="List" title="List">List</button>
+    <button type="button" data-action="code-block" aria-label="Code block" title="Code block">Code</button>
+  </div>
+  <textarea id="md-source" aria-label="Markdown source" spellcheck="false" placeholder="Choose a post or start a new draft."></textarea>
+</section>
+
+<dialog id="media-dialog" aria-labelledby="media-title">
+  <div class="dialog-head"><h2 id="media-title">Add a picture, video, or file</h2><button id="btn-close-media" type="button" aria-label="Close media window" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;color:#17152a;">Close</button></div>
+  <div class="dialog-body">
+    <p id="media-help" style="color:#6b6878;font-size:.9rem;">Choose an existing file to add it to your post, or upload a new one. Files go in this post’s media folder.</p>
+    <div id="media-list" aria-live="polite"><p style="color:#6b6878;">Loading files…</p></div>
+    <div id="drop-zone" tabindex="0" role="button" aria-label="Choose a file or drop a file to upload">
+      <p><strong>Drop a file here</strong> or choose one from your computer.</p>
+      <button id="btn-choose-file" type="button" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;">Choose a file</button>
+      <input id="media-file" type="file" hidden>
+    </div>
+    <p id="upload-note" style="color:#6b6878;font-size:.9rem;">Images, videos, and other files are sorted into the right folder automatically. Avoid uploading private information.</p>
+  </div>
+  <div class="dialog-actions"><button id="btn-close-media-bottom" type="button" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;">Done</button></div>
+</dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
 <script>
@@ -461,51 +384,34 @@ description: "Markdown editor for blog drafts on the drafts branch."
     };
   }
 
+  // The hero below is the layout's REAL hero (rendered by _layouts/post.html
+  // from this page's front matter). We only update its text nodes live.
   function renderHero() {
     const f = heroFields();
-    const authorInitials = f.author.split(/\s+/).filter(Boolean).map((part) => part[0]).slice(0, 2).join("").toUpperCase();
-    const badge = f.category ? '<span class="post-hero-category">' + escapeHtml(f.category.toUpperCase()) + "</span>" : "";
-    const dateBadge = f.date ? '<span class="post-hero-date">' + escapeHtml(f.date) + "</span>" : "";
-    const excerptHtml = f.excerpt ? '<p class="post-hero-excerpt">' + escapeHtml(f.excerpt) + "</p>" : "";
-    const authorHtml = f.author ? '<div class="post-hero-author"><div class="post-hero-avatar">' + escapeHtml(authorInitials) + '</div><div class="post-hero-author-info"><div class="post-hero-author-name">' + escapeHtml(f.author) + '</div><div class="post-hero-author-role">Researcher' + (f.readTime ? ' · ' + escapeHtml(f.readTime) : "") + "</div></div></div>" : "";
-    $("live-hero").innerHTML = '<div class="post-hero-inner"><div class="post-hero-breadcrumb"><a href="/">HOME</a> / <a href="/blog/">BLOG</a> / <span class="post-hero-breadcrumb-active">' + escapeHtml(f.title.toUpperCase()) + '</span></div><div class="post-hero-badges">' + badge + dateBadge + '</div><h1 class="post-hero-title">' + escapeHtml(f.title) + '<span class="period"></span></h1>' + excerptHtml + authorHtml + '</div>';
+    const h1 = document.querySelector("h1.post-hero-title");
+    if (h1) {
+      const period = h1.querySelector(".period");
+      h1.textContent = f.title;
+      if (period) h1.appendChild(period);
+    }
+    const crumb = document.querySelector(".post-hero-breadcrumb-active");
+    if (crumb) crumb.textContent = f.title.toUpperCase();
+    const cat = document.querySelector(".post-hero-category");
+    if (cat) { cat.textContent = f.category ? f.category.toUpperCase() : ""; cat.style.display = f.category ? "" : "none"; }
+    const dateEl = document.querySelector(".post-hero-date");
+    if (dateEl) { dateEl.textContent = f.date || ""; dateEl.style.display = f.date ? "" : "none"; }
+    const ex = document.querySelector(".post-hero-excerpt");
+    if (ex) { ex.textContent = f.excerpt; ex.style.display = f.excerpt ? "" : "none"; }
+    const an = document.querySelector(".post-hero-author-name");
+    if (an) an.textContent = f.author || "—";
+    const ar = document.querySelector(".post-hero-author-role");
+    if (ar) ar.textContent = "Researcher" + (f.readTime ? " · " + f.readTime : "");
   }
 
-  let liveFrameReady = false;
-
-  function liveFrameDocument() {
-    // The frame's document: the site's own post layout, styles loaded from
-    // the local server. srcdoc inherits our origin, so it is same-origin and
-    // we can update its DOM directly on every keystroke — no reloads.
-    return "<!DOCTYPE html><html><head><meta charset=\"utf-8\">" +
-      "<link rel=\"stylesheet\" href=\"/assets/css/post.css\">" +
-      "<link href=\"https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,500&display=swap\" rel=\"stylesheet\">" +
-      "<link href=\"/assets/fontawesome/css/fontawesome.css\" rel=\"stylesheet\">" +
-      "<link href=\"/assets/fontawesome/css/solid.css\" rel=\"stylesheet\">" +
-      "<style>" +
-      ".post-wrap > .rail { position: static; top: auto; bottom: auto; left: auto; width: auto; margin: 0 0 1.5rem; }" +
-      ".post-wrap > .rail > .toc { display: block; position: static; width: 100%; margin: 0 0 1.5rem; }" +
-      "</style></head><body>" +
-      "<section class=\"post-content-section\"><div class=\"container\"><div class=\"post-layout\"><div class=\"post-wrap\">" +
-      "<aside class=\"rail\"></aside><article class=\"post-main\"><div class=\"post-body\"></div></article>" +
-      "</div></div></div></section></body></html>";
-  }
-
-  function initLiveFrame() {
-    const frame = $("live-frame");
-    frame.srcdoc = liveFrameDocument();
-    frame.addEventListener("load", () => { liveFrameReady = true; renderBody(); });
-  }
-
-  function liveDoc() {
-    const frame = $("live-frame");
-    try { return frame.contentDocument; } catch (error) { return null; }
-  }
-
+  // The render area is the post body: marked.js output of the draft, with
+  // heading ids for the ToC. The ToC list goes into the layout's real rail.
   function renderBody() {
-    if (!window.marked || !liveFrameReady) return;
-    const doc = liveDoc();
-    if (!doc) return;
+    if (!window.marked) return;
     const parsed = parseFrontMatter(source.value);
     const body = parsed ? parsed.body : source.value;
     const f = heroFields();
@@ -524,20 +430,49 @@ description: "Markdown editor for blog drafts on the drafts branch."
       headings.push({ id, text: heading.textContent.trim(), level: Number(heading.tagName.slice(1)) });
     });
     contentHtml = content.innerHTML;
-    const tocHtml = headings.length
-      ? '<details class="toc" open><summary>On this page</summary><nav aria-label="Table of contents"><ul>' + headings.map((heading) => '<li class="toc-h' + heading.level + '"><a href="#' + escapeHtml(heading.id) + '" data-toc-target="' + escapeHtml(heading.id) + '">' + escapeHtml(heading.text) + '</a></li>').join("") + "</ul></nav></details>"
-      : "";
     const imageHtml = f.image ? '<div class="post-featured-image"><img src="' + escapeHtml(f.image) + '" alt="' + escapeHtml(f.title) + '" fetchpriority="high"></div>' : "";
-    const wrap = doc.querySelector(".post-wrap");
-    if (!wrap) return;
-    const scrollTop = doc.documentElement.scrollTop;
-    wrap.innerHTML = '<aside class="rail">' + tocHtml + '</aside><article class="post-main">' + imageHtml + '<div class="post-body">' + contentHtml + '</div></article>';
-    doc.documentElement.scrollTop = scrollTop;
-    wrap.querySelectorAll("[data-toc-target]").forEach((link) => link.addEventListener("click", (event) => {
-      event.preventDefault();
-      const target = wrap.querySelector("#" + CSS.escape(link.dataset.tocTarget));
-      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }));
+    $("live-area").innerHTML = imageHtml + contentHtml;
+
+    // Fill the layout's real ToC rail with the draft's headings (same <ol>/<ul>
+    // shape as the build-time | toc filter). Hide the card when there are none.
+    const tocNav = document.querySelector(".rail nav");
+    const tocDetails = document.querySelector("details.toc");
+    if (tocNav) {
+      // Same <ol>/<ul> shape as the build-time | toc filter: h2 at top
+      // level, h3 nested under the previous h2.
+      let list = "";
+      let currentOlItem = null;
+      for (const heading of headings) {
+        if (heading.level === 2) {
+          if (currentOlItem) {
+            if (currentOlItem.nestedOpened) list += "</ul>";
+            list += "</li>";
+          }
+          list += "<li><a href=\"#" + escapeHtml(heading.id) + "\">" + escapeHtml(heading.text) + "</a>";
+          currentOlItem = heading;
+        } else if (!currentOlItem) {
+          list += "<li><a href=\"#" + escapeHtml(heading.id) + "\">" + escapeHtml(heading.text) + "</a></li>";
+        } else {
+          if (!currentOlItem.nestedOpened) { list += "<ul>"; currentOlItem.nestedOpened = true; }
+          list += "<li><a href=\"#" + escapeHtml(heading.id) + "\">" + escapeHtml(heading.text) + "</a></li>";
+        }
+      }
+      if (currentOlItem && currentOlItem.nestedOpened) list += "</ul>";
+      if (currentOlItem) list += "</li>";
+      tocNav.innerHTML = headings.length ? "<ol>" + list + "</ol>" : "";
+      if (tocDetails) tocDetails.style.display = headings.length ? "" : "none";
+    }
+    $("live-area").querySelectorAll("a[href^=\"#\"][data-toc-target], a[href^=\"#\"]").forEach((link) => {
+      // Only wire links whose target is one of our generated heading ids.
+      const id = (link.getAttribute("href") || "").slice(1);
+      if (!usedIds.has(id)) return;
+      link.dataset.tocTarget = id;
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const target = document.getElementById(id);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
   }
 
   function renderLiveView() {
@@ -854,14 +789,14 @@ description: "Markdown editor for blog drafts on the drafts branch."
     const list = $("media-list");
     const slug = mediaSlug();
     if (!SAVE_BASE) {
-      list.innerHTML = '<p class="hint">The local save server is offline. Start scripts/build-preview.sh serve to browse and upload files.</p>';
+      list.innerHTML = '<p style="color:#6b6878;">The local save server is offline. Start scripts/build-preview.sh serve to browse and upload files.</p>';
       return;
     }
     if (!slug || !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(slug)) {
-      list.innerHTML = '<p class="hint">Save the post with a filename first so files can go in its media folder.</p>';
+      list.innerHTML = '<p style="color:#6b6878;">Save the post with a filename first so files can go in its media folder.</p>';
       return;
     }
-    list.innerHTML = '<p class="hint">Looking for files…</p>';
+    list.innerHTML = '<p style="color:#6b6878;">Looking for files…</p>';
     try {
       const response = await fetch(SAVE_BASE + "/files/" + encodeURIComponent(slug), { cache: "no-store" });
       if (!response.ok) throw new Error("HTTP " + response.status);
@@ -869,7 +804,7 @@ description: "Markdown editor for blog drafts on the drafts branch."
       list.innerHTML = "";
       if (!data.files.length) {
         const empty = document.createElement("p");
-        empty.className = "hint";
+        empty.style.color = "#6b6878";
         empty.textContent = "No files for this post yet. Upload a picture, video, or other file below.";
         list.appendChild(empty);
         return;
@@ -878,11 +813,11 @@ description: "Markdown editor for blog drafts on the drafts branch."
         const button = document.createElement("button");
         button.type = "button";
         button.className = "media-item";
-        button.innerHTML = '<span aria-hidden="true">' + (file.type === "images" ? "▧" : file.type === "videos" ? "▶" : "↗") + '</span><span class="media-name">' + escapeHtml(file.name) + '</span><span class="hint">Add to post</span>';
+        button.innerHTML = '<span aria-hidden="true">' + (file.type === "images" ? "▧" : file.type === "videos" ? "▶" : "↗") + '</span><span class="media-name">' + escapeHtml(file.name) + '</span><span style="color:#6b6878;font-size:.83rem;">Add to post</span>';
         button.addEventListener("click", () => insertMediaReference(file));
         list.appendChild(button);
       }
-    } catch (error) { list.innerHTML = '<p class="hint">Could not list files. Check that the local preview server is running.</p>'; }
+    } catch (error) { list.innerHTML = '<p style="color:#6b6878;">Could not list files. Check that the local preview server is running.</p>'; }
   }
 
   async function uploadMedia(file) {
@@ -906,13 +841,6 @@ description: "Markdown editor for blog drafts on the drafts branch."
       setStatus("Uploaded and added " + uploaded.saved + ". Save the post to keep your changes.", "dirty");
     } catch (error) { $("upload-note").textContent = error.message; }
     $("media-file").value = "";
-  }
-
-  function initPaneControls() {
-    $("btn-hide-editor").addEventListener("click", () => { $("editor-pane").classList.add("hidden-pane"); $("btn-show-editor").hidden = false; });
-    $("btn-hide-preview").addEventListener("click", () => { $("live-frame").classList.add("hidden-pane"); $("btn-show-preview").hidden = false; });
-    $("btn-show-editor").addEventListener("click", () => { $("editor-pane").classList.remove("hidden-pane"); $("btn-show-editor").hidden = true; });
-    $("btn-show-preview").addEventListener("click", () => { $("live-frame").classList.remove("hidden-pane"); $("btn-show-preview").hidden = true; });
   }
 
   function bindEvents() {
@@ -992,7 +920,6 @@ description: "Markdown editor for blog drafts on the drafts branch."
     });
     $("btn-push").addEventListener("click", pushDraft);
     $("token").value = localStorage.getItem("drafts-gh-token") || "";
-    initPaneControls();
     const dialog = $("media-dialog");
     $("btn-media").addEventListener("click", () => { dialog.showModal(); loadMediaList(); });
     $("btn-close-media").addEventListener("click", () => dialog.close());
@@ -1026,10 +953,7 @@ description: "Markdown editor for blog drafts on the drafts branch."
   }
 
   bindEvents();
-  initLiveFrame();
   renderLiveView();
   startEditor();
-  {% endraw %}
 </script>
-</body>
-</html>
+{% endraw %}

@@ -40,7 +40,9 @@ permalink: /blog/editor/
   #save-indicator.saved { background: #e2f4eb; color: #145b3e; }
   #save-indicator.dirty, #save-indicator.saving { background: #fff0cb; color: #76530a; }
   #save-indicator.offline, #save-indicator.error { background: #fde7e7; color: #842323; }
-  #status-message { overflow-wrap: anywhere; color: #6b6878; font-size: .88rem; }
+  /* The status message is single-line with ellipsis so the bar never
+     changes height while typing (a changing bar would move the page). */
+  #status-message { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #6b6878; font-size: .88rem; }
   details#more-actions { position: relative; display: inline-block; }
   details#more-actions > summary { cursor: pointer; list-style: none; padding: .55rem .8rem; border: 1px solid #dedbd2; border-radius: 8px; background: white; color: #17152a; font: inherit; }
   details#more-actions > summary::-webkit-details-marker { display: none; }
@@ -68,7 +70,16 @@ permalink: /blog/editor/
     font: 14px/1.7 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
     tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere;
   }
-  #live-area:empty { min-height: 3rem; }
+  /* The render area is a fixed-height scroll window: its height never
+     changes while you type, so the page (and the editor below it) never
+     moves. Scroll position inside is preserved across re-renders. */
+  #live-area { height: 70vh; min-height: 380px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid #dedbd2; border-radius: 9px; padding: .4rem 1.6rem 1.6rem; background: #fffdf8; }
+  /* The hero keeps a stable minimum height so short titles don't shrink it
+     and shift everything below when the form fields change. */
+  .post-hero { min-height: 380px; }
+  /* On narrow screens the ToC card sits above the content in flow; cap its
+     list height so adding/removing headings while typing doesn't resize it. */
+  .rail > .toc > nav { max-height: 240px; overflow-y: auto; }
   dialog#media-dialog { width: min(680px, calc(100vw - 2rem)); max-height: 85vh; padding: 0; border: 1px solid #dedbd2; border-radius: 12px; color: #17152a; box-shadow: 0 16px 50px #17152a35; }
   dialog#media-dialog::backdrop { background: #17152a88; }
   .dialog-head { display: flex; align-items: center; gap: .7rem; padding: .9rem 1rem; border-bottom: 1px solid #dedbd2; }
@@ -144,7 +155,7 @@ permalink: /blog/editor/
     <button type="button" data-action="italic" aria-label="Italic" title="Italic"><em>I</em></button>
     <button type="button" data-action="inline-code" aria-label="Inline code" title="Inline code">&lt;/&gt;</button>
     <button type="button" data-action="link" aria-label="Link" title="Link">Link</button>
-    <button type="button" data-action="image" aria-label="Image" title="Image">Image</button>
+    <button type="button" data-action="image" aria-label="Insert image" title="Insert image — path, alt text (SEO), caption">Image</button>
     <button type="button" data-action="quote" aria-label="Quote" title="Quote">❝</button>
     <button type="button" data-action="list" aria-label="List" title="List">List</button>
     <button type="button" data-action="code-block" aria-label="Code block" title="Code block">Code</button>
@@ -165,6 +176,18 @@ permalink: /blog/editor/
     <p id="upload-note" style="color:#6b6878;font-size:.9rem;">Images, videos, and other files are sorted into the right folder automatically. Avoid uploading private information.</p>
   </div>
   <div class="dialog-actions"><button id="btn-close-media-bottom" type="button" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;">Done</button></div>
+</dialog>
+
+<dialog id="image-dialog" aria-labelledby="image-title">
+  <div class="dialog-head"><h2 id="image-title">Insert an image</h2><button id="btn-close-image" type="button" aria-label="Close image window" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;color:#17152a;">Close</button></div>
+  <div class="dialog-body">
+    <p style="color:#6b6878;font-size:.9rem;margin-top:0;">Figures use the same structure as published posts: the image and its caption are one unit.</p>
+    <label class="field full" style="margin-bottom:.7rem;"><span>Image path or URL</span><input id="img-path" type="text" autocomplete="off" placeholder="/assets/images/posts/your-post/figure.svg"></label>
+    <label class="field full" style="margin-bottom:.7rem;"><span>Alt text (SEO)</span><input id="img-alt" type="text" autocomplete="off" placeholder="What the image shows — used for search and screen readers"></label>
+    <label class="field full"><span>Caption (optional)</span><input id="img-caption" type="text" autocomplete="off" placeholder="A short note shown under the image"></label>
+    <p style="color:#6b6878;font-size:.83rem;margin-bottom:0;">SVG files are inlined into the page; other images use the alt text. The figure is placed on its own line, out of any paragraph you're writing in.</p>
+  </div>
+  <div class="dialog-actions"><button id="btn-cancel-image" type="button" style="min-height:2.55rem;padding:.5rem .72rem;border:1px solid #dedbd2;border-radius:8px;background:white;cursor:pointer;font:inherit;">Cancel</button><button id="btn-insert-image" type="button" style="min-height:2.55rem;padding:.5rem .9rem;border:1px solid #208b69;border-radius:8px;background:#208b69;color:white;font-weight:700;cursor:pointer;font:inherit;">Insert image</button></div>
 </dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
@@ -408,12 +431,56 @@ permalink: /blog/editor/
     if (ar) ar.textContent = "Researcher" + (f.readTime ? " · " + f.readTime : "");
   }
 
+  // The site's figure embeds (the inline_svg / inline_img Liquid tags, as
+  // used in the wizards post) are build-time tags. In the live area we render
+  // them client-side into the exact same .post-fig structure the plugin emits,
+  // so what you see while writing is what publishes.
+  function figureTagsToHtml(body) {
+    const block = (inner, note) => {
+      const noteHtml = note ? '\n<p class="table-footnote">' + escapeHtml(note) + "</p>" : "";
+      return "\n\n<div class=\"post-fig\">\n" + inner + noteHtml + "\n</div>\n\n";
+    };
+    // NOTE: tag delimiters are written with a character class ([\{]%)
+    // so no literal brace-percent sequence appears in this file —
+    // Liquid's RawTag (4.0.4) corrupts raw blocks that contain them.
+    let out = body.replace(/^[ \t]*[\{]%\s*inline_svg\s+"([^"]+)"(?:\s+"([^"]*)")?\s*%\}[ \t]*(?:\r?\n|$)/gm,
+      (match, path, note) => block('<img src="/' + escapeHtml(path) + '" alt="" data-inline-svg="/' + escapeHtml(path) + '">', note));
+    out = out.replace(/^[ \t]*[\{]%\s*inline_img\s+"([^"]+)"(?:\s+"([^"]*)")?(?:\s+"([^"]*)")?\s*%\}[ \t]*(?:\r?\n|$)/gm,
+      (match, path, alt, note) => block('<img src="/' + escapeHtml(path) + '" alt="' + escapeHtml(alt || "") + '">', note));
+    return out;
+  }
+
+  // SVG figures are inlined into the DOM on the real site (so page CSS can
+  // theme them). Mirror that here: fetch the file and swap the placeholder
+  // <img> for the inline <svg>, stripping fixed sizing like the plugin does.
+  function inlineSvgFigures() {
+    $("live-area").querySelectorAll("img[data-inline-svg]").forEach((img) => {
+      const src = img.getAttribute("data-inline-svg");
+      fetch(src, { cache: "no-store" })
+        .then((response) => (response.ok ? response.text() : Promise.reject(new Error("HTTP " + response.status))))
+        .then((svgText) => {
+          const svg = svgText.replace(/\A<svg([^>]*)>/, (match, attrs) => {
+            let stripped = attrs.replace(/\s+(?:width|height)="[^"]*"/g, "");
+            if (!stripped.includes("class=")) stripped += ' class="inline-svg"';
+            return "<svg" + stripped + ">";
+          });
+          const holder = document.createElement("div");
+          holder.innerHTML = svg;
+          const el = holder.firstElementChild;
+          if (el && el.tagName.toLowerCase() === "svg" && img.isConnected) img.replaceWith(el);
+        })
+        .catch(() => { /* Keep the <img> fallback. */ });
+    });
+  }
+
   // The render area is the post body: marked.js output of the draft, with
   // heading ids for the ToC. The ToC list goes into the layout's real rail.
   function renderBody() {
     if (!window.marked) return;
     const parsed = parseFrontMatter(source.value);
-    const body = parsed ? parsed.body : source.value;
+    const area = $("live-area");
+    const scrollTop = area.scrollTop; // preserved across re-renders: no jumps
+    let body = figureTagsToHtml(parsed ? parsed.body : source.value);
     const f = heroFields();
     let contentHtml = marked.parse(body);
     const content = document.createElement("div");
@@ -431,7 +498,9 @@ permalink: /blog/editor/
     });
     contentHtml = content.innerHTML;
     const imageHtml = f.image ? '<div class="post-featured-image"><img src="' + escapeHtml(f.image) + '" alt="' + escapeHtml(f.title) + '" fetchpriority="high"></div>' : "";
-    $("live-area").innerHTML = imageHtml + contentHtml;
+    area.innerHTML = imageHtml + contentHtml;
+    area.scrollTop = scrollTop;
+    inlineSvgFigures();
 
     // Fill the layout's real ToC rail with the draft's headings (same <ol>/<ul>
     // shape as the build-time | toc filter). Hide the card when there are none.
@@ -685,6 +754,50 @@ permalink: /blog/editor/
     return /^\d{4}-\d{2}-\d{2}-[^/\\]+\.md$/.test(file) ? postSlug(file) : "";
   }
 
+  // Insert a site-style figure (the inline_svg / inline_img tags) at the
+  // caret. If the caret is inside a paragraph line, the figure goes on its own
+  // line after that paragraph (blank-line separated), never mid-sentence.
+  function insertFigure(path, alt, caption) {
+    const cleanPath = String(path || "").trim().replace(/^\/+/, "");
+    if (!cleanPath) return;
+    const isSvg = /\.svg$/i.test(cleanPath);
+    // Built at runtime so no literal brace-percent sequences sit in this file
+    // (Liquid's RawTag 4.0.4 corrupts raw blocks that contain them).
+    const tagOpen = "{" + "%";
+    const tagClose = "%" + "}";
+    const tag = isSvg
+      ? tagOpen + " inline_svg \"" + cleanPath + "\"" + (caption ? " \"" + caption + "\"" : "") + " " + tagClose
+      : tagOpen + " inline_img \"" + cleanPath + "\" \"" + (alt || cleanPath.split("/").pop().replace(/\.[^.]+$/, "")) + "\"" + (caption ? " \"" + caption + "\"" : "") + " " + tagClose;
+    const value = source.value;
+    const start = source.selectionStart;
+    const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+    let lineEnd = value.indexOf("\n", start);
+    if (lineEnd < 0) lineEnd = value.length;
+    const line = value.slice(lineStart, lineEnd).trim();
+    const isFigureLine = /^[\{]%\s*inline_(?:svg|img)/.test(line);
+    let pos, text;
+    if (line && !isFigureLine) {
+      // Caret is inside a passage: put the figure on its own line after it.
+      pos = lineEnd;
+      text = "\n\n" + tag + "\n";
+    } else {
+      pos = start;
+      text = tag + (line ? "\n" : "");
+    }
+    source.setRangeText(text, pos, pos, "end");
+    source.focus();
+    source.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+
+  function openImageDialog() {
+    const slug = mediaSlug();
+    $("img-path").value = slug ? "/assets/images/posts/" + slug + "/" : "/assets/images/posts/";
+    $("img-alt").value = "";
+    $("img-caption").value = "";
+    $("image-dialog").showModal();
+    $("img-path").focus();
+  }
+
   function insertAtSelection(before, after, emptyText) {
     const start = source.selectionStart;
     const end = source.selectionEnd;
@@ -731,12 +844,7 @@ permalink: /blog/editor/
       insertAtSelection("[", "](" + url + ")", selection || "link text");
       return;
     }
-    if (action === "image") {
-      const url = window.prompt("Image URL:", "/assets/images/posts/");
-      if (url === null) return;
-      const alt = source.value.slice(source.selectionStart, source.selectionEnd) || "image description";
-      insertAtSelection("![", "](" + url + ")", alt);
-    }
+    if (action === "image") { openImageDialog(); }
   }
 
   function handleTab(event) {
@@ -775,13 +883,18 @@ permalink: /blog/editor/
   }
 
   function insertMediaReference(file) {
-    const url = "/" + file.path;
-    let markdown;
-    if (file.type === "images") markdown = "![" + file.name.replace(/\.[^.]+$/, "") + "](" + url + ")";
-    else if (file.type === "videos") markdown = '<video controls src="' + escapeHtml(url) + '"></video>';
-    else markdown = "[Download " + file.name.replace(/[\[\]]/g, "") + "](" + url + ")";
-    source.setRangeText(markdown, source.selectionStart, source.selectionEnd, "end");
-    source.dispatchEvent(new Event("input", { bubbles: true }));
+    if (file.type === "images") {
+      // Site-style figure embed, same as the Image button (no caption yet —
+      // add one by editing the line or re-inserting via the Image button).
+      insertFigure(file.path, file.name.replace(/\.[^.]+$/, ""), "");
+    } else {
+      const url = "/" + file.path;
+      const markdown = file.type === "videos"
+        ? '<video controls src="' + escapeHtml(url) + '"></video>'
+        : "[Download " + file.name.replace(/[\[\]]/g, "") + "](" + url + ")";
+      source.setRangeText(markdown, source.selectionStart, source.selectionEnd, "end");
+      source.dispatchEvent(new Event("input", { bubbles: true }));
+    }
     $("media-dialog").close();
   }
 
@@ -893,6 +1006,12 @@ permalink: /blog/editor/
     });
     source.addEventListener("keydown", handleTab);
     document.querySelectorAll(".editor-toolbar [data-action]").forEach((button) => button.addEventListener("click", () => formatSelection(button.dataset.action)));
+    $("btn-close-image").addEventListener("click", () => $("image-dialog").close());
+    $("btn-cancel-image").addEventListener("click", () => $("image-dialog").close());
+    $("btn-insert-image").addEventListener("click", () => {
+      insertFigure($("img-path").value, $("img-alt").value.trim(), $("img-caption").value.trim());
+      $("image-dialog").close();
+    });
     $("btn-save-local").addEventListener("click", () => saveLocally(false));
     document.addEventListener("keydown", (event) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {

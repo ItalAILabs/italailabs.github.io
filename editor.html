@@ -102,14 +102,12 @@ description: "Markdown editor for blog drafts on the drafts branch."
       font: 14px/1.7 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
       tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere;
     }
-    /* The live view IS the site's real .post-wrap column (820px, centred by
-       the flex row). No internal scroll box: the page scrolls, like the site.
-       The ToC keeps the documented base behavior — a card above the article —
-       at every width, instead of the wide-screen margin rail. */
-    #live-view { flex: 0 1 820px; width: 100%; max-width: 820px; margin: 0; }
-    .post-wrap > .rail { position: static; top: auto; bottom: auto; left: auto; width: auto; margin: 0 0 1.5rem; }
-    .post-wrap > .rail > .toc { display: block; position: static; width: 100%; margin: 0 0 1.5rem; }
-    #editor-pane.hidden-pane, #live-view.hidden-pane { display: none; }
+    /* The live view is an iframe holding the site's real post layout
+       (.post-layout > .post-wrap, 820px). Same-origin srcdoc: its CSS comes
+       from /assets/css/post.css and its DOM is updated in place as you type.
+       Anything wide (code blocks) scrolls inside the frame, never the page. */
+    #live-frame { flex: 0 1 820px; width: 100%; max-width: 820px; height: 72vh; min-height: 480px; border: 0; background: white; }
+    #editor-pane.hidden-pane, #live-frame.hidden-pane { display: none; }
     footer { position: sticky; bottom: 0; z-index: 4; display: flex; align-items: center; flex-wrap: wrap; gap: .55rem; padding: .65rem 1rem; background: var(--paper); border-top: 1px solid var(--line); color: var(--muted); font-size: .84rem; }
     #filename { width: min(350px, 100%); }
     footer .spacer { flex: 1; }
@@ -207,10 +205,7 @@ description: "Markdown editor for blog drafts on the drafts branch."
           </div>
           <textarea id="md-source" aria-label="Markdown source" spellcheck="false" placeholder="Choose a post or start a new draft."></textarea>
         </section>
-        <div class="post-wrap" id="live-view" aria-label="Live blog post preview">
-          <aside class="rail"></aside>
-          <article class="post-main"><div class="post-body"></div></article>
-        </div>
+        <iframe id="live-frame" title="Live post preview — the post body in the site's post layout"></iframe>
       </div>
     </section>
   </main>
@@ -476,8 +471,41 @@ description: "Markdown editor for blog drafts on the drafts branch."
     $("live-hero").innerHTML = '<div class="post-hero-inner"><div class="post-hero-breadcrumb"><a href="/">HOME</a> / <a href="/blog/">BLOG</a> / <span class="post-hero-breadcrumb-active">' + escapeHtml(f.title.toUpperCase()) + '</span></div><div class="post-hero-badges">' + badge + dateBadge + '</div><h1 class="post-hero-title">' + escapeHtml(f.title) + '<span class="period"></span></h1>' + excerptHtml + authorHtml + '</div>';
   }
 
+  let liveFrameReady = false;
+
+  function liveFrameDocument() {
+    // The frame's document: the site's own post layout, styles loaded from
+    // the local server. srcdoc inherits our origin, so it is same-origin and
+    // we can update its DOM directly on every keystroke — no reloads.
+    return "<!DOCTYPE html><html><head><meta charset=\"utf-8\">" +
+      "<link rel=\"stylesheet\" href=\"/assets/css/post.css\">" +
+      "<link href=\"https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,500&display=swap\" rel=\"stylesheet\">" +
+      "<link href=\"/assets/fontawesome/css/fontawesome.css\" rel=\"stylesheet\">" +
+      "<link href=\"/assets/fontawesome/css/solid.css\" rel=\"stylesheet\">" +
+      "<style>" +
+      ".post-wrap > .rail { position: static; top: auto; bottom: auto; left: auto; width: auto; margin: 0 0 1.5rem; }" +
+      ".post-wrap > .rail > .toc { display: block; position: static; width: 100%; margin: 0 0 1.5rem; }" +
+      "</style></head><body>" +
+      "<section class=\"post-content-section\"><div class=\"container\"><div class=\"post-layout\"><div class=\"post-wrap\">" +
+      "<aside class=\"rail\"></aside><article class=\"post-main\"><div class=\"post-body\"></div></article>" +
+      "</div></div></div></section></body></html>";
+  }
+
+  function initLiveFrame() {
+    const frame = $("live-frame");
+    frame.srcdoc = liveFrameDocument();
+    frame.addEventListener("load", () => { liveFrameReady = true; renderBody(); });
+  }
+
+  function liveDoc() {
+    const frame = $("live-frame");
+    try { return frame.contentDocument; } catch (error) { return null; }
+  }
+
   function renderBody() {
-    if (!window.marked) return;
+    if (!window.marked || !liveFrameReady) return;
+    const doc = liveDoc();
+    if (!doc) return;
     const parsed = parseFrontMatter(source.value);
     const body = parsed ? parsed.body : source.value;
     const f = heroFields();
@@ -500,10 +528,14 @@ description: "Markdown editor for blog drafts on the drafts branch."
       ? '<details class="toc" open><summary>On this page</summary><nav aria-label="Table of contents"><ul>' + headings.map((heading) => '<li class="toc-h' + heading.level + '"><a href="#' + escapeHtml(heading.id) + '" data-toc-target="' + escapeHtml(heading.id) + '">' + escapeHtml(heading.text) + '</a></li>').join("") + "</ul></nav></details>"
       : "";
     const imageHtml = f.image ? '<div class="post-featured-image"><img src="' + escapeHtml(f.image) + '" alt="' + escapeHtml(f.title) + '" fetchpriority="high"></div>' : "";
-    $("live-view").innerHTML = '<aside class="rail">' + tocHtml + '</aside><article class="post-main">' + imageHtml + '<div class="post-body">' + contentHtml + '</div></article>';
-    $("live-view").querySelectorAll("[data-toc-target]").forEach((link) => link.addEventListener("click", (event) => {
+    const wrap = doc.querySelector(".post-wrap");
+    if (!wrap) return;
+    const scrollTop = doc.documentElement.scrollTop;
+    wrap.innerHTML = '<aside class="rail">' + tocHtml + '</aside><article class="post-main">' + imageHtml + '<div class="post-body">' + contentHtml + '</div></article>';
+    doc.documentElement.scrollTop = scrollTop;
+    wrap.querySelectorAll("[data-toc-target]").forEach((link) => link.addEventListener("click", (event) => {
       event.preventDefault();
-      const target = $("live-view").querySelector("#" + CSS.escape(link.dataset.tocTarget));
+      const target = wrap.querySelector("#" + CSS.escape(link.dataset.tocTarget));
       if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
     }));
   }
@@ -878,9 +910,9 @@ description: "Markdown editor for blog drafts on the drafts branch."
 
   function initPaneControls() {
     $("btn-hide-editor").addEventListener("click", () => { $("editor-pane").classList.add("hidden-pane"); $("btn-show-editor").hidden = false; });
-    $("btn-hide-preview").addEventListener("click", () => { $("live-view").classList.add("hidden-pane"); $("btn-show-preview").hidden = false; });
+    $("btn-hide-preview").addEventListener("click", () => { $("live-frame").classList.add("hidden-pane"); $("btn-show-preview").hidden = false; });
     $("btn-show-editor").addEventListener("click", () => { $("editor-pane").classList.remove("hidden-pane"); $("btn-show-editor").hidden = true; });
-    $("btn-show-preview").addEventListener("click", () => { $("live-view").classList.remove("hidden-pane"); $("btn-show-preview").hidden = true; });
+    $("btn-show-preview").addEventListener("click", () => { $("live-frame").classList.remove("hidden-pane"); $("btn-show-preview").hidden = true; });
   }
 
   function bindEvents() {
@@ -994,6 +1026,7 @@ description: "Markdown editor for blog drafts on the drafts branch."
   }
 
   bindEvents();
+  initLiveFrame();
   renderLiveView();
   startEditor();
   {% endraw %}

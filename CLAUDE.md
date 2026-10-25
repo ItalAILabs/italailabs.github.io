@@ -61,11 +61,14 @@ into `.main/` and symlinks **only the blog chain** — it builds just `/blog/`, 
 which is how the editor reads/saves `_posts/` locally and lists/uploads per-post media
 — no GitHub round-trip. The editor (`editor.html`) is a real Jekyll page using the site's
 own `post` layout: hero, ToC rail, 820px column and footer come from `_layouts/post.html`,
-and the page only adds `#live-area` (the draft rendered in place of the post body) and
-`#editor-panel` (control bar + collapsible writing surface: front-matter form, toolbar,
-textarea). On viewports ≥ 102rem the panel floats in the left margin beside the article;
-below that it stacks at the end of the page. JS updates the real hero, tab title and SEO
-meta tags live as you type. **Liquid gotcha:** `editor.html` keeps its body inside
+and the page only adds `#live-area` (the draft rendered in place of the post body),
+`#details-panel` (the Post details form) and `#editor-panel` (control bar + collapsible
+writing surface: toolbar, textarea). On viewports ≥ 102rem the writing panel floats in the
+left margin beside the article, and the Post-details panel floats beside the hero — its
+fields only affect the hero/metadata, and `placeDetailsPanel()` measures the offset because
+the hero's height varies with its content; below that width everything stacks at the end of
+the page. Saving is local-only (save server); there is no in-browser GitHub push. JS updates
+the real hero, tab title and SEO meta tags live as you type. **Liquid gotcha:** `editor.html` keeps its body inside
 `{% raw %}…{% endraw %}`, and Liquid 4.0.4's RawTag corrupts raw blocks that contain literal
 brace-percent sequences — so never write `{% … %}`-style text in the file (tag delimiters are
 built at runtime, regexes use `[…]%`). Verify after edits: extract the inline script and run

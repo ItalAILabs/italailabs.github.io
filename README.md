@@ -37,7 +37,6 @@ Open **http://localhost:4000/blog/editor/**. It's built for writing, not for fid
 - Each section of the writing area (the controls row, *Write your post*, *Post details*) can be folded away by clicking its heading.
 - Everything **saves automatically** into the `_posts/` folder of this copy (*Save now* or Ctrl-S if you prefer). No token, no GitHub round-trip.
 - *Add media* lists this post's files and uploads new ones straight into its media folder — click one and it's inserted at the right path.
-- A *Push to GitHub* action exists too, if you ever want to commit from the browser (that one does need a personal access token).
 
 The same server shows the blog itself at **http://localhost:4000/blog/**.
 

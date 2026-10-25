@@ -13,8 +13,9 @@ permalink: /blog/editor/
      site's REAL post layout (layout: post): the hero, the "On this page" rail,
      the container/column, and the footer all come from _layouts/post.html —
      nothing of that is duplicated here. This file only adds the editor
-     tooling: a control bar, the live render area (#live-area), and the
-     writing surface (textarea + toolbar). JS updates the real hero elements'
+     tooling: a control bar, the live render area (#live-area), the
+     Post-details panel (#details-panel) and the writing surface (toolbar +
+     textarea). JS updates the real hero elements'
      text in place and fills #live-area as you type. The <h2> below is what
      makes the layout's ToC rail render at build time; JS then regenerates
      its list from the draft's headings. -->
@@ -61,13 +62,6 @@ permalink: /blog/editor/
   /* The status message is single-line with ellipsis so the bar never
      changes height while typing (a changing bar would move the page). */
   #status-message { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #6b6878; font-size: .88rem; }
-  details#more-actions { position: relative; display: inline-block; }
-  details#more-actions > summary { cursor: pointer; list-style: none; padding: .55rem .8rem; border: 1px solid #dedbd2; border-radius: 8px; background: white; color: #17152a; font: inherit; }
-  details#more-actions > summary::-webkit-details-marker { display: none; }
-  .more-content { position: absolute; right: 0; top: calc(100% + .35rem); z-index: 6; width: min(410px, 85vw); padding: .85rem; border: 1px solid #dedbd2; border-radius: 10px; background: white; box-shadow: 0 8px 28px #17152a1c; }
-  .more-content button { margin: .2rem .2rem .45rem 0; }
-  .more-content label { display: block; color: #6b6878; font-size: .83rem; }
-  #token { display: block; width: 100%; margin: .4rem 0; }
   details#front-matter { border: 1px solid #dedbd2; border-radius: 11px; background: #fffdf8; margin: 1.1rem 0 .9rem; }
   details#front-matter > summary { cursor: pointer; list-style: none; padding: .8rem 1rem; color: #17152a; font-weight: 700; }
   details#front-matter > summary::-webkit-details-marker { display: none; }
@@ -111,8 +105,8 @@ permalink: /blog/editor/
   /* The site only sets border-box on <body> (it's not inherited), so our
      width:100% elements with padding/border must opt in or they spill past
      the column's right edge. */
-  #editor-panel, #editor-bar, #editor-section, #media-dialog, #image-dialog,
-  #editor-panel *, #editor-bar *, #editor-section *, #media-dialog *, #image-dialog * { box-sizing: border-box; }
+  #details-panel, #editor-panel, #editor-bar, #editor-section, #media-dialog, #image-dialog,
+  #details-panel *, #editor-panel *, #editor-bar *, #editor-section *, #media-dialog *, #image-dialog * { box-sizing: border-box; }
   /* Stacked layout (default): the panel wrapper is transparent to layout —
      bar and editor section flow directly inside the post body. */
   #editor-panel { display: contents; }
@@ -139,8 +133,27 @@ permalink: /blog/editor/
       padding: .9rem 1rem 1.1rem;
     }
     #editor-panel details#writer { margin-bottom: 0; }
-    #editor-panel .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #details-panel .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     #editor-panel #md-source { min-height: 30vh; }
+    /* Post details floats beside the HERO (its fields only affect the hero
+       and metadata). The panel is anchored to .post-wrap, which starts below
+       the hero, and the hero's height varies with its content — so the top
+       offset is measured by placeDetailsPanel(). */
+    #details-panel {
+      position: absolute;
+      right: 100%;
+      margin-right: 1.25rem;
+      width: 24rem;
+      top: 12px; /* refined by placeDetailsPanel() to sit beside the hero */
+      visibility: hidden; /* until placed, so it doesn't flash in-flow */
+      background: #fffdf8;
+      border: 1px solid #dedbd2;
+      border-radius: 9px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      padding: .9rem 1rem 1.1rem;
+    }
+    #details-panel.placed { visibility: visible; }
+    #details-panel details#front-matter { border: 0; background: transparent; margin: 0; }
   }
   dialog#media-dialog { width: min(680px, calc(100vw - 2rem)); max-height: 85vh; padding: 0; border: 1px solid #dedbd2; border-radius: 12px; color: #17152a; box-shadow: 0 16px 50px #17152a35; }
   dialog#media-dialog::backdrop { background: #17152a88; }
@@ -167,6 +180,28 @@ permalink: /blog/editor/
 <!-- Render area: the draft's body, rendered live as a real post body -->
 <div id="live-area"></div>
 
+<!-- Post details (the front-matter form). These fields only affect the page
+     hero and metadata, so on wide screens this panel floats in the left
+     margin beside the hero — see placeDetailsPanel(); below that width it
+     stacks here between the preview and the writing surface. -->
+<div id="details-panel">
+<details id="front-matter">
+    <summary>Post details <span class="hint">— fill these in instead of editing YAML</span></summary>
+    <p class="form-help">These details are saved at the top of your markdown. You can still edit the YAML directly in the editor below.</p>
+    <div class="fields">
+      <label class="field wide"><span>Title</span><input id="fm-title" type="text" autocomplete="off" placeholder="A clear title for your post"></label>
+      <label class="field"><span>Category</span><input id="fm-category" type="text" placeholder="Research, Guides…"></label>
+      <label class="field"><span>Author</span><input id="fm-author" type="text" placeholder="Your name or team"></label>
+      <label class="field"><span>Short teaser (excerpt)</span><input id="fm-excerpt" type="text" placeholder="A short note for the blog listing"></label>
+      <label class="field wide"><span>Description</span><input id="fm-description" type="text" placeholder="One-line summary for search and sharing"></label>
+      <label class="field"><span>Reading time</span><input id="fm-read_time" type="text" placeholder="5 min read"></label>
+      <label class="field wide"><span>Image path</span><input id="fm-image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
+      <label class="field wide"><span>Large header image path</span><input id="fm-hero_image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
+      <label class="check-field"><input id="fm-published_in_blog" type="checkbox"><span>Show in the blog listing</span></label>
+    </div>
+  </details>
+</div>
+
 <div id="editor-panel">
 <details id="editor-bar" open>
   <summary>
@@ -185,15 +220,6 @@ permalink: /blog/editor/
   <input type="text" id="filename" aria-label="File path to save the post" placeholder="_posts/YYYY-MM-DD-your-title.md" spellcheck="false">
   <button id="btn-copy" type="button">Copy markdown</button>
   <button id="btn-download" type="button">Download .md</button>
-  <details id="more-actions">
-    <summary>More actions</summary>
-    <div class="more-content">
-      <button id="btn-push" type="button">Push to GitHub</button>
-      <label for="token">Optional GitHub token, saved only in this browser</label>
-      <input type="password" id="token" autocomplete="off" placeholder="Token for the drafts branch">
-      <p class="hint">Saving locally is the normal way to work. Push is optional and sends this post directly to the drafts branch.</p>
-    </div>
-  </details>
   </div>
 </details>
 
@@ -203,21 +229,6 @@ permalink: /blog/editor/
 <section id="editor-section">
   <details id="writer" open>
   <summary><h2>Write your post</h2></summary>
-  <details id="front-matter">
-    <summary>Post details <span class="hint">— fill these in instead of editing YAML</span></summary>
-    <p class="form-help">These details are saved at the top of your markdown. You can still edit the YAML directly in the editor below.</p>
-    <div class="fields">
-      <label class="field wide"><span>Title</span><input id="fm-title" type="text" autocomplete="off" placeholder="A clear title for your post"></label>
-      <label class="field"><span>Category</span><input id="fm-category" type="text" placeholder="Research, Guides…"></label>
-      <label class="field"><span>Author</span><input id="fm-author" type="text" placeholder="Your name or team"></label>
-      <label class="field"><span>Short teaser (excerpt)</span><input id="fm-excerpt" type="text" placeholder="A short note for the blog listing"></label>
-      <label class="field wide"><span>Description</span><input id="fm-description" type="text" placeholder="One-line summary for search and sharing"></label>
-      <label class="field"><span>Reading time</span><input id="fm-read_time" type="text" placeholder="5 min read"></label>
-      <label class="field wide"><span>Image path</span><input id="fm-image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
-      <label class="field wide"><span>Large header image path</span><input id="fm-hero_image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
-      <label class="check-field"><input id="fm-published_in_blog" type="checkbox"><span>Show in the blog listing</span></label>
-    </div>
-  </details>
   <div class="editor-toolbar" role="toolbar" aria-label="Markdown formatting">
     <button type="button" data-action="heading" aria-label="Heading" title="Heading">H2</button>
     <button type="button" data-action="bold" aria-label="Bold" title="Bold"><strong>B</strong></button>
@@ -266,7 +277,6 @@ permalink: /blog/editor/
   const REPO = "ItalAILabs/italailabs.github.io";
   const BRANCH = "drafts";
   const RAW_BASE = "https://raw.githubusercontent.com/" + REPO + "/" + BRANCH + "/_posts/";
-  const API_CONTENTS = "https://api.github.com/repos/" + REPO + "/contents/_posts/";
   const FORM_FIELDS = ["title", "category", "author", "excerpt", "description", "read_time", "image", "hero_image"];
   const FORM_KEYS = new Set(FORM_FIELDS.concat(["published_in_blog"]));
   const POST_FILE_RE = /^\d{4}-\d{2}-\d{2}-[^/\\]+\.md$/;
@@ -667,6 +677,28 @@ permalink: /blog/editor/
   function renderLiveView() {
     renderPageDetails();
     renderBody();
+    placeDetailsPanel();
+  }
+
+  // Wide screens: float the Post-details panel in the left margin beside the
+  // hero. The hero's height varies with title/excerpt length, so the offset
+  // is measured rather than hard-coded (the panel is anchored to .post-wrap,
+  // which starts below the hero). Centered within the hero, clamped to it,
+  // internally scrolling if it would be taller.
+  function placeDetailsPanel() {
+    const panel = $("details-panel");
+    if (!window.matchMedia("(min-width: 102rem)").matches) { panel.classList.remove("placed"); return; }
+    const hero = document.querySelector(".post-hero");
+    const wrap = document.querySelector(".post-wrap");
+    if (!hero || !wrap) return;
+    const heroTop = hero.getBoundingClientRect().top + window.scrollY;
+    const wrapTop = wrap.getBoundingClientRect().top + window.scrollY;
+    const heroH = hero.offsetHeight;
+    const panelH = panel.offsetHeight;
+    panel.style.top = Math.round(heroTop - wrapTop + Math.max(12, (heroH - panelH) / 2)) + "px";
+    if (panelH > heroH - 24) { panel.style.maxHeight = (heroH - 24) + "px"; panel.style.overflowY = "auto"; }
+    else { panel.style.maxHeight = ""; panel.style.overflowY = ""; }
+    panel.classList.add("placed");
   }
 
   async function detectSaveServer() {
@@ -832,38 +864,6 @@ permalink: /blog/editor/
 
   function newDraftTemplate() {
     return ["---", "layout: post", 'title: "Untitled draft"', "published_in_blog: true", "---", "", "## Start writing here", "", "Write your post below. The details form above fills in the post information for you.", ""].join("\n");
-  }
-
-  function authHeaders(token) { return { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" }; }
-
-  async function pushDraft() {
-    if (!applyFormToDocument()) return;
-    const markdown = source.value;
-    const token = $("token").value.trim() || localStorage.getItem("drafts-gh-token") || "";
-    if (!token) {
-      setStatus("To push directly, add a GitHub token with permission to update this repository. Or use Save now, Copy, or Download.", "error");
-      return;
-    }
-    localStorage.setItem("drafts-gh-token", token);
-    const file = filenameFromInput();
-    if (!POST_FILE_RE.test(file)) {
-      setStatus("Save to needs a filename like _posts/2026-08-15-my-post.md.", "error");
-      return;
-    }
-    const url = API_CONTENTS + encodeURIComponent(file) + "?ref=" + BRANCH;
-    try {
-      let sha = null;
-      const existing = await fetch(url, { headers: authHeaders(token) });
-      if (existing.ok) sha = (await existing.json()).sha;
-      else if (existing.status !== 404) throw new Error("Could not check the file. Confirm your token has access to the drafts branch.");
-      const body = { message: (sha ? "Update " : "Add ") + file, content: btoa(unescape(encodeURIComponent(markdown))), branch: BRANCH };
-      if (sha) body.sha = sha;
-      const response = await fetch(url, { method: "PUT", headers: Object.assign(authHeaders(token), { "Content-Type": "application/json" }), body: JSON.stringify(body) });
-      if (!response.ok) throw new Error("GitHub returned HTTP " + response.status + ". Check the token permissions.");
-      currentFile = file;
-      dirty = false;
-      setStatus("Pushed " + file + " to the drafts branch. Reload the draft list to see it there.", "saved");
-    } catch (error) { setStatus("Could not push to GitHub: " + error.message, "error"); }
   }
 
   function mediaSlug() {
@@ -1122,6 +1122,8 @@ permalink: /blog/editor/
     });
     source.addEventListener("keydown", handleTab);
     document.querySelectorAll(".editor-toolbar [data-action]").forEach((button) => button.addEventListener("click", () => formatSelection(button.dataset.action)));
+    window.addEventListener("resize", placeDetailsPanel);
+    $("front-matter").addEventListener("toggle", placeDetailsPanel);
     $("btn-close-image").addEventListener("click", () => $("image-dialog").close());
     $("btn-cancel-image").addEventListener("click", () => $("image-dialog").close());
     $("btn-insert-image").addEventListener("click", () => {
@@ -1153,8 +1155,6 @@ permalink: /blog/editor/
       setTimeout(() => URL.revokeObjectURL(url), 1000);
       setStatus("Downloaded " + name + ".", "saved");
     });
-    $("btn-push").addEventListener("click", pushDraft);
-    $("token").value = localStorage.getItem("drafts-gh-token") || "";
     const dialog = $("media-dialog");
     $("btn-media").addEventListener("click", () => { dialog.showModal(); loadMediaList(); });
     $("btn-close-media").addEventListener("click", () => dialog.close());

@@ -111,21 +111,30 @@ permalink: /blog/editor/
      bar and editor section flow directly inside the post body. */
   #editor-panel { display: contents; }
   /* Wide screens (>= 102rem, where the left margin next to the 820px column
-     is wide enough): the whole writing surface — controls AND editor —
-     floats in the left margin, mirroring how the site's ToC rail hangs in
-     the right margin at >= 92.5rem (same anchor: .post-wrap, same gap).
+     is wide enough): the writing surface hangs in the left margin using the
+     site's OWN rail pattern (see .post-wrap > .rail in _blogs.scss):
+     a full-height absolutely-positioned track spanning the article, with a
+     STICKY card inside that follows the viewport as you scroll — same anchor
+     (.post-wrap), same gap (1.25rem), same sticky offset (nav-h + 1.5rem).
      Below that width it simply sits at the end of the page. */
   @media (min-width: 102rem) {
     #editor-panel {
-      display: block;
+      display: block; /* override the stacked-mode display:contents */
       position: absolute;
-      top: calc(var(--nav-h) + 1rem);
+      top: 0;
+      bottom: 0;
       right: 100%;
       margin-right: 1.25rem;
       width: 24rem;
-      max-height: calc(100vh - var(--nav-h) - 2rem);
+      pointer-events: none; /* track only — the card is what's interactive */
+    }
+    #editor-panel > .panel-card {
+      position: sticky;
+      top: calc(var(--nav-h) + 1.5rem);
+      max-height: calc(100vh - var(--nav-h) - 3rem);
       overflow-y: auto;
       overscroll-behavior: contain;
+      pointer-events: auto;
       background: #fffdf8;
       border: 1px solid #dedbd2;
       border-radius: 9px;
@@ -203,6 +212,7 @@ permalink: /blog/editor/
 </div>
 
 <div id="editor-panel">
+  <div class="panel-card">
 <details id="editor-bar" open>
   <summary>
     <span id="save-indicator" class="loading">Loading…</span>
@@ -243,6 +253,7 @@ permalink: /blog/editor/
   <textarea id="md-source" aria-label="Markdown source" spellcheck="false" placeholder="Choose a post or start a new draft."></textarea>
   </details>
 </section>
+  </div>
 </div>
 
 <dialog id="media-dialog" aria-labelledby="media-title">

@@ -3,8 +3,8 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 # Builds the Jekyll site (with generated WebP overlay) and deploys it to
-# Cloudflare Pages via wrangler. Cloudflare serves the built files as-is;
-# nothing is built on Cloudflare's side.
+# Cloudflare via wrangler as the static assets of the "italai" worker.
+# Cloudflare serves the built files as-is; nothing is built on its side.
 name: Deploy Jekyll site
 
 on:
@@ -168,15 +168,18 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Checkout (for wrangler.jsonc)
+        uses: actions/checkout@v4
+
       - name: Download built site
         uses: actions/download-artifact@v4
         with:
           name: site
           path: _site
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to Cloudflare worker "italai"
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy _site --project-name=italai --branch=main
+          command: deploy

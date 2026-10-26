@@ -1,0 +1,13 @@
+# Cloudflare deploy target for the built site (see .github/workflows/jekyll.yml).
+# The finished _site/ folder is uploaded as the static assets of the "italai"
+# worker; worker.js is a pure passthrough. Asset-first routing: requests that
+# match a file are served by the asset layer directly and never invoke the
+# script. Custom domains are attached to the worker in the dashboard (routes
+# are not supported for Workers with static assets).
+name = "italai"
+main = "./worker.js"
+compatibility_date = "2026-01-01"
+
+[assets]
+directory = "./_site"
+binding = "ASSETS"

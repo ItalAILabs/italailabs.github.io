@@ -11,3 +11,18 @@ compatibility_date = "2026-01-01"
 [assets]
 directory = "./_site"
 binding = "ASSETS"
+
+# Observability (free tier) — invocation logs, traces, and real-time issues,
+# queryable in the dashboard under Workers & Pages → italai → Metrics/Logs.
+[observability]
+enabled = true
+issues.enabled = true
+
+[observability.logs]
+enabled = true
+invocation_logs = true
+persist = true
+
+[observability.traces]
+enabled = true
+persist = true

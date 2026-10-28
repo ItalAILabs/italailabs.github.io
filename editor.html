@@ -171,6 +171,10 @@ permalink: /blog/editor/
   /* The render area is the post body itself: it flows with the page at full
      content height, like a normal blog post — no internal scroll box. */
   #live-area { margin-bottom: 1.6rem; }
+  /* marked.js emits bare <pre> (no .highlighter-rouge wrapper), so give its
+     code blocks their own horizontal scroll on narrow screens instead of
+     widening the page. */
+  #live-area pre { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   /* The hero keeps a stable minimum height so short titles don't shrink it
      and shift everything below when the form fields change. */
   .post-hero { min-height: 380px; }

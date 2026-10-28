@@ -51,8 +51,20 @@ fetch_ref main "$MAIN_DIR"
 linkfile() {
   local dest="$1" src=".main/$2" dir depth prefix i
   if [ -e "$dest" ] && [ ! -L "$dest" ]; then
-    echo "!! '$dest' exists on this branch but must be linked from main — remove the committed copy (styling files must not live here)" >&2
-    exit 1
+    # A real file/dir where a symlink to main belongs. Two cases:
+    #  - git tracks files underneath: this branch is shadowing live-site
+    #    assets — refuse loudly (the original tripwire).
+    #  - git tracks nothing there: build leftover (e.g. generated WebP that
+    #    got materialized through a dangling link; *.webp is git-ignored so
+    #    it never shows in git status) — safe to remove and re-link.
+    if [ -z "$(git ls-files -- "$dest" | head -1)" ]; then
+      echo "!! '$dest' is an untracked build leftover — removing it and re-linking from main" >&2
+      rm -rf -- "$dest"
+    else
+      echo "!! '$dest' exists on this branch but must be linked from main — remove the committed copy (styling files must not live here):" >&2
+      git ls-files -- "$dest" | head -5 >&2
+      exit 1
+    fi
   fi
   dir="$(dirname "$dest")"
   if [ "$dir" = "." ]; then depth=0; else depth=$(awk -F/ '{print NF}' <<<"$dir"); fi

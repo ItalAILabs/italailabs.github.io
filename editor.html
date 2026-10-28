@@ -13,86 +13,161 @@ permalink: /blog/editor/
      site's REAL post layout (layout: post): the hero, the "On this page" rail,
      the container/column, and the footer all come from _layouts/post.html —
      nothing of that is duplicated here. This file only adds the editor
-     tooling: a control bar, the live render area (#live-area), the
-     Post-details panel (#details-panel) and the writing surface (toolbar +
-     textarea). JS updates the real hero elements'
+     tooling: the live render area (#live-area), the Post-details panel
+     (#details-panel) and the writing rail (#editor-panel): a status row with
+     the draft picker and primary actions, the toolbar + textarea, and a
+     "More actions" disclosure for export. JS updates the real hero elements'
      text in place and fills #live-area as you type. The <h2> below is what
      makes the layout's ToC rail render at build time; JS then regenerates
      its list from the draft's headings. -->
 
 <style>
-  /* Collapsible panel sections: the status row and the "Write your post"
-     heading are <summary> toggles, so each part of the writing surface can
-     be folded away to make room. */
-  details#editor-bar, details#writer { border: 1px solid #dedbd2; border-radius: 9px; background: #fffdf8; margin-bottom: .9rem; }
-  details#editor-bar > summary, details#writer > summary {
-    cursor: pointer; list-style: none; padding: .55rem .8rem;
-    display: flex; align-items: center; gap: .5rem; color: #17152a;
+  /* ============================================================
+     Draft editor UI — writing rail + Post-details panel.
+     Card language mirrors the site's own ToC rail card
+     (_blogs.scss, .post-wrap > .rail > .toc): cream surface, hairline
+     border, 12px radius, soft shadow, mono uppercase section headers
+     with a +/minus toggle. The wide-screen track/sticky geometry at
+     the bottom of this block must stay in sync with that rail.
+     ============================================================ */
+
+  /* --- Card surfaces (identical in stacked and wide modes) ------ */
+  #editor-panel > .panel-card,
+  #details-panel {
+    background: #fffdf8;
+    border: 1px solid #dedbd2;
+    border-radius: var(--radius-md);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
   }
-  details#editor-bar > summary::-webkit-details-marker, details#writer > summary::-webkit-details-marker { display: none; }
-  details#editor-bar > summary::before, details#writer > summary::before {
-    content: "▸"; font-size: .8rem; color: #6b6878; transition: transform .15s;
-  }
-  details[open]#editor-bar > summary::before, details[open]#writer > summary::before { transform: rotate(90deg); }
-  details#writer > summary h2 {
-    margin: 0 !important; font-family: var(--header-family);
-    font-size: .85rem !important; letter-spacing: 1.5px; text-transform: uppercase;
-    color: #17152a; line-height: 1.4;
-  }
-  .bar-controls { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; padding: .35rem .8rem .7rem; }
-  #editor-bar label { color: #6b6878; font-size: .83rem; white-space: nowrap; }
-  #editor-bar button, #editor-bar select, #editor-bar input[type="text"], #editor-bar input[type="password"] {
-    min-height: 2.55rem; padding: .5rem .72rem; border: 1px solid #dedbd2; border-radius: 8px;
-    color: #17152a; background: white; font: inherit; text-transform: none; letter-spacing: normal;
-  }
-  #editor-bar button { cursor: pointer; transition: background .15s, border-color .15s; }
-  #editor-bar button:hover { background: #f0eee7; }
-  #editor-bar button.primary { background: #208b69; border-color: #208b69; color: white; font-weight: 700; }
-  #editor-bar button.primary:hover { background: #17694f; }
-  #editor-bar a { color: #17694f; text-decoration: none; white-space: nowrap; }
-  #editor-bar a:hover { text-decoration: underline; }
-  #draft-select { max-width: min(380px, 60vw); }
-  #filename { width: min(320px, 100%); }
-  .bar-sep { flex: 1; }
-  #save-indicator { flex: 0 0 auto; padding: .2rem .55rem; border-radius: 999px; font-weight: 700; font-size: .85rem; }
+  /* Stacked mode: the rail is one full-width card at the end of the post. */
+  #editor-panel > .panel-card { padding: .9rem 1rem 1.05rem; margin: 1.25rem 0; }
+  #details-panel { margin: 1.25rem 0; }
+
+  /* --- Status row: pill + fixed-height two-line message ---------- */
+  .status-row { display: flex; align-items: center; gap: .6rem; }
+  #save-indicator { flex: 0 0 auto; padding: .3rem .65rem; border-radius: 999px; font-weight: 700; font-size: .8rem; white-space: nowrap; }
   #save-indicator.loading { background: #eceae4; color: #6b6878; }
   #save-indicator.saved { background: #e2f4eb; color: #145b3e; }
   #save-indicator.dirty, #save-indicator.saving { background: #fff0cb; color: #76530a; }
   #save-indicator.offline, #save-indicator.error { background: #fde7e7; color: #842323; }
-  /* The status message is single-line with ellipsis so the bar never
-     changes height while typing (a changing bar would move the page). */
-  #status-message { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #6b6878; font-size: .88rem; }
-  details#front-matter { border: 1px solid #dedbd2; border-radius: 11px; background: #fffdf8; margin: 1.1rem 0 .9rem; }
-  details#front-matter > summary { cursor: pointer; list-style: none; padding: .8rem 1rem; color: #17152a; font-weight: 700; }
+  /* Fixed two-line height (clamped) so the card never changes size while
+     typing — a resizing rail would shift the page. */
+  #status-message {
+    flex: 1; min-width: 0;
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+    height: calc(2 * 1.45em); font-size: .84rem; line-height: 1.45; color: #6b6878;
+  }
+
+  /* --- Micro labels, fields, buttons ---------------------------- */
+  .micro-label { display: block; font-family: var(--header-family); font-size: .7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #6b6878; }
+  .draft-controls .micro-label { margin-top: .8rem; }
+  #draft-select, #filename {
+    width: 100%; min-height: 2.5rem; padding: .5rem .7rem; border: 1px solid #dedbd2; border-radius: 8px;
+    color: #17152a; background: white; font: inherit; transition: border-color var(--transition-fast);
+  }
+  #draft-select { cursor: pointer; }
+  #draft-select:hover, #filename:hover { border-color: #c6c1b2; }
+  .panel-card button {
+    min-height: 2.5rem; padding: .48rem .7rem; border: 1px solid #dedbd2; border-radius: 8px;
+    background: white; color: #17152a; font: inherit; cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+  }
+  .panel-card button:hover { background: #f0eee7; border-color: #c6c1b2; }
+  .panel-card button.primary { width: 100%; margin-top: .5rem; background: #208b69; border-color: #208b69; color: white; font-weight: 700; }
+  .panel-card button.primary:hover { background: #17694f; border-color: #17694f; }
+  .btn-row { display: flex; gap: .5rem; margin-top: .5rem; }
+  .btn-row > * { flex: 1 1 0; min-width: 0; }
+
+  /* --- Section headers: mono uppercase + +/minus toggle (ToC style) */
+  details#writer > summary, details.more-actions > summary, details#front-matter > summary {
+    cursor: pointer; list-style: none; user-select: none;
+    display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+  }
+  details#writer > summary::-webkit-details-marker,
+  details.more-actions > summary::-webkit-details-marker,
   details#front-matter > summary::-webkit-details-marker { display: none; }
-  details#front-matter > summary::before { content: "▸"; font-size: .8rem; color: #6b6878; margin-right: .35rem; transition: transform .15s; }
-  details[open]#front-matter > summary::before { transform: rotate(90deg); }
-  .hint { color: #6b6878; font-weight: 400; font-size: .85rem; }
-  .muted { color: #6b6878; font-size: .85rem; }
-  .dialog-btn { min-height: 2.55rem; padding: .5rem .72rem; border: 1px solid #dedbd2; border-radius: 8px; background: white; cursor: pointer; font: inherit; color: #17152a; }
-  .dialog-btn:hover { background: #f0eee7; }
-  .dialog-btn.primary { border-color: #208b69; background: #208b69; color: white; font-weight: 700; }
-  .dialog-btn.primary:hover { background: #17694f; }
-  .dialog-body > p:first-child { margin-top: 0; }
-  .dialog-body .field:not(:last-of-type) { margin-bottom: .7rem; }
-  .form-help { margin: -.35rem 1rem .7rem; color: #6b6878; font-size: .84rem; }
-  .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; padding: 0 1rem 1rem; }
-  .field { display: flex; flex-direction: column; gap: .28rem; min-width: 0; color: #6b6878; font-size: .83rem; }
-  .field.wide { grid-column: span 2; }
-  .field input { width: 100%; min-height: 2.55rem; padding: .5rem .72rem; border: 1px solid #dedbd2; border-radius: 8px; color: #17152a !important; background: white; font: inherit; }
-  .check-field { display: flex; align-items: center; gap: .55rem; padding-top: 1.55rem; color: #6b6878; font-size: .83rem; }
-  .check-field input { width: 1.1rem; height: 1.1rem; }
+  details#writer > summary::after,
+  details.more-actions > summary::after,
+  details#front-matter > summary::after { content: "+"; font-size: 1.125rem; line-height: 1; color: #8a8676; flex: 0 0 auto; }
+  details#writer[open] > summary::after,
+  details.more-actions[open] > summary::after,
+  details#front-matter[open] > summary::after { content: "\2212"; }
+
+  /* Writer section header — the h2 is real (it makes the layout ToC
+     render at build time), styled like the ToC card's own summary. */
+  details#writer > summary { padding: .3rem 0 .65rem; }
+  details#writer > summary h2 { margin: 0 !important; font-family: var(--header-family); font-size: .8125rem !important; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #17152a; line-height: 1.4; }
+
+  /* One clear separation between the controls block and the writing block. */
+  #editor-section { border-top: 1px solid #e4e0d2; margin-top: .9rem; padding-top: .3rem; }
   #editor-section h2 { scroll-margin-top: 4rem; }
-  .editor-toolbar { display: flex; flex-wrap: wrap; gap: .28rem; padding: .55rem .65rem; border: 1px solid #dedbd2; border-bottom: 0; border-radius: 9px 9px 0 0; background: white; }
-  .editor-toolbar button { min-height: 2rem; min-width: 2rem; padding: .27rem .48rem; color: #454253 !important; font-size: .8rem; border: 1px solid #dedbd2; border-radius: 7px; background: white; cursor: pointer; font: inherit; }
-  .editor-toolbar button:hover { background: #f0eee7; }
+
+  /* --- Formatting toolbar: comfortable targets, reads as a toolbar */
+  .editor-toolbar { display: flex; flex-wrap: wrap; gap: .3rem; padding: .45rem; border: 1px solid #dedbd2; border-bottom: 0; border-radius: 9px 9px 0 0; background: white; }
+  .editor-toolbar button { min-height: 2.5rem; min-width: 2.5rem; flex: 0 0 auto; padding: .35rem .6rem; border: 0; border-radius: 7px; background: transparent; color: #454253; font-size: .8rem; font-weight: 600; cursor: pointer; transition: background var(--transition-fast); }
+  .editor-toolbar button:hover { background: #eceadf; }
   .editor-toolbar button[aria-label="Heading"] { font-weight: 700; }
+
+  /* The textarea is the dominant surface in the card. */
   #md-source {
-    display: block; width: 100%; min-height: 45vh; resize: vertical; padding: 1.15rem 1.2rem;
+    display: block; width: 100%; min-height: 45vh; resize: vertical; padding: 1.1rem 1.15rem;
     border: 1px solid #dedbd2; border-radius: 0 0 9px 9px; background: #fffefa; color: #292638;
     font: 14px/1.7 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
     tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere;
   }
+
+  /* --- More actions (export mechanics, tucked away by default) ---- */
+  details.more-actions { border-top: 1px solid #e4e0d2; margin-top: .9rem; padding-top: .75rem; }
+  details.more-actions > summary { padding: .15rem 0; font-family: var(--header-family); font-size: .75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #6b6878; }
+  .more-body { display: flex; flex-direction: column; gap: .5rem; padding-top: .6rem; }
+  .micro-hint { margin: -.2rem 0 0; font-size: .78rem; line-height: 1.45; color: #8a8676; }
+  #open-preview { display: inline-flex; align-items: center; justify-content: center; min-height: 2.5rem; padding: .48rem .7rem; border: 1px solid #bcd9cd; border-radius: 8px; background: #eef7f2; color: #17694f; font-weight: 600; text-decoration: none; transition: background var(--transition-fast); }
+  #open-preview:hover { background: #e2f0e9; }
+
+  /* --- Post details (front-matter form) --------------------------- */
+  .hint { color: #6b6878; font-weight: 400; font-size: .85rem; }
+  details#front-matter > summary { padding: .75rem .9rem .65rem; color: #17152a; font-size: .95rem; }
+  details#front-matter > summary strong { font-weight: 700; }
+  .form-help { margin: 0 .9rem .65rem; color: #6b6878; font-size: .84rem; line-height: 1.45; }
+  .muted { color: #6b6878; font-size: .85rem; }
+  .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; padding: 0 .9rem .95rem; }
+  .field { display: flex; flex-direction: column; gap: .28rem; min-width: 0; color: #6b6878; font-size: .83rem; }
+  .field.wide { grid-column: span 2; }
+  .field input { width: 100%; min-height: 2.5rem; padding: .5rem .7rem; border: 1px solid #dedbd2; border-radius: 8px; color: #17152a !important; background: white; font: inherit; }
+  .check-field { display: flex; align-items: center; gap: .55rem; padding-top: 1.55rem; color: #6b6878; font-size: .83rem; }
+  .check-field input { width: 1.1rem; height: 1.1rem; }
+
+  /* --- Dialogs ---------------------------------------------------- */
+  dialog#media-dialog { width: min(680px, calc(100vw - 2rem)); max-height: 85vh; padding: 0; border: 1px solid #dedbd2; border-radius: 12px; color: #17152a; box-shadow: 0 16px 50px #17152a35; }
+  dialog#media-dialog::backdrop { background: #17152a88; }
+  .dialog-head { display: flex; align-items: center; gap: .7rem; padding: .9rem 1rem; border-bottom: 1px solid #dedbd2; }
+  .dialog-head h2 { margin: 0 auto 0 0 !important; font-size: 1.05rem !important; }
+  .dialog-body { padding: 1rem; }
+  .dialog-body > p:first-child { margin-top: 0; }
+  .dialog-body .field:not(:last-of-type) { margin-bottom: .7rem; }
+  #media-list { display: grid; gap: .45rem; max-height: 34vh; overflow: auto; margin: .75rem 0 1rem; }
+  .media-item { display: flex; align-items: center; gap: .65rem; text-align: left; width: 100%; padding: .5rem .7rem; border: 1px solid #dedbd2; border-radius: 8px; background: white; cursor: pointer; font: inherit; color: #17152a; }
+  .media-item:hover { background: #f0eee7; }
+  .media-item .media-name { overflow-wrap: anywhere; }
+  #drop-zone { padding: 1rem; border: 2px dashed #b7b2a7; border-radius: 9px; text-align: center; background: #faf9f5; }
+  #drop-zone.dragging { border-color: #208b69; background: #e9f7f0; }
+  #drop-zone p { margin: 0 0 .55rem; }
+  .dialog-actions { display: flex; justify-content: flex-end; gap: .5rem; padding: .75rem 1rem; border-top: 1px solid #dedbd2; }
+  .dialog-btn { min-height: 2.55rem; padding: .5rem .72rem; border: 1px solid #dedbd2; border-radius: 8px; background: white; cursor: pointer; font: inherit; color: #17152a; }
+  .dialog-btn:hover { background: #f0eee7; }
+  .dialog-btn.primary { border-color: #208b69; background: #208b69; color: white; font-weight: 700; }
+  .dialog-btn.primary:hover { background: #17694f; }
+
+  /* --- Keyboard focus: one deliberate ring, site blue, with offset -- */
+  #editor-panel :is(a, button, input, select, summary):focus-visible,
+  #details-panel :is(a, button, input, select, summary):focus-visible,
+  #media-dialog :is(a, button, input, select):focus-visible,
+  #image-dialog :is(a, button, input, select):focus-visible {
+    outline: 2px solid var(--standard-blue);
+    outline-offset: 2px;
+  }
+
+  /* --- Render area + hero stability ------------------------------- */
   /* The render area is the post body itself: it flows with the page at full
      content height, like a normal blog post — no internal scroll box. */
   #live-area { margin-bottom: 1.6rem; }
@@ -102,14 +177,17 @@ permalink: /blog/editor/
   /* On narrow screens the ToC card sits above the content in flow; cap its
      list height so adding/removing headings while typing doesn't resize it. */
   .rail > .toc > nav { max-height: 240px; overflow-y: auto; }
+
   /* The site only sets border-box on <body> (it's not inherited), so our
      width:100% elements with padding/border must opt in or they spill past
      the column's right edge. */
-  #details-panel, #editor-panel, #editor-bar, #editor-section, #media-dialog, #image-dialog,
-  #details-panel *, #editor-panel *, #editor-bar *, #editor-section *, #media-dialog *, #image-dialog * { box-sizing: border-box; }
+  #details-panel, #editor-panel, #media-dialog, #image-dialog,
+  #details-panel *, #editor-panel *, #media-dialog *, #image-dialog * { box-sizing: border-box; }
+
   /* Stacked layout (default): the panel wrapper is transparent to layout —
-     bar and editor section flow directly inside the post body. */
+     its card flows directly inside the post body. */
   #editor-panel { display: contents; }
+
   /* Wide screens (>= 102rem, where the left margin next to the 820px column
      is wide enough): the writing surface hangs in the left margin using the
      site's OWN rail pattern (see .post-wrap > .rail in _blogs.scss):
@@ -135,15 +213,15 @@ permalink: /blog/editor/
       overflow-y: auto;
       overscroll-behavior: contain;
       pointer-events: auto;
-      background: #fffdf8;
-      border: 1px solid #dedbd2;
-      border-radius: 9px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-      padding: .9rem 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
     }
-    #editor-panel details#writer { margin-bottom: 0; }
-    #details-panel .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    #editor-panel #md-source { min-height: 30vh; }
+    /* Let the textarea own whatever card height is left (dominant surface). */
+    #editor-section { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+    details#writer { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+    details#writer[open] #md-source { flex: 1 1 auto; min-height: 28vh; }
+
     /* Post details floats beside the HERO (its fields only affect the hero
        and metadata). The panel is anchored to .post-wrap, which starts below
        the hero, and the hero's height varies with its content — so the top
@@ -151,40 +229,23 @@ permalink: /blog/editor/
     #details-panel {
       position: absolute;
       right: 100%;
-      margin-right: 1.25rem;
       width: 24rem;
       top: 12px; /* refined by placeDetailsPanel() to sit beside the hero */
       visibility: hidden; /* until placed, so it doesn't flash in-flow */
-      background: #fffdf8;
-      border: 1px solid #dedbd2;
-      border-radius: 9px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-      padding: .9rem 1rem 1.1rem;
+      margin: 0 1.25rem 0 0; /* resets the stacked vertical margin, keeps the rail gap */
     }
     #details-panel.placed { visibility: visible; }
-    #details-panel details#front-matter { border: 0; background: transparent; margin: 0; }
   }
-  dialog#media-dialog { width: min(680px, calc(100vw - 2rem)); max-height: 85vh; padding: 0; border: 1px solid #dedbd2; border-radius: 12px; color: #17152a; box-shadow: 0 16px 50px #17152a35; }
-  dialog#media-dialog::backdrop { background: #17152a88; }
-  .dialog-head { display: flex; align-items: center; gap: .7rem; padding: .9rem 1rem; border-bottom: 1px solid #dedbd2; }
-  .dialog-head h2 { margin: 0 auto 0 0 !important; font-size: 1.05rem !important; }
-  .dialog-body { padding: 1rem; }
-  #media-list { display: grid; gap: .45rem; max-height: 34vh; overflow: auto; margin: .75rem 0 1rem; }
-  .media-item { display: flex; align-items: center; gap: .65rem; text-align: left; width: 100%; padding: .5rem .7rem; border: 1px solid #dedbd2; border-radius: 8px; background: white; cursor: pointer; font: inherit; color: #17152a; }
-  .media-item:hover { background: #f0eee7; }
-  .media-item .media-name { overflow-wrap: anywhere; }
-  #drop-zone { padding: 1rem; border: 2px dashed #b7b2a7; border-radius: 9px; text-align: center; background: #faf9f5; }
-  #drop-zone.dragging { border-color: #208b69; background: #e9f7f0; }
-  #drop-zone p { margin: 0 0 .55rem; }
-  .dialog-actions { display: flex; justify-content: flex-end; padding: .75rem 1rem; border-top: 1px solid #dedbd2; }
+
   @media (max-width: 900px) { .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 560px) {
     .fields { grid-template-columns: 1fr; }
     .field.wide { grid-column: auto; }
     .check-field { padding-top: .35rem; }
-    #draft-select, #filename { max-width: 100%; flex: 1 1 100%; }
+    #draft-select, #filename { max-width: 100%; }
   }
 </style>
+
 
 <!-- Render area: the draft's body, rendered live as a real post body -->
 <div id="live-area"></div>
@@ -194,18 +255,18 @@ permalink: /blog/editor/
      margin beside the hero — see placeDetailsPanel(); below that width it
      stacks here between the preview and the writing surface. -->
 <div id="details-panel">
-<details id="front-matter">
-    <summary>Post details <span class="hint">— fill these in instead of editing YAML</span></summary>
+  <details id="front-matter">
+    <summary><span><strong>Post details</strong> <span class="hint">— fill these in instead of editing YAML</span></span></summary>
     <p class="form-help">These details are saved at the top of your markdown. You can still edit the YAML directly in the editor below.</p>
     <div class="fields">
       <label class="field wide"><span>Title</span><input id="fm-title" type="text" autocomplete="off" placeholder="A clear title for your post"></label>
       <label class="field"><span>Category</span><input id="fm-category" type="text" placeholder="Research, Guides…"></label>
       <label class="field"><span>Author</span><input id="fm-author" type="text" placeholder="Your name or team"></label>
-      <label class="field"><span>Short teaser (excerpt)</span><input id="fm-excerpt" type="text" placeholder="A short note for the blog listing"></label>
+      <label class="field"><span>Short teaser</span><input id="fm-excerpt" type="text" placeholder="A short note for the blog listing"></label>
       <label class="field wide"><span>Description</span><input id="fm-description" type="text" placeholder="One-line summary for search and sharing"></label>
       <label class="field"><span>Reading time</span><input id="fm-read_time" type="text" placeholder="5 min read"></label>
-      <label class="field wide"><span>Image path</span><input id="fm-image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
-      <label class="field wide"><span>Large header image path</span><input id="fm-hero_image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
+      <label class="field wide"><span>Image in the post</span><input id="fm-image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
+      <label class="field wide"><span>Large header image</span><input id="fm-hero_image" type="text" placeholder="/assets/images/posts/your-post/figure.svg"></label>
       <label class="check-field"><input id="fm-published_in_blog" type="checkbox"><span>Show in the blog listing</span></label>
     </div>
   </details>
@@ -213,46 +274,58 @@ permalink: /blog/editor/
 
 <div id="editor-panel">
   <div class="panel-card">
-<details id="editor-bar" open>
-  <summary>
-    <span id="save-indicator" class="loading">Loading…</span>
-    <span id="status-message" role="status" aria-live="polite">Loading your drafts…</span>
-  </summary>
-  <div class="bar-controls">
-  <label for="draft-select">Post</label>
-  <select id="draft-select" aria-label="Choose a draft"><option value="">Choose a draft…</option></select>
-  <button id="btn-new" type="button">New draft</button>
-  <button id="btn-media" type="button" aria-haspopup="dialog">Add media</button>
-  <a id="open-preview" href="/blog/">Open rendered preview ↗</a>
-  <span class="bar-sep"></span>
-  <button id="btn-save-local" type="button" class="primary">Save now</button>
-  <label for="filename">Save to</label>
-  <input type="text" id="filename" aria-label="File path to save the post" placeholder="_posts/YYYY-MM-DD-your-title.md" spellcheck="false">
-  <button id="btn-copy" type="button">Copy markdown</button>
-  <button id="btn-download" type="button">Download .md</button>
-  </div>
-</details>
 
-<!-- Writing surface. The h2 (inside the writer's summary) is a real heading
-     so the layout's ToC rail renders; JS replaces its list with the draft's
-     headings. -->
-<section id="editor-section">
-  <details id="writer" open>
-  <summary><h2>Write your post</h2></summary>
-  <div class="editor-toolbar" role="toolbar" aria-label="Markdown formatting">
-    <button type="button" data-action="heading" aria-label="Heading" title="Heading">H2</button>
-    <button type="button" data-action="bold" aria-label="Bold" title="Bold"><strong>B</strong></button>
-    <button type="button" data-action="italic" aria-label="Italic" title="Italic"><em>I</em></button>
-    <button type="button" data-action="inline-code" aria-label="Inline code" title="Inline code">&lt;/&gt;</button>
-    <button type="button" data-action="link" aria-label="Link" title="Link">Link</button>
-    <button type="button" data-action="image" aria-label="Insert image" title="Insert image — path, alt text (SEO), caption">Image</button>
-    <button type="button" data-action="quote" aria-label="Quote" title="Quote">❝</button>
-    <button type="button" data-action="list" aria-label="List" title="List">List</button>
-    <button type="button" data-action="code-block" aria-label="Code block" title="Code block">Code</button>
-  </div>
-  <textarea id="md-source" aria-label="Markdown source" spellcheck="false" placeholder="Choose a post or start a new draft."></textarea>
-  </details>
-</section>
+    <!-- Draft status + primary actions: always visible, never collapsed. -->
+    <section class="draft-controls" aria-label="Draft status and main actions">
+      <div class="status-row">
+        <span id="save-indicator" class="loading">Loading…</span>
+        <span id="status-message" role="status" aria-live="polite">Loading your drafts…</span>
+      </div>
+      <label class="micro-label" for="draft-select">Draft</label>
+      <select id="draft-select" aria-label="Choose a draft"><option value="">Choose a draft…</option></select>
+      <div class="btn-row">
+        <button id="btn-new" type="button">New draft</button>
+        <button id="btn-media" type="button" aria-haspopup="dialog">Add media</button>
+      </div>
+      <button id="btn-save-local" type="button" class="primary">Save now</button>
+    </section>
+
+    <!-- Writing surface. The h2 (inside the writer's summary) is a real heading
+         so the layout's ToC rail renders; JS replaces its list with the draft's
+         headings. -->
+    <section id="editor-section">
+      <details id="writer" open>
+        <summary><h2>Write your post</h2></summary>
+        <div class="editor-toolbar" role="toolbar" aria-label="Markdown formatting">
+          <button type="button" data-action="heading" aria-label="Heading" title="Make the current line a heading">H2</button>
+          <button type="button" data-action="bold" aria-label="Bold" title="Bold"><strong>B</strong></button>
+          <button type="button" data-action="italic" aria-label="Italic" title="Italic"><em>I</em></button>
+          <button type="button" data-action="inline-code" aria-label="Inline code" title="Wrap the selection in inline code">Code</button>
+          <button type="button" data-action="link" aria-label="Link" title="Insert a link">Link</button>
+          <button type="button" data-action="image" aria-label="Insert image" title="Insert an image — path, alt text (SEO), caption">Image</button>
+          <button type="button" data-action="quote" aria-label="Quote" title="Turn the current line into a quote">Quote</button>
+          <button type="button" data-action="list" aria-label="List" title="Bulleted list">List</button>
+          <button type="button" data-action="code-block" aria-label="Code block" title="Wrap the selection in a code block">Code block</button>
+        </div>
+        <textarea id="md-source" aria-label="Markdown source" spellcheck="false" placeholder="Choose a post or start a new draft."></textarea>
+      </details>
+    </section>
+
+    <!-- Secondary actions: export mechanics, tucked away by default. -->
+    <details class="more-actions">
+      <summary><span>More actions</span></summary>
+      <div class="more-body">
+        <a id="open-preview" href="/blog/">Open rendered preview ↗</a>
+        <label class="micro-label" for="filename">File name</label>
+        <input type="text" id="filename" aria-label="File name for this draft" placeholder="_posts/YYYY-MM-DD-your-title.md" spellcheck="false">
+        <p class="micro-hint">Filled in automatically from the title — change it only if you want a different file.</p>
+        <div class="btn-row">
+          <button id="btn-copy" type="button">Copy markdown</button>
+          <button id="btn-download" type="button">Download .md</button>
+        </div>
+      </div>
+    </details>
+
   </div>
 </div>
 

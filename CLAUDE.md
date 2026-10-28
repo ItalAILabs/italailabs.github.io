@@ -62,8 +62,10 @@ which is how the editor reads/saves `_posts/` locally and lists/uploads per-post
 — no GitHub round-trip. The editor (`editor.html`) is a real Jekyll page using the site's
 own `post` layout: hero, ToC rail, 820px column and footer come from `_layouts/post.html`,
 and the page only adds `#live-area` (the draft rendered in place of the post body),
-`#details-panel` (the Post details form) and `#editor-panel` (control bar + collapsible
-writing surface: toolbar, textarea). On viewports ≥ 102rem the writing panel hangs in the
+`#details-panel` (the Post details form) and `#editor-panel` (the writing rail: an always-visible
+status row + draft picker + New draft/Add media + full-width Save now, the collapsible writing
+surface — toolbar + textarea — and a "More actions" disclosure holding the preview link,
+filename field, Copy/Download). On viewports ≥ 102rem the writing panel hangs in the
 left margin using the site's own rail pattern (`.post-wrap > .rail` in _blogs.scss): a
 full-height absolutely-positioned track (`#editor-panel`) with a STICKY card inside
 (`.panel-card`, same `top: calc(var(--nav-h) + 1.5rem)` offset) that follows the viewport as

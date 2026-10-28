@@ -184,9 +184,16 @@ permalink: /blog/editor/
   #details-panel, #editor-panel, #media-dialog, #image-dialog,
   #details-panel *, #editor-panel *, #media-dialog *, #image-dialog * { box-sizing: border-box; }
 
-  /* Stacked layout (default): the panel wrapper is transparent to layout —
-     its card flows directly inside the post body. */
+  /* Stacked layout (default, < 102rem): the panel wrapper is transparent to
+     layout, and .post-body becomes a flex column so we can put the writing
+     surface BEFORE the rendered preview — writers land on the tools instead
+     of scrolling through their own post to find them. In wide mode both
+     panels are out of flow (absolute), so the ordering is inert there. */
   #editor-panel { display: contents; }
+  .post-body { display: flex; flex-direction: column; }
+  #details-panel { order: 1; }
+  #editor-panel > .panel-card { order: 2; }
+  #live-area { order: 3; }
 
   /* Wide screens (>= 102rem, where the left margin next to the 820px column
      is wide enough): the writing surface hangs in the left margin using the
@@ -771,7 +778,14 @@ permalink: /blog/editor/
   // internally scrolling if it would be taller.
   function placeDetailsPanel() {
     const panel = $("details-panel");
-    if (!window.matchMedia("(min-width: 102rem)").matches) { panel.classList.remove("placed"); return; }
+    if (!window.matchMedia("(min-width: 102rem)").matches) {
+      // Stacked mode: clear any wide-mode inline positioning.
+      panel.classList.remove("placed");
+      panel.style.top = "";
+      panel.style.maxHeight = "";
+      panel.style.overflowY = "";
+      return;
+    }
     const hero = document.querySelector(".post-hero");
     const wrap = document.querySelector(".post-wrap");
     if (!hero || !wrap) return;

@@ -8,18 +8,17 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    // Last line of defense against horizontal panning: any content that
+    // would otherwise spill past the viewport (off-canvas elements parked
+    // with a transform, long unbroken lines) is clipped instead of making
+    // the page pan sideways. On <body>, not <html> — Chromium ignores clip
+    // at the viewport level for this purpose (verified). `clip` rather than
+    // `hidden` so no new scroll container is introduced and sticky keeps
+    // working.
+    overflow-x: clip;
     &.no-scroll {
         overflow: hidden;
     }
-}
-
-// Off-canvas elements parked with a transform (the mobile ToC drawer sits
-// at translateX(105%)) must not create horizontal scrollable overflow —
-// without this, post pages pan sideways on narrow screens. `clip` rather
-// than `hidden` so no new scroll container is introduced and sticky keeps
-// working.
-html {
-    overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: no-preference) {

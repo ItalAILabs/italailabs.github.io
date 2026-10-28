@@ -1225,6 +1225,11 @@ figure.post-table .table-footnote {
     background: #0f0f1e;
     border: 1px solid rgba(107, 108, 245, 0.3);
     border-radius: var(--radius-md);
+    /* Long code lines scroll inside the block instead of widening the
+       page (no horizontal pan on narrow screens). Ignored for inline
+       .highlighter-rouge spans (overflow doesn't apply to inline boxes). */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .post-body .language-python {

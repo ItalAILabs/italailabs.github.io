@@ -13,6 +13,15 @@ body {
     }
 }
 
+// Off-canvas elements parked with a transform (the mobile ToC drawer sits
+// at translateX(105%)) must not create horizontal scrollable overflow —
+// without this, post pages pan sideways on narrow screens. `clip` rather
+// than `hidden` so no new scroll container is introduced and sticky keeps
+// working.
+html {
+    overflow-x: clip;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     html {
         scroll-behavior: smooth;

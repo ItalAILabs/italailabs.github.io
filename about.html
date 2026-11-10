@@ -157,25 +157,25 @@ A SAPIENZA SPINOUT BRIDGING FRONTIER RESEARCH AND INDUSTRY
   </div>
 </section>
 
-<!-- Team Section -->
-<section class="team-section">
+<!-- Founders Section -->
+<section class="founders-section">
   <div class="container">
-    <div class="team-header">
+    <div class="founders-header">
       <div>
-        <div class="section-label">TEAM</div>
-        <h2 class="team-title h2-size">
-          Blending AI research and industry expertise<span class="period">.</span>
+        <div class="section-label">FOUNDERS</div>
+        <h2 class="founders-title h2-size">
+          Two founders blending research depth and industry experience<span class="period">.</span>
         </h2>
       </div>
       <a class="cta-outlined" href="/contact">WORK WITH US</a>
     </div>
 
-    <!-- Leadership Row -->
-    <div class="team-grid">
-      {% for person in site.data.people.team %}
+    <div class="founders-grid">
+      {% assign founders = site.data.people.team | where_exp: "p", "p.role contains 'Co-founder'" %}
+      {% for person in founders %}
         {% assign person_slug = person.name | replace: ' ', '-' | downcase %}
-        <div class="person-card">
-          <div class="person-image">
+        <div class="founder-card">
+          <div class="founder-image">
             <img
               src="/assets/images/people/{{ person_slug }}.webp"
               alt="{{ person.name }}"
@@ -183,10 +183,15 @@ A SAPIENZA SPINOUT BRIDGING FRONTIER RESEARCH AND INDUSTRY
               onerror="this.onerror=null;this.src='/assets/images/people/placeholder.svg';"
             >
           </div>
-          <div class="person-info">
-            <div class="person-name">{% if person.professor %}Prof. {% endif %}{{ person.name }}</div>
-            <div class="person-role">{{ person.role }}{% if person.credentials %}, {{ person.credentials }}{% endif %}</div>
-          </div>
+          <div class="founder-name">{% if person.professor %}Prof. {% endif %}{{ person.name }}</div>
+          <div class="founder-role">{{ person.role }}</div>
+          {% if person.highlights %}
+          <ul class="founder-highlights">
+            {% for item in person.highlights %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
         </div>
       {% endfor %}
     </div>

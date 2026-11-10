@@ -5,6 +5,12 @@ team:
     email: luca.rigazio@italailabs.com
     links:
       linkedin: https://www.linkedin.com/in/lucarigazio/
+    highlights:
+      - Ex Chief AI Officer at Cairns Health
+      - Former Director of Engineering, Panasonic R&D (Silicon Valley)
+      - Chair, MIT/Stanford Venture Lab (VLAB)
+      - 20+ years in AI-driven product design & innovation leadership
+      - Built and scaled global teams across tech and health AI startups
     
   - name: Fabio Galasso
     professor: true
@@ -17,6 +23,11 @@ team:
       scholar: https://scholar.google.com/citations?user=2gSuGBEAAAAJ
       x: https://x.com/GalassoFab10
       url: https://fgalasso.bitbucket.io/
+    highlights:
+      - Full Professor and Head of the Perception and Intelligence Lab (PINLab) at the Dept. of Computer Science, Sapienza University of Rome
+      - Founder & Head, Computer Vision Dept., OSRAM (Munich)
+      - Research at University of Cambridge & Max Planck Institute
+      - 30+ patents & award-winning innovation in AI and perception
     
   - name: Cristiana Polici
     role: VP & Head of Operations

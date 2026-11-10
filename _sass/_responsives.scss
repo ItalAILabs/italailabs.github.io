@@ -129,13 +129,9 @@ $mobile: 575px;
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .team-grid {
-        flex-wrap: wrap;
-    }
     .work-with-us-card {
         flex: 100%;
     }
-    .person-card,
     .research-driven-card {
         flex: 45%;
     }

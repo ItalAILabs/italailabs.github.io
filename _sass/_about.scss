@@ -369,12 +369,12 @@
 /* ============================================
    TEAM SECTION
    ============================================ */
-.team-section {
+.founders-section {
   background: var(--standard-light);
   padding: 70px 0 80px;
 }
 
-.team-header {
+.founders-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -383,7 +383,7 @@
   margin-bottom: 38px;
 }
 
-.team-header .section-label {
+.founders-header .section-label {
   font-family: var(--header-family);
   font-size: 13px;
   letter-spacing: 3px;
@@ -392,69 +392,70 @@
   margin-bottom: 14px;
 }
 
-.team-title {
+.founders-title {
   font-size: clamp(1.5rem, 2.5vw, 2.0625rem) !important;
   color: var(--standard-dark);
   margin: 0;
 }
 
-.team-grid {
+.founders-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 56px 72px;
 }
 
-/* Person Card - Rework Style */
-.person-card {
-  background: #fbfaf3;
-  border: 1px solid #e6e1d0;
-  border-radius: 14px;
+/* Founder Card - circular portrait, mono name, green role, highlight bullets */
+.founder-image {
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.person-image {
-  width: 100%;
-  aspect-ratio: 1.43;
   background: #1a1436;
-  overflow: hidden;
-  border-radius: 10px 10px 0 0;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 22%;
+    object-position: 50% 25%;
     display: block;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease;
   }
 }
 
-.person-card:hover .person-image img {
-  filter: grayscale(0%);
-}
-
-.person-info {
-  padding: 20px 22px 22px;
-}
-
-.person-name {
+.founder-name {
   font-family: var(--header-family);
   font-weight: 700;
-  font-size: clamp(0.875rem, 1vw, 1.0625rem);
+  font-size: clamp(1.125rem, 1.3vw, 1.375rem);
   color: var(--standard-dark);
-  margin: 0 0 5px;
-  text-transform: none;
+  text-align: center;
+  margin: 0 0 6px;
 }
 
-.person-role {
-  font-family: var(--body-family);
-  font-size: 13px;
-  line-height: 1.4;
-  color: #6f6b58;
+.founder-role {
+  font-family: var(--header-family);
+  font-size: 0.9375rem;
+  letter-spacing: 0.5px;
+  color: var(--standard-green);
+  text-align: center;
+  margin: 0 0 22px;
+}
+
+.founder-highlights {
+  list-style: disc;
   margin: 0;
+  padding-left: 18px;
+}
+
+.founder-highlights li {
+  font-family: var(--body-family);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--standard-warm);
+  margin-bottom: 9px;
+}
+
+.founder-highlights li::marker {
+  color: var(--standard-dark);
 }
 
 /* ============================================
@@ -486,18 +487,10 @@
   .values-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .team-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 @media (max-width: 991px) {
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .team-header {
+  .founders-header {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -517,8 +510,9 @@
     grid-template-columns: 1fr;
   }
 
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .founders-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
   }
 
   .partners-bar {
@@ -527,10 +521,6 @@
 }
 
 @media (max-width: 575px) {
-  .team-grid {
-    grid-template-columns: 1fr;
-  }
-
   .principle-stat-grid {
     grid-template-columns: 1fr;
   }

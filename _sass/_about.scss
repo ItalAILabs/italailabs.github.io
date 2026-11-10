@@ -375,11 +375,6 @@
 }
 
 .founders-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 28px;
-  flex-wrap: wrap;
   margin-bottom: 38px;
 }
 
@@ -489,12 +484,6 @@
   }
 }
 
-@media (max-width: 991px) {
-  .founders-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
 
 @media (max-width: 767px) {
   /* padding-inline lives directly on .container for these two sections

@@ -161,9 +161,9 @@ A SAPIENZA SPINOUT BRIDGING FRONTIER RESEARCH AND INDUSTRY
 <section class="founders-section">
   <div class="container">
     <div class="founders-header">
-      <div class="section-label">FOUNDERS</div>
+      <div class="section-label">Founding Team</div>
       <h2 class="founders-title h2-size">
-        Two founders blending research depth and industry experience<span class="period">.</span>
+        Bridging academia and industry<span class="period">.</span>
       </h2>
     </div>
 
@@ -180,15 +180,17 @@ A SAPIENZA SPINOUT BRIDGING FRONTIER RESEARCH AND INDUSTRY
               onerror="this.onerror=null;this.src='/assets/images/people/placeholder.svg';"
             >
           </div>
-          <div class="founder-name">{% if person.professor %}Prof. {% endif %}{{ person.name }}</div>
-          <div class="founder-role">{{ person.role }}</div>
-          {% if person.highlights %}
-          <ul class="founder-highlights">
-            {% for item in person.highlights %}
-              <li>{{ item }}</li>
-            {% endfor %}
-          </ul>
-          {% endif %}
+          <div class="founder-info">
+            <div class="founder-name">{% if person.professor %}Prof. {% endif %}{{ person.name }}</div>
+            <div class="founder-role">{{ person.role }}</div>
+            {% if person.highlights %}
+            <ul class="founder-highlights">
+              {% for item in person.highlights %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
         </div>
       {% endfor %}
     </div>

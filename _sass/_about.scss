@@ -370,7 +370,7 @@
    TEAM SECTION
    ============================================ */
 .founders-section {
-  background: var(--standard-light);
+  background: #1a1436;
   padding: 70px 0 80px;
 }
 
@@ -382,14 +382,14 @@
   font-family: var(--header-family);
   font-size: 13px;
   letter-spacing: 3px;
-  color: var(--standard-green);
+  color: var(--standard-green-bright);
   text-transform: uppercase;
   margin-bottom: 14px;
 }
 
 .founders-title {
   font-size: clamp(1.5rem, 2.5vw, 2.0625rem) !important;
-  color: var(--standard-dark);
+  color: var(--standard-light);
   margin: 0;
 }
 
@@ -399,22 +399,41 @@
   gap: 56px 72px;
 }
 
-/* Founder Card - circular portrait, mono name, green role, highlight bullets */
-.founder-image {
-  width: 130px;
-  height: 130px;
-  margin: 0 auto 24px;
-  border-radius: 50%;
+/* Founder Card - team-card form: full-width hero photo on top, info below,
+   site card surface (cream, tan border) lifting off the dark navy section */
+.founder-card {
+  background: #fbfaf3;
+  border: 1px solid #e6e1d0;
+  border-radius: 14px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 18px 40px rgba(5, 3, 12, 0.45);
+}
+
+.founder-image {
+  width: 100%;
+  aspect-ratio: 1.43;
   background: #1a1436;
+  overflow: hidden;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 25%;
+    object-position: 50% 22%;
     display: block;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
   }
+}
+
+.founder-card:hover .founder-image img {
+  filter: grayscale(0%);
+}
+
+.founder-info {
+  padding: 20px 22px 24px;
 }
 
 .founder-name {
@@ -422,7 +441,6 @@
   font-weight: 700;
   font-size: clamp(1.125rem, 1.3vw, 1.375rem);
   color: var(--standard-dark);
-  text-align: center;
   margin: 0 0 6px;
 }
 
@@ -431,8 +449,7 @@
   font-size: 0.9375rem;
   letter-spacing: 0.5px;
   color: var(--standard-green);
-  text-align: center;
-  margin: 0 0 22px;
+  margin: 0 0 18px;
 }
 
 .founder-highlights {

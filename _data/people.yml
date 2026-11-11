@@ -1,6 +1,6 @@
 team:
   - name: Luca Rigazio
-    role: Co-founder & CEO
+    role: Co-founder - CEO
     phone: +1 (408) 256-1590
     email: luca.rigazio@italailabs.com
     links:
@@ -14,7 +14,7 @@ team:
     
   - name: Fabio Galasso
     professor: true
-    role: Co-founder & CTO
+    role: Co-founder - CTO
     phone: +39 345 5969678
     email: fabio.galasso@italailabs.com
     links:

@@ -1,6 +1,11 @@
 # Drafts review — validation for publish PRs only. Nothing runs on plain
 # commits to the drafts branch, and nothing is deployed anywhere.
 #
+# Only fires for PRs from the drafts lineage — head branch `drafts` or
+# `publish/*` (created by scripts/publish.sh) — plus manual dispatch. GitHub
+# Actions can't filter pull_request events by source branch in `on:`, so the
+# scoping lives in each job's `if:`; other PRs to main are skipped.
+#
 #  - PR -> main : a cherry-picked post's commits must only touch _posts/*.md
 #                 and assets/{images,videos,files}/drafts/**, and the merged
 #                 tree must build. Merging is publishing.
@@ -27,6 +32,7 @@ env:
 
 jobs:
   build:
+    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'drafts' || startsWith(github.head_ref, 'publish/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +58,7 @@ jobs:
           fi
 
   validate-publish-pr:
-    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    if: github.event_name == 'pull_request' && github.base_ref == 'main' && (github.head_ref == 'drafts' || startsWith(github.head_ref, 'publish/'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -37,6 +37,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Mirror of prod's build pipeline (jekyll.yml): WebP assets are never
+      # regenerated in CI — the vips plugin skips its hook on GitHub Actions —
+      # so overlay them from the generated-assets branch, exactly like prod.
+      - name: Checkout generated-assets branch
+        uses: actions/checkout@v4
+        with:
+          ref: generated-assets
+          path: generated-assets
+          token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -45,6 +56,13 @@ jobs:
 
       - name: Install libvips (draft photos → WebP)
         run: sudo apt-get update && sudo apt-get install -y libvips-dev
+
+      - name: Overlay generated WebP images from generated-assets branch
+        run: |
+          rsync -a --ignore-missing-args --include='*.webp' --include='*/' --exclude='*' generated-assets/assets/images/ assets/images/
+          if [ -f generated-assets/manifest.sha256 ]; then
+            cp generated-assets/manifest.sha256 assets/images/manifest.sha256
+          fi
 
       - name: Build assembled site
         run: |
@@ -56,6 +74,8 @@ jobs:
             # tree plus the cherry-picked post — build it as-is.
             bundle exec jekyll build
           fi
+        env:
+          JEKYLL_ENV: production
 
   validate-publish-pr:
     if: github.event_name == 'pull_request' && github.base_ref == 'main' && (github.head_ref == 'drafts' || startsWith(github.head_ref, 'publish/'))

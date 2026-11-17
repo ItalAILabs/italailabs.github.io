@@ -50,8 +50,11 @@ team:
       twitter: https://x.com/AlessioSampier1
     
   - name: Anastasiia Motyreva
-    role: Head of Marketing & Communications
-
+    role: Technology Promotion & Marketing 
+    phone: +393513918129
+    email: anastasiia.motyreva@italailabs.com
+    links:
+      linkedin: https://www.linkedin.com/in/nmotyreva
 
   - name: Russell Shyvers
     role: Operations Engineer
